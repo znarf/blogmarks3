@@ -1,0 +1,31 @@
+a {
+  color: #666666;
+  .ununderline-hover;
+}
+
+body {
+
+  a.public {
+    color: @green;
+    font-weight: bold;
+    .underline-hover;
+  }
+
+  /*
+  .public,
+  */
+  #top-bar .public a:hover,
+  #top-bar .public a.active,
+  &.public h3 strong
+  {
+    color: @green-light;
+  }
+
+  /*
+  .my,
+  */
+  &.my h3 strong {
+    color: @orange;
+  }
+
+}

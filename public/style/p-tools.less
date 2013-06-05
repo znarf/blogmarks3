@@ -1,0 +1,173 @@
+#layout.tools {
+  background: linear-gradient(to right, @grey-bg 295px, @grey-light 299px, white 300px);
+}
+
+.tools {
+
+
+  overflow:hidden;
+
+  /*
+  background: @grey-bg;
+
+
+  background: @grey-bg;
+  box-shadow:inset 10px 0 10px -10px #000000;
+  background: linear-gradient(to right, @grey-bg 295px, @grey-light 299px, transparent 300px, transparent);
+  */
+
+  /*
+  box-shadow:inset 10px 0 10px -10px #000000;
+  */
+
+
+  /* Layout */
+
+  #content {
+    width: 30%;
+    /*
+    background: none;
+
+    #content-inner {
+      box-shadow: none;
+      background: none;
+    }
+    */
+  }
+
+  #right-bar {
+    width: 70%;
+    /*
+    background: white;
+
+
+    box-shadow: 5px 0 10px 5px @grey;
+    */
+  }
+
+  #content-inner {
+    padding: 25px 0;
+  }
+
+  #right-bar-inner {
+    margin:25px;
+    width:auto;
+  }
+
+  /* Content */
+
+  h3 {
+    font-size:1.6em;
+    margin:1em 0;
+    color:@grey;
+    text-transform:uppercase;
+  }
+
+  h4 {
+    font-size:1.4em;
+    margin:2em 0 0;
+    color:@grey;
+    border:0;
+    text-align:left;
+    font-weight:bold;
+  }
+
+  #right-bar {
+
+    p, ul {
+      padding:5px 0;
+      font-size:14px;
+      line-height:1.4em;
+      text-align:left;
+      color:@grey-dark;
+    }
+
+    li {
+      padding:5px 0;
+    }
+
+    pre {
+      text-align:left;
+      font-size:1.2em;
+    }
+
+    .error, .notice {
+      padding:10px;
+      width:auto;
+      margin:10px auto;
+      ul, li { padding:0; }
+    }
+
+    form label {
+      margin-top:10px;
+      display:block;
+    }
+
+    ul.importing, ul.deleting {
+      list-style-position: inside;
+      list-style-type: disc;
+      li {
+        font-size: 12px;
+        line-height: 1.4em;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+  }
+
+  /* Tools Menu */
+
+  #content ul {
+    list-style-type:none;
+    margin:0;
+  }
+
+  #content li {
+    margin-bottom: 10px;
+    background: url(img/tools/bg-off.gif) top left no-repeat;
+    background: #535353;
+    &:hover, &.selected {
+      background: url(img/tools/bg-on.gif) top left no-repeat;
+      background: #FF5132;
+    }
+    a {
+      box-shadow:
+                 inset  10px 0 10px -10px #000,
+                 inset  -5px 0  5px  -5px #000;
+      width:100%;
+      height:78px;
+      display:block;
+      font-size:14px;
+      font-weight:bold;
+      color:white;
+      text-transform:uppercase;
+      clear:both;
+      span {
+        display:block;
+        padding-left:8px;
+        padding-top:32px;
+        padding-right:65px;
+        text-align:center;
+      }
+      background: @grey-dark top right no-repeat;
+    }
+    &.selected a, a:hover { background-color: @orange; }
+  }
+
+  .bm-menu (@name) {
+    a { background-image: url("img/tools/@{name}-off.gif"); background-position: 110px 0; }
+    &.selected a, a:hover { background-image: url("img/tools/@{name}-on.gif"); }
+  }
+
+  #content {
+    li.general { .bm-menu(general); }
+    li.blog { .bm-menu(blog); }
+    li.bookmarklets { .bm-menu(bookmarklets); }
+    li.import { .bm-menu(bookmarklets); }
+    li.export { .bm-menu(export); }
+    li.blogsync { .bm-menu(blogsync); }
+    li.empty { .bm-menu(empty); }
+  }
+
+}

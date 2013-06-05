@@ -1,0 +1,48 @@
+#pagination {
+  padding: 10px 25px;
+  clear: both;
+  .total, .page {
+    font-size: 11px;
+    float: left;
+    display: block;
+    height: 12px;
+    line-height: 12px;
+  }
+  .total {
+    padding-top: 5px;
+    margin-left: 10px;
+  }
+  .page {
+    color: black;
+    background: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 5px 10px;
+    border: 1px solid @grey-light;
+    padding: 5px;
+    min-width: 12px;
+    &.next { float: right }
+  }
+  .spacer {
+    border: transparent;
+    background: transparent;
+  }
+  .clearer {
+    clear: both;
+    height: 0;
+    line-height: 0;
+  }
+  .more {
+    float: none;
+    display: block;
+  }
+}
+
+.public #pagination .page {
+  &.iscurrent, &:hover { background: @green-light; }
+}
+
+.my #pagination .page {
+  &.iscurrent, &:hover { background: @orange; }
+}

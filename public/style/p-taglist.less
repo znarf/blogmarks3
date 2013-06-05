@@ -1,0 +1,25 @@
+.taglist {
+  text-align: center;
+  font-size: 1.4em;
+  line-height: 1.2em;
+  a.tag {
+    padding: 0 1px;
+    .underline-hover;
+  }
+  big, small, span { white-space: nowrap; }
+  big big { font-weight: bold; }
+  big { font-size: 120%; }
+  small { font-size: 80%; }
+  small small a { color: #666; }
+  a.private_tag, small small a.private_tag { color: #FF6448; }
+}
+
+#liveFilter {
+  color: @grey-light;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+  input { font-size: 1em; }
+  input[type=radio] { vertical-align: -10%; }
+  label { display: inline; cursor: pointer; }
+  label input[type=radio] { display:inline-block; padding-right: 10px; }
+}

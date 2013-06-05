@@ -1,0 +1,34 @@
+@grey-bg: #EDEDED;
+@grey-light: #999;
+@grey-dark: #535353;
+@grey: #434343;
+
+@orange: #FF5132;
+@brown: #af9877;
+
+@green-light: #A3DE38;
+@green: #7AA52C;
+
+@left-bar-width: 0%;
+@right-bar-width: 40%;
+
+.square (@size) {
+  width: @size;
+  height: @size;
+}
+
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+.underline-hover () {
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+.ununderline-hover () {
+  text-decoration: underline;
+  &:hover { text-decoration: none; }
+}

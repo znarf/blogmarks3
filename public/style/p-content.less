@@ -1,0 +1,84 @@
+
+/*
+#layout {
+  overflow: hidden;
+  box-shadow:inset 10px 10px 10px 10px #000000;
+  background: linear-gradient(to right, @grey-bg 294px, @grey-light 299px, transparent 300px, transparent);
+}
+*/
+
+#layout {
+  overflow: hidden;
+
+  box-shadow:
+    /* left */   inset  10px   0   8px -10px #000,
+    /* right */  inset -10px   0   8px -10px #000;
+
+
+    /* bottom  inset   0   -10px 10px -10px #000; */
+
+  /*
+  box-shadow:inset 10px 0 10px 2px rgba(0,0,0, 1);
+
+
+  box-shadow:inset 0 10px 10px -10px #000000;
+  */
+
+  /*
+  box-shadow:inset 10px 0 8px -10px #000000;
+  */
+  /*
+  background: linear-gradient(to right,
+    @grey-light, @grey-bg 5px,
+    @grey-bg 594px, @grey-light 599px, transparent 600px,
+    transparent 995px, @grey-light 1000px);
+  */
+
+  /* Background that match 600px/400px columns */
+  background: linear-gradient(to right, @grey-bg 590px, white 591px);
+}
+
+#content {
+
+
+
+  /*
+  box-shadow:inset -10px 0 10px -10px @grey-light;
+  */
+
+  width: 100% - @left-bar-width - @right-bar-width;
+  float: left;
+
+  box-shadow:
+    /* left */  inset  10px   0   8px -10px #000,
+    /* right */ inset  -5px   0   4px  -5px #000;
+
+  background: @grey-bg;
+  /*
+  background: linear-gradient(to right, #808080, @grey-bg 8px, @grey-bg);
+  */
+  /*
+  background: linear-gradient(to left, @grey-light, @grey-bg 5px, @grey-bg);
+  */
+
+  .b, #content-inner {
+
+    /*
+    box-shadow:inset -10px 0 10px -10px @grey-light;
+    */
+    /*
+    */
+
+    /*
+    background: linear-gradient(to right, @grey-light, @grey-bg 4px, @grey-bg, @grey-bg, transparent 4px);
+    */
+  }
+}
+
+#content.fullwidth {
+  width: 100%;
+  background: @grey-bg;
+  /*
+  background: linear-gradient(to right, @grey-light, @grey-bg 5px, @grey-bg 995px, @grey-light 1000px);
+  */
+}

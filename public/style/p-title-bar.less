@@ -1,0 +1,38 @@
+#title-bar {
+  width: 100%;
+  color: white;
+  background: linear-gradient(25deg, @grey-bg 90px, #A3DE38 10px, #A3DE38);
+  overflow:hidden;
+
+  box-shadow:
+    /* top */   inset   0    10px 8px -10px #000,
+    /* left */  inset  10px   0   8px -10px #000,
+    /* right */ inset -10px   0   8px -10px #000;
+
+  /*
+  box-shadow:inset 0px 0px 5px #000000;
+  box-shadow:inset 0 10px 10px -10px #000000;
+  box-shadow:inset 0 5px 5px #000000;
+  */
+
+  h1 {
+    padding: 10px 0;
+    margin: 0;
+    margin-left: 225px;
+    font-size: 20px;
+    line-height: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    span.arg {
+      color: @grey;
+      font-size: 14px;
+      line-height: 14px;
+      em, strong {
+        color: white;
+      }
+    }
+  }
+  .my & {
+    background: linear-gradient(25deg, @grey-bg 90px, #FF5132 10px, #FF5132);
+  }
+}

@@ -1,0 +1,8 @@
+config.php
+composer.lock
+composer.phar
+public/components
+vendor/composer
+vendor/leafo
+vendor/michelf
+vendor/autoload.php

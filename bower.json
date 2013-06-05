@@ -1,0 +1,14 @@
+{
+  "name": "Blogmarks 3",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "~1.9",
+    "jquery-ui": "~1.10.3",
+    "jquery-pjax": "~1.5",
+    "jquery.scrollTo": "~1.4",
+    "bootstrap.css": "~2.1",
+    "select2": "~3.3",
+    "hallo": "~1.0",
+    "rangy": "latest"
+  }
+}

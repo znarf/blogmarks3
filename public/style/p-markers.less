@@ -1,0 +1,17 @@
+#content h2 {
+  font-size: 14px;
+  line-height: 14px;
+  color: @grey;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 7px 0 7px 20px;
+  clear: both;
+  background: url(img/big-puce-left.gif) center left no-repeat;
+  span {
+    display: block;
+    position: relative;
+    left: 0px;
+    background: url(img/big-puce-right.gif) center right no-repeat;
+    .my & { background:url(img/big-puce-my-right.gif) center right no-repeat; }
+  }
+}

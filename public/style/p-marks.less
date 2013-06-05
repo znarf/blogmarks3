@@ -1,0 +1,178 @@
+.mark {
+
+  font-size: 12px;
+  line-height: 16px;
+
+  color: black;
+
+  overflow: auto;
+  clear: both;
+
+  margin-left: 15px;
+  margin-right: 15px;
+
+  a { color: #666; }
+
+  .screenshot {
+    float: left;
+    clear: left;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 83px;
+    border: 2px solid @grey;
+    .rounded-corners(5px);
+  }
+
+  &.private .screenshot, .screenshot.status_1, .screenshot.private {
+    border-color: @orange;
+  }
+
+  /*
+  &:target {
+    background: #fcf8e3;
+  }
+  */
+
+  img.screenshot {
+    width: 112px;
+    display: block;
+    background: white;
+
+  }
+
+  .xfolkentry {
+    width: 70%;
+    width: 420px;
+    float: left;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+
+  h4 {
+
+    font-size: 1.5em;
+    margin: 0 0 5px;
+
+    a {
+      font-weight: bold;
+      color: @grey;
+      .underline-hover;
+    }
+
+  }
+
+  a.gravatar {
+
+    img {
+      .square(20px);
+      vertical-align: -40%;
+    }
+
+  }
+
+  .description {
+
+    margin: 10px 0;
+
+    ul, p { margin: 10px 0; }
+
+    ul li {
+      padding: 1px 5px;
+      list-style-position: inside;
+      list-style-image: url(img/bm-puce-2-green.gif);
+    }
+
+    blockquote {
+      margin: 10px 0;
+      color: #555;
+      font-style: italic;
+      border-left: 5px solid #ccc;
+      padding-left: 10px;
+      p { font-size: 12px; line-height: 18px; }
+    }
+
+    pre {
+      margin: 10px 0;
+      padding: 5px 9px;
+      white-space: pre;
+      overflow: auto;
+    }
+
+    code {
+      color: inherit;
+    }
+
+    code, pre {
+      font-size: 11px;
+    }
+
+    dl dt {
+      font-weight: bold;
+    }
+
+    dl dd {
+      background: transparent url(img/bm-puce-1.gif) no-repeat 0 0.5em;
+      padding-left: 8px;
+      margin-left: 5px;
+    }
+
+    blockquote ul, blockquote ol {
+      margin-left: 1em;
+      padding-left: 5px;
+    }
+
+  }
+
+  .tags {
+
+    margin: 5px 0;
+
+    .tag {
+      font-size: 12px;
+      display: block;
+      float: left;
+      padding-left: 20px;
+      padding-right: 10px;
+      margin-top: 5px;
+      text-decoration: none;
+      height: 16px;
+      line-height: 16px;
+    }
+
+    .tag, .public_tag {
+      background: url(img/tag.gif) center left no-repeat;
+      border-right: 1px solid #C2C1C1;
+    }
+
+    .private_tag {
+      color: @orange;
+      background: url(img/private-tag2.gif) center left no-repeat;
+      border-right: 1px solid #FF6633;
+    }
+
+  }
+
+  .action-bar {
+
+    opacity: 0;
+
+    color: @grey-light;
+
+    padding-top: 10px;
+    clear: both;
+
+    a, span { margin-left: 5px; border-left: 1px solid @grey-light; padding-left: 5px; }
+
+    a.first { margin-left: 0; border-left: 0; padding-left: 0; }
+
+  }
+
+  &:hover {
+    background: #fcf8e3;
+    transition: background 0.2s linear;
+    .action-bar { opacity: 1; transition: opacity 0.2s linear; };
+  }
+
+}
