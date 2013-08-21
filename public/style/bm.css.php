@@ -16,6 +16,7 @@ $css_files = array(
     "p-footer.less",
     "p-tools.less",
     "p-new.less",
+    "p-responsive.less"
 );
 
 $merged = "";

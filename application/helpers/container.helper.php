@@ -7,7 +7,10 @@ class Container
 
   function tags($value = null)
   {
-    $tags = $value ? static::$tags = $value : static::$tags;
+    if ($value) {
+      return static::$tags = $value;
+    }
+    $tags = static::$tags;
     return is_callable($tags) ? $tags() : $tags;
   }
 
@@ -15,7 +18,10 @@ class Container
 
   function marks($value = null)
   {
-    $marks = $value ? static::$marks = $value : static::$marks;
+    if ($value) {
+      return static::$marks = $value;
+    }
+    $marks = static::$marks;
     return is_callable($marks) ? $marks() : $marks;
   }
 

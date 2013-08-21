@@ -1,0 +1,55 @@
+/* Small Screens (portrait & landscape) Tested with Opera Mini / iPhone / Android */
+
+@media (max-width: 980px) {
+  /* Enable use of floated navbar text */
+  .navbar-text.pull-right {
+    float: none;
+    padding-left: 15px;
+    padding-right: 5px;
+  }
+}
+
+@media (max-width:767px) {
+
+body { padding:0; }
+
+// }
+
+// @media (max-width:640px) {
+
+.container { width: auto; }
+
+#title-bar {
+  // h1 { margin-left: 125px; }
+  h1 { margin-left: 25px; font-weight: normal; }
+  // background: linear-gradient(25deg, @grey-bg 50px, @green-light 10px, @green-light);
+  background: @green-light;
+  .my & {
+    // background: linear-gradient(25deg, @grey-bg 50px, @orange 10px, @orange);
+    background: @orange;
+  }
+  box-shadow:
+    /* top */    inset   0    10px 8px -10px #000,
+    /* bottom */ inset   0   -10px 8px -11px #999,
+    /* left */   inset  10px   0   8px -10px #000,
+    /* right */  inset -10px   0   8px -10px #000;
+}
+
+
+.form-horizontal.signin { width: auto; }
+
+#footer { width: auto; height: auto; }
+
+#content { width: auto; float: none; }
+
+#right-bar { display: none; }
+
+.marks-list { padding-top: 10px; }
+
+.mark h4 { font-size: 14px; }
+
+.mark .xfolkentry { width:auto; float:none; }
+
+.mark img.screenshot { width: 75px; height: 55px; }
+
+}

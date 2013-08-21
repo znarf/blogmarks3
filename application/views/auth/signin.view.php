@@ -5,7 +5,7 @@
       <div class="control-group">
         <label class="control-label" for="inputEmail">Username (or Email)</label>
         <div class="controls">
-          <input type="text" id="inputEmail" name="username" placeholder="Username (or Email)">
+          <input type="text" id="inputEmail" name="username" placeholder="Username (or Email)" autocapitalize="off" autocorrect="off">
         </div>
       </div>
       <div class="control-group">

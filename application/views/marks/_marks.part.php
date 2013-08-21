@@ -1,5 +1,6 @@
 <?php
 $marks = isset($marks) ? $marks : helper('container')->marks();
+$user = authenticated_user();
 $domain = domain();
 ?>
 
@@ -11,7 +12,7 @@ $domain = domain();
 
 <?php foreach ($items as $item) : ?>
 
-<?= view('partials/mark', ['domain' => $domain, 'mark' => $item]) ?>
+<?= view('partials/mark', ['domain' => $domain, 'user' => $user, 'mark' => $item]) ?>
 
 <?php endforeach ?>
 
@@ -22,12 +23,12 @@ $domain = domain();
     <a rel="next" class="page more" href="?before=<?= strtotime($item->published) ?>">more</a>
 </div> <!-- /#pagination -->
 <?php else : // only if before or offset is passed as parameter  ?>
-   <h2><span>The End (A)</span></h2>
+   <h2><span>The End (Limit not reached)</span></h2>
 <?php endif ?>
 
 <?php else : ?>
 
-  <h2><span>The End (B)</span></h2>
+  <h2><span>The End (No more Result)</span></h2>
 
   <!--
   <div>

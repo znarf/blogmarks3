@@ -10,7 +10,7 @@ class Users extends Table
   public $classname = 'User';
   public $tablename = 'bm_users';
   public $primary = 'id';
-  public $unique_indexes = ['id'];
+  public $unique_indexes = ['id', 'login'];
 
 }
 
@@ -40,8 +40,10 @@ class User extends Ressource
     $avatar = $this->attribute('avatar');
     if (strpos($avatar, "@") !== false) {
       return 'http://www.gravatar.com/avatar.php?gravatar_id=' . md5($avatar) . '&size=' . $size;
-    } elseif (strpos($this->avatar, "http") === 0) {
+    /*
+    } elseif (strpos($avatar, "http") === 0) {
       return $avatar;
+    */
     } else {
       return absolute_url() . '/img/default-gravatar.gif';
     }
@@ -57,17 +59,17 @@ class User extends Ressource
 
   function verify_passsword($password)
   {
+    require_once root_dir . '/lib/password.php';
     if (preg_match('/^[a-f0-9]{32}$/', $this->pass)) {
       if ($this->pass == md5($password)) {
-        model('users')->update($this, ['pass' => password_hash($password, PASSWORD_DEFAULT)]);
+        if (!flag('db_read_only')) model('users')->update($this, ['pass' => password_hash($password, PASSWORD_DEFAULT)]);
         return true;
       }
       return false;
     }
-    require_once root_dir . '/lib/password.php';
     return password_verify($password, $this->pass);
   }
 
 }
 
-return function() { static $instance; return $instance ? $instance : $instance = new Users; };
+return instance('Users');

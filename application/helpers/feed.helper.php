@@ -9,7 +9,7 @@ class Feed
   {
     global $redis;
     if (empty($redis)) {
-      $redis = new Redis;
+      $redis = new \Redis;
       $redis->connect('localhost');
     }
     return $redis;
@@ -142,4 +142,4 @@ class Feed
 
 }
 
-return replaceable('feed', single('Blogmarks\Helper\Feed'));
+return replaceable('feed', instance('\Blogmarks\Helper\Feed'));

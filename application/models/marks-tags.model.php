@@ -14,9 +14,9 @@ class MarksTags extends Table
   function from_mark($mark)
   {
     # From Cache
-    $cache_key = $this->tablename . "_objects_" . "mark_id" . "_" . $mark->id;
+    $cache_key = "bm_marks_tags_id_{$mark->id}";
     $objects = cache_get($cache_key);
-    # We expect an array. other values are invalid
+    # We expect an array, other values are invalid
     if (is_array($objects)) {
       return $objects;
     }
@@ -53,7 +53,7 @@ class MarksTags extends Table
       ]);
     }
     # Update Cache
-    $cache_key = $this->tablename . '_objects_' . 'mark_id' . '_' . $mark->id;
+    $cache_key = "bm_marks_tags_id_{$mark->id}";
     cache_set($cache_key, $objects);
     # Return
     return $objects;
@@ -71,4 +71,4 @@ class MarksTag extends Ressource
 
 }
 
-return function() { static $instance; return $instance ? $instance : $instance = new MarksTags; };
+return instance('MarksTags');

@@ -37,4 +37,4 @@ class Rss
 
 }
 
-return replaceable('rss', single('Blogmarks\Helper\Rss'));
+return replaceable('rss', instance('\Blogmarks\Helper\Rss'));

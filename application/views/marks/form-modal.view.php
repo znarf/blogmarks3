@@ -25,7 +25,7 @@
           text($description) ?></textarea>
 
         <label for="new-mark-tags">Tags</label>
-        <input id="new-mark-tags" name="tags" type="text" class="input-block-level" value="<?= arg($tags) ?>">
+        <input id="new-mark-tags" name="tags" type="text" class="input-block-level" value="<?= arg($tags) ?>" autocapitalize="off">
 
         <label>Visibiity</label>
         <label for="new-mark-visibility-public" class="radio inline">

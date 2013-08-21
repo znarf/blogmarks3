@@ -24,12 +24,14 @@ class Link extends Ressource
 
   use Dynamize;
 
+  /*
   function screenshot()
   {
     $result = model('screenshots')->get_one('link', $this->id);
     return $result && $result->status == 1 ? $result : null;
   }
+  */
 
 }
 
-return function() { static $instance; return $instance ? $instance : $instance = new Links; };
+return instance('Links');

@@ -13,6 +13,8 @@ class Screenshots extends Table
 
 }
 
-class Screenshot extends Ressource {};
+class Screenshot extends Ressource
+{
+}
 
-return function() { static $instance; return $instance ? $instance : $instance = new Screenshots; };
+return instance('Screenshots');

@@ -1,5 +1,7 @@
 <?php
 
+// return module('public', function($req, $res) use($app) {
+
 list($target, $container) = helper(['target', 'container']);
 
 title('Public Marks');
@@ -35,3 +37,5 @@ elseif ($matches = url_match('/user/*')) {
 else {
   unknown_url();
 }
+
+// });

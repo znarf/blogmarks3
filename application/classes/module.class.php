@@ -9,7 +9,7 @@ class Module
     if (is_callable([$this, $method])) {
       return call_user_func_array($this->$method, $args);
     }
-    throw new Exception('Unknown method/property.');
+    throw new \Exception('Unknown method/property.');
   }
 
 }

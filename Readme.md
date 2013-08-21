@@ -4,7 +4,7 @@ Blogmarks 3
 Get Started
 -----------
 
-    git clone git@github.com:znarf/blogmarks3.git
+    git clone git@bitbucket.org:znarf/blogmarks3.git
     cd blogmarks3
     git submodule update --init
 

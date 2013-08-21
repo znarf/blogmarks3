@@ -19,7 +19,7 @@ class Marks extends Table
   {
     $query = "SELECT id, UNIX_TIMESTAMP(published) as ts" .
              " FROM bm_marks" .
-             " WHERE " . db_build_where($where + ['contentType' => 'html']);
+             " WHERE " . db_build_where($where);
     $result = db_query($query);
     return db_fetch_all($result);
   }
@@ -28,7 +28,7 @@ class Marks extends Table
   {
     $query = "SELECT id, UNIX_TIMESTAMP(published) as ts" .
              " FROM bm_marks" .
-             " WHERE visibility = 0" .
+             " WHERE visibility = 0 AND display = 1" .
              " ORDER BY published DESC" .
              " LIMIT 1000";
     $result = db_query($query);
@@ -76,6 +76,15 @@ class Marks extends Table
     return parent::update($mark, $params);
   }
 
+  function with_ids($ids)
+  {
+    model(['marks-tags', 'tags', 'screenshots']);
+    $keys = [];
+    foreach ($ids as $id) array_push($keys, "bm_marks_raw_id_$id", "bm_marks_tags_id_$id");
+    cache_preload($keys);
+    return parent::with_ids($ids);
+  }
+
 }
 
 class Mark extends Ressource
@@ -93,9 +102,13 @@ class Mark extends Ressource
     return $this->visibility == 1;
   }
 
-  function classname()
+  function classname($user = null)
   {
-     return $this->visibility == 1 ? 'mark private' : 'mark';
+    $classname = $this->visibility == 1 ? 'mark private' : 'mark';
+    if (is_object($user) && $user->id == $this->attribute('author')) {
+      $classname .= ' own';
+    }
+    return $classname;
   }
 
   function author()
@@ -115,20 +128,41 @@ class Mark extends Ressource
 
   function screenshot()
   {
-    if ($screenshot = $this->related->screenshot) {
-      return $screenshot->url;
+    if (!$screenshot = $this->attribute('screenshot')) {
+      $result = model('screenshots')->search([
+        'where' => ['link' => $this->attribute('related'), 'status' => 1],
+        'order' => 'created DESC'
+      ]);
+      if ($row = db_fetch_assoc($result)) {
+        $screenshot = $row['url'];
+      }
+      if (empty($screenshot)) {
+        $pu = parse_url($this->url);
+        $screenshot = 'http://open.thumbshots.org/image.pxf?url=' . $pu['host'];
+      }
+      self::cache('screenshot', $screenshot);
     }
-    $pu = parse_url($this->url);
-    if (!empty($pu['host'])) {
-      return 'http://open.thumbshots.org/image.pxf?url=' . $pu['host'];
-    }
+    return $screenshot;
   }
 
   function url()
   {
-    return $this->related->href;
+    if (!$url = $this->attribute('url')) {
+      $url = $this->related->href;
+      self::cache('url', $url);
+    }
+    return $url;
+  }
+
+  function cache($key, $value)
+  {
+    $cache_key = model('marks')->tablename . "_raw_id_{$this->id}";
+    if ($row = cache_get($cache_key)) {
+      $row[$key] = $value;
+      cache_set($cache_key, $row);
+    }
   }
 
 }
 
-return function() { static $instance; return $instance ? $instance : $instance = new Marks; };
+return instance('Marks');
