@@ -15,8 +15,19 @@ class App extends \Amateur\Core\App
       $this->layout(null, 'rss');
     }
     elseif ($this->request_format() == 'atom') {
-      $this->response()->set_header('Content-Type', 'application/atom+xml; charset=utf-8');
-      $this->layout(null, 'atom');
+      if ($this->request()->param('export')) {
+        $this->response()->set_header('Content-type', 'application/x-gzip');
+        $this->response()->set_header('Content-Disposition', 'attachment; filename="bm3-backup.atom.xml.gz"');
+        flush();
+        ob_start();
+        $this->layout(null, 'atom');
+        $atom = ob_get_clean();
+        echo gzencode($atom);
+        exit;
+      } else {
+        $this->response()->set_header('Content-Type', 'application/atom+xml; charset=utf-8');
+        $this->layout(null, 'atom');
+      }
     }
     elseif ($this->request()->param('more-marks')) {
       echo $this->view('marks/more');
@@ -39,9 +50,13 @@ class App extends \Amateur\Core\App
 
   public $default_format = 'html';
 
-  function request_format()
+  function request_format($value = null)
   {
     static $request_format;
+    # Set
+    if ($value) {
+      $request_format = $value;
+    }
     # Cached
     if ($request_format) {
       return $request_format;

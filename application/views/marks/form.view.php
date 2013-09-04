@@ -13,11 +13,8 @@
         <input id="new-mark-title" name="title" type="text" required class="input-block-level" value="<?= arg($title) ?>">
 
         <label for="new-mark-description">Description</label>
-        <textarea name="description" rows="3" class="input-block-level"><?=
+        <textarea id="new-mark-description" name="description" rows="3" class="input-block-level"><?=
           text($description) ?></textarea>
-
-        <div id="new-mark-description"><?=
-          text($description) ?></div>
 
         <label for="new-mark-tags">Tags</label>
         <input id="new-mark-tags" name="tags" type="text" class="input-block-level" value="<?= arg($tags) ?>">
@@ -43,14 +40,6 @@
 
       </fieldset>
     </form>
-
-    <script type="text/javascript">
-    tags = <?php
-    $tags = [];
-    foreach (container('tags') as $tag) $tags[] = (string)$tag;
-    echo json_encode($tags);
-    ?>;
-    </script>
 
   </div>
 </div> <!-- /#content -->

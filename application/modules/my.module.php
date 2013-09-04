@@ -30,9 +30,8 @@ elseif (url_is('/my/tags')) {
 
 elseif (url_is('/my/tags/autocomplete')) {
   $params = ['private' => true, 'limit' => get_int('limit', 10), 'search' => get_param('search', '')];
-  $tags = [];
-  foreach (model('tags')->search_from_user($user, $params) as $tag) $tags[] = (string)$tag;
-  ok(json_encode($tags));
+  $tags = model('tags')->from_user($user, $params);
+  ok(json_encode(array_map('strval', $tags)));
 }
 
 elseif (url_start_with('/my/marks')) {

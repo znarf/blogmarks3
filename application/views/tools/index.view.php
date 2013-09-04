@@ -11,9 +11,18 @@
 
     <?php
     switch ($action) {
-      case 'bookmarklets': include '_bookmarklets.part.php'; break;
-      case 'import': include '_import.part.php'; break;
-      case 'empty': include '_empty.part.php'; break;
+      case 'bookmarklets':
+        include '_bookmarklets.part.php';
+        break;
+      case 'import':
+        include '_import.part.php';
+        break;
+      case 'export':
+        include '_export.part.php';
+        break;
+      case 'empty':
+        include '_empty.part.php';
+        break;
     }
     ?>
 

@@ -29,7 +29,7 @@ require_once amateur_dir . '/core/closure.functions.php';
 require_once amateur_dir . '/core/replaceable.functions.php';
 
 require_once app_dir . '/classes/app.class.php';
-core('app', new \Blogmarks\App);
+$app = core('app', new \Blogmarks\App);
 
 // require_once amateur_dir . '/core/request.class.php';
 // core('request', new \Amateur\Core\Request);
@@ -38,7 +38,8 @@ core('app', new \Blogmarks\App);
 // core('response', new \Blogmarks\Response);
 
 require_once amateur_dir . '/amateur.dsl.php';
+require_once amateur_dir . '/db.php';
 
 include root_dir . '/config.php';
 
-start(app_dir);
+$app->start(app_dir);

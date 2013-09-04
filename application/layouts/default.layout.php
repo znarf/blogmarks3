@@ -1,9 +1,10 @@
 <!doctype html>
-<html>
+<html style="background:url(<?= static_url() ?>/style/img/background.png) top left repeat">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title><?= brand() ?> | <?= strip_tags(title()) ?></title>
+<link rel="icon" type="image/png" href="<?= static_url() ?>/img/favicon_<?= domain() ?>.png">
 <link rel="stylesheet" type="text/css" href="<?= static_url() ?>/components/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="<?= static_url() ?>/components/bootstrap/css/bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="<?= static_url() ?>/components/select2/select2.css">
@@ -43,12 +44,8 @@
 <script src="<?= static_url() ?>/components/jquery-pjax/jquery.pjax.js"></script>
 <script src="<?= static_url() ?>/components/jquery-scrollto/jquery.scrollTo.js"></script>
 <script src="<?= static_url() ?>/components/select2/select2.js"></script>
+<script src="<?= static_url() ?>/components/unveil/jquery.unveil.js"></script>
 <script src="<?= static_url() ?>/js/jquery-plugins.js"></script>
-
-<!-- Hallo! -->
-<script src="<?= static_url() ?>/components/jquery-ui/ui/jquery-ui.js"></script>
-<script src="<?= static_url() ?>/components/rangy/rangy-core.js"></script>
-<script src="<?= static_url() ?>/js/hallo.js"></script>
 
 <script src="<?= static_url() ?>/js/bm.js"></script>
 

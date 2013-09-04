@@ -9,20 +9,6 @@ function action($name, $args = [])
   include $app->dir() . '/actions/' . $name . '.action.php';
 }
 
-# Flag (should be integrated in amateur core later)
-
-function flag($name, $value = null)
-{
-  if ($value) if (!defined($name)) define($name, $value);
-  if (defined($name)) return constant($name);
-}
-
-/*
-flag('db_read_only', true);
-
-flag('db_old_schema', true);
-*/
-
 helper(['blogmarks', 'session', 'view', 'url']);
 
 start_session();

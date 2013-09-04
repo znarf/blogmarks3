@@ -50,16 +50,5 @@
     </form>
     </div>
 
-    <?php /*
-    <script type="text/javascript">
-    tags = <?php
-    $tags = [];
-    foreach (container('tags') as $tag) $tags[] = (string)$tag;
-    echo json_encode($tags);
-    ?>;
-    </script>
-    */
-    ?>
-
   </div>
 </div> <!-- /#content -->

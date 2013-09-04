@@ -1,5 +1,7 @@
 <?php
 
+use \Amateur\Model\Db as Db;
+
 helper('upload');
 
 list($marks, $links, $tags, $users, $marks_tags, $screenshots) =
@@ -12,9 +14,7 @@ $feed = helper('feed');
 $user = authenticated_user();
 
 # Query All Link Ids From User (to use later)
-
-$query = "SELECT related FROM bm_marks WHERE " . db_build_where(['author' => $user->id]);
-$link_ids = db_fetch_ids(db_query($query), 'related');
+$link_ids = $marks->select('related as id')->where(['author' => $user->id])->fetch_ids();
 $reverse_link_ids = array_flip($link_ids);
 
 # Handle File Upload
@@ -109,36 +109,36 @@ foreach ($sxe->entry as $entry) {
       throw new Exception('Already in your marks', 511);
     }
 
-    /* Not needed if Screenshots Table is pre-imported */
+    # Not needed if Screenshots Table is pre-imported
     if ($params['image']) {
       if (!$screenshots->get_one('link', $link->id)) {
-        db_insert($screenshots->tablename, [
+        $screenshots->insert([
           'link'      => $link->id,
           'url'       => $params['image'],
-          'created'   => db_date($params['published']),
-          'generated' => db_date($params['published']),
+          'created'   => Db::date($params['published']),
+          'generated' => Db::date($params['published']),
           'status'    => 1
         ]);
       }
     }
 
-    $result = db_insert($marks->tablename,[
+    $marks->insert([
       'title'       => $params['title'],
       'contentType' => $params['contentType'],
       'content'     => $params['content'],
       'author'      => $user->id,
       'related'     => $link->id,
       'visibility'  => $params['visibility'],
-      'published'   => db_date($params['published']),
-      'updated'     => db_date($params['updated'])
+      'published'   => Db::date($params['published']),
+      'updated'     => Db::date($params['updated'])
     ]);
 
-    $mark_id = db_insert_id();
+    $mark_id = Db::insert_id();
 
     foreach ($params['tags'] as $tag) {
       $tag = $tags->with_label($tag);
       $tag_ids[] = $tag->id;
-      $result = db_insert($marks_tags->tablename,[
+      $marks_tags->insert([
         'mark_id'    => $mark_id,
         'tag_id'     => $tag->id,
         'user_id'    => $user->id,
@@ -149,20 +149,20 @@ foreach ($sxe->entry as $entry) {
       ]);
     }
 
-    /*
-    foreach ($params['private-tags'] as $tag) {
-      $tag = Tags::with_label($tag);
+    foreach ($params['private_tags'] as $tag) {
+      $tag = $tags->with_label($tag);
       $tag_ids[] = $tag->id;
-      $result = db_insert(MarksTags::$tablename,[
-        'mark_id'  => $mark_id,
-        'tag_id'   => $tag->id,
-        'user_id'  => $user->id,
-        'link_id'  => $link->id,
-        'label'    => $tag->label,
-        'isHidden' => 1
+      $marks_tags->insert([
+        'mark_id'    => $mark_id,
+        'tag_id'     => $tag->id,
+        'user_id'    => $user->id,
+        'link_id'    => $link->id,
+        'label'      => $tag->label,
+        'isHidden'   => 1,
+        'visibility' => $params['visibility']
       ]);
     }
-    */
+
 
     echo ' - <span style="color:#339900">ok</span>';
 
@@ -188,10 +188,12 @@ foreach ($sxe->entry as $entry) {
 
 echo '</ul>';
 
-# Flush Feeds
+# Flush user feeds
 $feed->flush("feed_marks");
-$feed->flush("feed_marks_user_{$user->id}");
 $feed->flush("feed_marks_my_{$user->id}");
+$feed->flush("feed_marks_user_{$user->id}");
+$feed->flush("tag_cloud_user_{$user->id}_public");
+$feed->flush("tag_cloud_user_{$user->id}_private");
 
 # Also flush tag feeds
 foreach (array_unique($tag_ids) as $tag_id) {

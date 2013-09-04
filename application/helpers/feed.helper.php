@@ -27,38 +27,31 @@ class Feed
 
   static function marks($redis_key = null, $callback = null)
   {
-    // error_log("redis:marks:$redis_key");
     $redis = self::redis_connection();
     $params = self::params() + ['offset' => 0, 'limit' => 10, 'after' => '-inf', 'before' => '+inf'];
     if (!$redis->exists($redis_key)) {
       $results = $callback();
-      foreach ($results as $result) $redis->zAdd($redis_key, $result['ts'], $result['id']);
+      foreach ($results as $result) $redis->zAdd($redis_key, (int)$result['ts'], (int)$result['id']);
     }
     $options = ['withscores' => false, 'limit' => [$params['offset'], $params['limit']]];
     $total = $redis->zCard($redis_key);
-    // error_log("redis:total:$total");
     if ($total == 0) {
       $items = [];
     } else {
-      // error_log(json_encode($params));
-      // error_log(json_encode($options));
       $ids = $redis->zRevRangeByScore($redis_key, "(" . $params['before'], "(" . $params['after'], $options);
-      $items = model('marks')->with_ids($ids);
+      $items = model('marks')->get($ids);
     }
-    // error_log("redis:items:" . count($items));
     return compact('params', 'total', 'items');
   }
 
   static function add($redis_key, $ts, $id)
   {
-    error_log("redis:add:$redis_key:$id");
     $redis = self::redis_connection();
     if ($redis->exists($redis_key)) $redis->zAdd($redis_key, $ts, $id);
   }
 
   static function remove($redis_key, $id)
   {
-    error_log("redis:remove:$redis_key:$id");
     $redis = self::redis_connection();
     if ($redis->exists($redis_key)) $redis->zRem($redis_key, $id);
   }

@@ -15,7 +15,9 @@ if (url_is('/auth/signin')) {
       return redirect(get_param('redirect_url', '/my/'));
     }
     # Invalid User or Password
-    throw http_error(401, 'Unknown username/email or invalid password.');
+    status(401);
+    flash_message('Unknown username/email or invalid password.');
+    # throw http_error(401, 'Unknown username/email or invalid password.');
   }
   layout(view('auth/signin'));
 }

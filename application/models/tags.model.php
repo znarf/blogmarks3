@@ -1,5 +1,7 @@
 <?php
 
+use \Amateur\Model\Db as Db;
+use \Amateur\Model\Cache as Cache;
 use \Amateur\Model\Table as Table;
 use \Amateur\Model\Ressource as Ressource;
 
@@ -15,75 +17,13 @@ class Tags extends Table
 
   function with_label($label)
   {
-    return ($tag = self::get_one('label', $label)) ? $tag : self::create(['label' => $label]);
-  }
-
-  function related_with($tag)
-  {
-    $query = "SELECT mht2.tag_id as id,  mht2.label, COUNT(*) as count" .
-             " FROM bm_marks_has_bm_tags as mht1, bm_marks_has_bm_tags as mht2" .
-             " WHERE mht1.tag_id = " . db_quote($tag->id) .
-             " AND mht2.mark_id = mht1.mark_id" .
-             " AND mht2.isHidden = 0 " .
-             (flag('db_old_schema') ? "" : " AND mht2.visibility = 0") .
-             " AND mht2.tag_id != " . db_quote($tag->id) .
-             " GROUP BY mht2.tag_id ORDER BY count DESC LIMIT 50";
-    $result = db_query($query);
-    return db_fetch_objects($result, 'Tag');
-  }
-
-  function fetch_from_user($user, $status)
-  {
-    $query = "SELECT label, COUNT(*) as count FROM bm_marks_has_bm_tags" .
-             " WHERE user_id = " . db_quote($user->id) .
-             ($status == 'public' ? " AND isHidden = 0" : "") .
-             " GROUP BY tag_id";
-    $result = db_query($query);
-    return db_fetch_all($result);
-  }
-
-  function from_user($user, $params = [])
-  {
-    $params = $params + ['private' => false, 'limit' => 100];
-    // New Redis Code
-    $status = $params['private'] ? 'private' : 'public';
-    return $this->tag_cloud("tag_cloud_user_{$user->id}_{$status}", $params, $this->fetch_from_user->__use($user, $status));
-    // Old Direct Code
-    /*
-    $query = "SELECT tag_id as id, label, COUNT(*) as count" .
-             " FROM bm_marks_has_bm_tags" .
-             " WHERE user_id = " . db_quote($user->id);
-    if ($params['private'] == false) {
-        $query .= ' AND isHidden = 0';
-        if (!flag('db_old_schema')) $query .= ' AND visibility = 0';
-    }
-    if (!empty($params['search'])) {
-      $query .= " AND label LIKE " . db_quote('%' . $params['search'] . '%');
-    }
-    $query .= " GROUP BY tag_id ORDER BY count DESC LIMIT " . (int)$params['limit'];
-    $result = db_query($query);
-    return db_fetch_objects($result, 'Tag');
-    */
-  }
-
-
-  function search_from_user($user, $params = [])
-  {
-    $params = $params + ['private' => false, 'limit' => 100];
-    $status = $params['private'] ? 'private' : 'public';
-    $tags = $this->tag_cloud("tag_cloud_user_{$user->id}_{$status}", ['limit' => null], $this->fetch_from_user->__use($user, $status));
-    foreach ($tags as $index => $tag) {
-      if (!empty($params['search']) && strpos($tag->label, $params['search']) === false) {
-        unset($tags[$index]);
-      }
-    }
-    return array_slice($tags, $params['offset'], $params['limit']);
+    $tag = self::get_one('label', $label);
+    return $tag ? $tag : self::create(['label' => $label]);
   }
 
   function tag_cloud($redis_key, $params, $callback)
   {
     global $redis;
-    $tags = [];
     $params = $params + ['offset' => 0, 'limit' => 100];
     if (!$redis->exists($redis_key)) {
       $results = $callback();
@@ -91,6 +31,8 @@ class Tags extends Table
     }
     $options = ['withscores' => true, 'limit' => [$params['offset'], $params['limit']]];
     $results = $redis->zRevRangeByScore($redis_key, '+inf', 1, $options);
+    # Return as tags
+    $tags = [];
     foreach ($results as $label => $count) {
       if (empty($params['search']) || strpos($label, $params['search']) !== false) {
         $tags[] = new Tag(['label' => $label, 'count' => $count]);
@@ -99,32 +41,105 @@ class Tags extends Table
     return $tags;
   }
 
-  function from_user_related_with($user, $tag, $params = [])
+  # User
+
+  function from_user($user, $params = [])
   {
-    $params = $params + ['private' => false, 'limit' => 50];
-    $query = "SELECT mht2.tag_id as id,  mht2.label, COUNT(*) as count" .
-             " FROM bm_marks_has_bm_tags as mht1, bm_marks_has_bm_tags as mht2" .
-             " WHERE mht1.user_id = " . db_quote($user->id) .
-             " AND mht1.tag_id = " . db_quote($tag->id) .
-             " AND mht2.mark_id = mht1.mark_id " .
-             ($params['private'] == true ? '' : " AND mht2.isHidden = 0") .
-             " AND mht2.tag_id != " . db_quote($tag->id) .
-             " GROUP BY mht2.tag_id ORDER BY count DESC LIMIT " . (int)$params['limit'];
-    $result = db_query($query);
-    return db_fetch_objects($result, 'Tag');
+    $params = $params + ['private' => false, 'limit' => 100];
+    $status = $params['private'] ? 'private' : 'public';
+    $callback = model('marks-tags')->fetch_from_user->__use($user, $status);
+    if (empty($params['search'])) {
+      return $this->tag_cloud("tag_cloud_user_{$user->id}_{$status}", $params, $callback);
+    }
+    else {
+      $tags = $this->tag_cloud("tag_cloud_user_{$user->id}_{$status}", ['limit' => null] + $params, $callback);
+      return array_slice($tags, 0, $params['limit']);
+    }
   }
 
-  function latests()
+  # Related
+
+  function related_query($tag, $params = [])
+  {
+    $params = $params + ['private' => false, 'limit' => 50];
+    $query = $this->query()
+      ->select('mht2.tag_id as id, mht2.label, COUNT(*) as count')
+      ->from('bm_marks_has_bm_tags as mht1, bm_marks_has_bm_tags as mht2')
+      ->where('mht2.mark_id = mht1.mark_id')
+      ->and_where(['mht1.tag_id' => $tag->id])
+      ->and_where('mht2.tag_id != ' . Db::quote($tag->id))
+      ->group_by('mht2.tag_id')
+      ->order_by('count DESC');
+    if (!$params['private']) {
+      $query->and_where(['mht2.isHidden' => 0]);
+      if (!flag('db_old_schema')) {
+        $query->and_where(['mht2.visibility' => 0]);
+      }
+    }
+    return $query;
+  }
+
+  function related_with($tag, $params = [])
+  {
+    $query = $this->related_query($tag, $params);
+    return $query->fetch_objects('Tag');
+  }
+
+  function from_user_related_with($user, $tag, $params = [])
+  {
+    $query = $this->related_query($tag, $params);
+    $query->and_where(['mht1.user_id' => $user->id]);
+    return $query->fetch_objects('Tag');
+  }
+
+  # Latests
+
+  function fetch_latests()
   {
     $now = date('Y-m-d H:i:s');
-    $query = "SELECT mht.tag_id as id, mht.label, COUNT(*) as count" .
-             " FROM bm_marks as m, bm_marks_has_bm_tags as mht" .
-             " WHERE m.published > DATE_SUB('$now', INTERVAL 1 YEAR)" .
-             " AND m.visibility = 0" .
-             " AND mht.mark_id = m.id AND mht.isHidden = 0" .
-             " GROUP BY mht.tag_id ORDER BY count DESC LIMIT 50";
-    $result = db_query($query);
-    return db_fetch_objects($result, 'Tag');
+    $query = $this->query()
+      ->select('mht.label as label, COUNT(*) as count')
+      ->from('bm_marks as m, bm_marks_has_bm_tags as mht')
+      ->where('mht.mark_id = m.id')
+      ->and_where("m.published > DATE_SUB('$now', INTERVAL 1 YEAR)")
+      ->and_where(['m.visibility' => 0, 'mht.isHidden' => 0])
+      ->group_by('mht.tag_id')
+      ->order_by('count DESC')
+      ->limit(1000);
+    return $query->fetch_all();
+  }
+
+  function latests($params = [])
+  {
+    $params = $params + ['limit' => 50];
+    return $this->tag_cloud("tag_cloud_public", $params, $this->fetch_latests);
+  }
+
+  # Ratios
+
+  function private_ratios_for_user($user)
+  {
+    # From Cache
+    $cache_key = "bm_marks_has_bm_tags_private_ratios_{$user->id}";
+    $objects = Cache::get($cache_key);
+    if (is_array($objects)) {
+      return $objects;
+    }
+    # From DB
+    $query = $this->query()
+      ->select('(SUM(isHidden) / COUNT(*) * 100) AS ratio, label')
+      ->from('bm_marks_has_bm_tags')
+      ->where(['user_id' => $user->id])
+      ->group_by('label')
+      ->having('ratio > 0');
+    $result = $query->execute();
+    $ratios = [];
+    while ($row = Db::fetch_assoc($result)) {
+      $label = $row['label'];
+      $ratios[$label] = (int)$row['ratio'];
+    }
+    Cache::set($cache_key, $ratios);
+    return $ratios;
   }
 
 }
@@ -139,4 +154,4 @@ class Tag extends Ressource
 
 }
 
-return instance('Tags');
+return new Tags;

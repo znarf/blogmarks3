@@ -38,6 +38,7 @@ $module->mark_as_params = function($mark) {
   } else {
     $content = $mark->content;
   }
+  # TODO: process tags and private tags
   return [
     'url'         => $mark->url,
     'title'       => $mark->title,
@@ -115,7 +116,7 @@ $module->delete_mark = function($mark) {
   # Un-index Mark (tags might be unavailable after mark is deleted)
   helper('feed')->unindex($mark);
   # Delete Tags
-  model('marks-tags')->delete_where(['mark_id' => $mark->id]);
+  model('marks-tags')->delete(['mark_id' => $mark->id]);
   # Delete Mark
   model('marks')->delete($mark);
 };
@@ -134,23 +135,24 @@ if (url_is('/my/marks,new')) {
     }
     return redirect('/my/marks');
   }
-  if (has_param('url')) { # Redirect if user already has mark
-    if ($mark = $user->mark_with_link(get_param('url'))) {
+  if (has_param('url')) {
+    # Redirect if user already has mark
+    $link = model('links')->get_one('href', get_param('url'));
+    if ($link && $mark = $user->mark_with_link($link)) {
       flash_message("This URL is already in your marks.");
       redirect( '/my/marks/' . $mark->id . ',edit' . (is_bookmarklet() ? '?bookmarklet=1' : '') );
     }
   }
-  # Tags
-  helper('container')->tags( model('tags')->from_user->__use($user, ['private' => true, 'limit' => 10]) );
   $params = $module->mark_params() + ['token' => generate_token('new_mark')];
-  return render('marks/form', $params);
+  return render('marks/form-modal', $params);
 }
 
 elseif ($matches = url_match('/my/marks/*,edit')) {
   title('Edit Mark');
   $mark = helper('target')->mark($matches[1]);
   check_authenticated_user($mark->author);
-  if (is_modal()) { # Need to be before is_post because it might be a POST itself
+  # Need to be before is_post because it might be a POST itself
+  if (is_modal()) {
     $params  = $module->mark_as_params($mark);
     $params += ['referer' => referer(), 'token' => generate_token('update_mark')];
     return ok(view('marks/form-modal', $params));
@@ -174,8 +176,6 @@ elseif ($matches = url_match('/my/marks/*,edit')) {
     }
     return redirect(get_param('referer', '/my/marks') . '#mark' . $mark->id);
   }
-  # Tags
-  helper('container')->tags( model('tags')->from_user->__use($user, ['private' => true, 'limit' => 10]) );
   $params  = $module->mark_as_params($mark);
   $params += ['referer' => referer(), 'token' => generate_token('update_mark')];
   return render('marks/form-modal', $params);
@@ -185,7 +185,8 @@ elseif ($matches = url_match('/my/marks/*,delete')) {
   title('Delete Mark');
   $mark = helper('target')->mark($matches[1]);
   check_authenticated_user($mark->author);
-  if (is_modal()) { # Need to be before is_post because it might be a POST itself
+  # Need to be before is_post because it might be a POST itself
+  if (is_modal()) {
     $params = ['referer' => referer(), 'token' => generate_token('delete_mark')];
     return ok(view('marks/delete', $params));
   }

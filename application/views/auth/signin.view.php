@@ -1,6 +1,8 @@
 <div id="content" class="fullwidth">
   <div id="content-inner">
 
+    <?= view('partials/notification') ?>
+
     <form class="signin form-horizontal" method="post" action="<?= relative_url('/auth/signin') ?>">
       <div class="control-group">
         <label class="control-label" for="inputEmail">Username (or Email)</label>

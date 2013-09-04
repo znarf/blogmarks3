@@ -5,16 +5,24 @@ jQuery(function($) {
     var input = $(this);
     var form = input.parents('form');
     var taglist = $('#tags .taglist');
-    taglist.text('Loading ...');
-    taglist.load('/my/tags', form.serialize());
+    taglist.css('min-height', taglist.height());
+    taglist.css('background', 'url(/img/spinner.gif) center center no-repeat');
+    taglist.fadeTo(100, 0.5);
+    taglist.load('/my/tags', form.serialize(), function() {
+      taglist.css('background', 'none');
+      taglist.css('min-height', 0);
+      taglist.fadeTo(100, 1);
+    });
   }
 
   $("#liveFilter input[type=radio]").change(liveFilter);
-  $("#liveFilter input[type=text]").bindWithDelay("keypress", liveFilter, 350);
+  $("#liveFilter input[type=text]").bindWithDelay("keyup", liveFilter, 300);
 
 });
 
 jQuery(function($) {
+
+  $("img").unveil(200);
 
   $(document).pjax('.mark .tags a, .taglist a', '#layout');
 
@@ -30,6 +38,7 @@ jQuery(function($) {
     $("#content-inner").append(more);
     if (href) {
       more.load(href + ' #content-inner .marks-list', function(response, status, xhr) {
+        $("img").unveil(200);
         pagination.remove();
         $.scrollTo(more, 500);
       });
@@ -55,6 +64,7 @@ jQuery(function($) {
             var more = $('<div class="more-marks" style="clear:both"></div>');
             $("#content-inner").append(more);
             more.load(href + ' .marks-list', {'more-marks' : 1}, function() {
+              $("img").unveil(200);
               pagination.remove();
               var moreResults = $("#pagination .more").length >= 1;
               callback(moreResults);
@@ -66,6 +76,7 @@ jQuery(function($) {
 
   $(document).on('pjax:complete', function() {
     $('#layout').infiniteScroll('reset');
+    $("img").unveil(200);
   });
 
   $("#layout").on("click", ".marks-list .delete", function(event) {
@@ -113,8 +124,6 @@ jQuery(function($) {
         callback(data);
       },
       query: function (query) {
-        // throw 42;
-        console.log('query');
         $.ajax({
           dataType: "json",
           url: '/my/tags/autocomplete',
@@ -142,9 +151,7 @@ jQuery(function($) {
         if (query.term) {
             // use the built in javascript sort function
             return results.sort(function(a, b) {
-                console.log(a);
-                if (query.term == a.text) return 1;
-                return 0;
+              return query.term == a.text ? 1 : 0;
             });
         }
         return results;
@@ -154,29 +161,5 @@ jQuery(function($) {
 
   tagsAutoComplete();
 
-
-  // jQuery('#new-mark-description').hallo({
-  //   // toolbar: 'halloToolbarFixed',
-  //   plugins: {
-  //     'halloformat': {},
-  //     'hallolists': {}
-  //   }
-  // });
-
-  /*
-  var theLoc = $('#right-bar').position().top;
-  console.log(theLoc);
-  $(window).scroll(function() {
-      if(theLoc >= $(window).scrollTop()) {
-          if($('#right-bar').hasClass('fixed')) {
-              $('#right-bar').removeClass('fixed');
-          }
-      } else {
-          if(!$('#right-bar').hasClass('fixed')) {
-              $('#right-bar').addClass('fixed');
-          }
-      }
-  });
-  */
 
 });

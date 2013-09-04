@@ -1,34 +1,35 @@
 <?php
 
-function alpha_prepare($tag)
+function sort_prepare($str)
 {
-  $accents = "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ";
-  $replacements = "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn";
-  $tag->_alpha = strtr($tag->label, $accents, $replacements);
-  return $tag;
+  $str = iconv('utf-8', 'ASCII//TRANSLIT//IGNORE', $str);
+  return strtolower($str);
 }
 
-function alpha_sort($a, $b)
+function sort_tags($tags)
 {
-  return strcmp($a->_alpha, $b->_alpha);
+  $_tags = [];
+  foreach ($tags as $tag) $_tags[sort_prepare($tag->label)] = $tag;
+  ksort($_tags);
+  return array_values($_tags);
 }
 
 function taglist($tags = [])
 {
-  if (empty($tags)) return $tags;
-  $maxPercent = '130';
-  $minPercent = '60';
-  array_map('alpha_prepare', $tags);
-  usort($tags, 'alpha_sort');
+  if (count($tags) < 1) {
+    return $tags;
+  }
+  $min_percent =  60;
+  $max_percent = 130;
   foreach ($tags as $tag) {
     $min = empty($min) || $min > $tag->count ? $tag->count : $min;
     $max = empty($max) || $max < $tag->count ? $tag->count : $max;
   }
   $diff = $max != $min ? $max - $min : 1;
-  $multiplier = ($maxPercent-$minPercent)/($diff);
-  $offset = $minPercent - $min*$multiplier;
+  $multiplier = ($max_percent - $min_percent) / $diff;
+  $offset = $min_percent - $min * $multiplier;
   foreach ($tags as $tag) {
-    $tag->_size = round( $tag->count*$multiplier + $offset );
+    $tag->_size = round( $tag->count * $multiplier + $offset );
   }
-  return $tags;
+  return sort_tags($tags);
 }

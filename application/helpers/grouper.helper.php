@@ -22,11 +22,7 @@ class Grouper
 
     foreach ($marks as $mark) {
       $marker = self::$group_marker(strtotime($mark->published));
-      if (!isset($groups[$marker])) {
-        $groups[$marker] = [$mark];
-      } else {
-        $groups[$marker][] = $mark;
-      }
+      $groups[$marker][] = $mark;
     }
 
     return $groups;

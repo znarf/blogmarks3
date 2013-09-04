@@ -2,6 +2,7 @@
 
 use \Amateur\Model\Table as Table;
 use \Amateur\Model\Ressource as Ressource;
+
 use \Amateur\Model\Dynamize as Dynamize;
 
 class Users extends Table
@@ -54,7 +55,7 @@ class User extends Ressource
     if (is_string($link)) {
       $link = model('links')->with_url($link);
     }
-    return model('marks')->find_one(['related' => $link->id, 'author' => $this->id]);
+    return model('marks')->fetch_object(['related' => $link->id, 'author' => $this->id]);
   }
 
   function verify_passsword($password)
@@ -72,4 +73,4 @@ class User extends Ressource
 
 }
 
-return instance('Users');
+return new Users;

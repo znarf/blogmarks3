@@ -21,7 +21,8 @@ function signin($user)
 function authenticated_user()
 {
   if (is_authenticated()) {
-    return app()->model('users')->get($_SESSION['user_id']);
+    static $user;
+    return $user ? $user : $user = app()->model('users')->get($_SESSION['user_id']);
   }
 }
 
