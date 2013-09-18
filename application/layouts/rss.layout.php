@@ -1,4 +1,7 @@
-<?php $marks = helper('container')->marks() ?>
+<?php
+$user = authenticated_user();
+$marks = helper('container')->marks();
+?>
 <rdf:RDF
   xmlns="http://purl.org/rss/1.0/"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -24,7 +27,9 @@
   <dc:date><?= text($mark->published) ?></dc:date>
   <dc:creator><?= text($mark->author->name) ?></dc:creator>
   <dc:subject>todo</dc:subject>
-  <content:encoded><![CDATA[<?= view('partials/mark', ['domain' => domain(), 'mark' => $mark]) ?>]]></content:encoded>
+  <content:encoded><![CDATA[<?=
+  view('partials/mark', ['domain' => domain(), 'mark' => $mark, 'user' => $user])
+  ?>]]></content:encoded>
 </item>
 <?php endforeach ?>
 </rdf:RDF>

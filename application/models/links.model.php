@@ -1,14 +1,24 @@
-<?php
+<?php namespace blogmarks\model;
 
-use \Amateur\Model\Table as Table;
-use \Amateur\Model\Ressource as Ressource;
+use
+amateur\model\table,
+amateur\model\ressource;
 
-class Links extends Table
+if ($instance = table::instance('links', __namespace__, true)) {
+  return $instance;
+}
+
+class links extends table
 {
 
-  public $classname = 'Link';
+  public $namespace = __namespace__;
+
+  public $classname = 'link';
+
   public $tablename = 'bm_links';
+
   public $primary = 'id';
+
   public $unique_indexes = ['id'];
 
   function with_url($url)
@@ -19,13 +29,14 @@ class Links extends Table
 
   function load_from_marks($marks)
   {
-    $ids = array_map(function($mark) { if (!$mark->attribute('url')) return (int)$mark->attribute('related'); }, $marks);
+    $map = function($mark) { if (!isset($mark->attributes['url'])) return (int)$mark->attributes['related']; };
+    $ids = array_map($map, $marks);
     $ids = array_filter($ids);
     $this->get($ids);
   }
 
 }
 
-class Link extends Ressource {}
+class link extends ressource {}
 
-return new Links;
+return table::instance('links', __namespace__);

@@ -27,6 +27,10 @@ foreach ($css_files as $file) {
 
 $less = new lessc();
 
+$css = $less->parse($merged);
+
+file_put_contents(__DIR__ . '/bm.css', $css);
+
 header('Content-Type:text/css');
 
-echo $less->parse($merged);
+echo $css;

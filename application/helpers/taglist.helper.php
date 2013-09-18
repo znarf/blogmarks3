@@ -19,7 +19,7 @@ function taglist($tags = [])
   if (count($tags) < 1) {
     return $tags;
   }
-  $min_percent =  60;
+  $min_percent =  70;
   $max_percent = 130;
   foreach ($tags as $tag) {
     $min = empty($min) || $min > $tag->count ? $tag->count : $min;

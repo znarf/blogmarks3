@@ -1,24 +1,33 @@
-<?php
+<?php namespace blogmarks\model;
 
-use \Amateur\Model\Table as Table;
-use \Amateur\Model\Ressource as Ressource;
+use
+amateur\model\table,
+amateur\model\ressource,
+amateur\model\dynamic_properties;
 
-use \Amateur\Model\Dynamize as Dynamize;
+if ($instance = table::instance('users', __namespace__, true)) {
+  return $instance;
+}
 
-class Users extends Table
+class users extends table
 {
 
-  public $classname = 'User';
+  public $namespace = __namespace__;
+
+  public $classname = 'user';
+
   public $tablename = 'bm_users';
+
   public $primary = 'id';
+
   public $unique_indexes = ['id', 'login'];
 
 }
 
-class User extends Ressource
+class user extends ressource
 {
 
-  use Dynamize;
+  use dynamic_properties;
 
   function username()
   {
@@ -53,9 +62,9 @@ class User extends Ressource
   function mark_with_link($link)
   {
     if (is_string($link)) {
-      $link = model('links')->with_url($link);
+      $link = $this->table('links')->with_url($link);
     }
-    return model('marks')->fetch_object(['related' => $link->id, 'author' => $this->id]);
+    return $this->table('marks')->fetch_object(['related' => $link->id, 'author' => $this->id]);
   }
 
   function verify_passsword($password)
@@ -63,7 +72,7 @@ class User extends Ressource
     require_once root_dir . '/lib/password.php';
     if (preg_match('/^[a-f0-9]{32}$/', $this->pass)) {
       if ($this->pass == md5($password)) {
-        if (!flag('db_read_only')) model('users')->update($this, ['pass' => password_hash($password, PASSWORD_DEFAULT)]);
+        if (!flag('db_read_only')) $this->table('users')->update($this, ['pass' => password_hash($password, PASSWORD_DEFAULT)]);
         return true;
       }
       return false;
@@ -73,4 +82,4 @@ class User extends Ressource
 
 }
 
-return new Users;
+return table::instance('users', __namespace__);

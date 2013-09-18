@@ -1,19 +1,12 @@
-<?php namespace Blogmarks\Helper;
+<?php namespace blogmarks\helper;
 
-class Feed
+use
+amateur\model\redis;
+
+class feed
 {
 
-  use \Closurize;
-
-  static function redis_connection()
-  {
-    global $redis;
-    if (empty($redis)) {
-      $redis = new \Redis;
-      $redis->connect('localhost');
-    }
-    return $redis;
-  }
+  use \closurable_methods;
 
   static function params()
   {
@@ -25,40 +18,51 @@ class Feed
     ];
   }
 
-  static function marks($redis_key = null, $callback = null)
+  static function marks($redis_key, $query)
   {
-    $redis = self::redis_connection();
+    $redis = redis::connection();
     $params = self::params() + ['offset' => 0, 'limit' => 10, 'after' => '-inf', 'before' => '+inf'];
+    # Without Redis
     if (!$redis->exists($redis_key)) {
-      $results = $callback();
-      foreach ($results as $result) $redis->zAdd($redis_key, (int)$result['ts'], (int)$result['id']);
+      # Fetch Query
+      $results = $query()->order_by('published DESC')->fetch_key_values('id', 'ts');
+      # Delayed Storage
+      register_shutdown_function(function() use($redis_key, $results) {
+        $redis = redis::connection();
+        foreach ($results as $id => $ts) $redis->zAdd($redis_key, $ts, $id);
+      });
+      # Soft offset/limit
+      $total = count($results);
+      $ids = array_keys($results);
+      if ($params['limit']) {
+        $ids = array_slice($ids, $params['offset'], $params['limit']);
+      }
     }
-    $options = ['withscores' => false, 'limit' => [$params['offset'], $params['limit']]];
-    $total = $redis->zCard($redis_key);
-    if ($total == 0) {
-      $items = [];
-    } else {
-      $ids = $redis->zRevRangeByScore($redis_key, "(" . $params['before'], "(" . $params['after'], $options);
-      $items = model('marks')->get($ids);
+    # With Redis
+    else {
+      $options = ['withscores' => false, 'limit' => [$params['offset'], $params['limit']]];
+      $total = $redis->zCard($redis_key);
+      $ids = $total > 0 ? $redis->zRevRangeByScore($redis_key, "(" . $params['before'], "(" . $params['after'], $options) : [];
     }
+    $items = count($ids) > 0 ? model('marks')->get($ids) : [];
     return compact('params', 'total', 'items');
   }
 
   static function add($redis_key, $ts, $id)
   {
-    $redis = self::redis_connection();
+    $redis = redis::connection();
     if ($redis->exists($redis_key)) $redis->zAdd($redis_key, $ts, $id);
   }
 
   static function remove($redis_key, $id)
   {
-    $redis = self::redis_connection();
+    $redis = redis::connection();
     if ($redis->exists($redis_key)) $redis->zRem($redis_key, $id);
   }
 
   static function flush($redis_key)
   {
-    $redis = self::redis_connection();
+    $redis = redis::connection();
     $redis->delete($redis_key);
   }
 
@@ -91,48 +95,8 @@ class Feed
     }
   }
 
-  # Model Helpers
-
-  static function latest_marks()
-  {
-    return self::marks(
-      "feed_marks",
-      model('marks')->latest_ids_and_ts
-    );
-  }
-
-  static function marks_with_tag($tag)
-  {
-    return self::marks(
-      "feed_marks_tag_{$tag->id}",
-      model('marks')->ids_and_ts_with_tag->__use($tag)
-    );
-  }
-
-  static function public_marks_from_user($user)
-  {
-    return self::marks(
-      "feed_marks_user_{$user->id}",
-      model('marks')->ids_and_ts->__use(['author' => $user->id, 'visibility' => 0])
-    );
-  }
-
-  static function private_marks_from_user($user)
-  {
-    return self::marks(
-      "feed_marks_my_{$user->id}",
-      model('marks')->ids_and_ts->__use(['author' => $user->id])
-    );
-  }
-
-  static function private_marks_from_user_with_tag($user, $tag)
-  {
-    return self::marks(
-      "feed_marks_my_{$user->id}_tag_{$tag->id}",
-      model('marks')->ids_and_ts_from_user_with_tag->__use($user, $tag)
-    );
-  }
-
 }
 
-return replaceable('feed', instance('\Blogmarks\Helper\Feed'));
+return new feed;
+
+# return replaceable('feed', instance('\blogmarks\helper\feed'));

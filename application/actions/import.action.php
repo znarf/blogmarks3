@@ -5,7 +5,7 @@ use \Amateur\Model\Db as Db;
 helper('upload');
 
 list($marks, $links, $tags, $users, $marks_tags, $screenshots) =
-model(['marks', 'links', 'tags', 'users', 'marks-tags', 'screenshots']);
+model(['marks', 'links', 'tags', 'users', 'marks_tags', 'screenshots']);
 
 $feed = helper('feed');
 
@@ -115,8 +115,8 @@ foreach ($sxe->entry as $entry) {
         $screenshots->insert([
           'link'      => $link->id,
           'url'       => $params['image'],
-          'created'   => Db::date($params['published']),
-          'generated' => Db::date($params['published']),
+          'created'   => db::date($params['published']),
+          'generated' => db::date($params['published']),
           'status'    => 1
         ]);
       }
@@ -129,11 +129,11 @@ foreach ($sxe->entry as $entry) {
       'author'      => $user->id,
       'related'     => $link->id,
       'visibility'  => $params['visibility'],
-      'published'   => Db::date($params['published']),
-      'updated'     => Db::date($params['updated'])
+      'published'   => db::date($params['published']),
+      'updated'     => db::date($params['updated'])
     ]);
 
-    $mark_id = Db::insert_id();
+    $mark_id = db::insert_id();
 
     foreach ($params['tags'] as $tag) {
       $tag = $tags->with_label($tag);
@@ -192,8 +192,8 @@ echo '</ul>';
 $feed->flush("feed_marks");
 $feed->flush("feed_marks_my_{$user->id}");
 $feed->flush("feed_marks_user_{$user->id}");
-$feed->flush("tag_cloud_user_{$user->id}_public");
-$feed->flush("tag_cloud_user_{$user->id}_private");
+$feed->flush("tags_user_{$user->id}_public");
+$feed->flush("tags_user_{$user->id}_private");
 
 # Also flush tag feeds
 foreach (array_unique($tag_ids) as $tag_id) {

@@ -11,7 +11,6 @@ Get Started
     curl -s https://getcomposer.org/installer | php
     php composer.phar update
 
-    cd public
     npm install -g bower
     bower install
 

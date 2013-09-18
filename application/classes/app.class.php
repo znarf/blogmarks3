@@ -1,8 +1,6 @@
-<?php namespace Blogmarks;
+<?php namespace blogmarks;
 
-require_once amateur_dir . '/core/app.class.php';
-
-class App extends \Amateur\Core\App
+class app extends \amateur\core\app
 {
 
   function marks($marks = null)
@@ -67,7 +65,7 @@ class App extends \Amateur\Core\App
       return $request_format = $format;
     }
     # Accept Header
-    $accept = request_header('Accept');
+    $accept = $this->request()->header('Accept');
     $mime = [
       'application/json'     => 'json',
       'application/rss+xml'  => 'rss',

@@ -1,15 +1,10 @@
 <?php
 
-# Action (will be re-integrated in amateur core later)
+# Add some latency
 
-function action($name, $args = [])
-{
-  global $app;
-  extract($args);
-  include $app->dir() . '/actions/' . $name . '.action.php';
-}
+# usleep(200000);
 
-helper(['blogmarks', 'session', 'view', 'url']);
+helper(['blogmarks', 'session', 'view']);
 
 start_session();
 

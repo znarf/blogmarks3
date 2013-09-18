@@ -1,30 +1,38 @@
-<?php
+<?php namespace blogmarks\model;
 
-use \Amateur\Model\Db as Db;
-use \Amateur\Model\Cache as Cache;
-use \Amateur\Model\Table as Table;
-use \Amateur\Model\Ressource as Ressource;
+use
+amateur\model\db,
+amateur\model\cache,
+amateur\model\table,
+amateur\model\ressource;
 
-class MarksTags extends Table
+once(function() {
+
+class marks_tags extends table
 {
 
-  use Closurize;
+  use \closurable_methods;
 
-  public $classname = 'MarksTag';
+  public $namespace = __namespace__;
+
+  public $classname = 'marks_tag';
+
   public $tablename = 'bm_marks_has_bm_tags';
+
   public $primary = 'id';
+
   public $unique_indexes = ['id'];
 
   function from_mark($mark)
   {
     # From Cache
     $cache_key = "bm_marks_tags_id_{$mark->id}";
-    $rows = Cache::get($cache_key);
+    $rows = cache::get($cache_key);
     # We expect an array, other values are invalid
     if (!is_array($rows)) {
       # From DB
       $rows = $this->fetch_all(['mark_id' => $mark->id]);
-      Cache::set($cache_key, $rows);
+      cache::set($cache_key, $rows);
     }
     return $this->to_objects($rows);
   }
@@ -41,7 +49,7 @@ class MarksTags extends Table
       if (empty($_tag)) {
         continue;
       }
-      $tag = model('tags')->with_label($_tag);
+      $tag = $this->table('tags')->with_label($_tag);
       $row = [
         'mark_id'    => $mark->id,
         'tag_id'     => $tag->id,
@@ -56,47 +64,39 @@ class MarksTags extends Table
     }
     # Update Cache
     $cache_key = "bm_marks_tags_id_{$mark->id}";
-    Cache::set($cache_key, $rows);
+    cache::set($cache_key, $rows);
     # Return
     return $objects;
-  }
-
-  function fetch_from_user($user, $status = 'public')
-  {
-    $query = $this->select('label, COUNT(*) as count')->where(['user_id' => $user->id]);
-    if ($status == 'public') {
-      $query->and_where(['isHidden' => 0]);
-    }
-    return $query->group_by('tag_id')->fetch_all();
   }
 
   function load_from_ids($ids)
   {
     # We consider that the first round of cache preload was already done while loading marks
     # So, we filter already loaded results
-    $ids = array_filter($ids, function($id) { return !Cache::loaded("bm_marks_tags_id_$id"); });
+    $ids = array_filter($ids, function($id) { return !cache::loaded("bm_marks_tags_id_$id"); });
     # Jobs done?
     if (empty($ids)) return;
     # We iterate over chunk of 1000
     foreach (array_chunk($ids, 1000) as $ids_chunk) {
       # Then search in MySQL all tags matching remaining ids
-      $result = $this->select()->where(['mark_id' => $ids_chunk])->execute();
+      $result = $this->select(['mark_id', 'label', 'isHidden'])->where(['mark_id' => $ids_chunk])->execute();
       # We fetch results and group by mark
       $results = [];
-      while ($row = Db::fetch_assoc($result)) {
+      while ($row = db::fetch_assoc($result)) {
         $id = (int)$row['mark_id'];
+        unset($row['mark_id']);
         $results[$id][] = $row;
       }
       # Then, we iterate over ids to store results in cache
       foreach ($ids_chunk as $id) {
-        Cache::set("bm_marks_tags_id_$id", isset($results[$id]) ? $results[$id] : []);
+        cache::set("bm_marks_tags_id_$id", isset($results[$id]) ? $results[$id] : []);
       }
     }
   }
 
 }
 
-class MarksTag extends Ressource
+class marks_tag extends ressource
 {
 
   function __toString()
@@ -106,4 +106,6 @@ class MarksTag extends Ressource
 
 }
 
-return new MarksTags;
+});
+
+return table::instance('marks_tags', __namespace__);

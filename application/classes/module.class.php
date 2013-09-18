@@ -1,6 +1,9 @@
-<?php namespace Blogmarks;
+<?php namespace blogmarks;
 
-class Module
+use
+exception;
+
+class module
 {
 
   # Allow anonymous function set as object properties to be callable
@@ -9,7 +12,7 @@ class Module
     if (is_callable([$this, $method])) {
       return call_user_func_array($this->$method, $args);
     }
-    throw new \Exception('Unknown method/property.');
+    throw new exception('Unknown method/property.');
   }
 
 }

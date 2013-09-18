@@ -18,7 +18,7 @@ if (is_bookmarklet()) { $app->default_layout = 'bookmarklet'; }
 
 # TODO: bundle module with Amateur
 require_once app_dir . '/classes/module.class.php';
-$module = new \Blogmarks\Module;
+$module = new \blogmarks\module;
 
 $module->mark_params = function() {
   return [
@@ -66,7 +66,7 @@ $module->new_mark = function() use($user) {
     'visibility'  => get_int('visibility')
   ]);
   # Insert Tags
-  model('marks-tags')->tag_mark($mark, explode(',', get_param('tags')));
+  model('marks_tags')->tag_mark($mark, explode(',', get_param('tags')));
   # Index Mark
   helper('feed')->index($mark);
   # Return Mark
@@ -103,7 +103,7 @@ $module->update_mark = function($mark) use($user) {
   # Un-index Mark
   helper('feed')->unindex($mark);
   # Update Tags
-  model('marks-tags')->tag_mark($mark, explode(',', get_param('tags')));
+  model('marks_tags')->tag_mark($mark, explode(',', get_param('tags')));
   # Re-index Mark
   helper('feed')->index($mark);
   # Return Mark
@@ -116,7 +116,7 @@ $module->delete_mark = function($mark) {
   # Un-index Mark (tags might be unavailable after mark is deleted)
   helper('feed')->unindex($mark);
   # Delete Tags
-  model('marks-tags')->delete(['mark_id' => $mark->id]);
+  model('marks_tags')->delete(['mark_id' => $mark->id]);
   # Delete Mark
   model('marks')->delete($mark);
 };
