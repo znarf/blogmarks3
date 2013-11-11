@@ -1,9 +1,5 @@
 <?php
 
-# Add some latency
-
-# usleep(200000);
-
 helper(['blogmarks', 'session', 'view']);
 
 start_session();

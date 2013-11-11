@@ -21,7 +21,6 @@ class app extends \amateur\core\app
         $this->layout(null, 'atom');
         $atom = ob_get_clean();
         echo gzencode($atom);
-        exit;
       } else {
         $this->response()->set_header('Content-Type', 'application/atom+xml; charset=utf-8');
         $this->layout(null, 'atom');

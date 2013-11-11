@@ -13,6 +13,7 @@ class feed
     return [
       'offset' => get_int('offset', 0),
       'limit'  => get_int('limit', 10),
+      'order'  => get_param('order', 'desc'),
       'after'  => get_param('after', '-inf'),
       'before' => get_param('before', '+inf')
     ];
@@ -21,11 +22,12 @@ class feed
   static function marks($redis_key, $query)
   {
     $redis = redis::connection();
-    $params = self::params() + ['offset' => 0, 'limit' => 10, 'after' => '-inf', 'before' => '+inf'];
+    $params = self::params(); /* ['offset' => 0, 'limit' => 10, 'after' => '-inf', 'before' => '+inf']; */
     # Without Redis
     if (!$redis->exists($redis_key)) {
       # Fetch Query
-      $results = $query()->order_by('published DESC')->fetch_key_values('id', 'ts');
+      $order = $params['order'] == 'asc' ? 'published ASC' : 'published DESC';
+      $results = $query()->order_by($order)->fetch_key_values('id', 'ts');
       # Delayed Storage
       register_shutdown_function(function() use($redis_key, $results) {
         $redis = redis::connection();
@@ -41,10 +43,16 @@ class feed
     # With Redis
     else {
       $options = ['withscores' => false, 'limit' => [$params['offset'], $params['limit']]];
-      $total = $redis->zCard($redis_key);
-      $ids = $total > 0 ? $redis->zRevRangeByScore($redis_key, "(" . $params['before'], "(" . $params['after'], $options) : [];
+      if ($total = $redis->zCard($redis_key)) {
+        if ($params['order'] == 'asc') {
+          $ids = $redis->zRangeByScore($redis_key, "(" . $params['after'], "(" . $params['before'], $options);
+        }
+        else {
+          $ids = $redis->zRevRangeByScore($redis_key, "(" . $params['before'], "(" . $params['after'], $options);
+        }
+      }
     }
-    $items = count($ids) > 0 ? model('marks')->get($ids) : [];
+    $items = empty($ids) ? [] : model('marks')->get($ids);
     return compact('params', 'total', 'items');
   }
 
@@ -70,7 +78,7 @@ class feed
   {
     $ts = strtotime($mark->published);
     # Global Feed
-    self::add("feed_marks", $ts, $mark->id);
+    if ($mark->is_public()) self::add("feed_marks", $ts, $mark->id);
     # Update User Feeds
     self::add("feed_marks_my_{$mark->author->id}", $ts, $mark->id);
     if ($mark->is_public()) self::add("feed_marks_user_{$mark->author->id}", $ts, $mark->id);

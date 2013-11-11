@@ -13,7 +13,7 @@ extract($args);
 
 ?>
 
-<div id="mark<?= $mark->id ?>" class="<?= $mark->classname($user) ?>">
+<div id="mark<?= $mark->id ?>" class="<?= $mark->classname($user) ?>" draggable="true">
   <a href="<?= arg($mark->url) ?>">
     <img class="screenshot" src="<?= static_url() ?>/img/loading.gif" data-src="<?= arg($mark->screenshot) ?>" alt="">
   </a>

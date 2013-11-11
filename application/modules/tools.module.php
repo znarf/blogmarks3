@@ -17,6 +17,14 @@ if (url_is('/my/tools')) {
 
 else if ($matches = url_match('/my/tools,*')) {
   $action = $matches[1];
+  if ($action == 'export' && get_bool('download')) {
+    title('My Export');
+    set_param('limit', -1);
+    set_param('export', true);
+    $app->request_format('atom');
+    return $app->marks( helper('marks')->private_marks_from_user->__use($user) );
+  }
+  /*
   if (is_post()) {
     switch ($action) {
       case 'export':
@@ -25,9 +33,10 @@ else if ($matches = url_match('/my/tools,*')) {
         set_param('limit', -1);
         set_param('export', true);
         $app->request_format('atom');
-        return $app->marks( helper('feed')->private_marks_from_user->__use($user) );
+        return $app->marks( helper('marks')->private_marks_from_user->__use($user) );
     }
   }
+  */
   layout(view('tools/index', ['action' => $action]));
 }
 

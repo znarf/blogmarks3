@@ -1,8 +1,7 @@
 <?php
-$domain = domain();
 $export = get_bool('export');
 $marks = helper('container')->marks();
-$user = $domain == 'my' ? authenticated_user() : helper('target')->user();
+$user = domain() == 'my' ? authenticated_user() : helper('target')->user();
 ?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:bm="http://blogmarks.net/ns/">
 <id>tag:blogmarks.net,2013:marks</id>
@@ -27,10 +26,10 @@ $user = $domain == 'my' ? authenticated_user() : helper('target')->user();
     <uri><?= text($mark->author->url) ?></uri>
   </author>
 <?php endif ?>
-  <link rel="related" href="<?= text($mark->url) ?>"/>
 <?php if (!$export) : ?>
-  <link rel="alternate" href="<?= text($mark->url) ?>" type="text/html"/>
+  <link href="<?= text($mark->url) ?>"/>
 <?php endif ?>
+  <link rel="related" href="<?= text($mark->url) ?>"/>
 <?php if (!$export && $screenshot = $mark->screenshot) : ?>
 <?php $type = strpos($screenshot, '.jpg') || strpos($screenshot, 'open.thumbshots.org') ? 'image/jpg' : 'image/png' ?>
   <link rel="enclosure" href="<?= arg($screenshot) ?>" type="<?= arg($type) ?>"/>

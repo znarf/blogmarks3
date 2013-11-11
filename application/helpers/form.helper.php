@@ -1,6 +1,6 @@
-<?php namespace Blogmarks\Helper;
+<?php namespace blogmarks\helper;
 
-class Form
+class form
 {
 
   static function generate_phrase($length = 64)
@@ -32,7 +32,7 @@ class Form
 
 }
 
-$form = new Form;
+$form = new form;
 
 replaceable('check_token', [$form, 'check_token']);
 replaceable('generate_token', [$form, 'generate_token']);

@@ -79,7 +79,10 @@ class marks_tags extends table
     # We iterate over chunk of 1000
     foreach (array_chunk($ids, 1000) as $ids_chunk) {
       # Then search in MySQL all tags matching remaining ids
-      $result = $this->select(['mark_id', 'label', 'isHidden'])->where(['mark_id' => $ids_chunk])->execute();
+      $result = $this
+        ->select(['mark_id', 'tag_id', 'label', 'isHidden'])
+        ->where(['mark_id' => $ids_chunk])
+        ->execute();
       # We fetch results and group by mark
       $results = [];
       while ($row = db::fetch_assoc($result)) {

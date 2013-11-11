@@ -18,7 +18,7 @@ function file_upload()
   );
 
   if ($errorCode !== UPLOAD_ERR_OK && isset($uploadErrors[$errorCode])) {
-    throw new Exception($uploadErrors[$errorCode]);
+    throw new exception($uploadErrors[$errorCode]);
   }
 
   if (!is_writable('/tmp/') || !move_uploaded_file($_FILES['file']['tmp_name'], $uploadFile)) {

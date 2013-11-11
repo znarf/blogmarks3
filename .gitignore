@@ -5,4 +5,5 @@ public/components
 vendor/composer
 vendor/leafo
 vendor/michelf
+vendor/videlalvaro
 vendor/autoload.php

@@ -1,6 +1,7 @@
 <?php
 
 $feed = helper('feed');
+$search = helper('search');
 
 $user = authenticated_user();
 
@@ -19,6 +20,8 @@ model('marks_tags')->delete(['user_id' => $user->id]);
 $feed->flush("feed_marks");
 $feed->flush("feed_marks_user_{$user->id}");
 $feed->flush("feed_marks_my_{$user->id}");
+
+$feed->flush("tags_public");
 $feed->flush("tags_user_{$user->id}_public");
 $feed->flush("tags_user_{$user->id}_private");
 
@@ -26,3 +29,5 @@ foreach ($tag_ids as $tag_id) {
   $feed->flush("feed_marks_tag_{$tag_id}");
   $feed->flush("feed_marks_my_{$user->id}_tag_{$tag_id}");
 }
+
+$search->unindex_user($user);

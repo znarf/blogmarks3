@@ -1,6 +1,6 @@
-<?php namespace Blogmarks\Helper;
+<?php namespace blogmarks\helper;
 
-class Target
+class target
 {
 
   static $user;
@@ -38,7 +38,7 @@ class Target
 
 }
 
-$target = new Target;
+$target = new target;
 
 replaceable('target', function($name = null, $slug = null) use($target) {
   return $name ? $target->$name($slug) : $target;

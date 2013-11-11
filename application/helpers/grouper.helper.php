@@ -1,6 +1,6 @@
-<?php namespace Blogmarks\Helper;
+<?php namespace blogmarks\helper;
 
-class Grouper
+class grouper
 {
 
   static function group($marks = [])
@@ -53,4 +53,4 @@ class Grouper
 
 }
 
-return new Grouper;
+return new grouper;

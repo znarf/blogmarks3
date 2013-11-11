@@ -6,4 +6,6 @@ $app->default_format = 'rss';
 
 $app->path('/api');
 
-$app->start(app_dir);
+$app->start();
+
+$app->end();

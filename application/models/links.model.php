@@ -19,7 +19,18 @@ class links extends table
 
   public $primary = 'id';
 
-  public $unique_indexes = ['id'];
+  public $unique_indexes = ['id', 'href'];
+
+  function cache_key($key, $value, $type = 'raw')
+  {
+    if ($key == 'href') {
+      $value = md5($value);
+      return "{$this->tablename}_{$type}_{$key}_{$value}";
+    }
+    else {
+      return parent::cache_key($key, $value, $type = 'raw');
+    }
+  }
 
   function with_url($url)
   {

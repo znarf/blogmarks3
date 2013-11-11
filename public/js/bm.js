@@ -54,7 +54,7 @@ jQuery(function($) {
       },
       onBottom: function(callback) {
 
-          console.log('At the end of the page. Loading more!');
+          // console.log('At the end of the page. Loading more!');
 
           var link = $("#pagination .more");
           if (link.length) {
@@ -161,5 +161,10 @@ jQuery(function($) {
 
   tagsAutoComplete();
 
+  $("a[draggable]").on("dragstart", function(e) {
+    if (this.dataset.downloadurl) {
+      e.originalEvent.dataTransfer.setData("DownloadURL", this.dataset.downloadurl);
+    }
+  });
 
 });

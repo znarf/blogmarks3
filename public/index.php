@@ -2,4 +2,6 @@
 
 require dirname(__DIR__) . '/bootstrap.php';
 
-$app->start(app_dir);
+$app->start();
+
+$app->end();

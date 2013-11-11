@@ -20,7 +20,15 @@ $domain = domain();
 
 <?php if ($marks['params']['limit'] == count($marks['items'])) : // loose way to know if there is more marks to load ?>
 <div id="pagination">
-    <a rel="next" class="page more" href="?before=<?= strtotime($item->published) ?>">more</a>
+  <?php
+  if ($marks['params']['order'] == 'asc') {
+    $more = ['order' => 'asc', 'after' => strtotime($item->published)];
+  }
+  else {
+    $more = ['order' => 'desc', 'before' => strtotime($item->published)];
+  }
+  ?>
+  <a rel="next" class="page more" href="?<?= http_build_query($more) ?>">more</a>
 </div> <!-- /#pagination -->
 <?php else : // only if before or offset is passed as parameter  ?>
    <h2><span>The End (Limit not reached)</span></h2>

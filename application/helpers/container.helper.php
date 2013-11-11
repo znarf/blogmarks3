@@ -1,6 +1,6 @@
-<?php namespace Blogmarks\Helper;
+<?php namespace blogmarks\helper;
 
-class Container
+class container
 {
 
   static $tags;
@@ -27,7 +27,7 @@ class Container
 
 }
 
-$container = new Container;
+$container = new container;
 
 replaceable('container', function($name = null, $value = null) use($container) {
   return $name ? $container->$name($value) : $container;

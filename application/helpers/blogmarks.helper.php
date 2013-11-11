@@ -49,18 +49,15 @@ function tags_title($base = null, $arg = null)
 
 function relative_or_absolute_url($url)
 {
-  global $app;
-  return $app->request_format() == 'html' ? relative_url($url) : absolute_url($url);
+  return core('app')->request_format() == 'html' ? relative_url($url) : absolute_url($url);
 }
 
 function web_url($path)
 {
-  $app = core('app');
-  return 'http://' . $app->request()->host() . $path;
+  return 'http://' . core('app')->request()->host() . $path;
 }
 
 function api_url($path)
 {
-  $app = core('app');
-  return 'http://' . $app->request()->host() . '/api' . $path;
+  return 'http://' . core('app')->request()->host() . '/api' . $path;
 }
