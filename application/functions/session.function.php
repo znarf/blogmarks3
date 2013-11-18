@@ -22,7 +22,7 @@ function authenticated_user()
 {
   if (is_authenticated()) {
     static $user;
-    return $user ? $user : $user = app()->model('users')->get($_SESSION['user_id']);
+    return $user ? $user : $user = model('users')->get($_SESSION['user_id']);
   }
 }
 
@@ -64,10 +64,7 @@ function is_authenticated_user($check_user)
 
 function check_authenticated_user($check_user)
 {
-  if ($user = authenticated_user()) {
-    if ($user->id == $check_user->id) {
-      return true;
-    }
+  if (!is_authenticated_user($check_user)) {
+    throw http_error(403, 'Forbidden.');
   }
-  throw http_error(403, 'Forbidden.');
 }

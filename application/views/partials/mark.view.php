@@ -56,5 +56,3 @@ extract($args);
 # Then execute it when it's call/included for the first time
 
 $partial($args);
-
-# return $partial;

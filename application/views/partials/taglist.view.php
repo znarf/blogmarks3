@@ -1,5 +1,4 @@
 <?php
-helper('taglist');
 $domain = domain();
 $target_tag = helper('target')->tag();
 $base_tag_path = relative_url($domain == 'my' ? '/my/marks/tag/' : '/marks/tag/');

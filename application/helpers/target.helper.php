@@ -38,10 +38,5 @@ class target
 
 }
 
-$target = new target;
+return new target;
 
-replaceable('target', function($name = null, $slug = null) use($target) {
-  return $name ? $target->$name($slug) : $target;
-});
-
-return $target;

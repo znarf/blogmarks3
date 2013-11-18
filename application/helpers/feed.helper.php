@@ -106,5 +106,3 @@ class feed
 }
 
 return new feed;
-
-# return replaceable('feed', instance('\blogmarks\helper\feed'));

@@ -181,5 +181,3 @@ class search
 }
 
 return new search;
-
-# return replaceable('search', instance('\Blogmarks\Helper\Search'));

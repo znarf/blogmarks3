@@ -2,7 +2,7 @@
 
 require dirname(__DIR__) . '/../bootstrap.php';
 
-$app->default_format = 'rss';
+default_format('rss');
 
 $app->path('/api');
 

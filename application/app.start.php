@@ -1,7 +1,5 @@
 <?php
 
-helper(['blogmarks', 'session', 'view']);
-
 start_session();
 
 if (url_is('/')) {

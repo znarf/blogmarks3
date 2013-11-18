@@ -1,9 +1,8 @@
 <?php
 
-$feed = helper('feed');
-$search = helper('search');
-
 $user = authenticated_user();
+
+list($feed, $search) = helper(['feed', 'search']);
 
 # Get all Tag ids. Will be used later to flush related feeds.
 $tag_ids = model('marks_tags')->select('DISTINCT tag_id as id')->where(['user_id' => $user->id])->fetch_ids();

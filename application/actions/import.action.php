@@ -5,7 +5,7 @@ amateur\model\db,
 amateur\services\amqp;
 
 list($feed, $search) =
-helper(['feed', 'search', 'upload']);
+helper(['feed', 'search']);
 
 list($marks, $links, $tags, $users, $marks_tags, $screenshots) =
 model(['marks', 'links', 'tags', 'users', 'marks_tags', 'screenshots']);

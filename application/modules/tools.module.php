@@ -6,8 +6,6 @@ section('tools');
 
 title('Tools');
 
-helper('form');
-
 check_authenticated();
 $user = authenticated_user();
 
@@ -21,22 +19,9 @@ else if ($matches = url_match('/my/tools,*')) {
     title('My Export');
     set_param('limit', -1);
     set_param('export', true);
-    $app->request_format('atom');
-    return $app->marks( helper('marks')->private_marks_from_user->__use($user) );
+    request_format('atom');
+    return send_marks( helper('marks')->private_marks_from_user->__use($user) );
   }
-  /*
-  if (is_post()) {
-    switch ($action) {
-      case 'export':
-        check_token('export', get_param('token'));
-        title('My Export');
-        set_param('limit', -1);
-        set_param('export', true);
-        $app->request_format('atom');
-        return $app->marks( helper('marks')->private_marks_from_user->__use($user) );
-    }
-  }
-  */
   layout(view('tools/index', ['action' => $action]));
 }
 

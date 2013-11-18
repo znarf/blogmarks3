@@ -1,11 +1,13 @@
 <?php namespace blogmarks\helper;
 
+# Fetch marks using feed or search helpers
+
 class marks
 {
 
   use \closurable_methods;
 
-  static function latest_marks()
+  static function latests()
   {
     # With feed
     return helper('feed')->marks(
@@ -16,7 +18,7 @@ class marks
     # return helper('search')->search();
   }
 
-  static function marks_with_tag($tag)
+  static function with_tag($tag)
   {
     # With feed
     return helper('feed')->marks(
@@ -27,13 +29,13 @@ class marks
     # return helper('search')->search(['tag' => $tag]);
   }
 
-  static function marks_with_tags($tags)
+  static function with_tags($tags)
   {
     # Only available with search helper
     return helper('search')->search(['tags' => $tags]);
   }
 
-  static function marks_from_user($user)
+  static function from_user($user)
   {
     # With feed
     return helper('feed')->marks(
@@ -44,13 +46,13 @@ class marks
     # return helper('search')->search(['user' => $user]);
   }
 
-  static function marks_from_user_with_tag($user, $tag)
+  static function from_user_with_tag($user, $tag)
   {
     # Only available with search helper
     return helper('search')->search(['user' => $user, 'tag' => $tag]);
   }
 
-  static function private_marks_from_user($user)
+  static function private_from_user($user)
   {
     # With feed
     return helper('feed')->marks(
@@ -61,7 +63,7 @@ class marks
     # return helper('search')->search(['user' => $user, 'private' => true]);
   }
 
-  static function private_marks_from_user_with_tag($user, $tag)
+  static function private_from_user_with_tag($user, $tag)
   {
     # Feed
     return helper('feed')->marks(
@@ -72,7 +74,7 @@ class marks
     # return helper('search')->search(['user' => $user, 'tag' => $tag, 'private' => true]);
   }
 
-  static function private_marks_from_user_with_tags($user, $tags)
+  static function private_from_user_with_tags($user, $tags)
   {
     # Only available with search helper
     return helper('search')->search(['user' => $user, 'tags' => $tags, 'private' => true]);

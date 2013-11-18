@@ -10,12 +10,14 @@ require_once root_dir . '/vendor/amateur/autoload.php';
 require_once root_dir . '/vendor/amateur/amateur.dsl.php';
 require_once root_dir . '/vendor/amateur/extended.dsl.php';
 
-require_once app_dir . '/app.dsl.php';
-
-include root_dir . '/config.php';
+$app = app();
 
 $app->ns('blogmarks');
 
 $app->dir(app_dir);
 
+$app->load_functions();
+
 $app->register_autoload();
+
+include root_dir . '/config.php';

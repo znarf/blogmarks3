@@ -27,10 +27,4 @@ class container
 
 }
 
-$container = new container;
-
-replaceable('container', function($name = null, $value = null) use($container) {
-  return $name ? $container->$name($value) : $container;
-});
-
-return $container;
+return new container;

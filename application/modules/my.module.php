@@ -1,5 +1,7 @@
 <?php
 
+list($target, $container) = helper(['target', 'container']);
+
 domain('my');
 
 section('my');
@@ -10,9 +12,10 @@ check_authenticated();
 $user = authenticated_user();
 
 if (url_is('/my/marks')) {
-  tags_title('My', 'Tags');
-  helper('container')->tags( model('tags')->private_from_user->__use($user) );
-  $app->marks( helper('marks')->private_marks_from_user->__use($user) );
+  side_title('My', 'Tags');
+  $container->tags( model('tags')->private_from_user->__use($user) );
+  $container->marks( helper('marks')->private_from_user->__use($user) );
+  render('marks');
 }
 
 elseif ($matches = url_match('/my/marks/tag/*')) {
@@ -22,16 +25,18 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
     $tags = array_map(function($slug) { return model('tags')->get_one('label', urldecode($slug)); }, $tags);
     $labels = array_map(function($tag) { return strong($tag); }, $tags);
     title('My Marks', 'with tags ' . implode(' &amp; ', $labels));
-    tags_title('My', 'Tags related with ' . strong($tag));
-    helper('container')->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
-    $app->marks( helper('marks')->private_marks_from_user_with_tags->__use($user, $tags) );
+    side_title('My', 'Tags related with ' . strong($tag));
+    $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
+    $container->marks( helper('marks')->private_from_user_with_tags->__use($user, $tags) );
+    render('marks');
   }
   else {
     $tag = helper('target')->tag($matches[1]);
     title('My Marks', 'with tag ' . strong($tag));
-    tags_title('My', 'Tags related with ' . strong($tag));
-    helper('container')->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
-    $app->marks( helper('marks')->private_marks_from_user_with_tag->__use($user, $tag) );
+    side_title('My', 'Tags related with ' . strong($tag));
+    $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
+    $container->marks( helper('marks')->private_from_user_with_tag->__use($user, $tag) );
+    render('marks');
   }
 }
 

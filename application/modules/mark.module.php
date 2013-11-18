@@ -1,7 +1,5 @@
 <?php
 
-helper('form');
-
 # These helpers function doesn't deserve their own helper
 replaceable('is_modal', function() { return get_param('modal'); } );
 replaceable('is_bookmarklet', function() { return get_param('bookmarklet', get_param('mini')); } );
