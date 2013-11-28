@@ -10,11 +10,12 @@ replaceable('target', function($name = null, $slug = null) {
   return $name ? $target->$name($slug) : $target;
 });
 
-replaceable('render', function($name) {
+replaceable('render', function($name, $args = []) {
   if ($name == 'marks') {
-    helper('render')->marks();
+    helper('render')->marks($args);
   }
   else {
-    response()->render($name);
+    layout(view($name, $args));
+    exit;
   }
 });

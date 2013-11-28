@@ -20,9 +20,10 @@ else if ($matches = url_match('/my/tools,*')) {
     set_param('limit', -1);
     set_param('export', true);
     request_format('atom');
-    return send_marks( helper('marks')->private_marks_from_user->__use($user) );
+    helper('container')->marks( helper('marks')->private_from_user->__use($user) );
+    return render('marks');
   }
-  layout(view('tools/index', ['action' => $action]));
+  render('tools/index', ['action' => $action]);
 }
 
 else {
