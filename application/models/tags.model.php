@@ -7,10 +7,6 @@ amateur\model\redis,
 amateur\model\table,
 amateur\model\ressource;
 
-if ($instance = table::instance('tags', __namespace__, true)) {
-  return $instance;
-}
-
 class tags extends table
 {
 
@@ -233,4 +229,4 @@ class tag extends ressource
 
 }
 
-return table::instance('tags', __namespace__);
+return model('tags', table::instance('tags', __namespace__));

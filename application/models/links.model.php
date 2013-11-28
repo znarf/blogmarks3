@@ -4,10 +4,6 @@ use
 amateur\model\table,
 amateur\model\ressource;
 
-if ($instance = table::instance('links', __namespace__, true)) {
-  return $instance;
-}
-
 class links extends table
 {
 
@@ -50,4 +46,4 @@ class links extends table
 
 class link extends ressource {}
 
-return table::instance('links', __namespace__);
+return model('links', table::instance('links', __namespace__));

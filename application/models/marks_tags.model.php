@@ -6,8 +6,6 @@ amateur\model\cache,
 amateur\model\table,
 amateur\model\ressource;
 
-once(function() {
-
 class marks_tags extends table
 {
 
@@ -109,6 +107,4 @@ class marks_tag extends ressource
 
 }
 
-});
-
-return table::instance('marks_tags', __namespace__);
+return model('marks_tags', table::instance('marks_tags', __namespace__));

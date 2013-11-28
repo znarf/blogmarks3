@@ -8,8 +8,6 @@ amateur\model\ressource,
 amateur\model\other_tables,
 amateur\model\dynamic_properties;
 
-once(function() {
-
 class marks extends table
 {
 
@@ -213,6 +211,4 @@ class mark extends ressource
 
 }
 
-});
-
-return table::instance('marks', __namespace__);
+return model('marks', table::instance('marks', __namespace__));

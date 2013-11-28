@@ -3,11 +3,8 @@
 use
 amateur\model\table,
 amateur\model\ressource,
+amateur\model\other_tables,
 amateur\model\dynamic_properties;
-
-if ($instance = table::instance('users', __namespace__, true)) {
-  return $instance;
-}
 
 class users extends table
 {
@@ -27,7 +24,9 @@ class users extends table
 class user extends ressource
 {
 
-  use dynamic_properties;
+  use
+  other_tables,
+  dynamic_properties;
 
   function username()
   {
@@ -82,4 +81,4 @@ class user extends ressource
 
 }
 
-return table::instance('users', __namespace__);
+return model('users', table::instance('users', __namespace__));

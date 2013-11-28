@@ -4,10 +4,6 @@ use
 amateur\model\table,
 amateur\model\ressource;
 
-if ($instance = table::instance('screenshots', __namespace__, true)) {
-  return $instance;
-}
-
 class screenshots extends table
 {
 
@@ -44,4 +40,4 @@ class screenshots extends table
 
 class screenshot extends ressource {}
 
-return table::instance('screenshots', __namespace__);
+return model('screenshots', table::instance('screenshots', __namespace__));
