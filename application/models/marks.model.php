@@ -19,10 +19,6 @@ class marks extends table
 
   public $tablename = 'bm_marks';
 
-  public $primary = 'id';
-
-  public $unique_indexes = ['id'];
-
   public $collection_indexes = ['author'];
 
   function create($params = [])

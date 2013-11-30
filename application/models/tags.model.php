@@ -18,8 +18,6 @@ class tags extends table
 
   public $tablename = 'bm_tags';
 
-  public $primary = 'id';
-
   public $unique_indexes = ['id', 'label'];
 
   function with_label($label)

@@ -9,11 +9,7 @@ class links extends table
 
   public $namespace = __namespace__;
 
-  public $classname = 'link';
-
   public $tablename = 'bm_links';
-
-  public $primary = 'id';
 
   public $unique_indexes = ['id', 'href'];
 
@@ -43,7 +39,5 @@ class links extends table
   }
 
 }
-
-class link extends ressource {}
 
 return model('links', table::instance('links', __namespace__));

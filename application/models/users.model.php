@@ -15,8 +15,6 @@ class users extends table
 
   public $tablename = 'bm_users';
 
-  public $primary = 'id';
-
   public $unique_indexes = ['id', 'login'];
 
 }

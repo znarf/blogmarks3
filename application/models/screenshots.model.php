@@ -9,13 +9,7 @@ class screenshots extends table
 
   public $namespace = __namespace__;
 
-  public $classname = 'screenshot';
-
   public $tablename = 'bm_screenshots';
-
-  public $primary = 'id';
-
-  public $unique_indexes = ['id'];
 
   function load_from_marks($marks)
   {
@@ -37,7 +31,5 @@ class screenshots extends table
   }
 
 }
-
-class screenshot extends ressource {}
 
 return model('screenshots', table::instance('screenshots', __namespace__));

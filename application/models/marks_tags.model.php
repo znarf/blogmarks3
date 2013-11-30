@@ -17,10 +17,6 @@ class marks_tags extends table
 
   public $tablename = 'bm_marks_has_bm_tags';
 
-  public $primary = 'id';
-
-  public $unique_indexes = ['id'];
-
   function from_mark($mark)
   {
     # From Cache
