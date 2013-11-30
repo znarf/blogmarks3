@@ -13,7 +13,7 @@ if (url_is('/my/tools')) {
   redirect('/my/tools,bookmarklets');
 }
 
-else if ($matches = url_match('/my/tools,*')) {
+elseif ($matches = url_match('/my/tools,*')) {
   $action = $matches[1];
   if ($action == 'export' && get_bool('download')) {
     title('My Export');

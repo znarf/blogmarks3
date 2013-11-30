@@ -21,7 +21,7 @@ if (url_is('/my/marks')) {
 elseif ($matches = url_match('/my/marks/tag/*')) {
   if (strpos($matches[1], ',')) {
     $tags = explode(',', $matches[1]);
-    $tag = helper('target')->tag($tags[0]);
+    $tag = $target->tag($tags[0]);
     $tags = array_map(function($slug) { return model('tags')->get_one('label', urldecode($slug)); }, $tags);
     $labels = array_map(function($tag) { return strong($tag); }, $tags);
     title('My Marks', 'with tags ' . implode(' &amp; ', $labels));
@@ -31,7 +31,7 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
     render('marks');
   }
   else {
-    $tag = helper('target')->tag($matches[1]);
+    $tag = $target->tag($matches[1]);
     title('My Marks', 'with tag ' . strong($tag));
     side_title('My', 'Tags related with ' . strong($tag));
     $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );

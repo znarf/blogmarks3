@@ -14,7 +14,7 @@ class grouper
 
     if ($range > 2 * 30 * 24 * 3600) {
       $group_marker = 'group_marker_month';
-    } else if ($range > 2 * 24 * 3600) {
+    } elseif ($range > 2 * 24 * 3600) {
       $group_marker = 'group_marker_day';
     } else {
       $group_marker = 'group_marker_hour';

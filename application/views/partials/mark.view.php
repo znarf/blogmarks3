@@ -19,7 +19,7 @@ extract($args);
   </a>
   <div class="xfolkentry">
     <h4><a class="taggedlink" href="<?= arg($mark->url) ?>"><?= text($mark->title) ?></a></h4>
-<?php if ($domain != 'my' && !target('user')) : ?>
+<?php if ($domain != 'my' && !helper('target')->user()) : ?>
       <a class="gravatar" href="<?= arg($mark->author->url) ?>">
         <img width="20" height="20" class="gravatar" alt="" src="<?= arg($mark->author->avatar) ?>"></a>
       <a class="public" href="<?= arg($mark->author->url) ?>"><?= text($mark->author->name) ?></a>

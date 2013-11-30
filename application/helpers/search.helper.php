@@ -30,8 +30,8 @@ class search
   {
     if ($mark->contentType == 'html') {
       require_once root_dir . '/lib/markdownify/markdownify.php';
-      $md = new markdownify;
-      $content = $md->parseString($mark->content);
+      $markdownify = new markdownify;
+      $content = $markdownify->parseString($mark->content);
     } else {
       $content = $mark->content;
     }
@@ -100,7 +100,7 @@ class search
       amqp::push(['action' => 'unindex', 'mark_id' => $mark->id], 'marks-index');
     }
     else {
-      $response = (new request)->delete(self::index_url() . '/marks/' . $mark->id);
+      (new request)->delete(self::index_url() . '/marks/' . $mark->id);
     }
   }
 
@@ -122,7 +122,7 @@ class search
       amqp::push(['action' => 'unindex_user', 'user_id' => $user->id], 'marks-index');
     }
     else {
-      $response = (new request)->delete(self::index_url() . '/marks/_query?q=user_id:' . $user->id);
+      (new request)->delete(self::index_url() . '/marks/_query?q=user_id:' . $user->id);
     }
   }
 

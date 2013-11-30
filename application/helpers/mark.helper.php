@@ -18,8 +18,8 @@ class mark
   {
     if ($mark->contentType == 'html') {
       require_once root_dir . '/lib/markdownify/markdownify.php';
-      $md = new \markdownify;
-      $content = $md->parseString($mark->content);
+      $markdownify = new \markdownify;
+      $content = $markdownify->parseString($mark->content);
     } else {
       $content = $mark->content;
     }

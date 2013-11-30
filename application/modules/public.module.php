@@ -1,7 +1,5 @@
 <?php
 
-// return module('public', function($req, $res) use($app) {
-
 list($target, $container) = helper(['target', 'container']);
 
 title('Public Marks');
@@ -59,11 +57,9 @@ elseif ($matches = url_match('/user/*/marks')) {
 elseif (url_start_with('/tag/')) {
   redirect('/marks' . url());
 }
-elseif ($matches = url_match('/user/*')) {
+elseif (url_match('/user/*')) {
   redirect(url() . '/marks');
 }
 else {
   unknown_url();
 }
-
-// });

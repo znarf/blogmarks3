@@ -39,4 +39,3 @@ class target
 }
 
 return new target;
-

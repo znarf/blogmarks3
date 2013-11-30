@@ -24,7 +24,7 @@ class links extends table
       return "{$this->tablename}_{$type}_{$key}_{$value}";
     }
     else {
-      return parent::cache_key($key, $value, $type = 'raw');
+      return parent::cache_key($key, $value, $type);
     }
   }
 

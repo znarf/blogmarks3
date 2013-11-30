@@ -4,11 +4,8 @@ use
 amateur\model\db,
 amateur\services\amqp;
 
-list($feed, $search) =
-helper(['feed', 'search']);
-
-list($marks, $links, $tags, $users, $marks_tags, $screenshots) =
-model(['marks', 'links', 'tags', 'users', 'marks_tags', 'screenshots']);
+list($marks, $links, $tags, $marks_tags, $screenshots) =
+model(['marks', 'links', 'tags', 'marks_tags', 'screenshots']);
 
 # Init Amqp
 
@@ -35,7 +32,7 @@ $compressed_mime_types = array('application/x-gzip', 'application/x-download', '
 if (in_array($_FILES['file']['type'], $compressed_mime_types)) {
   $xml = '';
   $handle = gzopen($upload_file, "r");
-  while ($buffer = gzread($handle, 4096 ) {
+  while ($buffer = gzread($handle, 4096)) {
     $xml .= $buffer;
   }
   gzclose($handle);
@@ -251,6 +248,7 @@ $amqp_channel->batch_basic_publish($message, '', 'marks-index');
 $amqp_channel->publish_batch();
 
 # Flush user feeds
+$feed = helper('feed');
 $feed->flush("feed_marks");
 $feed->flush("feed_marks_my_{$user->id}");
 $feed->flush("feed_marks_user_{$user->id}");
@@ -264,4 +262,3 @@ foreach (array_unique($tag_ids) as $tag_id) {
   $feed->flush("feed_marks_tag_{$tag_id}");
   $feed->flush("feed_marks_my_{$user->id}_with_tag_{$tag_id}");
 }
-

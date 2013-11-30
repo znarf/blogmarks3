@@ -165,9 +165,9 @@ class mark extends ressource
     return $this->table('links')->get($this->link_id);
   }
 
-  function tags($tags = null)
+  function tags()
   {
-    return isset($tags) ? $this->table('marks_tags')->tag_mark($this, $tags) : $this->table('marks_tags')->from_mark($this);
+    return $this->table('marks_tags')->from_mark($this);
   }
 
   function screenshot()
@@ -186,8 +186,8 @@ class mark extends ressource
 
   function default_screenshot()
   {
-    $pu = parse_url($this->url);
-    return 'http://open.thumbshots.org/image.pxf?url=' . $pu['host'];
+    $parsed_url = parse_url($this->url);
+    return 'http://open.thumbshots.org/image.pxf?url=' . $parsed_url['host'];
   }
 
   function url()

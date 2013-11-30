@@ -22,7 +22,11 @@ if (url_is('/auth/signin')) {
   layout(view('auth/signin'));
 }
 
-if (url_is('/auth/signout')) {
+elseif (url_is('/auth/signout')) {
   signout();
   return redirect('/');
+}
+
+else {
+  unknown_url();
 }

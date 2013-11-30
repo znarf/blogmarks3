@@ -10,7 +10,7 @@ check_authenticated();
 $user = authenticated_user();
 
 # Default Layout
-if (is_bookmarklet()) { $app->default_layout = 'bookmarklet'; }
+if (is_bookmarklet()) { app()->default_layout = 'bookmarklet'; }
 
 ## Routing ##
 
@@ -18,7 +18,7 @@ if (url_is('/my/marks,new')) {
   title('New Mark');
   if (is_post()) {
     if (get_bool('save')) {
-      $mark = helper('mark')->new();
+      helper('mark')->new();
       flash_message('Mark Successfully Added.');
     }
     if (is_bookmarklet()) {
