@@ -7,7 +7,7 @@ title('Public Marks');
 if (url_is('/marks')) {
   side_title('Public', 'Tags');
   $container->tags( model('tags')->latests );
-  $container->marks( helper('marks')->latests );
+  $container->marks( model('marks')->latests );
   render('marks');
 }
 
@@ -21,7 +21,7 @@ elseif ($matches = url_match('/marks/tag/*')) {
     title('Public Marks', 'with tags ' . implode(' &amp; ', $labels));
     side_title('Tags', 'related with ' . strong($tag));
     $container->tags( model('tags')->related_with->__use($tag) );
-    $container->marks( helper('marks')->with_tags->__use($tags) );
+    $container->marks( model('marks')->with_tags->__use($tags) );
     render('marks');
   }
   # Single Tag
@@ -30,7 +30,7 @@ elseif ($matches = url_match('/marks/tag/*')) {
     title('Public Marks', 'with tag ' . strong($tag->label));
     side_title('Tags', 'related with ' . strong($tag->label));
     $container->tags( model('tags')->related_with->__use($tag) );
-    $container->marks( helper('marks')->with_tag->__use($tag) );
+    $container->marks( model('marks')->with_tag->__use($tag) );
     render('marks');
   }
 }
@@ -41,7 +41,7 @@ elseif ($matches = url_match('/user/*/marks/tag/*')) {
   title('Public Marks', 'from ' . strong($user->name) . ' with tag ' . strong($tag->label));
   side_title('Tags', 'from ' . strong($user->name) . ' related with ' . strong($tag->label));
   $container->tags( model('tags')->from_user_related_with->__use($user, $tag) );
-  $container->marks( helper('marks')->from_user_with_tag->__use($user, $tag) );
+  $container->marks( model('marks')->from_user_with_tag->__use($user, $tag) );
   render('marks');
 }
 
@@ -50,7 +50,7 @@ elseif ($matches = url_match('/user/*/marks')) {
   title('Public Marks', 'from ' . strong($user->name));
   side_title('Tags', 'from ' . strong($user->name));
   $container->tags( model('tags')->from_user->__use($user) );
-  $container->marks( helper('marks')->from_user->__use($user) );
+  $container->marks( model('marks')->from_user->__use($user) );
   render('marks');
 }
 

@@ -14,7 +14,7 @@ $user = authenticated_user();
 if (url_is('/my/marks')) {
   side_title('My', 'Tags');
   $container->tags( model('tags')->private_from_user->__use($user) );
-  $container->marks( helper('marks')->private_from_user->__use($user) );
+  $container->marks( model('marks')->private_from_user->__use($user) );
   render('marks');
 }
 
@@ -27,7 +27,7 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
     title('My Marks', 'with tags ' . implode(' &amp; ', $labels));
     side_title('My', 'Tags related with ' . strong($tag));
     $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
-    $container->marks( helper('marks')->private_from_user_with_tags->__use($user, $tags) );
+    $container->marks( model('marks')->private_from_user_with_tags->__use($user, $tags) );
     render('marks');
   }
   else {
@@ -35,7 +35,7 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
     title('My Marks', 'with tag ' . strong($tag));
     side_title('My', 'Tags related with ' . strong($tag));
     $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
-    $container->marks( helper('marks')->private_from_user_with_tag->__use($user, $tag) );
+    $container->marks( model('marks')->private_from_user_with_tag->__use($user, $tag) );
     render('marks');
   }
 }
