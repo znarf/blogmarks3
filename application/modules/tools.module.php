@@ -20,7 +20,7 @@ elseif ($matches = url_match('/my/tools,*')) {
     set_param('limit', -1);
     set_param('export', true);
     request_format('atom');
-    helper('container')->marks( helper('marks')->private_from_user->__use($user) );
+    helper('container')->marks( model('marks')->private_from_user->__use($user) );
     return render('marks');
   }
   render('tools/index', ['action' => $action]);
