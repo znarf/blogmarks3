@@ -79,4 +79,4 @@ class user extends ressource
 
 }
 
-return model('users', table::instance('users', __namespace__));
+return model('users', users::instance());

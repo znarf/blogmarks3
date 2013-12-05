@@ -227,4 +227,4 @@ class tag extends ressource
 
 }
 
-return model('tags', table::instance('tags', __namespace__));
+return model('tags', tags::instance());

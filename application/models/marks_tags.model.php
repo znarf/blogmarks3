@@ -103,4 +103,4 @@ class marks_tag extends ressource
 
 }
 
-return model('marks_tags', table::instance('marks_tags', __namespace__));
+return model('marks_tags', marks_tags::instance());

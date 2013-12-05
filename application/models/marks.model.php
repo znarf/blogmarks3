@@ -272,4 +272,4 @@ class mark extends ressource
 
 }
 
-return model('marks', table::instance('marks', __namespace__));
+return model('marks', marks::instance());

@@ -40,4 +40,4 @@ class links extends table
 
 }
 
-return model('links', table::instance('links', __namespace__));
+return model('links', links::instance());

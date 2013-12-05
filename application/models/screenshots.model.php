@@ -32,4 +32,4 @@ class screenshots extends table
 
 }
 
-return model('screenshots', table::instance('screenshots', __namespace__));
+return model('screenshots', screenshots::instance());
