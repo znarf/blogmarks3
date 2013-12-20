@@ -14,6 +14,8 @@
           /
           <a class="navbar-link" href="<?= relative_url('/auth/signout') ?>"><?= _("Sign Out") ?></a>
           <?php else : ?>
+            <a class="navbar-link" href="<?= relative_url('/auth/signup') ?>"><?= _("Sign Up") ?></a>
+            /
             <a class="navbar-link" href="<?= relative_url('/auth/signin') ?>"><?= _("Sign In") ?></a>
           <?php endif ?>
         </p>

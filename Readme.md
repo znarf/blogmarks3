@@ -9,9 +9,9 @@ Get Started
     git submodule update --init
 
     curl -s https://getcomposer.org/installer | php
-    php composer.phar update
+    php composer.phar install
 
     npm install -g bower
     bower install
 
-    php -S localhost:8002
+    php -S localhost:8002 -t public

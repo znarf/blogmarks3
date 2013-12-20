@@ -8,7 +8,7 @@
   $bookmarklet = str_replace( "\r" , "" , $bookmarklet );
   $bookmarklet = str_replace( "\t" , "" , $bookmarklet );
   $bookmarklet = str_replace( " = " , "=" , $bookmarklet );
-  $bookmarklet = str_replace( '{BM_HOST}' , request()->host(), $bookmarklet );
+  $bookmarklet = str_replace( '{BM_HOST}' , request_host(), $bookmarklet );
 
   ?>
 

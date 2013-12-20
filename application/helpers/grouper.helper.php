@@ -1,56 +1,51 @@
-<?php namespace blogmarks\helper;
+<?php
 
-class grouper
-{
+$grouper = anonymous_class();
 
-  static function group($marks = [])
-  {
-    $groups = [];
+$marker_month = function($timestamp) {
+  return strftime('%B %Y', $timestamp);
+};
 
-    $first_mark = reset($marks);
-    $last_mark = end($marks);
+$marker_day = function($timestamp) {
+  $format = '%d %B %Y';
 
-    $range = strtotime($first_mark->published) - strtotime($last_mark->published);
+  static $today;
+  static $yesterday;
+  isset($today) || $today = strftime($format);
+  isset($yesterday) || $yesterday = strftime($format, time() - 24 * 3600);
 
-    if ($range > 2 * 30 * 24 * 3600) {
-      $group_marker = 'group_marker_month';
-    } elseif ($range > 2 * 24 * 3600) {
-      $group_marker = 'group_marker_day';
-    } else {
-      $group_marker = 'group_marker_hour';
-    }
+  $marker = strftime($format, $timestamp);
+  return $marker == $today ? _('Today') : ($marker == $yesterday ? _('Yesterday') : $marker);
+};
 
-    foreach ($marks as $mark) {
-      $marker = self::$group_marker(strtotime($mark->published));
-      $groups[$marker][] = $mark;
-    }
+$marker_hour = function($timestamp) {
+  return strftime('%d %B %Y %H:00', $timestamp);
+};
 
-    return $groups;
+$grouper->group = function($marks = []) use($marker_month, $marker_day, $marker_hour) {
+  $groups = [];
+
+  $first_mark = reset($marks);
+  $last_mark = end($marks);
+
+  $range = strtotime($first_mark->published) - strtotime($last_mark->published);
+
+  if ($range > 2 * 30 * 24 * 3600) {
+    $group_marker = $marker_month;
+  }
+  elseif ($range > 2 * 24 * 3600) {
+    $group_marker = $marker_day;
+  }
+  else {
+    $group_marker = $marker_hour;
   }
 
-  static function group_marker_month($timestamp)
-  {
-    return strftime('%B %Y', $timestamp);
+  foreach ($marks as $mark) {
+    $marker = $group_marker(strtotime($mark->published));
+    $groups[$marker][] = $mark;
   }
 
-  static function group_marker_day($timestamp)
-  {
-    $format = '%d %B %Y';
+  return $groups;
+};
 
-    static $today;
-    static $yesterday;
-    isset($today) || $today = strftime($format);
-    isset($yesterday) || $yesterday = strftime($format, time() - 24 * 3600);
-
-    $marker = strftime($format, $timestamp);
-    return $marker == $today ? _('Today') : ($marker == $yesterday ? _('Yesterday') : $marker);
-  }
-
-  static function group_marker_hour($timestamp)
-  {
-    return strftime('%d %B %Y %H:00', $timestamp);
-  }
-
-}
-
-return new grouper;
+return $grouper;

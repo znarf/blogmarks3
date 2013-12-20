@@ -3,6 +3,11 @@
     "leafo/lessphp": "~0.3",
     "michelf/php-markdown" : "~1.3",
     "videlalvaro/php-amqplib" : "dev-master",
-    "ruflin/elastica": "dev-master"
+    "ruflin/elastica": "dev-master",
+    "ircmaxell/password-compat": "dev-master",
+    "pixel418/markdownify": "2.1.*"
+  },
+  "require-dev": {
+    "nikic/php-parser": "dev-master"
   }
 }

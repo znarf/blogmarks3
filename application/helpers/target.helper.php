@@ -1,41 +1,32 @@
-<?php namespace blogmarks\helper;
+<?php
 
-class target
-{
+$target = anonymous_class();
 
+$target->user = function($slug = null) {
   static $user;
-
-  function user($slug = null)
-  {
-    if ($slug) {
-      static::$user = model('users')->get_one('login', urldecode($slug));
-      if (!static::$user) throw http_error(404, 'User not found');
-    }
-    return static::$user;
+  if ($slug) {
+    $user = table('users')->get_one('login', urldecode($slug));
+    if (!$user) throw http_error(404, 'User not found');
   }
+  return $user;
+};
 
+$target->tag = function($slug = null) {
   static $tag;
-
-  function tag($slug = null)
-  {
-    if ($slug) {
-      static::$tag = model('tags')->get_one('label', urldecode($slug));
-      if (!static::$tag) throw http_error(404, 'Tag not found');
-    }
-    return static::$tag;
+  if ($slug) {
+    $tag = table('tags')->get_one('label', urldecode($slug));
+    if (!$tag) throw http_error(404, 'Tag not found');
   }
+  return $tag;
+};
 
+$target->mark = function($slug = null) {
   static $mark;
-
-  function mark($slug = null)
-  {
-    if ($slug) {
-      static::$mark = model('marks')->get_one('id', urldecode($slug));
-      if (!static::$mark) throw http_error(404, 'Mark not found');
-    }
-    return static::$mark;
+  if ($slug) {
+    $mark = table('marks')->get_one('id', urldecode($slug));
+    if (!$mark) throw http_error(404, 'Mark not found');
   }
+  return $mark;
+};
 
-}
-
-return new target;
+return $target;

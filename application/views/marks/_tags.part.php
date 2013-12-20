@@ -5,7 +5,7 @@ $tags = helper('container')->tags();
 
 <div id="tags">
 
-  <h3><?= tags_title() ?></h3>
+  <h3><?= side_title() ?></h3>
 
   <?php if (domain() == 'my' && empty($tag)) : ?>
   <form id="liveFilter" method="get" action="">

@@ -2,22 +2,16 @@
 
 define('root_dir', __DIR__);
 
-define('app_dir', root_dir . '/application');
-
 require root_dir . '/vendor/autoload.php';
 
-require_once root_dir . '/vendor/amateur/autoload.php';
-require_once root_dir . '/vendor/amateur/amateur.dsl.php';
-require_once root_dir . '/vendor/amateur/extended.dsl.php';
+define('amateur_dir', root_dir . '/vendor/amateur');
 
-$app = app();
+require_once amateur_dir . '/amateur.php';
 
-$app->ns('blogmarks');
+app_dir(root_dir . '/application');
 
-$app->dir(app_dir);
+load_replaceables(root_dir . '/replaceables');
 
-$app->load_functions();
+register_namespace('blogmarks', root_dir . '/classes');
 
-$app->register_autoload();
-
-include root_dir . '/config.php';
+include root_dir . '/config/config.php';

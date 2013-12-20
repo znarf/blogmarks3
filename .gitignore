@@ -2,8 +2,10 @@ config.php
 composer.lock
 composer.phar
 public/components
+vendor/bin
 vendor/composer
 vendor/leafo
 vendor/michelf
+vendor/pixel418
 vendor/videlalvaro
 vendor/autoload.php

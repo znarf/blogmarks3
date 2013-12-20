@@ -7,9 +7,9 @@ $marks = helper('container')->marks();
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
-<channel rdf:about="<?= api_url(url()) . '?format=rss' ?>">
+<channel rdf:about="<?= api_url(request_url()) . '?format=rss' ?>">
   <title><?= strip_tags(title()) ?></title>
-  <link><?= web_url(url()) ?></link>
+  <link><?= web_url(request_url()) ?></link>
   <description></description>
   <items>
     <rdf:Seq>

@@ -7,7 +7,7 @@ $user = domain() == 'my' ? authenticated_user() : helper('target')->user();
 <id>tag:blogmarks.net,2013:marks</id>
 <title><?= strip_tags(title()) ?></title>
 <updated><?= date(DateTime::RFC3339) ?></updated>
-<link rel="alternate" type="text/html" href="<?= web_url(url()) ?>" title="<?= strip_tags(title()) ?>"/>
+<link rel="alternate" type="text/html" href="<?= web_url(request_url()) ?>" title="<?= strip_tags(title()) ?>"/>
 <?php if ($user) : ?>
 <author>
   <name><?= text($user->name) ?></name>

@@ -6,7 +6,7 @@ $plus = relative_url($domain == 'my' ? '/img/myplus.gif' : '/img/plus.gif');
 
 # Special classname for private tags
 if ($domain == 'my') {
-  $ratios = model('tags')->private_ratios_for_user(authenticated_user());
+  $ratios = table('tags')->private_ratios_for_user(authenticated_user());
   foreach ($tags as $tag) {
     if (isset($ratios[$tag->label])) {
       $tag->_classname = $ratios[$tag->label] == 100 ? 'tag private' : 'tag mixed';
@@ -15,7 +15,7 @@ if ($domain == 'my') {
 }
 ?>
 
-<?php foreach (taglist($tags) as $tag) : ?>
+<?php foreach (helper('taglist')->compute($tags) as $tag) : ?>
   <span>
     <a style="font-size:<?= $tag->_size ?>%" class="<?= isset($tag->_classname) ? $tag->_classname : 'tag' ?>" href="<?=
     $base_tag_path . urlencode($tag->label) ?>"><?= text($tag->label) ?></a>

@@ -23,8 +23,8 @@
             <input type="checkbox"> Remember me
           </label>
           -->
-          <?php if (url() != '/auth/signin') : ?>
-            <input type="hidden" name="redirect_url" value="<?= url() ?>">
+          <?php if ('/auth/signin' != $url = request_url()) : ?>
+            <input type="hidden" name="redirect_url" value="<?= $url ?>">
           <?php endif ?>
           <button type="submit" class="btn">Sign In</button>
         </div>
