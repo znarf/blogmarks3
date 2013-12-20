@@ -26,6 +26,8 @@ $importer->start = function($user) use ($amqp, $marks) {
   $this->amqp_channel->queue_declare('marks-index', false, true, false, false);
   # Init Tag Ids
   $this->tag_ids = [];
+  # Make it chainable
+  return $this;
 };
 
 $importer->preload = function($marks_params) use ($links) {
@@ -35,7 +37,7 @@ $importer->preload = function($marks_params) use ($links) {
   $links->get_all('href', $hrefs);
 };
 
-$importer->marks_params = function($file) {
+$importer->parse = function($file) {
   $marks_params = [];
   $sxe = $this->simplexml($file);
   foreach ($sxe->entry as $entry) {
