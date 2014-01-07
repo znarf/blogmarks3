@@ -60,7 +60,7 @@ elseif ($matches = url_match('/my/marks/*,edit')) {
   if (is_modal()) {
     $params  = $as_params($mark);
     $params += ['referer' => referer(), 'token' => generate_token('update_mark')];
-    return ok(view('marks/form-modal', $params));
+    return html(view('marks/form-modal', $params));
   }
   #
   if (is_post()) {
@@ -98,7 +98,7 @@ elseif ($matches = url_match('/my/marks/*,delete')) {
   # Need to be before is_post because it might be a POST itself
   if (is_modal()) {
     $params = ['referer' => referer(), 'token' => generate_token('delete_mark')];
-    return ok(view('marks/delete', $params));
+    return html(view('marks/delete', $params));
   }
   if (is_post()) {
     if (get_bool('delete')) {

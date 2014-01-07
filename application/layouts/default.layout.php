@@ -37,7 +37,6 @@
 
 </div> <!-- /#container -->
 
-<!-- There should be one profile for marks page, one for form page and one for others -->
 <script src="<?= $static_url ?>/components/jquery/jquery.js"></script>
 <script src="<?= $static_url ?>/components/bootstrap/js/bootstrap.js"></script>
 <script src="<?= $static_url ?>/components/jquery-pjax/jquery.pjax.js"></script>

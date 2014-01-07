@@ -1,11 +1,11 @@
 <?php
 
-return function($name, $args = []) {
+return function($name, $args = [], $layout = 'default') {
   if ($name == 'marks') {
     helper('render')->marks($args);
   }
   else {
-    layout(view($name, $args));
+    layout($layout, view($name, $args));
   }
   finish();
 };

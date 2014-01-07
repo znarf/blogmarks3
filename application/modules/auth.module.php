@@ -39,7 +39,7 @@ if (url_is('/auth/signin')) {
     response_code(401);
     flash_message('Unknown username/email or invalid password.');
   }
-  layout(view('auth/signin'));
+  return render('auth/signin');
 }
 
 elseif (url_is('/auth/signup')) {
@@ -54,10 +54,10 @@ elseif (url_is('/auth/signup')) {
         'email'      => get_param('email'),
         'pass'       => get_param('password')
       ]);
-      redirect('/my/');
+      return redirect('/my/');
     }
   }
-  layout(view('auth/signup', get_parameters(['fullname', 'username', 'email'])));
+  return render('auth/signup', get_parameters(['fullname', 'username', 'email']));
 }
 
 elseif (url_is('/auth/signout')) {
@@ -66,5 +66,5 @@ elseif (url_is('/auth/signout')) {
 }
 
 else {
-  unknown_url();
+  return unknown_url();
 }

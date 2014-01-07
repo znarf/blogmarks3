@@ -25,7 +25,7 @@ extract($args);
       <a class="public" href="<?= arg($mark->author->url) ?>"><?= text($mark->author->name) ?></a>
 <?php endif ?>
 <?php if ($mark->content) : ?>
-      <div class="description"><?= $mark->contentType == 'text' ? text($mark->content) : html($mark->content) ?></div>
+      <div class="description"><?= $mark->contentType == 'text' ? text($mark->content) : $mark->content ?></div>
 <?php endif ?>
 <?php if (count($mark->tags) > 0) : ?>
       <p class="tags">

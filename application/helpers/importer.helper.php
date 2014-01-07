@@ -4,7 +4,7 @@
 
 $importer = anonymous_class();
 
-# Load Dependencies
+# Dependencies
 
 $amqp = service('amqp');
 
