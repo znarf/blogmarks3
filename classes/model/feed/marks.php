@@ -31,7 +31,7 @@ class marks
       $results = $query->order_by($order)->fetch_key_values('id', 'ts');
       # Delayed Storage
       register_shutdown_function(function() use($redis, $redis_key, $results) {
-        foreach ($results as $id => $ts) $redis->zAdd($redis_key, $ts, $id);
+        foreach ($results as $id => $ts) if ($redis) $redis->zAdd($redis_key, $ts, $id);
       });
       # Soft offset/limit
       $total = count($results);
