@@ -10,7 +10,7 @@ $user = authenticated_user();
 section('tools');
 
 if (url_is('/my/tools')) {
-  redirect('/my/tools,bookmarklets');
+  return redirect('/my/tools,bookmarklet');
 }
 
 elseif (url_is('/my/tools,empty')) {
@@ -18,7 +18,7 @@ elseif (url_is('/my/tools,empty')) {
     check_token('tools_empty', get_param('token'));
     model('marks')->delete_from_user($user);
   }
-  render('tools/index', ['action' => 'empty', 'token' => generate_token('tools_empty')]);
+  return render('tools/empty', ['token' => generate_token('tools_empty')]);
 }
 
 elseif (url_is('/my/tools,import')) {
@@ -38,9 +38,9 @@ elseif (url_is('/my/tools,import')) {
       }
     }
     $importer->finish();
-    return render('tools/index', ['action' => 'import', 'results' => $results]);
+    return render('tools/import', ['action' => 'import', 'results' => $results]);
   }
-  render('tools/index', ['action' => 'import', 'token' => generate_token('tools_import')]);
+  return render('tools/import', ['action' => 'import', 'token' => generate_token('tools_import')]);
 }
 
 elseif (url_is('/my/tools,export')) {
@@ -51,14 +51,14 @@ elseif (url_is('/my/tools,export')) {
     helper('container')->marks( model('marks')->private_from_user->__use($user,  ['limit' => -1]) );
     return render('marks');
   }
-  render('tools/index', ['action' => 'export']);
+  return render('tools/export', ['action' => 'export']);
 }
 
 elseif ($matches = url_match('/my/tools,*')) {
   $action = $matches[1];
-  render('tools/index', ['action' => $action]);
+  return render('tools/' . $action);
 }
 
 else {
-  unknown_url();
+  return unknown_url();
 }

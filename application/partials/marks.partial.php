@@ -12,7 +12,7 @@ $domain = domain();
 
 <?php foreach ($items as $item) : ?>
 
-<?= view('partials/mark', ['domain' => $domain, 'user' => $user, 'mark' => $item]) ?>
+<?php partial('mark', ['domain' => $domain, 'user' => $user, 'mark' => $item]) ?>
 
 <?php endforeach ?>
 

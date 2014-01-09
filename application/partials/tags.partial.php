@@ -16,7 +16,7 @@ $tags = helper('container')->tags();
   <?php endif ?>
 
   <p class="taglist">
-    <?= view('partials/taglist', ['tags' => $tags]) ?>
+    <?php partial('taglist', ['tags' => $tags]) ?>
   </p>
 
 </div>

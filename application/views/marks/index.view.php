@@ -1,11 +1,11 @@
 <div id="content">
   <div id="content-inner">
 
-    <?= view('partials/notification') ?>
+    <?php partial('notification') ?>
 
     <div class="marks-list">
 
-      <?php include '_marks.part.php' ?>
+      <?php partial('marks') ?>
 
     </div>
 
@@ -14,6 +14,6 @@
 
 <div id="right-bar">
 
-  <?php include '_tags.part.php' ?>
+  <?php partial('tags') ?>
 
 </div> <!-- /#right-bar -->

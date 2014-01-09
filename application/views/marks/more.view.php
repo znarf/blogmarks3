@@ -1,5 +1,5 @@
 <div class="marks-list">
 
-  <?php include '_marks.part.php' ?>
+  <?php partial('marks') ?>
 
 </div>

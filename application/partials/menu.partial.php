@@ -2,7 +2,7 @@
 <?php
 
 $categories = [
-  'bookmarklets' => _('Bookmarklet'),
+  'bookmarklet'  => _('Bookmarklet'),
   'import'       => _('Import'),
   'export'       => _('Export'),
   'empty'        => _('Empty')

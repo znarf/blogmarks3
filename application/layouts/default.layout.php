@@ -14,7 +14,7 @@
 
 <div class="container">
 
-<?= view('partials/top') ?>
+<?php partial('top') ?>
 
 <div id="layout" class="<?= section() ?>">
 
