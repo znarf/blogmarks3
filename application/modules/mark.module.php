@@ -113,5 +113,5 @@ elseif ($matches = url_match('/my/marks/*,delete')) {
 }
 
 else {
-  unknown_url();
+  return unknown_url();
 }

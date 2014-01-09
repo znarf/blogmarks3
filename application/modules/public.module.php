@@ -10,7 +10,7 @@ if (url_is('/marks')) {
   side_title('Public', 'Tags');
   $container->tags( model('tags')->latests );
   $container->marks( model('marks')->latests->__use($params) );
-  render('marks');
+  return render('marks');
 }
 
 elseif ($matches = url_match('/marks/tag/*')) {
@@ -24,7 +24,7 @@ elseif ($matches = url_match('/marks/tag/*')) {
     side_title('Tags', 'related with ' . strong($tag));
     $container->tags( model('tags')->related_with->__use($tag) );
     $container->marks( model('marks')->with_tags->__use($tags, $params) );
-    render('marks');
+    return render('marks');
   }
   # Single Tag
   else {
@@ -33,7 +33,7 @@ elseif ($matches = url_match('/marks/tag/*')) {
     side_title('Tags', 'related with ' . strong($tag->label));
     $container->tags( model('tags')->related_with->__use($tag) );
     $container->marks( model('marks')->with_tag->__use($tag, $params) );
-    render('marks');
+    return render('marks');
   }
 }
 
@@ -44,7 +44,7 @@ elseif ($matches = url_match('/user/*/marks/tag/*')) {
   side_title('Tags', 'from ' . strong($user->name) . ' related with ' . strong($tag->label));
   $container->tags( model('tags')->from_user_related_with->__use($user, $tag) );
   $container->marks( model('marks')->from_user_with_tag->__use($user, $tag, $params) );
-  render('marks');
+  return render('marks');
 }
 
 elseif ($matches = url_match('/user/*/marks')) {
@@ -53,15 +53,15 @@ elseif ($matches = url_match('/user/*/marks')) {
   side_title('Tags', 'from ' . strong($user->name));
   $container->tags( model('tags')->from_user->__use($user) );
   $container->marks( model('marks')->from_user->__use($user, $params) );
-  render('marks');
+  return render('marks');
 }
 
 elseif (url_start_with('/tag/')) {
-  redirect('/marks' . request_url());
+  return redirect('/marks' . request_url());
 }
 elseif (url_match('/user/*')) {
-  redirect(request_url() . '/marks');
+  return redirect(request_url() . '/marks');
 }
 else {
-  unknown_url();
+  return unknown_url();
 }
