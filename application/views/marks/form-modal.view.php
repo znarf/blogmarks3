@@ -1,7 +1,7 @@
 <div id="content" class="fullwidth">
   <div id="content-inner">
 
-    <?= view('partials/notification') ?>
+    <?php partial('notification') ?>
 
     <div id="myModal" class="bm-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <form method="post" action="<?= current_url() ?>">

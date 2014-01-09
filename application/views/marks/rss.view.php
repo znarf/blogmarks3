@@ -27,8 +27,8 @@ $marks = helper('container')->marks();
   <dc:date><?= text($mark->published) ?></dc:date>
   <dc:creator><?= text($mark->author->name) ?></dc:creator>
   <dc:subject>todo</dc:subject>
-  <content:encoded><![CDATA[<?=
-  view('partials/mark', ['domain' => domain(), 'mark' => $mark, 'user' => $user])
+  <content:encoded><![CDATA[<?php
+  partial('mark', ['domain' => domain(), 'mark' => $mark, 'user' => $user])
   ?>]]></content:encoded>
 </item>
 <?php endforeach ?>

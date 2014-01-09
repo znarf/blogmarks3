@@ -1,7 +1,7 @@
 <div id="content" class="fullwidth">
   <div id="content-inner">
 
-    <?= view('partials/notification') ?>
+    <?php partial('notification') ?>
 
     <form class="new-mark" method="post" action="">
       <fieldset>

@@ -1,7 +1,7 @@
 <div id="content" class="fullwidth">
   <div id="content-inner">
 
-    <?= view('partials/notification') ?>
+    <?php partial('notification') ?>
 
     <form class="signin form-horizontal" method="post" action="<?= relative_url('/auth/signin') ?>">
       <div class="control-group">

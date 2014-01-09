@@ -46,7 +46,7 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
 
 elseif (url_is('/my/tags')) {
   $params = ['limit' => get_int('limit', 100), 'query' => get_param('search', '')];
-  return html(view('partials/taglist', ['tags' => model('tags')->private_search_from_user($user, $params)]));
+  return partial('taglist', ['tags' => model('tags')->private_search_from_user($user, $params)]);
 }
 
 elseif (url_is('/my/tags/autocomplete')) {
