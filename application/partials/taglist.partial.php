@@ -2,7 +2,7 @@
 $domain = domain();
 $target_tag = helper('target')->tag();
 $base_tag_path = relative_url($domain == 'my' ? '/my/marks/tag/' : '/marks/tag/');
-$plus = relative_url($domain == 'my' ? '/img/myplus.gif' : '/img/plus.gif');
+$plus = static_url($domain == 'my' ? '/img/myplus.gif' : '/img/plus.gif');
 
 # Special classname for private tags
 if ($domain == 'my') {
