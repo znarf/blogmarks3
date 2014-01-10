@@ -7,7 +7,7 @@ $base_mark_path = relative_or_absolute_url('/my/marks');
 
 # First register it when it's call/included for the first time
 
-return function($args) use($base_tag_path, $base_mark_path) {
+$partial = partial('mark', function($args = []) use($base_tag_path, $base_mark_path) {
 
 extract($args);
 
@@ -51,4 +51,8 @@ extract($args);
 
 <?php
 
-};
+});
+
+# And execute it now
+
+$partial($args);
