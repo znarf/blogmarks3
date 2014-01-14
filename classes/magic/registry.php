@@ -1,6 +1,4 @@
-<?php
-
-namespace blogmarks\magic;
+<?php namespace blogmarks\magic;
 
 trait registry
 {

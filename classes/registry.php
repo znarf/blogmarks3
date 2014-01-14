@@ -1,6 +1,4 @@
-<?php
-
-namespace blogmarks;
+<?php namespace blogmarks;
 
 class registry extends \amateur\core\registry
 {
