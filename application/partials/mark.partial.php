@@ -15,7 +15,7 @@ extract($args);
 
 <div id="mark<?= $mark->id ?>" class="<?= $mark->classname($user) ?>" draggable="true">
   <a href="<?= arg($mark->url) ?>">
-    <img class="screenshot" src="<?= static_url() ?>/img/loading.gif" data-src="<?= arg($mark->screenshot) ?>" alt="">
+    <img class="screenshot" src="<?= static_url("/img/loading.gif") ?>" data-src="<?= arg($mark->screenshot) ?>" alt="">
   </a>
   <div class="xfolkentry">
     <h4><a class="taggedlink" href="<?= arg($mark->url) ?>"><?= text($mark->title) ?></a></h4>

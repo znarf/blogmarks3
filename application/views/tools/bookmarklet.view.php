@@ -29,7 +29,7 @@
 
     <p><?= _('Tip: you can select a piece of text before clicking the "Add to Blogmarks" button, it will appear as the description.') ?></p>
 
-    <p style="text-align:center"><img src="/img/bookmarklets-popup.gif" width="92" height="130"  alt=""></p>
+    <p style="text-align:center"><img src="<?= static_url("/img/bookmarklets-popup.gif") ?>" width="92" height="130"  alt=""></p>
 
     <p><?= _('Drag the button below to your browser toolbar:') ?></p>
 
