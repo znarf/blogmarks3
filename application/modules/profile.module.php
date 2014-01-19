@@ -17,11 +17,11 @@ elseif ($matches = url_match('/my/profile/*,edit')) {
   return redirect('/my/profile,' . $matches[1]);
 }
 
-elseif ($matches = url_match('/my/profile,*')) {
+elseif ($matches = url_match('/my/profile,general')) {
   if (is_post()) {
     flash_message( _('Profile Updated') );
   }
-  return render('profile/index', ['action' => $matches[1], 'user' => $user]);
+  return render('profile/index', ['fullname' => $user->name, 'email' => $user->email, 'username' => $user->login]);
 }
 
 else {
