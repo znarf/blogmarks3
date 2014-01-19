@@ -1,16 +1,16 @@
 <!doctype html>
-<html style="background:url(<?= static_url() ?>/style/img/background.png) top left repeat">
+<html style="background:url(<?= $static_url = static_url() ?>/style/img/background.png) top left repeat">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title><?= brand() ?> | <?= strip_tags(title()) ?></title>
-<link rel="icon" type="image/png" href="<?= $static_url = static_url() ?>/img/favicon_<?= domain() ?>.png">
-<link rel="stylesheet" type="text/css" href="<?= static_url() ?>/components/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="<?= $static_url ?>/components/bootstrap/css/bootstrap-responsive.css">
+<link rel="icon" type="image/png" href="<?= $static_url ?>/img/favicon_<?= $domain = domain() ?>.png">
+<link rel="stylesheet" type="text/css" href="<?= $static_url ?>/components/bootstrap.css/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="<?= $static_url ?>/components/bootstrap.css/css/bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="<?= $static_url ?>/components/select2/select2.css">
 <link rel="stylesheet" type="text/css" href="<?= $static_url ?>/style/bm.css.php">
 </head>
-<body class="<?= domain() ?>">
+<body class="<?= $domain ?>">
 
 <div class="container">
 
@@ -38,9 +38,9 @@
 </div> <!-- /#container -->
 
 <script src="<?= $static_url ?>/components/jquery/jquery.js"></script>
-<script src="<?= $static_url ?>/components/bootstrap/js/bootstrap.js"></script>
+<script src="<?= $static_url ?>/components/bootstrap.css/js/bootstrap.js"></script>
 <script src="<?= $static_url ?>/components/jquery-pjax/jquery.pjax.js"></script>
-<script src="<?= $static_url ?>/components/jquery-scrollto/jquery.scrollTo.js"></script>
+<script src="<?= $static_url ?>/components/jquery-scrollTo/jquery.scrollTo.js"></script>
 <script src="<?= $static_url ?>/components/select2/select2.js"></script>
 <script src="<?= $static_url ?>/components/unveil/jquery.unveil.js"></script>
 <script src="<?= $static_url ?>/js/jquery-plugins.js"></script>
