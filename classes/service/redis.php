@@ -20,7 +20,7 @@ class redis
     if ($this->connection) {
       return $this->connection;
     }
-    if (!class_exists('\Redis')) {
+    if (!class_exists('\Redis', false)) {
       return;
     }
     $params = $this->params();
