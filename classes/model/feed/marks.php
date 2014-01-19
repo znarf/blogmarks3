@@ -59,19 +59,19 @@ class marks
   function add($redis_key, $ts, $id)
   {
     $redis = self::redis();
-    if ($redis->exists($redis_key)) $redis->zAdd($redis_key, $ts, $id);
+    if ($redis && $redis->exists($redis_key)) $redis->zAdd($redis_key, $ts, $id);
   }
 
   function remove($redis_key, $id)
   {
     $redis = self::redis();
-    if ($redis->exists($redis_key)) $redis->zRem($redis_key, $id);
+    if ($redis && $redis->exists($redis_key)) $redis->zRem($redis_key, $id);
   }
 
   function flush($redis_key)
   {
     $redis = self::redis();
-    if ($redis->exists($redis_key)) $redis->delete($redis_key);
+    if ($redis && $redis->exists($redis_key)) $redis->delete($redis_key);
   }
 
   function index($mark)
