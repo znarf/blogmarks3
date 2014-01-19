@@ -1,8 +1,8 @@
 <?php
 
-db::params(['host' => '127.0.0.1', 'name' => 'blogmarks', 'username' => 'root', 'password' => '']);
+\amateur\model\db::params(['host' => '127.0.0.1', 'name' => 'blogmarks', 'username' => 'root', 'password' => '']);
 
-cache::$params = ['host' => 'localhost'];
+\amateur\model\cache::params(['host' => 'localhost']);
 
 service('search')->params([
   'host' => 'localhost', 'port' => '9200'
