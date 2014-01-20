@@ -23,7 +23,9 @@ $importer->start = function($user) use ($amqp, $marks) {
   $this->reverse_link_ids = array_flip($link_ids);
   # Init Amqp
   $this->amqp_channel = $amqp->channel();
-  $this->amqp_channel->queue_declare('marks-index', false, true, false, false);
+  if ($this->amqp_channel) {
+    $this->amqp_channel->queue_declare('marks-index', false, true, false, false);
+  }
   # Init Tag Ids
   $this->tag_ids = [];
   # Make it chainable
@@ -141,7 +143,7 @@ $importer->insert = function($params) use ($links) {
   # Insert Tags
   $this->insert_tags($mark_id, $this->user->id, $link->id, $params);
   # Index Mark
-  $this->index($mark_id);
+  if ($this->amqp_channel) $this->index($mark_id);
   # Return Mark Id
   return $mark_id;
 };
@@ -209,24 +211,25 @@ $importer->index = function($mark_id) use ($amqp) {
   }
 };
 
-$importer->finish = function() use ($amqp, $redis) {
-  # Inject Amqp exit (development only)
-  $message = $amqp->json_message(['action' => 'exit']);
-  $this->amqp_channel->batch_basic_publish($message, '', 'marks-index');
+$importer->finish = function() use ($redis) {
   # Flush Amqp
-  $this->amqp_channel->publish_batch();
-  # Flush Marks Feeds
-  $redis->delete("feed_marks");
-  $redis->delete("feed_marks_my_{$this->user->id}");
-  $redis->delete("feed_marks_user_{$this->user->id}");
-  foreach (array_unique($this->tag_ids) as $tag_id) {
-    $redis->delete("feed_marks_tag_{$tag_id}");
-    $redis->delete("feed_marks_my_{$this->user->id}_with_tag_{$tag_id}");
+  if ($this->amqp_channel) {
+    $this->amqp_channel->publish_batch();
   }
-  # Flush Tags Feeds
-  $redis->delete("tags_public");
-  $redis->delete("tags_user_{$this->user->id}_public");
-  $redis->delete("tags_user_{$this->user->id}_private");
+  if ($redis) {
+    # Flush Marks Feeds
+    $redis->delete("feed_marks");
+    $redis->delete("feed_marks_my_{$this->user->id}");
+    $redis->delete("feed_marks_user_{$this->user->id}");
+    foreach (array_unique($this->tag_ids) as $tag_id) {
+      $redis->delete("feed_marks_tag_{$tag_id}");
+      $redis->delete("feed_marks_my_{$this->user->id}_with_tag_{$tag_id}");
+    }
+    # Flush Tags Feeds
+    $redis->delete("tags_public");
+    $redis->delete("tags_user_{$this->user->id}_public");
+    $redis->delete("tags_user_{$this->user->id}_private");
+  }
 };
 
 $importer->convert_date = function($string) {

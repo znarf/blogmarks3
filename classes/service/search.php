@@ -23,20 +23,23 @@ class search
     if ($this->client) {
       return $this->client;
     }
-    $params = $this->params();
-    $client = new \Elastica\Client($params);
+    if (!$this->params) {
+      return;
+    }
+    $client = new \Elastica\Client($this->params);
     return $this->client = $client;
   }
 
   function base_url()
   {
-    $params = $this->params();
-    return 'http://' . $params['host'] . ':' . $params['port'];
+    return 'http://' . $this->params['host'] . ':' . $this->params['port'];
   }
 
   function delete($url)
   {
-    (new request)->delete($this->base_url() . $url);
+    if ($this->client()) {
+      (new request)->delete($this->base_url() . $url);
+    }
   }
 
   function search($url, $query = [])

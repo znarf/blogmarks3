@@ -93,19 +93,20 @@ class marks
     # Delete Marks Tags
     $this->table('marks_tags')->delete(['user_id' => $user->id]);
     # Flush Feeds
-    $redis = $this->service('redis')->connection();
-    # Flush Marks Feeds
-    $redis->delete("feed_marks");
-    $redis->delete("feed_marks_user_{$user->id}");
-    $redis->delete("feed_marks_my_{$user->id}");
-    foreach ($tag_ids as $tag_id) {
-      $redis->delete("feed_marks_tag_{$tag_id}");
-      $redis->delete("feed_marks_my_{$user->id}_tag_{$tag_id}");
+    if ($redis = $this->service('redis')->connection()) {
+      # Flush Marks Feeds
+      $redis->delete("feed_marks");
+      $redis->delete("feed_marks_user_{$user->id}");
+      $redis->delete("feed_marks_my_{$user->id}");
+      foreach ($tag_ids as $tag_id) {
+        $redis->delete("feed_marks_tag_{$tag_id}");
+        $redis->delete("feed_marks_my_{$user->id}_tag_{$tag_id}");
+      }
+      # Flush Tags Feeds
+      $redis->delete("tags_public");
+      $redis->delete("tags_user_{$user->id}_public");
+      $redis->delete("tags_user_{$user->id}_private");
     }
-    # Flush Tags Feeds
-    $redis->delete("tags_public");
-    $redis->delete("tags_user_{$user->id}_public");
-    $redis->delete("tags_user_{$user->id}_private");
     # Update Search Index
     $this->search('marks')->unindex_user($user);
   }

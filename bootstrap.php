@@ -14,4 +14,4 @@ load_replaceables(root_dir . '/replaceables');
 
 register_namespace('blogmarks', root_dir . '/classes');
 
-include root_dir . '/config/config.php';
+require root_dir . '/config/config.php';

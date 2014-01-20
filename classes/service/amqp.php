@@ -23,7 +23,8 @@ class amqp
     }
     $params = self::params();
     if (empty($params)) {
-      throw new \amateur\core\exception('Message Queue is not configured.', 503);
+      # Message Queue is not configured.
+      return;
     }
     $connection = new AMQPConnection(
       $params['host'], $params['port'], $params['username'], $params['password']

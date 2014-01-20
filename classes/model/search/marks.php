@@ -25,9 +25,14 @@ class marks
     ];
   }
 
+  function asynchronous($async = true)
+  {
+    return $async && $this->service('amqp')->channel();
+  }
+
   function index($mark, $async = true)
   {
-    if ($async) {
+    if ($this->asynchronous($async)) {
       $this->service('amqp')->push(['action' => 'index', 'mark_id' => $mark->id], 'marks-index');
     }
     else {
@@ -41,15 +46,16 @@ class marks
   function flush()
   {
     if (count($this->documents)) {
-      $client = $this->service('search')->client();
-      $client->getIndex('bm')->getType('marks')->addDocuments($this->documents);
+      if ($client = $this->service('search')->client()) {
+        $client->getIndex('bm')->getType('marks')->addDocuments($this->documents);
+      }
       $this->documents = [];
     }
   }
 
   function unindex($mark, $async = true)
   {
-    if ($async) {
+    if ($this->asynchronous($async)) {
       $this->service('amqp')->push(['action' => 'unindex', 'mark_id' => $mark->id], 'marks-index');
     }
     else {
@@ -59,7 +65,7 @@ class marks
 
   function index_user($user, $async = true)
   {
-    if ($async) {
+    if ($this->asynchronous($async)) {
       $this->service('amqp')->push(['action' => 'index_user', 'user_id' => $user->id], 'marks-index');
     }
     else {
@@ -72,7 +78,7 @@ class marks
 
   function unindex_user($user, $async = true)
   {
-    if ($async) {
+    if ($this->asynchronous($async)) {
       $this->service('amqp')->push(['action' => 'unindex_user', 'user_id' => $user->id], 'marks-index');
     }
     else {
