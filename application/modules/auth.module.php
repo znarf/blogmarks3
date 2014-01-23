@@ -48,12 +48,13 @@ elseif (url_is('/auth/signup')) {
   if (is_post()) {
     $validate_signup_params();
     if (!form_error()) {
-      $mark = table('users')->create([
+      $user = table('users')->create([
         'name'       => get_param('fullname'),
         'login'      => get_param('username'),
         'email'      => get_param('email'),
         'pass'       => get_param('password')
       ]);
+      signin($user);
       return redirect('/my/');
     }
   }
