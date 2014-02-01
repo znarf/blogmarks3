@@ -2,21 +2,9 @@
   <div id="content-inner">
 
     <ul class="bm-menu">
-    <?php
-
-    $categories = [
-      'general' => _('General'),
-    ];
-
-    foreach ($categories as $category => $label) {
-        $class = $action == $category ? "$category selected" : $category;
-        echo
-        '<li class="' . $class . '"><a href="' . relative_url("/my/profile,{$category}") . '">' .
-          '<span>' . $label . '</span>' .
-        '</a></li>' . "\n";
-    }
-
-    ?>
+      <li class="general selected">
+        <a href="<?= relative_url("/my/profile,general") ?>"><span><?= _('General') ?></span></a>
+      </li>
     </ul>
 
   </div>
