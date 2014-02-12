@@ -1,3 +1,3 @@
 [submodule "vendor/amateur"]
 	path = vendor/amateur
-	url = git@bitbucket.org:znarf/amateur.git
+	url = https://bitbucket.org/znarf/amateur.git
