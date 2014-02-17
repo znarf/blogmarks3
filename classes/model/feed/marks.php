@@ -25,17 +25,26 @@ class marks
     # Params
     $params = array_filter($params) + self::$default_params;
     # Without Redis
-    if (!$redis || !$redis->exists($redis_key)) {
+    if (!$redis || !$redis_key || !$redis->exists($redis_key)) {
       # Fetch Query
       $order = $params['order'] == 'asc' ? 'published ASC' : 'published DESC';
       $results = $query->order_by($order)->fetch_key_values('id', 'ts');
       # Delayed Storage
-      register_shutdown_function(function() use($redis, $redis_key, $results) {
-        foreach ($results as $id => $ts) if ($redis) $redis->zAdd($redis_key, $ts, $id);
+      if ($redis && $redis_key) register_shutdown_function(function() use($redis, $redis_key, $results) {
+        foreach ($results as $id => $ts) $redis->zAdd($redis_key, $ts, $id);
       });
-      # Soft offset/limit
+      # Get total
       $total = count($results);
+      # Soft after/before
+      if (($before = $params['before']) != '+inf') {
+        $results = array_filter($results, function($ts) use($before) { return $ts < $before; });
+      }
+      if (($after = $params['after']) != '-inf') {
+        $results = array_filter($results, function($ts) use($after) { return $ts > $after; });
+      }
+      # Get Ids
       $ids = array_keys($results);
+      # Soft offset/limit
       if ($params['limit']) {
         $ids = array_slice($ids, $params['offset'], $params['limit']);
       }

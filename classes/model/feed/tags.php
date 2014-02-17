@@ -19,12 +19,12 @@ class tags
     $redis = $this->redis();
     $params = $params + ['offset' => 0, 'limit' => 50];
     # Without Redis
-    if (!$redis || !$redis->exists($redis_key)) {
+    if (!$redis || !$redis_key || !$redis->exists($redis_key)) {
       # Fetch Query
       $results = $query->order_by('count DESC')->fetch_key_values('label', 'count');
       # Delayed Storage
-      register_shutdown_function(function() use($redis, $redis_key, $results) {
-        foreach ($results as $label => $count) if ($redis) $redis->zAdd($redis_key, $count, $label);
+      if ($redis && $redis_key) register_shutdown_function(function() use($redis, $redis_key, $results) {
+        foreach ($results as $label => $count) $redis->zAdd($redis_key, $count, $label);
       });
       # Soft offset/limit
       if ($params['limit']) {
