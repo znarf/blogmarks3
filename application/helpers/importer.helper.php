@@ -191,6 +191,12 @@ $importer->insert_tags = function($mark_id, $user_id, $link_id, $params) use ($t
         $isHidden,
         $params['visibility']
       ];
+      # sqlite doesn't support multiple values until version 3.7.11
+      # (3.7.7.1 bundled with php 5.5)
+      if (\amateur\model\db::driver() == 'sqlite') {
+        $marks_tags_query->execute();
+        $marks_tags_query->values = [];
+      }
     }
   }
   # Only execute if values is not empty

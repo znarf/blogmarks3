@@ -27,10 +27,15 @@ class tags extends \blogmarks\model\table
       ->select('mht.id, mht.label as label, COUNT(*) as count')
       ->from('bm_marks as m, bm_marks_has_bm_tags as mht')
       ->where('mht.mark_id = m.id')
-      ->and_where("m.published > DATE_SUB(NOW(), INTERVAL 1 YEAR)")
       ->and_where(['m.visibility' => 0, 'mht.isHidden' => 0])
       ->group_by('mht.tag_id')
       ->limit(1000);
+    if (db::driver() == 'sqlite') {
+      $query->and_where("m.published > datetime('now', '-1 year')");
+    }
+    else {
+      $query->and_where("m.published > DATE_SUB(NOW(), INTERVAL 1 YEAR)");
+    }
     return $query;
   }
 
