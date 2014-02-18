@@ -58,4 +58,9 @@ class user extends \blogmarks\model\ressource
     return password_verify($password, $this->pass);
   }
 
+  function __toString()
+  {
+    return $this->name();
+  }
+
 }
