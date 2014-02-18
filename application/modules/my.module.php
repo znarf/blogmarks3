@@ -21,27 +21,23 @@ if (url_is('/my/marks')) {
 }
 
 elseif ($matches = url_match('/my/marks/tag/*')) {
+  $tags = explode(',', $matches[1]);
+  $tag = $target->tag($tags[0]);
+  # Single Tag
+  if (count($tags) == 1) {
+    title('My Marks', 'with tag ' . strong($tag));
+    $container->marks( model('marks')->private_from_user_with_tag->__use($user, $tag, $params) );
+  }
   # Multiple Tags
-  if (strpos($matches[1], ',')) {
-    $tags = explode(',', $matches[1]);
-    $tag = $target->tag($tags[0]);
+  else {
     $tags = array_map(function($slug) { return table('tags')->get_one('label', urldecode($slug)); }, $tags);
     $labels = array_map(function($tag) { return strong($tag); }, $tags);
     title('My Marks', 'with tags ' . implode(' &amp; ', $labels));
-    side_title('My', 'Tags related with ' . strong($tag));
-    $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
     $container->marks( model('marks')->private_from_user_with_tags->__use($user, $tags, $params) );
-    return render('marks');
   }
-  # Single Tag
-  else {
-    $tag = $target->tag($matches[1]);
-    title('My Marks', 'with tag ' . strong($tag));
-    side_title('My', 'Tags related with ' . strong($tag));
-    $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
-    $container->marks( model('marks')->private_from_user_with_tag->__use($user, $tag, $params) );
-    return render('marks');
-  }
+  side_title('My', 'Tags related with ' . strong($tag));
+  $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
+  return render('marks');
 }
 
 elseif (url_is('/my/tags')) {
