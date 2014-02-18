@@ -1,7 +1,13 @@
 <?php
 $domain = domain();
 $target_tag = helper('target')->tag();
-$base_tag_path = relative_url($domain == 'my' ? '/my/marks/tag/' : '/marks/tag/');
+$target_user = helper('target')->user();
+if ($target_user) {
+  $base_tag_path = relative_url("/user/{$target_user->login}/marks/tag/");
+}
+else {
+  $base_tag_path = relative_url($domain == 'my' ? '/my/marks/tag/' : '/marks/tag/');
+}
 $plus = static_url($domain == 'my' ? '/img/myplus.gif' : '/img/plus.gif');
 
 # Special classname for private tags
