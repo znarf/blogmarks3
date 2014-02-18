@@ -1,26 +1,5 @@
 <?php
 
-# Replaceables
-
-$validate_signup_params = function() {
-  check_parameters(['fullname', 'username', 'email', 'password', 'password_again']);
-  if (filter_var(get_param('email'), FILTER_VALIDATE_EMAIL) === false) {
-    form_error('email', "Email is invalid.");
-  }
-  elseif (filter_var(get_param('username'), FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z][a-z\d_]{1,20}$/']]) === false) {
-    form_error('username', "Username is invalid.");
-  }
-  elseif (table('users')->get_one('email', get_param('email'))) {
-    form_error('email', "Email Address is taken.");
-  }
-  elseif (table('users')->get_one('login', get_param('username'))) {
-    form_error('username', "Username is taken.");
-  }
-  elseif (get_param('password') != get_param('password_again')) {
-    form_error('password', "Password doesn't match.");
-  }
-};
-
 if (url_is('/auth/signin')) {
   domain('my');
   title('Sign In');
@@ -46,14 +25,23 @@ elseif (url_is('/auth/signup')) {
   domain('my');
   title('Sign Up');
   if (is_post()) {
-    $validate_signup_params();
+    check_parameters(['fullname', 'username', 'email', 'password', 'password_again']);
+    $params = [
+      'name'       => get_param('fullname'),
+      'login'      => get_param('username'),
+      'email'      => get_param('email'),
+      'pass'       => get_param('password')
+    ];
+    foreach ($params as $key => $value) {
+      if ($error = table('users')->validate_field($key, $value)) {
+        form_error($key, $error);
+      }
+    }
+    if (get_param('password') != get_param('password_again')) {
+      form_error('password', "Password doesn't match.");
+    }
     if (!form_error()) {
-      $user = table('users')->create([
-        'name'       => get_param('fullname'),
-        'login'      => get_param('username'),
-        'email'      => get_param('email'),
-        'pass'       => get_param('password')
-      ]);
+      $user = table('users')->create($params);
       signin($user);
       return redirect('/my/');
     }
