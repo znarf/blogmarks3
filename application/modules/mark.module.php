@@ -9,16 +9,17 @@ $user = authenticated_user();
 $as_params = function($mark) {
   # TODO: process tags and private tags
   return [
-    'url'         => $mark->url,
-    'title'       => $mark->title,
-    'description' => $mark->text,
-    'visibility'  => $mark->visibility,
-    'tags'        => implode(', ', $mark->tags),
+    'url'          => $mark->url,
+    'title'        => $mark->title,
+    'description'  => $mark->text,
+    'visibility'   => $mark->visibility,
+    'tags'         => implode(', ', $mark->public_tags),
+    'private_tags' => implode(', ', $mark->private_tags),
   ];
 };
 
 $request_params = function() {
-  return get_parameters(['url', 'title', 'description', 'visibility', 'tags']);
+  return get_parameters(['url', 'title', 'description', 'visibility', 'tags', 'private_tags']);
 };
 
 # Create
@@ -27,7 +28,7 @@ if (url_is('/my/marks,new')) {
   title('New Mark');
   if (is_post()) {
     if (get_bool('save')) {
-      check_parameters(['token', 'url', 'title', 'description', 'visibility', 'tags']);
+      check_parameters(['token', 'url', 'title', 'description', 'visibility', 'tags', 'private_tags']);
       check_token('new_mark', get_param('token'));
       model('marks')->create($user, $request_params());
       flash_message('Mark Successfully Added.');
@@ -65,7 +66,7 @@ elseif ($matches = url_match('/my/marks/*,edit')) {
   #
   if (is_post()) {
     if (get_bool('save')) {
-      check_parameters(['token', 'url', 'title', 'description', 'visibility', 'tags']);
+      check_parameters(['token', 'url', 'title', 'description', 'visibility', 'tags', 'private_tags']);
       check_token('update_mark', get_param('token'));
       try {
         model('marks')->update($mark, $request_params());

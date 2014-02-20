@@ -24,8 +24,11 @@
         <textarea id="new-mark-description" name="description" rows="3" class="input-block-level"><?=
           text($description) ?></textarea>
 
-        <label for="new-mark-tags">Tags</label>
-        <input id="new-mark-tags" name="tags" type="text" class="input-block-level" value="<?= arg($tags) ?>" autocapitalize="off">
+        <label for="mark-form-tags">Public Tags</label>
+        <input id="mark-form-tags" name="tags" type="text" class="input-block-level" value="<?= arg($tags) ?>" autocapitalize="off">
+
+        <label for="mark-form-private-tags">Private Tags</label>
+        <input id="mark-form-private-tags" name="private_tags" type="text" class="input-block-level" value="<?= arg($private_tags) ?>" autocapitalize="off">
 
         <label>Visibiity</label>
         <label for="new-mark-visibility-public" class="radio inline">

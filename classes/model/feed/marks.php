@@ -92,8 +92,8 @@ class marks
     self::add("feed_marks_my_{$mark->author->id}", $ts, $mark->id);
     if ($mark->is_public) self::add("feed_marks_user_{$mark->author->id}", $ts, $mark->id);
     # Update Tag Feeds
-    foreach ($mark->tags as $mt) {
-      if ($mark->is_public) self::add("feed_marks_tag_{$mt->tag_id}", $ts, $mark->id);
+    foreach ($mark->tags() as $mt) {
+      if ($mark->is_public && !$mt->isHidden) self::add("feed_marks_tag_{$mt->tag_id}", $ts, $mark->id);
       self::add("feed_marks_my_{$mark->author->id}_tag_{$mt->tag_id}", $ts, $mark->id);
     }
   }

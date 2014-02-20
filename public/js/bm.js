@@ -113,7 +113,7 @@ jQuery(function($) {
   $(".alert.fade-out").delay(1000).fadeOut('slow');
 
   var tagsAutoComplete = function() {
-    $("#new-mark-tags").select2({
+    var autoComplete = {
       tags: [],
       initSelection: function (element, callback) {
         var data = [];
@@ -156,7 +156,9 @@ jQuery(function($) {
         }
         return results;
       }
-    });
+    };
+    $("#mark-form-tags").select2(autoComplete);
+    $("#mark-form-private-tags").select2(autoComplete);
   }
 
   tagsAutoComplete();

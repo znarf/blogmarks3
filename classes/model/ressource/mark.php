@@ -53,6 +53,16 @@ class mark extends \blogmarks\model\ressource
     return $this->table('marks_tags')->from_mark($this);
   }
 
+  function public_tags()
+  {
+    return array_filter($this->tags, function($tag) { return !$tag->isHidden; });
+  }
+
+  function private_tags()
+  {
+    return array_filter($this->tags, function($tag) { return $tag->isHidden; });
+  }
+
   function text()
   {
     if ($this->contentType == 'html') {

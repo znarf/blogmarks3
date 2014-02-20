@@ -25,30 +25,32 @@ class marks_tags extends \blogmarks\model\table
     return $this->to_objects($rows);
   }
 
-  function tag_mark($mark, $tags = [])
+  function tag_mark($mark, $tags = [], $private_tags = [])
   {
     # Delete Previous Tags
     $this->delete(['mark_id' => $mark->id]);
     # Add Tags
     $rows = [];
     $objects = [];
-    foreach ($tags as $_tag) {
-      $_tag = trim($_tag);
-      if (empty($_tag)) {
-        continue;
+    foreach (['tags' => 0, 'private_tags' => 1] as $type => $is_hidden) {
+      foreach ($$type as $_tag) {
+        $_tag = trim($_tag);
+        if (empty($_tag)) {
+          continue;
+        }
+        $tag = $this->table('tags')->with_label($_tag);
+        $row = [
+          'mark_id'    => $mark->id,
+          'tag_id'     => $tag->id,
+          'user_id'    => $mark->author->id,
+          'link_id'    => $mark->related->id,
+          'label'      => $tag->label,
+          'isHidden'   => $is_hidden,
+          'visibility' => $mark->visibility,
+        ];
+        $rows[] = $row;
+        $objects[] = self::create($row);
       }
-      $tag = $this->table('tags')->with_label($_tag);
-      $row = [
-        'mark_id'    => $mark->id,
-        'tag_id'     => $tag->id,
-        'user_id'    => $mark->author->id,
-        'link_id'    => $mark->related->id,
-        'label'      => $tag->label,
-        'isHidden'   => 0,
-        'visibility' => $mark->visibility,
-      ];
-      $rows[] = $row;
-      $objects[] = self::create($row);
     }
     # Update Cache
     $cache_key = "bm_marks_tags_id_{$mark->id}";

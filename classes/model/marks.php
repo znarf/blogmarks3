@@ -25,7 +25,9 @@ class marks
       'visibility'  => $params['visibility']
     ]);
     # Insert Tags
-    $this->table('marks_tags')->tag_mark($mark, explode(',', $params['tags']));
+    $this->table('marks_tags')->tag_mark($mark,
+      explode(',', $params['tags']), explode(',', $params['private_tags'])
+    );
     # Index Mark
     $this->feed('marks')->index($mark);
     $this->search('marks')->index($mark);
@@ -61,7 +63,9 @@ class marks
     # Un-index Mark
     $this->feed('marks')->unindex($mark);
     # Update Tags
-    $this->table('marks_tags')->tag_mark($mark, explode(',', $params['tags']));
+    $this->table('marks_tags')->tag_mark($mark,
+      explode(',', $params['tags']), explode(',', $params['private_tags'])
+    );
     # Re-index Mark
     $this->feed('marks')->index($mark);
     $this->search('marks')->index($mark);
