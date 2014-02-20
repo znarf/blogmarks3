@@ -1,3 +1,5 @@
+<?php partial('search') ?>
+
 <div id="content">
   <div id="content-inner">
 

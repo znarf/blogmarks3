@@ -11,18 +11,24 @@ class marks
   function to_array($mark)
   {
     return [
-      'id'          => (int)$mark->id,
-      'created_at'  => date(\DateTime::RFC3339, strtotime($mark->published)),
-      'updated_at'  => date(\DateTime::RFC3339, strtotime($mark->updated)),
-      'user_id'     => $mark->user_id,
-      'link_id'     => $mark->link_id,
-      'url'         => $mark->url,
-      'title'       => $mark->title,
-      'content'     => utf8_encode($mark->text),
-      'public'      => $mark->is_public,
-      'private'     => $mark->is_private,
-      'tags'        => array_map('strval', $mark->tags)
+      'id'           => (int)$mark->id,
+      'created_at'   => date(\DateTime::RFC3339, strtotime($mark->published)),
+      'updated_at'   => date(\DateTime::RFC3339, strtotime($mark->updated)),
+      'user_id'      => $mark->user_id,
+      'link_id'      => $mark->link_id,
+      'url'          => $mark->url,
+      'title'        => $mark->title,
+      'content'      => utf8_encode($mark->text),
+      'public'       => $mark->is_public,
+      'private'      => $mark->is_private,
+      'tags'         => array_values(array_map('strval', $mark->public_tags())),
+      'private_tags' => array_values(array_map('strval', $mark->private_tags()))
     ];
+  }
+
+  function available()
+  {
+    return $this->service('search')->client();
   }
 
   function asynchronous($async = true)
@@ -90,7 +96,18 @@ class marks
   {
     $query = [];
 
-    $query['query']['filtered']['query'] = ['match_all' => []];
+    if (empty($params['query'])) {
+      $query['query']['filtered']['query'] = ['match_all' => []];
+    }
+    else {
+      $query['query']['filtered']['query'] = ['multi_match' => [
+        'query'  => $params['query'],
+        'fields' => ['title^2', 'url', 'content', 'tags.partial']
+      ]];
+      if (!empty($params['private'])) {
+        $query['query']['filtered']['query']['multi_match']['fields'][] = 'private_tags.partial';
+      }
+    }
 
     $order = $params['order'] == 'asc' ? 'asc' : 'desc';
 

@@ -134,6 +134,9 @@ class marks
   function with_tags($tags, $params = [])
   {
     # Only available with search backend
+    if (!$this->search('marks')->available()) {
+      throw http_error(500, 'Search backend not available.');
+    }
     return $this->search('marks')->search(['tags' => $tags] + $params);
   }
 
@@ -148,8 +151,23 @@ class marks
 
   function from_user_with_tag($user, $tag, $params = [])
   {
-    # Only available with search backend
+    if (!$this->search('marks')->available()) {
+      # With feed backend (but no cache)
+      $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag($user, $tag, ['private' => false]);
+      return $this->feed('marks')->query(null, $query, $params);
+    }
+    # With search backend
     return $this->search('marks')->search(['user' => $user, 'tag' => $tag] + $params);
+  }
+
+  function from_user_with_tags($user, $tags, $params = [])
+  {
+    # Only available with search backend
+    if (!$this->search('marks')->available()) {
+      throw http_error(500, 'Search backend not available.');
+    }
+    # With search backend
+    return $this->search('marks')->search(['user' => $user, 'tags' => $tags] + $params);
   }
 
   function private_from_user($user, $params = [])
@@ -172,8 +190,29 @@ class marks
 
   function private_from_user_with_tags($user, $tags, $params = [])
   {
+    if (!$this->search('marks')->available()) {
+      throw http_error(500, 'Search backend not available.');
+    }
     # Only available with search backend
     return $this->search('marks')->search(['user' => $user, 'tags' => $tags, 'private' => true] + $params);
+  }
+
+  function private_from_user_search($user, $query, $params = [])
+  {
+    if (!$this->search('marks')->available()) {
+      throw http_error(500, 'Search backend not available.');
+    }
+    # Only available with search backend
+    return $this->search('marks')->search(['user' => $user, 'query' => $query, 'private' => true] + $params);
+  }
+
+  function public_search($query, $params = [])
+  {
+    if (!$this->search('marks')->available()) {
+      throw http_error(500, 'Search backend not available.');
+    }
+    # Only available with search backend
+    return $this->search('marks')->search(['query' => $query] + $params);
   }
 
 }

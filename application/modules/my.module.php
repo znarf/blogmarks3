@@ -40,9 +40,26 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
   return render('marks');
 }
 
-elseif (url_is('/my/tags')) {
-  $params = ['limit' => get_int('limit', 100), 'query' => get_param('search', '')];
-  return partial('taglist', ['tags' => model('tags')->private_search_from_user($user, $params)]);
+elseif (url_is('/my/marks/search')) {
+  $query = get_param('query');
+  return $query ? redirect('/my/marks/search/' . $query) : redirect('/my/marks');
+}
+
+elseif ($matches = url_match('/my/marks/search/*')) {
+  $query = set_param('query', urldecode($matches[1]));
+  title('My Marks', 'with search ' . strong($query));
+  side_title('My', 'Tags with search ' . strong($query));
+  $container->marks( model('marks')->private_from_user_search->__use($user, $query, $params) );
+  $container->tags( model('tags')->model('tags')->private_search_from_user($user, ['query' => $query]) );
+  return render('marks');
+}
+
+elseif (url_is('/my/tags/autoupdate')) {
+  $query = get_param('query', '');
+  side_title('My', 'Tags with search ' . strong($query));
+  $params = ['limit' => get_int('limit', 50), 'query' => $query];
+  $container->tags( model('tags')->private_search_from_user($user, $params) );
+  return partial('tags');
 }
 
 elseif (url_is('/my/tags/autocomplete')) {

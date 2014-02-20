@@ -63,6 +63,20 @@ elseif ($matches = url_match('/user/*/marks')) {
   return render('marks');
 }
 
+elseif (url_is('/marks/search')) {
+  $query = get_param('query');
+  return $query ? redirect('/marks/search/' . $query) : redirect('/marks');
+}
+
+elseif ($matches = url_match('/marks/search/*')) {
+  $query = set_param('query', urldecode($matches[1]));
+  title('Public Marks', 'with search ' . strong($query));
+  side_title('Public', 'Tags with search ' . strong($query));
+  $container->marks( model('marks')->public_search->__use($query, $params) );
+  $container->tags( model('tags')->public_search(['query' => $query]) );
+  return render('marks');
+}
+
 elseif (url_start_with('/tag/')) {
   return redirect('/marks' . request_url());
 }

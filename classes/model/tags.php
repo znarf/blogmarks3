@@ -50,8 +50,16 @@ class tags
 
   # Search
 
+  function public_search($params = [])
+  {
+    $params = $params + ['limit' => 100];
+    $tags = $this->latests(['limit' => null] + $params);
+    return array_slice($tags, 0, $params['limit']);
+  }
+
   function private_search_from_user($user, $params = [])
   {
+    $params = $params + ['limit' => 100];
     $tags = $this->private_from_user($user, ['limit' => null] + $params);
     return array_slice($tags, 0, $params['limit']);
   }

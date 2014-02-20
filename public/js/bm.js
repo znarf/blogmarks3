@@ -1,24 +1,21 @@
-jQuery(function($) {
+function liveFilter()
+{
+  var input = $(this);
+  var form = input.parents('form');
+  var container = $('#right-bar');
+  container.css('min-height', container.height());
+  container.css('background', 'url(/img/spinner.gif) center center no-repeat');
+  container.fadeTo(100, 0.5);
+  container.load('/my/tags/autoupdate', form.serialize(), function() {
+    container.css('background', 'none');
+    container.css('min-height', 0);
+    container.fadeTo(100, 1);
+  });
+}
 
-  function liveFilter()
-  {
-    var input = $(this);
-    var form = input.parents('form');
-    var taglist = $('#tags .taglist');
-    taglist.css('min-height', taglist.height());
-    taglist.css('background', 'url(/img/spinner.gif) center center no-repeat');
-    taglist.fadeTo(100, 0.5);
-    taglist.load('/my/tags', form.serialize(), function() {
-      taglist.css('background', 'none');
-      taglist.css('min-height', 0);
-      taglist.fadeTo(100, 1);
-    });
-  }
-
-  $("#liveFilter input[type=radio]").change(liveFilter);
-  $("#liveFilter input[type=text]").bindWithDelay("keyup", liveFilter, 300);
-
-});
+if (!$(document.body).hasClass('public')) {
+  $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 200);
+}
 
 jQuery(function($) {
 
@@ -77,6 +74,9 @@ jQuery(function($) {
   $(document).on('pjax:complete', function() {
     $('#layout').infiniteScroll('reset');
     $("img").unveil(200);
+    if (!$(document.body).hasClass('public')) {
+      $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 100);
+    }
   });
 
   $("#layout").on("click", ".marks-list .delete", function(event) {
