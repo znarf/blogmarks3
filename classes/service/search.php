@@ -26,6 +26,10 @@ class search
     if (!$this->params) {
       return;
     }
+    if ($this->params['username'] && $this->params['password']) {
+      $credentials = base64_encode($this->params['username'] . ':' . $this->params['password']);
+      $this->params['headers']['Authorization'] = "Basic {$credentials}";
+    }
     $client = new \Elastica\Client($this->params);
     return $this->client = $client;
   }
