@@ -193,12 +193,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ruflin/Elastica.git",
-                "reference": "756d0da9919296e67fefb3b87e021fd29a3183e7"
+                "reference": "83f3b98ddcc520687b3088ec42e05da39ea618cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/756d0da9919296e67fefb3b87e021fd29a3183e7",
-                "reference": "756d0da9919296e67fefb3b87e021fd29a3183e7",
+                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/83f3b98ddcc520687b3088ec42e05da39ea618cf",
+                "reference": "83f3b98ddcc520687b3088ec42e05da39ea618cf",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +237,7 @@
                 "client",
                 "search"
             ],
-            "time": "2014-02-13 13:13:51"
+            "time": "2014-02-20 22:27:09"
         },
         {
             "name": "videlalvaro/php-amqplib",

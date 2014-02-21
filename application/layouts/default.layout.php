@@ -37,7 +37,7 @@
 
 </div> <!-- /#container -->
 
-<script src="<?= $static_url ?>/components/jquery/jquery.js"></script>
+<script src="<?= $static_url ?>/components/jquery/dist/jquery.js"></script>
 <script src="<?= $static_url ?>/components/bootstrap.css/js/bootstrap.js"></script>
 <script src="<?= $static_url ?>/components/jquery-pjax/jquery.pjax.js"></script>
 <script src="<?= $static_url ?>/components/jquery.scrollTo/jquery.scrollTo.js"></script>
