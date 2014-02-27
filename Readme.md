@@ -11,7 +11,11 @@ Get Started
     curl -s https://getcomposer.org/installer | php
     php composer.phar install
 
+Optional:
+
     npm install -g bower
     bower install
+
+Run:
 
     php -S localhost:8002 -t public
