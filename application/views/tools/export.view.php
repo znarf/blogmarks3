@@ -22,7 +22,7 @@
     <ul class="buttons"><li><span class="button">
       <a draggable="true"
       data-downloadurl="application/x-gzip:bm3-backup.atom.xml.gz:<?= arg($export_url) ?>"
-      href="<?= arg($export_url) ?>"><?= _('get your Blogmarks backup') ?></a>
+      href="<?= arg($export_url) ?>"><?= _('download your Blogmarks backup') ?></a>
     </span></li></ul>
 
   </div>

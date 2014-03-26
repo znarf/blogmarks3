@@ -13,7 +13,7 @@ extract($args);
 
 ?>
 
-<div id="mark<?= $mark->id ?>" class="<?= $mark->classname($user) ?>" draggable="true">
+<div id="mark<?= $mark->id ?>" class="<?= $mark->classname($user) ?>">
   <a href="<?= arg($mark->url) ?>">
     <img class="screenshot" src="<?= static_url("/img/loading.gif") ?>" data-src="<?= arg($mark->screenshot) ?>" alt="">
   </a>
@@ -42,8 +42,10 @@ extract($args);
 <?php endif ?>
 <?php if (is_authenticated_user($mark->author)) : ?>
     <div class="action-bar">
-      <a class="first edit" title="Edit this mark" href="<?= "{$base_mark_path}/{$mark->id},edit" ?>">Edit</a>
-      <a class="delete" title="Delete this Mark" href="<?= "{$base_mark_path}/{$mark->id},delete" ?>">Delete</a>
+      <a class="first edit" title="<?= _('Edit Mark') ?>"
+        href="<?= "{$base_mark_path}/{$mark->id},edit" ?>"><?= _('Edit') ?></a>
+      <a class="delete" title="<?= _('Delete Mark') ?>"
+        href="<?= "{$base_mark_path}/{$mark->id},delete" ?>"><?= _('Delete') ?></a>
     </div>
 <?php endif ?>
   </div>

@@ -2,7 +2,7 @@
 
 if (url_is('/auth/signin')) {
   domain('my');
-  title('Sign In');
+  title(_('Sign In'));
   if (is_post()) {
     check_parameters(['username', 'password']);
     # Find user
@@ -23,7 +23,7 @@ if (url_is('/auth/signin')) {
 
 elseif (url_is('/auth/signup')) {
   domain('my');
-  title('Sign Up');
+  title(_('Sign Up'));
   if (is_post()) {
     check_parameters(['fullname', 'username', 'email', 'password', 'password_again']);
     $params = [

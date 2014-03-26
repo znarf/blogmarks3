@@ -25,13 +25,13 @@ $request_params = function() {
 # Create
 
 if (url_is('/my/marks,new')) {
-  title('New Mark');
+  title(_('New Mark'));
   if (is_post()) {
     if (get_bool('save')) {
       check_parameters(['token', 'url', 'title', 'description', 'visibility', 'tags', 'private_tags']);
       check_token('new_mark', get_param('token'));
       model('marks')->create($user, $request_params());
-      flash_message('Mark Successfully Added.');
+      flash_message(_('Mark Successfully Added.'));
     }
     if (is_bookmarklet()) {
       return render('marks/close');
@@ -54,7 +54,7 @@ if (url_is('/my/marks,new')) {
 # Update
 
 elseif ($matches = url_match('/my/marks/*,edit')) {
-  title('Edit Mark');
+  title(_('Edit Mark'));
   $mark = helper('target')->mark($matches[1]);
   check_authenticated_user($mark->author);
   # Need to be before is_post because it might be a POST itself
@@ -93,7 +93,7 @@ elseif ($matches = url_match('/my/marks/*,edit')) {
 # Delete
 
 elseif ($matches = url_match('/my/marks/*,delete')) {
-  title('Delete Mark');
+  title(_('Delete Mark'));
   $mark = helper('target')->mark($matches[1]);
   check_authenticated_user($mark->author);
   # Need to be before is_post because it might be a POST itself
@@ -105,7 +105,7 @@ elseif ($matches = url_match('/my/marks/*,delete')) {
     if (get_bool('delete')) {
       check_token('delete_mark', get_param('token'));
       model('marks')->delete($mark);
-      flash_message('Mark Successfully Deleted.');
+      flash_message(_('Mark Successfully Deleted.'));
     }
     return redirect(get_param('referer', '/my/marks'));
   }

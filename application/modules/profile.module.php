@@ -2,7 +2,7 @@
 
 domain('my');
 
-title('Profile');
+title(_('Profile'));
 
 check_authenticated();
 $user = authenticated_user();
@@ -23,7 +23,8 @@ elseif ($matches = url_match('/my/profile,general')) {
     $params = [
       'name'       => get_param('fullname'),
       'login'      => get_param('username'),
-      'email'      => get_param('email')
+      'email'      => get_param('email'),
+      'timezone'   => get_param('timezone')
     ];
     foreach ($params as $key => $value) {
       if ($error = table('users')->validate_field($key, $value, $user)) {
@@ -35,7 +36,13 @@ elseif ($matches = url_match('/my/profile,general')) {
     }
     flash_message( _('Profile Updated') );
   }
-  return render('profile/index', ['fullname' => $user->name, 'email' => $user->email, 'username' => $user->login]);
+  $params = [
+    'fullname' => $user->name,
+    'email'    => $user->email,
+    'username' => $user->login,
+    'timezone' => $user->timezone
+  ];
+  return render('profile/index', $params);
 }
 
 else {

@@ -2,7 +2,7 @@
 
 domain('my');
 
-title('Tools');
+title(_('Tools'));
 
 check_authenticated();
 $user = authenticated_user();

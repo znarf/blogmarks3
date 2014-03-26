@@ -2,6 +2,16 @@
 
 start_session();
 
+if ($user = authenticated_user()) {
+  if (is_string($user->timezone) && strpos($user->timezone, '/')) {
+    date_default_timezone_set($user->timezone);
+  }
+  if (is_string($user->lang) && strpos($user->lang, '_')) {
+    putenv("LC_ALL={$user->lang}");
+    setlocale(LC_ALL, $user->lang);
+  }
+}
+
 if (url_is('/')) {
   redirect('/marks');
 }

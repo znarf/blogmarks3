@@ -24,9 +24,9 @@ class user extends \blogmarks\model\ressource
 
   function avatar($size = 80)
   {
-    $avatar = $this->attribute('avatar');
-    if (strpos($avatar, "@") !== false) {
-      return 'http://www.gravatar.com/avatar.php?gravatar_id=' . md5($avatar) . '&size=' . $size;
+    $email = $this->attribute('email');
+    if ($email && strpos($email, "@") !== false) {
+      return 'http://www.gravatar.com/avatar.php?gravatar_id=' . md5($email) . '&size=' . $size;
     /*
     } elseif (strpos($avatar, "http") === 0) {
       return $avatar;

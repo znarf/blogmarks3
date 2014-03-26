@@ -6,7 +6,7 @@ domain('my');
 
 section('my');
 
-title('My Marks');
+title(_('My Marks'));
 
 check_authenticated();
 $user = authenticated_user();
@@ -25,14 +25,14 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
   $tag = $target->tag($tags[0]);
   # Single Tag
   if (count($tags) == 1) {
-    title('My Marks', 'with tag ' . strong($tag));
+    title(_('My Marks'), 'with tag ' . strong($tag));
     $container->marks( model('marks')->private_from_user_with_tag->__use($user, $tag, $params) );
   }
   # Multiple Tags
   else {
     $tags = array_map(function($slug) { return table('tags')->get_one('label', urldecode($slug)); }, $tags);
     $labels = array_map(function($tag) { return strong($tag); }, $tags);
-    title('My Marks', 'with tags ' . implode(' &amp; ', $labels));
+    title(_('My Marks'), 'with tags ' . implode(' &amp; ', $labels));
     $container->marks( model('marks')->private_from_user_with_tags->__use($user, $tags, $params) );
   }
   side_title('My', 'Tags related with ' . strong($tag));
@@ -47,7 +47,7 @@ elseif (url_is('/my/marks/search')) {
 
 elseif ($matches = url_match('/my/marks/search/*')) {
   $query = set_param('query', urldecode($matches[1]));
-  title('My Marks', 'with search ' . strong($query));
+  title(_('My Marks'), 'with search ' . strong($query));
   side_title('My', 'Tags with search ' . strong($query));
   $container->marks( model('marks')->private_from_user_search->__use($user, $query, $params) );
   $container->tags( model('tags')->model('tags')->private_search_from_user($user, ['query' => $query]) );
