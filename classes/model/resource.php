@@ -1,6 +1,6 @@
 <?php namespace blogmarks\model;
 
-class ressource extends \amateur\model\ressource
+class resource extends \amateur\model\resource
 {
 
   use

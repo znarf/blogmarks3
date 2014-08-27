@@ -3,7 +3,7 @@
 class users extends \blogmarks\model\table
 {
 
-  public $classname = '\blogmarks\model\ressource\user';
+  public $classname = '\blogmarks\model\resource\user';
 
   public $tablename = 'bm_users';
 

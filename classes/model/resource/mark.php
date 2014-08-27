@@ -1,9 +1,9 @@
-<?php namespace blogmarks\model\ressource;
+<?php namespace blogmarks\model\resource;
 
 use
 amateur\model\cache;
 
-class mark extends \blogmarks\model\ressource
+class mark extends \blogmarks\model\resource
 {
 
   use

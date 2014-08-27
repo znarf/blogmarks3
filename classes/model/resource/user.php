@@ -1,6 +1,6 @@
-<?php namespace blogmarks\model\ressource;
+<?php namespace blogmarks\model\resource;
 
-class user extends \blogmarks\model\ressource
+class user extends \blogmarks\model\resource
 {
 
   use

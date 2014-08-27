@@ -7,7 +7,7 @@ amateur\model\cache;
 class marks_tags extends \blogmarks\model\table
 {
 
-  public $classname = '\blogmarks\model\ressource\tag';
+  public $classname = '\blogmarks\model\resource\tag';
 
   public $tablename = 'bm_marks_has_bm_tags';
 

@@ -1,7 +1,7 @@
 <?php namespace blogmarks\model\feed;
 
 use
-blogmarks\model\ressource\tag;
+blogmarks\model\resource\tag;
 
 class tags
 {

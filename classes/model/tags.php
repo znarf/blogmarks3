@@ -1,8 +1,5 @@
 <?php namespace blogmarks\model;
 
-use
-blogmarks\model\ressource\tag;
-
 class tags
 {
 
