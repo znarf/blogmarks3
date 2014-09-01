@@ -2,6 +2,7 @@
 $marks = isset($marks) ? $marks : helper('container')->marks();
 $user = authenticated_user();
 $domain = domain();
+$section = section();
 ?>
 
 <?php if (count($marks['items']) > 0) : ?>
@@ -12,7 +13,7 @@ $domain = domain();
 
 <?php foreach ($items as $item) : ?>
 
-<?php partial('mark', ['domain' => $domain, 'user' => $user, 'mark' => $item]) ?>
+<?php partial('mark', ['domain' => $domain, 'section' => $section, 'user' => $user, 'mark' => $item]) ?>
 
 <?php endforeach ?>
 

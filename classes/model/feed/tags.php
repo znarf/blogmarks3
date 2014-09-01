@@ -1,6 +1,7 @@
 <?php namespace blogmarks\model\feed;
 
 use
+amateur\model\query,
 blogmarks\model\resource\tag;
 
 class tags
@@ -21,6 +22,9 @@ class tags
     # Without Redis
     if (!$redis || !$redis_key || !$redis->exists($redis_key)) {
       # Fetch Query
+      if (!$query instanceof query && is_callable($query)) {
+        $query = $query();
+      }
       $results = $query->order_by('count DESC')->fetch_key_values('label', 'count');
       # Delayed Storage
       if ($redis && $redis_key) register_shutdown_function(function() use($redis, $redis_key, $results) {

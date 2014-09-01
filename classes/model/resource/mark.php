@@ -33,9 +33,14 @@ class mark extends \blogmarks\model\resource
     return (int)$this->attribute('author');
   }
 
-  function author()
+  function user()
   {
     return $this->table('users')->get($this->user_id);
+  }
+
+  function author()
+  {
+    return $this->user;
   }
 
   function link_id()

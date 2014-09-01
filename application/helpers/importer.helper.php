@@ -235,6 +235,10 @@ $importer->finish = function() use ($redis) {
     $redis->delete("tags_public");
     $redis->delete("tags_user_{$this->user->id}_public");
     $redis->delete("tags_user_{$this->user->id}_private");
+    # Flush Friends Feeds
+    foreach ($this->user->follower_ids as $user_id) {
+      $redis->delete("feed_marks_friends_{$user_id}}");
+    }
   }
 };
 

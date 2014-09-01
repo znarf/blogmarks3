@@ -21,6 +21,9 @@ elseif (url_start_with('/my/tools')) {
 elseif (url_start_with('/my/profile')) {
   module('profile');
 }
+elseif (url_start_with('/my/friends')) {
+  module('friends');
+}
 elseif (url_start_with('/my')) {
   module('my');
 }

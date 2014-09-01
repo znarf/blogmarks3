@@ -58,6 +58,16 @@ class user extends \blogmarks\model\resource
     return password_verify($password, $this->pass);
   }
 
+  function following_ids()
+  {
+    return $this->table('user_relations')->where(['user' => $this->id])->fetch_ids('contact');
+  }
+
+  function follower_ids()
+  {
+    return $this->table('user_relations')->where(['contact' => $this->id])->fetch_ids('user');
+  }
+
   function __toString()
   {
     return $this->name();

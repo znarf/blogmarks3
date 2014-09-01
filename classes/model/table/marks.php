@@ -7,6 +7,8 @@ amateur\model\cache;
 class marks extends \blogmarks\model\table
 {
 
+  use \amateur\magic\closurable_methods;
+
   public $classname = '\blogmarks\model\resource\mark';
 
   public $tablename = 'bm_marks';
@@ -115,6 +117,14 @@ class marks extends \blogmarks\model\table
     if (db::driver() == 'sqlite') {
       $query->select("m.id, strftime('%s', m.published) as ts");
     }
+    return $query;
+  }
+
+
+  function query_ids_and_ts_from_users($user_ids)
+  {
+    $query = $this
+      ->query_ids_and_ts(['visibility' => 0, 'display' => 1, 'author' => $user_ids]);
     return $query;
   }
 

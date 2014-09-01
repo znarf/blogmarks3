@@ -1,5 +1,8 @@
 <?php namespace blogmarks\model\feed;
 
+use
+amateur\model\query;
+
 class marks
 {
 
@@ -27,6 +30,9 @@ class marks
     # Without Redis
     if (!$redis || !$redis_key || !$redis->exists($redis_key)) {
       # Fetch Query
+      if (!$query instanceof query && is_callable($query)) {
+        $query = $query();
+      }
       $order = $params['order'] == 'asc' ? 'published ASC' : 'published DESC';
       $results = $query->order_by($order)->fetch_key_values('id', 'ts');
       # Delayed Storage
@@ -96,6 +102,12 @@ class marks
       if ($mark->is_public && !$mt->isHidden) self::add("feed_marks_tag_{$mt->tag_id}", $ts, $mark->id);
       self::add("feed_marks_my_{$mark->author->id}_tag_{$mt->tag_id}", $ts, $mark->id);
     }
+    # Update Friends Feeds
+    if ($mark->is_public) {
+      foreach ($mark->user->follower_ids as $user_id) {
+        self::add("feed_marks_friends_{$user_id}}", $ts, $mark->id);
+      }
+    }
   }
 
   function unindex($mark)
@@ -109,6 +121,10 @@ class marks
     foreach ($mark->tags as $mt) {
       self::remove("feed_marks_tag_{$mt->tag_id}", $mark->id);
       self::remove("feed_marks_my_{$mark->author->id}_tag_{$mt->tag_id}", $mark->id);
+    }
+    # Update Friends Feeds
+    foreach ($mark->user->follower_ids as $user_id) {
+      self::add("feed_marks_friends_{$user_id}}", $ts, $mark->id);
     }
   }
 

@@ -120,7 +120,7 @@ class marks
   function latests($params = [])
   {
     # With feed backend
-    $query = $this->table('marks')->query_latest_ids_and_ts();
+    $query = $this->table('marks')->query_latest_ids_and_ts;
     return $this->feed('marks')->query("feed_marks", $query, $params);
     # With search backend
     # return $this->search('marks')->search();
@@ -129,7 +129,7 @@ class marks
   function with_tag($tag, $params = [])
   {
     # With feed backend
-    $query = $this->table('marks')->query_ids_and_ts_with_tag($tag);
+    $query = $this->table('marks')->query_ids_and_ts_with_tag->__use($tag);
     return $this->feed('marks')->query("feed_marks_tag_{$tag->id}", $query, $params);
     # With search backend
     # return $this->search('marks')->search(['tag' => $tag] + $params);
@@ -147,7 +147,7 @@ class marks
   function from_user($user, $params = [])
   {
     # With feed backend
-    $query = $this->table('marks')->query_ids_and_ts_from_user($user);
+    $query = $this->table('marks')->query_ids_and_ts_from_user->__use($user);
     return $this->feed('marks')->query("feed_marks_user_{$user->id}", $query, $params);
     # With search backend
     # return $this->search('marks')->search(['user' => $user] + $params);
@@ -157,7 +157,7 @@ class marks
   {
     if (!$this->search('marks')->available()) {
       # With feed backend (but no cache)
-      $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag($user, $tag, ['private' => false]);
+      $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => false]);
       return $this->feed('marks')->query(null, $query, $params);
     }
     # With search backend
@@ -177,7 +177,7 @@ class marks
   function private_from_user($user, $params = [])
   {
     # With feed backend
-    $query = $this->table('marks')->query_ids_and_ts_from_user($user, ['private' => true]);
+    $query = $this->table('marks')->query_ids_and_ts_from_user->__use($user, ['private' => true]);
     return $this->feed('marks')->query("feed_marks_my_{$user->id}", $query, $params);
     # With search backend
     # return $this->search('marks')->search(['user' => $user, 'private' => true] + $params);
@@ -186,7 +186,7 @@ class marks
   function private_from_user_with_tag($user, $tag, $params = [])
   {
     # With feed backend
-    $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag($user, $tag, ['private' => true]);
+    $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => true]);
     return $this->feed('marks')->query("feed_marks_my_{$user->id}_tag_{$tag->id}", $query, $params);
     # With search backend
     # return $this->search('marks')->search(['user' => $user, 'tag' => $tag, 'private' => true] + $params);
@@ -217,6 +217,15 @@ class marks
     }
     # Only available with search backend
     return $this->search('marks')->search(['query' => $query] + $params);
+  }
+
+  function from_friends($user, $params = [])
+  {
+    # With feed backend
+    $query = $this->table('marks')->query_ids_and_ts_from_users($user->following_ids)->limit(1000);
+    return $this->feed('marks')->query("feed_marks_friends_{$user->id}", $query, $params);
+    # With search backend
+    # return $this->search('marks')->search(['user' => $user] + $params);
   }
 
 }

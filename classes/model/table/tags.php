@@ -7,6 +7,8 @@ amateur\model\cache;
 class tags extends \blogmarks\model\table
 {
 
+  use \amateur\magic\closurable_methods;
+
   public $classname = '\blogmarks\model\resource\tag';
 
   public $tablename = 'bm_tags';
