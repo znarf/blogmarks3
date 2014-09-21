@@ -25,7 +25,7 @@
             value="<?= arg($fullname) ?>"
             required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;\|]{2,128}">
           <?php if ($fullname_error) : ?>
-            <span class="help-inline"><?= text($fullname_error) ?></span>
+            <span class="help-block"><?= text($fullname_error) ?></span>
           <?php endif ?>
         </div>
       </div>
@@ -38,9 +38,7 @@
             value="<?= arg($email) ?>"
             required placeholder="email@domain.com" autocapitalize="off" autocorrect="off">
           <?php if ($email_error) : ?>
-            <span class="help-inline"><?= text($email_error) ?></span>
-          <?php else : ?>
-            <span class="help-inline"><?= _('A valid email address.') ?></span>
+            <span class="help-block"><?= text($email_error) ?></span>
           <?php endif ?>
         </div>
       </div>
@@ -53,10 +51,19 @@
             value="<?= arg($username) ?>"
             required placeholder="username" autocapitalize="off" autocorrect="off" pattern="[a-zA-Z][a-z\d_]{1,24}">
           <?php if ($username_error) : ?>
-            <span class="help-inline"><?= text($username_error) ?></span>
-          <?php else : ?>
-            <span class="help-inline"><?= _('Up to 24 alphanumerical characters.') ?></span>
+            <span class="help-block"><?= text($username_error) ?></span>
           <?php endif ?>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="profile_lang"><?= _('Language') ?></label>
+        <div class="controls">
+          <select id="profile_language" name="language">
+            <option value="0">Auto</option>
+            <option value="1">English</option>
+            <option value="2">Français</option>
+          </select>
         </div>
       </div>
 
@@ -64,12 +71,23 @@
         <label class="control-label" for="profile_timezone"><?= _('Timezone') ?></label>
         <div class="controls">
           <select id="profile_timezone" name="timezone">
-          <?php
-          foreach (DateTimeZone::listIdentifiers(DateTimeZone::ALL) as $value) {
-              $selected = $timezone == $value ? 'selected="selected" ' : '';
-              echo '<option ' . $selected . 'value="' . $value . '">' . $value . '</option>' . "\n";
-          }
-          ?>
+            <?php
+            $timezone = helper('timezone');
+            $list = $timezone->list();
+            ?>
+            <optgroup label="<?= _("Popular") ?>">
+              <?php foreach ($timezone->popular as $identifier) : ?>
+              <option value="<?= $identifier ?>"><?= $list[$identifier] ?></option>
+              <?php endforeach ?>
+            </optgroup>
+            <optgroup label="<?= _("All") ?>">
+            <?php
+            foreach ($list as $identifier => $label) {
+                $selected = $timezone == $identifier ? 'selected="selected" ' : '';
+                echo '<option ' . $selected . 'value="' . $identifier . '">' . $label . '</option>' . "\n";
+            }
+            ?>
+            </optgroup>
           </select>
         </div>
       </div>
