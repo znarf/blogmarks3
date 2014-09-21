@@ -15,10 +15,17 @@ class tags extends \blogmarks\model\table
 
   public $unique_indexes = ['id', 'label'];
 
+  # label contain special characters that can't make a valid memcache key
+  # so we use an hash of the label as cache key
+  function cache_key($key, $value, $type = 'raw')
+  {
+    $value = $key == 'label' ? md5($value) : $value;
+    return parent::cache_key($key, $value, $type);
+  }
+
   function with_label($label)
   {
-    $tag = self::get_one('label', $label);
-    return $tag ? $tag : self::create(['label' => $label]);
+    return self::get_one('label', $label) ?: self::create(['label' => $label]);
   }
 
   # Queries

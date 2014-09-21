@@ -11,19 +11,13 @@ class links extends \blogmarks\model\table
   # so we use an hash of the href as cache key
   function cache_key($key, $value, $type = 'raw')
   {
-    if ($key == 'href') {
-      $value = md5($value);
-      return "{$this->tablename}_{$type}_{$key}_{$value}";
-    }
-    else {
-      return parent::cache_key($key, $value, $type);
-    }
+    $value = $key == 'href' ? md5($value) : $value;
+    return parent::cache_key($key, $value, $type);
   }
 
   function with_url($url)
   {
-    $link = self::get_one('href', $url);
-    return $link ? $link : self::create(['href' => $url]);
+    return self::get_one('href', $url) ?: self::create(['href' => $url]);
   }
 
   function preload_for_marks($marks)
