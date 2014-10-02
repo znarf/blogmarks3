@@ -31,6 +31,7 @@ class marks
     # Index Mark
     $this->feed('marks')->index($mark);
     $this->search('marks')->index($mark);
+    # TODO: Index Tags
     # Return
     return $mark;
   }
@@ -138,9 +139,6 @@ class marks
   function with_tags($tags, $params = [])
   {
     # Only available with search backend
-    if (!$this->search('marks')->available()) {
-      throw http_error(500, 'Search backend not available.');
-    }
     return $this->search('marks')->search(['tags' => $tags] + $params);
   }
 
@@ -166,10 +164,6 @@ class marks
 
   function from_user_with_tags($user, $tags, $params = [])
   {
-    # Only available with search backend
-    if (!$this->search('marks')->available()) {
-      throw http_error(500, 'Search backend not available.');
-    }
     # With search backend
     return $this->search('marks')->search(['user' => $user, 'tags' => $tags] + $params);
   }
@@ -194,27 +188,18 @@ class marks
 
   function private_from_user_with_tags($user, $tags, $params = [])
   {
-    if (!$this->search('marks')->available()) {
-      throw http_error(500, 'Search backend not available.');
-    }
     # Only available with search backend
     return $this->search('marks')->search(['user' => $user, 'tags' => $tags, 'private' => true] + $params);
   }
 
   function private_from_user_search($user, $query, $params = [])
   {
-    if (!$this->search('marks')->available()) {
-      throw http_error(500, 'Search backend not available.');
-    }
     # Only available with search backend
     return $this->search('marks')->search(['user' => $user, 'query' => $query, 'private' => true] + $params);
   }
 
   function public_search($query, $params = [])
   {
-    if (!$this->search('marks')->available()) {
-      throw http_error(500, 'Search backend not available.');
-    }
     # Only available with search backend
     return $this->search('marks')->search(['query' => $query] + $params);
   }
@@ -222,10 +207,28 @@ class marks
   function from_friends($user, $params = [])
   {
     # With feed backend
-    $query = $this->table('marks')->query_ids_and_ts_from_users($user->following_ids)->limit(1000);
+    $query = $this->table('marks')->query_ids_and_ts_from_friends->__use($user, ['limit' => 1000]);
     return $this->feed('marks')->query("feed_marks_friends_{$user->id}", $query, $params);
     # With search backend
-    # return $this->search('marks')->search(['user' => $user] + $params);
+    return $this->search('marks')->search(['user_ids' => $user->following_ids] + $params);
+  }
+
+  function from_friends_with_tag($user, $tag, $params = [])
+  {
+    # Only available with search backend
+    return $this->search('marks')->search(['tag' => $tag, 'user_ids' => $user->following_ids] + $params);
+  }
+
+  function from_friends_with_tags($user, $tags, $params = [])
+  {
+    # Only available with search backend
+    return $this->search('marks')->search(['tags' => $tags, 'user_ids' => $user->following_ids] + $params);
+  }
+
+  function from_friends_search($user, $query, $params = [])
+  {
+    # Only available with search backend
+    return $this->search('marks')->search(['query' => $query, 'user_ids' => $user->following_ids] + $params);
   }
 
 }

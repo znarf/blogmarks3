@@ -18,4 +18,12 @@ $container->marks = function($value = null) {
   return is_callable($marks) ? $marks() : $marks;
 };
 
+$container->users = function($value = null) {
+  static $users;
+  if (isset($value)) {
+    return $users = $value;
+  }
+  return is_callable($users) ? $users() : $users;
+};
+
 return $container;

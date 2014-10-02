@@ -1,3 +1,6 @@
+<?php
+$section = section();
+?>
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -20,16 +23,16 @@
           <?php endif ?>
         </p>
         <ul class="nav">
-          <li class="<?= section() == 'public' ? 'active' : '' ?>">
+          <li class="<?= $section == 'public' ? 'active' : '' ?>">
             <a href="<?= relative_url('/marks') ?>"><?= _("Public Marks") ?></a>
           </li>
-          <li class="<?= section() == 'friends' ? 'active' : '' ?>">
+          <li class="<?= $section == 'friends' ? 'active' : '' ?>">
             <a href="<?= relative_url('/my/friends/marks') ?>"><?= _("Friends Marks") ?></a>
           </li>
-          <li class="<?= section() == 'my' ? 'active' : '' ?>">
+          <li class="<?= $section == 'my' ? 'active' : '' ?>">
             <a href="<?= relative_url('/my/marks') ?>"><?= _("My Marks") ?></a>
           </li>
-          <li class="<?= section() == 'tools' ? 'active' : '' ?>">
+          <li class="<?= $section == 'tools' ? 'active' : '' ?>">
             <a href="<?= relative_url('/my/tools') ?>"><?= _("Tools") ?></a>
           </li>
         </ul>

@@ -16,6 +16,6 @@
 
 <div id="right-bar">
 
-  <?php partial('tags') ?>
+  <?php helper('sidebar')->render(); ?>
 
 </div> <!-- /#right-bar -->

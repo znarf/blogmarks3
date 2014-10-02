@@ -1,15 +1,21 @@
 <?php
 
-list($target, $container) = helper(['target', 'container']);
+list($target, $container, $sidebar) = helper(['target', 'container', 'sidebar']);
 
 title(_('Public Marks'));
 
 $params = request_marks_params();
 
 if (url_is('/marks')) {
-  side_title('Public', 'Tags');
-  $container->tags( model('tags')->latests );
-  $container->marks( model('marks')->latests->__use($params) );
+  $container->marks(
+    model('marks')->latests->__use($params)
+  );
+  $sidebar->register(['Public', 'Tags'], function() {
+    partial('tags', ['tags' => model('tags')->latests]);
+  });
+  $sidebar->register(['Active', 'Users'], function() {
+    partial('users', ['users' => helper('related')->active_users]);
+  });
   return render('marks');
 }
 
@@ -28,8 +34,15 @@ elseif ($matches = url_match('/marks/tag/*')) {
     title(_('Public Marks'), 'with tags ' . implode(' &amp; ', $labels));
     $container->marks( model('marks')->with_tags->__use($tags, $params) );
   }
-  side_title('Tags', 'related with ' . strong($tag));
-  $container->tags( model('tags')->related_with->__use($tag) );
+  $container->tags(
+    model('tags')->related_with->__use($tag)
+  );
+  $sidebar->register(['Tags', 'related with ' . strong($tag)], function() {
+    partial('tags');
+  });
+  $sidebar->register(['Active', 'Users with tag ' . strong($tag)], function() {
+    partial('users', ['users' => helper('related')->active_users]);
+  });
   return render('marks');
 }
 
@@ -49,17 +62,17 @@ elseif ($matches = url_match('/user/*/marks/tag/*')) {
     title(_('Public Marks'), 'from ' . strong($user) . 'with tags ' . implode(' &amp; ', $labels));
     $container->marks( model('marks')->from_user_with_tags->__use($user, $tags, $params) );
   }
-  side_title('Tags', 'from ' . strong($user) . ' related with ' . strong($tag));
   $container->tags( model('tags')->from_user_related_with->__use($user, $tag) );
+  $sidebar->register(['Tags', 'from ' . strong($user) . ' related with ' . strong($tag)], function() { partial('tags'); });
   return render('marks');
 }
 
 elseif ($matches = url_match('/user/*/marks')) {
   $user = $target->user($matches[1]);
   title(_('Public Marks'), 'from ' . strong($user));
-  side_title('Tags', 'from ' . strong($user));
   $container->tags( model('tags')->from_user->__use($user) );
   $container->marks( model('marks')->from_user->__use($user, $params) );
+  $sidebar->register(['Tags', 'from ' . strong($user)], function() { partial('tags'); });
   return render('marks');
 }
 
@@ -71,9 +84,9 @@ elseif (url_is('/marks/search')) {
 elseif ($matches = url_match('/marks/search/*')) {
   $query = set_param('query', urldecode($matches[1]));
   title(_('Public Marks'), 'with search ' . strong($query));
-  side_title('Public', 'Tags with search ' . strong($query));
   $container->marks( model('marks')->public_search->__use($query, $params) );
   $container->tags( model('tags')->public_search(['query' => $query]) );
+  $sidebar->register(['Public', 'Tags with search ' . strong($query)], function() { partial('tags'); });
   return render('marks');
 }
 

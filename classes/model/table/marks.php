@@ -120,11 +120,13 @@ class marks extends \blogmarks\model\table
     return $query;
   }
 
-
-  function query_ids_and_ts_from_users($user_ids)
+  function query_ids_and_ts_from_friends($user, $params = [])
   {
     $query = $this
-      ->query_ids_and_ts(['visibility' => 0, 'display' => 1, 'author' => $user_ids]);
+      ->query_ids_and_ts(['visibility' => 0, 'display' => 1, 'author' => $user->following_ids]);
+    if (isset($params['limit'])) {
+      $query->limit($params['limit']);
+    }
     return $query;
   }
 

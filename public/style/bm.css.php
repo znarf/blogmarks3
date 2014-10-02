@@ -13,6 +13,7 @@ $css_files = array(
     "p-pagination.less",
     "p-right-bar.less",
     "p-taglist.less",
+    "p-userlist.less",
     "p-footer.less",
     "p-tools.less",
     "p-new.less",

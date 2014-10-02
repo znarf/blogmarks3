@@ -1,0 +1,36 @@
+.user {
+  color: @grey-light;
+  width: 100%;
+  clear: both;
+  margin: 0;
+  padding: 10px 0;
+  text-align: left;
+  font-size: 12px;
+  .gravatar {
+    float: left;
+    .square(40px);
+    margin-right: 10px;
+  }
+  a.user-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    .underline-hover;
+  }
+}
+
+#content .friends {
+  margin-left: 25px;
+  .user {
+    width: 175px;
+    height: 75px;
+    margin-right: 25px;
+    float: left;
+    clear: none;
+    overflow: hidden;
+  }
+  p.legend {
+    margin: 10px 0;
+    font-size: 1.4em;
+    em { color: @grey-dark; }
+  }
+}

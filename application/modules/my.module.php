@@ -1,6 +1,6 @@
 <?php
 
-list($target, $container) = helper(['target', 'container']);
+list($target, $container, $sidebar) = helper(['target', 'container', 'sidebar']);
 
 domain('my');
 
@@ -14,9 +14,9 @@ $user = authenticated_user();
 $params = request_marks_params();
 
 if (url_is('/my/marks')) {
-  side_title('My', 'Tags');
-  $container->tags( model('tags')->private_from_user->__use($user) );
   $container->marks( model('marks')->private_from_user->__use($user, $params) );
+  $container->tags( model('tags')->private_from_user->__use($user) );
+  $sidebar->register(['My', 'Tags'], function() { partial('tags'); });
   return render('marks');
 }
 
@@ -25,7 +25,7 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
   $tag = $target->tag($tags[0]);
   # Single Tag
   if (count($tags) == 1) {
-    title(_('My Marks'), 'with tag ' . strong($tag));
+    title(_('My Marks'), _('with tag') . ' ' . strong($tag));
     $container->marks( model('marks')->private_from_user_with_tag->__use($user, $tag, $params) );
   }
   # Multiple Tags
@@ -35,22 +35,22 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
     title(_('My Marks'), 'with tags ' . implode(' &amp; ', $labels));
     $container->marks( model('marks')->private_from_user_with_tags->__use($user, $tags, $params) );
   }
-  side_title('My', 'Tags related with ' . strong($tag));
   $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
+  $sidebar->register(['My', 'Tags related with ' . strong($tag)], function() { partial('tags'); });
   return render('marks');
 }
 
 elseif (url_is('/my/marks/search')) {
   $query = get_param('query');
-  return $query ? redirect('/my/marks/search/' . $query) : redirect('/my/marks');
+  return $query ? redirect("/my/marks/search/{$query}") : redirect('/my/marks');
 }
 
 elseif ($matches = url_match('/my/marks/search/*')) {
   $query = set_param('query', urldecode($matches[1]));
   title(_('My Marks'), 'with search ' . strong($query));
-  side_title('My', 'Tags with search ' . strong($query));
   $container->marks( model('marks')->private_from_user_search->__use($user, $query, $params) );
   $container->tags( model('tags')->model('tags')->private_search_from_user($user, ['query' => $query]) );
+  $sidebar->register(['My', 'Tags with search ' . strong($query)], function() { partial('tags'); });
   return render('marks');
 }
 

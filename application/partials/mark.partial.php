@@ -2,7 +2,8 @@
 
 # This is a 'compiled' partial
 
-$base_tag_path  = relative_or_absolute_url($domain == 'my' ? '/my/marks/tag' : '/marks/tag');
+$base_tag_prefix = $section == 'my' ? '/my/marks/tag' : ($section == 'friends' ? '/my/friends/marks/tag' : '/marks/tag' );
+$base_tag_path  = relative_or_absolute_url($base_tag_prefix);
 $base_mark_path = relative_or_absolute_url('/my/marks');
 
 # First register it when it's call/included for the first time

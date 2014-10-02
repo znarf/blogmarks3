@@ -130,6 +130,14 @@ class marks
       $query['query']['filtered']['filter']['and'][] = ['term' => ['private' => false]];
     }
 
+    if (isset($params['user_ids'])) {
+      $or = [];
+      foreach ($params['user_ids'] as $user_id) {
+        $or[] = ['term' => ['user_id' => $user_id]];
+      }
+      $query['query']['filtered']['filter']['and'][] = ['or' => $or];
+    }
+
     if (isset($params['limit'])) {
       $query['size'] = $params['limit'];
       if (isset($params['offset'])) {
@@ -151,6 +159,9 @@ class marks
 
   function search($params = [])
   {
+    if (!$this->available()) {
+      throw new \amateur\core\exception('Search backend not available.', 500);
+    }
     $query = $this->build_query($params);
     $result = $this->service('search')->search('/bm/marks', $query);
     $total = $result['hits']['total'];

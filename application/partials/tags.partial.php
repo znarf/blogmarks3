@@ -10,17 +10,12 @@ else {
 }
 $plus = static_url($domain == 'my' ? '/img/myplus.gif' : '/img/plus.gif');
 $tags = isset($tags) ? $tags : helper('container')->tags();
+$tags = is_callable($tags) ? $tags() : $tags;
 ?>
 
-<div id="tags">
+<div>
 
   <h3><?= side_title() ?></h3>
-
-  <?php if (empty($tags)) : ?>
-
-  <p>No result :-/</p>
-
-  <?php else : ?>
 
   <p class="taglist">
     <?php
@@ -46,7 +41,5 @@ $tags = isset($tags) ? $tags : helper('container')->tags();
       &nbsp;
     <?php endforeach ?>
   </p>
-
-  <?php endif ?>
 
 </div>
