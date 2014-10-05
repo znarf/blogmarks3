@@ -3,7 +3,7 @@
 start_session();
 
 if ($user = authenticated_user()) {
-  user_settings($user);
+  init_user_settings($user);
 }
 
 if (url_is('/')) {
