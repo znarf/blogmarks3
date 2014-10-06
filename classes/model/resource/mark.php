@@ -35,7 +35,7 @@ class mark extends \blogmarks\model\resource
 
   function user()
   {
-    return $this->table('users')->get($this->user_id);
+    return $this->attribute('user') ?: $this->table('users')->get($this->user_id);
   }
 
   function author()
@@ -55,7 +55,7 @@ class mark extends \blogmarks\model\resource
 
   function tags()
   {
-    return $this->table('marks_tags')->from_mark($this);
+    return $this->attribute('tags') ?: $this->table('marks_tags')->from_mark($this);
   }
 
   function public_tags()
@@ -93,7 +93,9 @@ class mark extends \blogmarks\model\resource
   function default_screenshot()
   {
     $parsed_url = parse_url($this->url);
-    return 'http://open.thumbshots.org/image.pxf?url=' . $parsed_url['host'];
+    if (!empty($parsed_url['host'])) {
+      return 'http://open.thumbshots.org/image.pxf?url=' . $parsed_url['host'];
+    }
   }
 
   function url()

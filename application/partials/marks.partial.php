@@ -19,14 +19,14 @@ $section = section();
 
 <?php endforeach ?>
 
-<?php if ($marks['params']['limit'] == count($marks['items'])) : // loose way to know if there is more marks to load ?>
+<?php if ($marks['next']) : ?>
 <div id="pagination">
   <?php
   if ($marks['params']['order'] == 'asc') {
-    $more = ['order' => 'asc', 'after' => strtotime($item->published)];
+    $more = ['order' => 'asc', 'after' => $marks['next']];
   }
   else {
-    $more = ['order' => 'desc', 'before' => strtotime($item->published)];
+    $more = ['order' => 'desc', 'before' => $marks['next']];
   }
   ?>
   <a rel="next" class="page more" href="?<?= http_build_query($more) ?>">more</a>

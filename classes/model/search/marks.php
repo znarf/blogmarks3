@@ -1,5 +1,9 @@
 <?php namespace blogmarks\model\search;
 
+use
+DateTime,
+Exception;
+
 class marks
 {
 
@@ -12,8 +16,8 @@ class marks
   {
     return [
       'id'           => (int)$mark->id,
-      'created_at'   => date(\DateTime::RFC3339, strtotime($mark->published)),
-      'updated_at'   => date(\DateTime::RFC3339, strtotime($mark->updated)),
+      'created_at'   => date(datetime::RFC3339, strtotime($mark->published)),
+      'updated_at'   => date(datetime::RFC3339, strtotime($mark->updated)),
       'user_id'      => $mark->user_id,
       'link_id'      => $mark->link_id,
       'url'          => $mark->url,
@@ -42,18 +46,24 @@ class marks
       $this->service('amqp')->push(['action' => 'index', 'mark_id' => $mark->id], 'marks-index');
     }
     else {
-      $this->documents[] = new \Elastica\Document($mark->id, $this->to_array($mark));
-      if (count($this->documents) > 1000) {
-        $this->flush();
+      $this->documents[] = new \elastica\document($mark->id, $this->to_array($mark));
+      if (count($this->documents) >= 100) {
+        $this->flush_index_buffer();
       }
     }
   }
 
-  function flush()
+  function flush_index_buffer()
   {
     if (count($this->documents)) {
       if ($client = $this->service('search')->client()) {
-        $client->getIndex('bm')->getType('marks')->addDocuments($this->documents);
+        try {
+          $client->getindex('bm')->gettype('marks')->adddocuments($this->documents);
+        }
+        catch (exception $e) {
+          error_log($e->getMessage());
+          # error_log(json_encode($this->documents));
+        }
       }
       $this->documents = [];
     }
@@ -92,7 +102,7 @@ class marks
     }
   }
 
-  function build_query($params)
+  function build_base_query($params)
   {
     $query = [];
 
@@ -109,21 +119,17 @@ class marks
       }
     }
 
-    $order = $params['order'] == 'asc' ? 'asc' : 'desc';
-
-    $query['sort'] = ['created_at' => ['order' => $order]];
-
     if (isset($params['user'])) {
       $user = $params['user'];
       $query['query']['filtered']['filter']['and'][] = ['term' => ['user_id' => $user->id]];
     }
     if (isset($params['tag'])) {
       $tag = $params['tag'];
-      $query['query']['filtered']['filter']['and'][] = ['term' => ['tags' => $tag->label]];
+      $query['query']['filtered']['filter']['and'][] = ['term' => ['tags' => (string)$tag]];
     }
     if (isset($params['tags'])) {
       foreach ($params['tags'] as $tag) {
-        $query['query']['filtered']['filter']['and'][] = ['term' => ['tags' => $tag->label]];
+        $query['query']['filtered']['filter']['and'][] = ['term' => ['tags' => (string)$tag]];
       }
     }
     if (empty($params['private'])) {
@@ -138,20 +144,29 @@ class marks
       $query['query']['filtered']['filter']['and'][] = ['or' => $or];
     }
 
-    if (isset($params['limit'])) {
-      $query['size'] = $params['limit'];
-      if (isset($params['offset'])) {
-        $query['from'] = $params['offset'];
-      }
-    }
+    return $query;
+  }
+
+  function build_full_query($params, $query = [])
+  {
+    $order = $params['order'] == 'asc' ? 'asc' : 'desc';
+
+    $query['sort'] = ['created_at' => ['order' => $order]];
 
     if (isset($params['before'])) {
-      $before = date(\DateTime::RFC3339, $params['before'] - 1);
+      $before = date(datetime::RFC3339, $params['before'] - 1);
       $query['query']['filtered']['filter']['and'][] = ['range' => ['created_at' => ['to' => $before]]];
     }
     if (isset($params['after'])) {
-      $after = date(\DateTime::RFC3339, $params['after']);
+      $after = date(datetime::RFC3339, $params['after']);
       $query['query']['filtered']['filter']['and'][] = ['range' => ['created_at' => ['from' => $after]]];
+    }
+
+    if (isset($params['limit'])) {
+      $query['size'] = $params['limit'] + 1;
+      if (isset($params['offset'])) {
+        $query['from'] = $params['offset'];
+      }
     }
 
     return $query;
@@ -162,12 +177,24 @@ class marks
     if (!$this->available()) {
       throw new \amateur\core\exception('Search backend not available.', 500);
     }
-    $query = $this->build_query($params);
+    # Count Query
+    $query = $this->build_base_query($params);
+    $result = $this->service('search')->count('/bm/marks', $query);
+    $total = (int) $result['count'];
+    # Main Query
+    $query = $this->build_full_query($params, $query);
     $result = $this->service('search')->search('/bm/marks', $query);
-    $total = $result['hits']['total'];
-    $ids = array_map(function($hit) { return $hit['_id']; }, $result['hits']['hits']);
+    # Next?
+    if (count($result['hits']['hits']) > $params['limit']) {
+      $hit = array_pop($result['hits']['hits']);
+      $next = strtotime($hit['_source']['created_at']);
+    }
+    # Ids
+    $ids = array_map(function($hit) { return (int) $hit['_id']; }, $result['hits']['hits']);
+    # Items
     $items = $this->table('marks')->get($ids);
-    return compact('params', 'total', 'items');
+    # Results
+    return compact('params', 'total', 'next', 'items');
   }
 
 }

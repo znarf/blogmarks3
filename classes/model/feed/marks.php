@@ -11,7 +11,7 @@ class marks
 
   static $default_params = [
     'offset' => 0,
-    'limit'  => 10,
+    'limit'  => 25,
     'order'  => 'desc',
     'after'  => '-inf',
     'before' => '+inf',
@@ -48,27 +48,34 @@ class marks
       if (($after = $params['after']) != '-inf') {
         $results = array_filter($results, function($ts) use($after) { return $ts > $after; });
       }
-      # Get Ids
-      $ids = array_keys($results);
       # Soft offset/limit
-      if ($params['limit']) {
-        $ids = array_slice($ids, $params['offset'], $params['limit']);
+      if ($params['limit'] > 0) {
+        $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
       }
     }
     # With Redis
     else {
-      $options = ['withscores' => false, 'limit' => [$params['offset'], $params['limit']]];
+      $options = ['withscores' => true];
+      if ($params['limit'] > 0) {
+        $options['limit'] = [$params['offset'], $params['limit'] + 1];
+      }
       if ($total = $redis->zCard($redis_key)) {
         if ($params['order'] == 'asc') {
-          $ids = $redis->zRangeByScore($redis_key, "(" . $params['after'], "(" . $params['before'], $options);
+          # error_log("redis:zRangeByScore:$redis_key");
+          $results = $redis->zRangeByScore($redis_key, "" . $params['after'], "(" . $params['before'], $options);
         }
         else {
-          $ids = $redis->zRevRangeByScore($redis_key, "(" . $params['before'], "(" . $params['after'], $options);
+          # error_log("redis:zRevRangeByScore:$redis_key");
+          $results = $redis->zRevRangeByScore($redis_key, "" . $params['before'], "(" . $params['after'], $options);
         }
       }
     }
-    $items = empty($ids) ? [] : $this->table('marks')->get($ids);
-    return compact('params', 'total', 'items');
+    # Next?
+    $next = $params['limit'] && count($results) > $params['limit'] ? (int) array_pop($results) : null;
+    # Items
+    $items = empty($results) ? [] : $this->table('marks')->get(array_keys($results));
+    # Result
+    return compact('params', 'total', 'next', 'items');
   }
 
   function add($redis_key, $ts, $id)

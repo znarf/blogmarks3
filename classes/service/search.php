@@ -26,11 +26,11 @@ class search
     if (!$this->params) {
       return;
     }
-    if ($this->params['username'] && $this->params['password']) {
+    if (isset($this->params['username']) && isset($this->params['password'])) {
       $credentials = base64_encode($this->params['username'] . ':' . $this->params['password']);
-      $this->params['headers']['Authorization'] = "Basic {$credentials}";
+      $this->params['headers']['authorization'] = "basic {$credentials}";
     }
-    $client = new \Elastica\Client($this->params);
+    $client = new \elastica\client($this->params);
     return $this->client = $client;
   }
 
@@ -49,6 +49,13 @@ class search
   function search($url, $query = [])
   {
     $response = (new request)->post_json($this->base_url() . $url . '/_search', $query);
+    $result = json_decode($response->body, true);
+    return $result;
+  }
+
+  function count($url, $query = [])
+  {
+    $response = (new request)->post_json($this->base_url() . $url . '/_count', $query);
     $result = json_decode($response->body, true);
     return $result;
   }
