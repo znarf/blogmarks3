@@ -1,6 +1,7 @@
 <?php namespace blogmarks\service;
 
 use
+Elastica\Client,
 amateur\http\request;
 
 class search
@@ -30,7 +31,7 @@ class search
       $credentials = base64_encode($this->params['username'] . ':' . $this->params['password']);
       $this->params['headers']['authorization'] = "basic {$credentials}";
     }
-    $client = new \elastica\client($this->params);
+    $client = new Client($this->params);
     return $this->client = $client;
   }
 

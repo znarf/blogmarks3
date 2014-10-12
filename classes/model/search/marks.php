@@ -2,7 +2,8 @@
 
 use
 DateTime,
-Exception;
+Exception,
+Elastica\Document;
 
 class marks
 {
@@ -22,7 +23,8 @@ class marks
       'link_id'      => $mark->link_id,
       'url'          => $mark->url,
       'title'        => $mark->title,
-      'content'      => utf8_encode($mark->text),
+      'content_type' => $mark->contentType,
+      'content'      => $mark->contentType == 'html' ? strip_tags($mark->content) : $mark->content,
       'public'       => $mark->is_public,
       'private'      => $mark->is_private,
       'tags'         => array_values(array_map('strval', $mark->public_tags())),
@@ -46,7 +48,7 @@ class marks
       $this->service('amqp')->push(['action' => 'index', 'mark_id' => $mark->id], 'marks-index');
     }
     else {
-      $this->documents[] = new \elastica\document($mark->id, $this->to_array($mark));
+      $this->documents[] = new Document($mark->id, $this->to_array($mark));
       if (count($this->documents) >= 100) {
         $this->flush_index_buffer();
       }
