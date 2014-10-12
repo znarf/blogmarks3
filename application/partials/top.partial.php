@@ -26,9 +26,11 @@ $section = section();
           <li class="<?= $section == 'public' ? 'active' : '' ?>">
             <a href="<?= relative_url('/marks') ?>"><?= _("Public Marks") ?></a>
           </li>
+          <?php if (flag('enable_social_features')) : ?>
           <li class="<?= $section == 'friends' ? 'active' : '' ?>">
             <a href="<?= relative_url('/my/friends/marks') ?>"><?= _("Friends Marks") ?></a>
           </li>
+          <?php endif ?>
           <li class="<?= $section == 'my' ? 'active' : '' ?>">
             <a href="<?= relative_url('/my/marks') ?>"><?= _("My Marks") ?></a>
           </li>

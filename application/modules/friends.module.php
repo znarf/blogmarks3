@@ -8,6 +8,10 @@ section('friends');
 
 title(_('Friends Marks'));
 
+if (!flag('enable_social_features')) {
+  return unknown_url();
+}
+
 check_authenticated();
 $user = authenticated_user();
 
