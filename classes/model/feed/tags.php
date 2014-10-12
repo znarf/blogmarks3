@@ -41,11 +41,18 @@ class tags
       $options = ['withscores' => true, 'limit' => [$params['offset'], $params['limit']]];
       $results = $redis->zRevRangeByScore($redis_key, '+inf', 1, $options);
     }
-    # Return as tags
+    # Return as tags (filtered with query if available)
     $tags = [];
     foreach ($results as $label => $count) {
-      if (empty($params['query']) || stripos($label, $params['query']) !== false) {
+      if (empty($params['query'])) {
         $tags[] = new tag(['label' => $label, 'count' => $count]);
+      }
+      else {
+        foreach (explode(' ', $params['query']) as $token) {
+          if (stripos($label, $token) !== false) {
+            $tags[] = new tag(['label' => $label, 'count' => $count]);
+          }
+        }
       }
     }
     return $tags;
