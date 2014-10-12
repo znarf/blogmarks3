@@ -36,7 +36,8 @@ class tags extends \blogmarks\model\table
       ->select('mht.id, mht.label as label, COUNT(*) as count')
       ->from('bm_marks as m, bm_marks_has_bm_tags as mht')
       ->where('mht.mark_id = m.id')
-      ->and_where(['m.visibility' => 0, 'mht.isHidden' => 0])
+      ->and_where(['m.visibility' => 0, 'm.display' => 1])
+      ->and_where(['mht.isHidden' => 0, 'mht.visibility' => 0, 'mht.display' => 1])
       ->group_by('mht.tag_id')
       ->limit(1000);
     if (db::driver() == 'sqlite') {
@@ -58,10 +59,8 @@ class tags extends \blogmarks\model\table
       ->and_where('mht2.tag_id != ' . db::quote($tag->id))
       ->group_by('mht2.tag_id');
     if (!$private) {
-      $query->and_where(['mht2.isHidden' => 0]);
-      if (!flag('db_old_schema')) {
-        $query->and_where(['mht2.visibility' => 0]);
-      }
+      $query->and_where(['mht1.isHidden' => 0, 'mht1.visibility' => 0, 'mht1.display' => 1]);
+      $query->and_where(['mht2.isHidden' => 0, 'mht2.visibility' => 0, 'mht2.display' => 1]);
     }
     return $query;
   }
@@ -74,17 +73,25 @@ class tags extends \blogmarks\model\table
       ->where(['user_id' => $user->id])
       ->group_by('tag_id');
     if (!$private) {
-      $query->and_where(['isHidden' => 0]);
-      if (!flag('db_old_schema')) {
-        $query->and_where(['visibility' => 0]);
-      }
+      $query->and_where(['isHidden' => 0, 'visibility' => 0]);
     }
     return $query;
   }
 
   function query_from_user_related_with($user, $tag, $private = false)
   {
-   return $this->query_related_with($tag, $private)->and_where(['mht1.user_id' => $user->id]);
+    $query = $this
+      ->select('mht2.tag_id as id, mht2.label, COUNT(*) as count')
+      ->from('bm_marks_has_bm_tags as mht1, bm_marks_has_bm_tags as mht2')
+      ->where('mht2.mark_id = mht1.mark_id')
+      ->and_where(['mht1.tag_id' => $tag->id])
+      ->and_where(['mht1.user_id' => $user->id])
+      ->and_where('mht2.tag_id != ' . db::quote($tag->id))
+      ->group_by('mht2.tag_id');
+    if (!$private) {
+      $query->and_where(['mht2.isHidden' => 0, 'mht2.visibility' => 0]);
+    }
+    return $query;
   }
 
   # Ratios
