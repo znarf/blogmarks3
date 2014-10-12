@@ -1,10 +1,11 @@
 <?php
 $export = get_bool('export');
+$output_screenshot = !$export || get_bool('export_screenshot');
 $marks = helper('container')->marks();
 $user = domain() == 'my' ? authenticated_user() : helper('target')->user();
 ?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:bm="http://blogmarks.net/ns/">
-<id>tag:blogmarks.net,2013:marks</id>
+<id>tag:blogmarks.net,2005:marks</id>
 <title><?= strip_tags(title()) ?></title>
 <updated><?= date(DateTime::RFC3339) ?></updated>
 <link rel="alternate" type="text/html" href="<?= web_url(request_url()) ?>" title="<?= strip_tags(title()) ?>"/>
@@ -16,7 +17,7 @@ $user = domain() == 'my' ? authenticated_user() : helper('target')->user();
 <?php endif ?>
 <?php foreach ($marks['items'] as $mark) : ?>
 <entry>
-  <id>tag:blogmarks.net,2013:<?= text($mark->id) ?></id>
+  <id>tag:blogmarks.net,2005:<?= text($mark->id) ?></id>
   <title><?= text($mark->title) ?></title>
   <updated><?= date(DateTime::RFC3339, strtotime($mark->updated)) ?></updated>
   <published><?= date(DateTime::RFC3339, strtotime($mark->published)) ?></published>
@@ -30,7 +31,7 @@ $user = domain() == 'my' ? authenticated_user() : helper('target')->user();
   <link href="<?= text($mark->url) ?>"/>
 <?php endif ?>
   <link rel="related" href="<?= text($mark->url) ?>"/>
-<?php if (!$export && $screenshot = $mark->screenshot) : ?>
+<?php if ($output_screenshot && $screenshot = $mark->screenshot) : ?>
 <?php $type = strpos($screenshot, '.jpg') || strpos($screenshot, 'open.thumbshots.org') ? 'image/jpg' : 'image/png' ?>
   <link rel="enclosure" href="<?= arg($screenshot) ?>" type="<?= arg($type) ?>"/>
 <?php endif ?>
