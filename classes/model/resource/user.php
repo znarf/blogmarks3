@@ -1,10 +1,14 @@
 <?php namespace blogmarks\model\resource;
 
+use amateur\core\amateur;
+
 class user extends \blogmarks\model\resource
 {
 
   use
   \amateur\model\dynamic_properties;
+
+  public $default_avatar = 'http://blogmarks.net/img/default-gravatar.gif';
 
   function username()
   {
@@ -19,21 +23,31 @@ class user extends \blogmarks\model\resource
 
   function url()
   {
-    return web_url("/user/{$this->username}");
+    # would be better to not use replaceable here
+    return amateur::web_url("/user/{$this->username}");
   }
 
   function avatar($size = 80)
   {
-    $email = $this->attribute('email');
-    if ($email && strpos($email, "@") !== false) {
-      return 'http://www.gravatar.com/avatar.php?gravatar_id=' . md5($email) . '&size=' . $size;
-    /*
-    } elseif (strpos($avatar, "http") === 0) {
-      return $avatar;
-    */
-    } else {
-      return absolute_url() . '/img/default-gravatar.gif';
+    $avatar = $this->attribute('avatar');
+    if ($avatar && strpos($avatar, '@') !== false) {
+      return $this->gravatar($avatar, $size);
     }
+    /*
+    if ($avatar && strpos($avatar, "http") === 0) {
+      return $avatar;
+    }
+    */
+    $email = $this->attribute('email');
+    if ($email && strpos($email, '@') !== false) {
+      return $this->gravatar($email, $size);
+    }
+    return $this->default_avatar;
+  }
+
+  function gravatar($email, $size = 80)
+  {
+    return 'http://www.gravatar.com/avatar.php?gravatar_id=' . md5($email) . '&size=' . $size . '&d=' . urlencode($this->default_avatar);
   }
 
   function mark_with_link($link)
