@@ -19,7 +19,7 @@ $section = section();
 
 <?php endforeach ?>
 
-<?php if ($marks['next']) : ?>
+<?php if (!empty($marks['next'])) : ?>
 <div id="pagination">
   <?php
   if ($marks['params']['order'] == 'asc') {
@@ -31,8 +31,8 @@ $section = section();
   ?>
   <a rel="next" class="page more" href="?<?= http_build_query($more) ?>">more</a>
 </div> <!-- /#pagination -->
-<?php else : // only if before or offset is passed as parameter  ?>
-   <h2><span>The End (Limit not reached)</span></h2>
+<?php else : ?>
+   <h2><span>The End</span></h2>
 <?php endif ?>
 
 <?php else : ?>
