@@ -27,9 +27,20 @@ class marks
       'content'      => $mark->contentType == 'html' ? strip_tags($mark->content) : $mark->content,
       'public'       => $mark->is_public,
       'private'      => $mark->is_private,
-      'tags'         => array_values(array_map('strval', $mark->public_tags())),
-      'private_tags' => array_values(array_map('strval', $mark->private_tags()))
+      'tags'         => array_values(array_map(['self', 'convert_tag'], $mark->public_tags())),
+      'private_tags' => array_values(array_map(['self', 'convert_tag'], $mark->private_tags()))
     ];
+  }
+
+  function convert_tag($tag)
+  {
+    # TODO: strval should be enough. encoding should be fixed in the database.
+    $string = strval($tag);
+    $encoding = mb_detect_encoding($string, 'auto', true);
+    if (!$encoding) {
+      $string = utf8_encode($string);
+    }
+    return $string;
   }
 
   function available()
