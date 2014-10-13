@@ -3,12 +3,13 @@
 # This is a 'compiled' partial
 
 $base_tag_prefix = $section == 'my' ? '/my/marks/tag' : ($section == 'friends' ? '/my/friends/marks/tag' : '/marks/tag' );
-$base_tag_path  = relative_or_absolute_url($base_tag_prefix);
+$base_tag_path = relative_or_absolute_url($base_tag_prefix);
+$mixed_base_tag_path = relative_or_absolute_url('/my/marks/mixed-tag');
 $base_mark_path = relative_or_absolute_url('/my/marks');
 
 # First register it when it's call/included for the first time
 
-$partial = partial('mark', function($args = []) use($base_tag_path, $base_mark_path) {
+$partial = partial('mark', function($args = []) use($base_tag_path, $mixed_base_tag_path, $base_mark_path) {
 
 extract($args);
 
@@ -36,7 +37,7 @@ extract($args);
           $base_tag_path . '/' . urlencode($_tag->label) ?>"><?= text($_tag->label) ?></a>
 <?php elseif (is_authenticated_user($mark->author)) : ?>
         <a rel="tag" class="tag private_tag" href="<?=
-          $base_tag_path . '/' . urlencode($_tag->label) ?>"><?= text($_tag->label) ?></a>
+          $mixed_base_tag_path . '/' . urlencode($_tag->label) ?>"><?= text($_tag->label) ?></a>
 <?php endif ?>
 <?php endforeach ?>
       </p>

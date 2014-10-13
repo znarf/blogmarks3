@@ -25,6 +25,7 @@ $tags = is_callable($tags) ? $tags() : $tags;
       foreach ($tags as $tag) {
         if (isset($ratios[$tag->label])) {
           $tag->_classname = $ratios[$tag->label] == 100 ? 'tag private' : 'tag mixed';
+          $tag->_url = relative_url("/my/marks/mixed-tag/" . urlencode($tag->label));
         }
       }
     }
@@ -32,7 +33,7 @@ $tags = is_callable($tags) ? $tags() : $tags;
     <?php foreach (helper('taglist')->compute($tags) as $tag) : ?>
       <span>
         <a style="font-size:<?= $tag->_size ?>%" class="<?= isset($tag->_classname) ? $tag->_classname : 'tag' ?>" href="<?=
-        arg($base_tag_path . $tag->label) ?>"><?= text($tag->label) ?></a>
+        arg(isset($tag->_url) ? $tag->_url : $base_tag_path . $tag->label) ?>"><?= text($tag->label) ?></a>
       <?php if ($target_tag) : ?>
       <a href="<?=
         arg($base_tag_path . $target_tag->label . ',' . $tag->label) ?>"><img src="<?= $plus ?>" width="9" height="9" alt="+" /></a>

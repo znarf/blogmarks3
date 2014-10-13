@@ -24,6 +24,13 @@ class marks
 
   function query($redis_key, $query, $params = [])
   {
+    $results = self::ids_and_ts($redis_key, $query, $params);
+    # Return prepared items
+    return self::prepare_items($results, $params);
+  }
+
+  function ids_and_ts($redis_key, $query, $params = [])
+  {
     $redis = self::redis();
     # Params
     $params = array_filter($params) + self::$default_params;
@@ -70,6 +77,11 @@ class marks
         }
       }
     }
+    return $results;
+  }
+
+  function prepare_items($results, $params = [])
+  {
     # Next?
     $next = $params['limit'] && count($results) > $params['limit'] ? (int) array_pop($results) : null;
     # Items

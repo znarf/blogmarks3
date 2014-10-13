@@ -68,6 +68,9 @@ elseif (url_is('/my/tags/autocomplete')) {
   return json(array_map('strval', $tags));
 }
 
+elseif (url_start_with('/my/marks/mixed-tag')) {
+  return module('legacy');
+}
 elseif (url_start_with('/my/marks')) {
   return module('mark');
 }
