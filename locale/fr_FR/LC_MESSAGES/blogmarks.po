@@ -1,0 +1,1144 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: blogmarks.net\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-15 21:15+0100\n"
+"PO-Revision-Date: 2014-10-15 21:31+0100\n"
+"Last-Translator: François Hodierne <francois@hodierne.net>\n"
+"Language-Team:  <team@blogmarks.net>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: /Users/znarfor/Dropbox/Dev/\n"
+"X-Poedit-KeywordsList: trunk\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: bm-next\n"
+
+#: bm-next/application/helpers/grouper.helper.php:18
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#: bm-next/application/helpers/grouper.helper.php:18
+msgid "Yesterday"
+msgstr "Hier"
+
+#: bm-next/application/modules/auth.module.php:5
+#: bm-next/application/partials/top.partial.php:22
+msgid "Sign In"
+msgstr "Se connecter"
+
+#: bm-next/application/modules/auth.module.php:26
+#: bm-next/application/partials/top.partial.php:20
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+#: bm-next/application/modules/friends.module.php:9
+#: bm-next/application/modules/friends.module.php:35
+#: bm-next/application/modules/friends.module.php:42
+#: bm-next/application/modules/friends.module.php:55
+#: bm-next/application/partials/top.partial.php:31
+msgid "Friends Marks"
+msgstr "Marks Amis"
+
+#: bm-next/application/modules/friends.module.php:35
+#: bm-next/application/modules/legacy.module.php:15
+#: bm-next/application/modules/my.module.php:28
+msgid "with tag"
+msgstr "avec le tag"
+
+#: bm-next/application/modules/legacy.module.php:15
+#: bm-next/application/modules/my.module.php:9
+#: bm-next/application/modules/my.module.php:28
+#: bm-next/application/modules/my.module.php:35
+#: bm-next/application/modules/my.module.php:50
+#: bm-next/application/partials/top.partial.php:35
+msgid "My Marks"
+msgstr "Mes Marks"
+
+#: bm-next/application/modules/mark.module.php:28
+msgid "New Mark"
+msgstr "Nouveau mark"
+
+#: bm-next/application/modules/mark.module.php:34
+msgid "Mark Successfully Added."
+msgstr "Mark ajouté avec succès"
+
+#: bm-next/application/modules/mark.module.php:57
+#: bm-next/application/partials/mark.partial.php:47
+#: bm-next/application/views/marks/form-modal.view.php:12
+msgid "Edit Mark"
+msgstr "Éditer un mark"
+
+#: bm-next/application/modules/mark.module.php:96
+#: bm-next/application/partials/mark.partial.php:49
+#: bm-next/application/views/marks/delete.view.php:8
+msgid "Delete Mark"
+msgstr "Supprimer un mark"
+
+#: bm-next/application/modules/mark.module.php:108
+msgid "Mark Successfully Deleted."
+msgstr "Mark supprimé avec succès"
+
+#: bm-next/application/modules/profile.module.php:5
+msgid "Profile"
+msgstr "Profil"
+
+#: bm-next/application/modules/profile.module.php:38
+msgid "Profile Updated"
+msgstr "Profil mis à jour"
+
+#: bm-next/application/modules/public.module.php:5
+#: bm-next/application/modules/public.module.php:27
+#: bm-next/application/modules/public.module.php:34
+#: bm-next/application/modules/public.module.php:55
+#: bm-next/application/modules/public.module.php:62
+#: bm-next/application/modules/public.module.php:72
+#: bm-next/application/modules/public.module.php:86
+#: bm-next/application/partials/top.partial.php:27
+msgid "Public Marks"
+msgstr "Marks Publics"
+
+#: bm-next/application/modules/tools.module.php:5
+#: bm-next/application/partials/top.partial.php:38
+msgid "Tools"
+msgstr "Outils"
+
+#: bm-next/application/partials/mark.partial.php:48
+msgid "Edit"
+msgstr "Éditer"
+
+#: bm-next/application/partials/mark.partial.php:50
+#: bm-next/application/views/marks/delete.view.php:21
+msgid "Delete"
+msgstr "Supprimer"
+
+#: bm-next/application/partials/menu.partial.php:5
+#: bm-next/application/views/tools/bookmarklet.view.php:26
+msgid "Bookmarklet"
+msgstr "Bookmarklet"
+
+#: bm-next/application/partials/menu.partial.php:6
+#: bm-next/application/views/tools/import.view.php:12
+msgid "Import"
+msgstr "Importer"
+
+#: bm-next/application/partials/menu.partial.php:7
+#: bm-next/application/views/tools/export.view.php:12
+msgid "Export"
+msgstr "Exporter"
+
+#: bm-next/application/partials/menu.partial.php:8
+#: bm-next/application/views/tools/empty.view.php:12
+#: bm-next/application/views/tools/empty.view.php:19
+msgid "Empty"
+msgstr "Vider"
+
+#: bm-next/application/partials/search.partial.php:8
+msgid "Search"
+msgstr "Rechercher"
+
+#: bm-next/application/partials/top.partial.php:15
+msgid "Connected as"
+msgstr "Connecté comme"
+
+#: bm-next/application/partials/top.partial.php:18
+msgid "Sign Out"
+msgstr "Se Déconnecter"
+
+#: bm-next/application/partials/users.partial.php:12
+msgid "last mark:"
+msgstr "dernier mark :"
+
+#: bm-next/application/views/marks/delete.view.php:12
+msgid "Do you really want to delete this mark?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce mark ?"
+
+#: bm-next/application/views/marks/delete.view.php:22
+#: bm-next/application/views/marks/form-modal.view.php:53
+msgid "Cancel"
+msgstr "Annuler"
+
+#: bm-next/application/views/marks/form-modal.view.php:17
+msgid "URL"
+msgstr "URL"
+
+#: bm-next/application/views/marks/form-modal.view.php:20
+msgid "Title"
+msgstr "Titre"
+
+#: bm-next/application/views/marks/form-modal.view.php:27
+msgid "Public Tags"
+msgstr "Tags publics"
+
+#: bm-next/application/views/marks/form-modal.view.php:30
+msgid "Private Tags"
+msgstr "Tags privés"
+
+#: bm-next/application/views/marks/form-modal.view.php:33
+msgid "Visibiity"
+msgstr "Visibilité"
+
+#: bm-next/application/views/marks/form-modal.view.php:36
+msgid "public"
+msgstr "public"
+
+#: bm-next/application/views/marks/form-modal.view.php:40
+msgid "private"
+msgstr "privé"
+
+#: bm-next/application/views/marks/form-modal.view.php:52
+msgid "Save"
+msgstr "Enregistrer"
+
+#: bm-next/application/views/profile/index.view.php:6
+msgid "General"
+msgstr "Général"
+
+#: bm-next/application/views/profile/index.view.php:22
+msgid "Full Name"
+msgstr "Nom complet"
+
+#: bm-next/application/views/profile/index.view.php:35
+msgid "Email Address"
+msgstr "Adresse email"
+
+#: bm-next/application/views/profile/index.view.php:48
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: bm-next/application/views/profile/index.view.php:60
+msgid "Language"
+msgstr "Langue"
+
+#: bm-next/application/views/profile/index.view.php:71
+msgid "Timezone"
+msgstr "Fuseau horaire"
+
+#: bm-next/application/views/profile/index.view.php:78
+msgid "Popular"
+msgstr "Populaire"
+
+#: bm-next/application/views/profile/index.view.php:83
+msgid "All"
+msgstr "Tous"
+
+#: bm-next/application/views/profile/index.view.php:97
+msgid "Update Profile"
+msgstr "Mettre à jour le profil"
+
+#: bm-next/application/views/tools/bookmarklet.view.php:28
+msgid ""
+"Drag this link to your browser toolbar and use it as a button to add marks."
+msgstr ""
+"Déposez ce lien dans la barre d'outils de votre navigateur et utilisez le "
+"comme bouton pour ajouter des marks."
+
+#: bm-next/application/views/tools/bookmarklet.view.php:30
+msgid ""
+"Tip: you can select a piece of text before clicking the \"Add to Blogmarks\" "
+"button, it will appear in the description."
+msgstr ""
+"Astuce: vous pouvez sélectionner un morceau de texte avant de cliquer sur le "
+"bouton \"Add to Blogmarks\", il apparaîtra dans la description."
+
+#: bm-next/application/views/tools/bookmarklet.view.php:34
+msgid "Drag the button below to your browser toolbar:"
+msgstr ""
+"Déposez le bouton ci-dessous dans la barre d'outils de votre navigateur :"
+
+#: bm-next/application/views/tools/empty.view.php:14
+msgid ""
+"If you press the button below, you will empty all your account. Are you sure?"
+msgstr ""
+"Si vous pressez le bouton au dessous, votre compte sera complètement vidé. "
+"Êtes-vous sur ?"
+
+#: bm-next/application/views/tools/export.view.php:25
+msgid "download your Blogmarks backup"
+msgstr "télécharger votre sauvegarde Blogmarks"
+
+#: bm-next/application/views/tools/import.view.php:32
+msgid "Choose a source file..."
+msgstr "Choisissez un fichier source ..."
+
+#: bm-next/application/views/tools/import.view.php:35
+msgid "Import Now !"
+msgstr "Importer maintenant !"
+
+#~ msgid "A valid email address."
+#~ msgstr "Une adresse email valide."
+
+#~ msgid "Up to 24 alphanumerical characters."
+#~ msgstr "Jusqu'à 24 caractères alphanumériques."
+
+#, fuzzy
+#~ msgid "My Marks o"
+#~ msgstr "Mes Marks"
+
+#~ msgid "Edit mark"
+#~ msgstr "Éditer un mark"
+
+#~ msgid "My Contacts"
+#~ msgstr "Mes contacts"
+
+#~ msgid "My Friends"
+#~ msgstr "Mes amis"
+
+#~ msgid "My Fans"
+#~ msgstr "Mes fans"
+
+#~ msgid "<strong>Search</strong> Marks"
+#~ msgstr "<strong>Rechercher</strong> dans les marks"
+
+#~ msgid "<strong>Active</strong> users"
+#~ msgstr "Utilisateurs <strong>actifs</strong>"
+
+#~ msgid "Latest <strong>comments</strong>"
+#~ msgstr "Derniers <strong>commentaires</strong>"
+
+#~ msgid "<strong>Active</strong> friends"
+#~ msgstr "Amis <strong>actifs</strong>"
+
+#~ msgid "see all your contacts, friends and fans"
+#~ msgstr "voir tout vos contacts, vos amis, vos fans"
+
+#~ msgid "said"
+#~ msgstr "a dit"
+
+#~ msgid "at"
+#~ msgstr "à"
+
+#~ msgid "the"
+#~ msgstr "le"
+
+#~ msgid "Remove"
+#~ msgstr "Enlever"
+
+#~ msgid "from my friends"
+#~ msgstr "de mes amis"
+
+#~ msgid "Add"
+#~ msgstr "Ajouter"
+
+#~ msgid "to my friends"
+#~ msgstr "à mes amis"
+
+#~ msgid "Trash"
+#~ msgstr "Dégager"
+
+#~ msgid "because he is a fucking spammer !"
+#~ msgstr "car c'est un putain de spammeur !"
+
+#~ msgid "LINK"
+#~ msgstr "LIEN"
+
+#~ msgid "This link doesn't exist."
+#~ msgstr "Ce lien n'existe pas"
+
+#~ msgid "Comments"
+#~ msgstr "Commentaires"
+
+#~ msgid "No comment on this link yet."
+#~ msgstr "Pas de commentaire sur ce lien pour le moment."
+
+#~ msgid "React!"
+#~ msgstr "Réagir!"
+
+#~ msgid "Send"
+#~ msgstr "Envoyer"
+
+#~ msgid "BY"
+#~ msgstr "PAR"
+
+#~ msgid ""
+#~ "This URL is already in your blogmarks.<br />Maybe you want to edit it."
+#~ msgstr ""
+#~ "Cette URL est déjà dans vos blogmarks.<br />Peut-être voulez-vous "
+#~ "l'éditer."
+
+#~ msgid "Description"
+#~ msgstr "Description"
+
+#~ msgid "Tags"
+#~ msgstr "Tags"
+
+#~ msgid "Comma separated : tag1, tag2, etc"
+#~ msgstr "Séparés par des virgules : tag1, tag2, etc"
+
+#~ msgid "Via"
+#~ msgstr "Via"
+
+#~ msgid "Status"
+#~ msgstr "Statut"
+
+#~ msgid "Source"
+#~ msgstr "Source"
+
+#~ msgid "positive"
+#~ msgstr "positive"
+
+#~ msgid "neutral"
+#~ msgstr "neutre"
+
+#~ msgid "negative"
+#~ msgstr "négative"
+
+#~ msgid "Authority"
+#~ msgstr "Autorité"
+
+#~ msgid "Update"
+#~ msgstr "Mettre à jour"
+
+#~ msgid "Blogmarks.net is a social bookmarking service."
+#~ msgstr "Blogmarks.net est un service de signets sociaux."
+
+#~ msgid "Already an user?"
+#~ msgstr "Déjà utilisateur ?"
+
+#~ msgid "Password"
+#~ msgstr "Mot de passe"
+
+#~ msgid "Remember me on this computer"
+#~ msgstr "Se rappeler de moi sur cet ordinateur"
+
+#~ msgid "Lost your password?"
+#~ msgstr "Mot de passe perdu ?"
+
+#~ msgid "MY"
+#~ msgstr "MES"
+
+#~ msgid "marks"
+#~ msgstr "marks"
+
+#~ msgid "tags"
+#~ msgstr "tags"
+
+#~ msgid "friends"
+#~ msgstr "amis"
+
+#~ msgid "profiles"
+#~ msgstr "profils"
+
+#~ msgid "tools"
+#~ msgstr "outils"
+
+#~ msgid "NEW"
+#~ msgstr "NOUVEAU"
+
+#~ msgid "mark"
+#~ msgstr "mark"
+
+#~ msgid "disconnect"
+#~ msgstr "se déconnecter"
+
+#~ msgid "prev"
+#~ msgstr "précédent"
+
+#~ msgid "next"
+#~ msgstr "suivant"
+
+#~ msgid "in all marks"
+#~ msgstr "dans tous les marks"
+
+#~ msgid "in %s marks"
+#~ msgstr "dans les marks de %s"
+
+#~ msgid "in my friends marks"
+#~ msgstr "dans les marks de mes amis"
+
+#~ msgid "in my marks"
+#~ msgstr "dans mes marks"
+
+#~ msgid "private tag:"
+#~ msgstr "tag privé :"
+
+#~ msgid "tag:"
+#~ msgstr "tag :"
+
+#~ msgid "Rename this tag"
+#~ msgstr "Renommer ce tag"
+
+#~ msgid "Private"
+#~ msgstr "Privé"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "<strong>PUBLIC</strong> TAGS"
+#~ msgstr "TAGS <strong>PUBLICS</strong>"
+
+#~ msgid "search:"
+#~ msgstr "recherche :"
+
+#~ msgid "limit:"
+#~ msgstr "limite :"
+
+#~ msgid "All Marks"
+#~ msgstr "Tous les marks"
+
+#~ msgid "public marks"
+#~ msgstr "marks publics"
+
+#~ msgid "search"
+#~ msgstr "recherche"
+
+#~ msgid "Blog"
+#~ msgstr "Blog"
+
+#~ msgid ""
+#~ "Setup your blog parameters and you will be allowed to use our Blog Sync "
+#~ "functionality."
+#~ msgstr ""
+#~ "Configurez les paramètres de votre blog et vous pourrez utiliser notre "
+#~ "fonctionnalité Blog Sync."
+
+#~ msgid "Example: %s"
+#~ msgstr "Exemple : %s"
+
+#~ msgid "XML-RPC (or Atom) endpoint"
+#~ msgstr "Point d'entrée XML-RPC (ou Atom)"
+
+#~ msgid "Blog id"
+#~ msgstr "Blog id"
+
+#~ msgid "If needed. Blogger, MT and Typepad users must provide one."
+#~ msgstr ""
+#~ "Si nécessaire, les utilisateurs de Blogger, MT et Typepad doivent en "
+#~ "fournir un"
+
+#~ msgid "Update your blog profile"
+#~ msgstr "Mettre à jour votre profil \"blog\""
+
+#~ msgid "Your screen name"
+#~ msgstr "Votre nom public"
+
+#~ msgid "Your name as displayed on public pages."
+#~ msgstr "Votre nom tel qu'affiché sur les pages publiques."
+
+#~ msgid "Your email"
+#~ msgstr "Votre email"
+
+#~ msgid "To contact you or to retrieve your password for example."
+#~ msgstr "Pour vous contacter ou récupérer votre mot de passe par exemple."
+
+#~ msgid "Your avatar"
+#~ msgstr "Votre avatar"
+
+#~ msgid ""
+#~ "If you have a gravatar registered at gravatar.com, enter your email "
+#~ "address."
+#~ msgstr ""
+#~ "Si vous avez un gravatar enregistré sur gravatar.com, entrez votre "
+#~ "adresse email."
+
+#~ msgid "If not, you can enter an absolute URL (80x80 image expected)."
+#~ msgstr ""
+#~ "Sinon, vous pouvez entrer une URL absolue (image aux dimensions 80x80 "
+#~ "attendue)."
+
+#~ msgid "Change the user interface timezone."
+#~ msgstr "Change la langue de l'interface utilisateur."
+
+#~ msgid "Change the user interface language."
+#~ msgstr "Change la langue de l'interface utilisateur"
+
+#~ msgid "Change Password"
+#~ msgstr "Changer le mot de passe"
+
+#~ msgid "Current Password:"
+#~ msgstr "Mot de passe actuel :"
+
+#~ msgid "New Password:"
+#~ msgstr "Nouveau mot de passe :"
+
+#~ msgid "Confirm New Password:"
+#~ msgstr "Confirmez le mot de passe :"
+
+#~ msgid ""
+#~ "If you have a gravatar registered at gravatar.com, enter your email "
+#~ "address. If not, you can enter an absolute URL (80x80 image expected)"
+#~ msgstr ""
+#~ "Si vous avez un gravatar enregistré sur gravatar.com, entrez votre "
+#~ "adresse email. Sinon, vous pouvez entrer une URL absolue (image aux "
+#~ "dimensions 80x80 attendue)."
+
+#~ msgid "Change timezone in user interface dates."
+#~ msgstr "Change le fuseau horaire pour l'interface utilisateur"
+
+#~ msgid "Lang"
+#~ msgstr "Langue"
+
+#~ msgid "Update general profile"
+#~ msgstr "Mettre à jour le profil général"
+
+#~ msgid "Lost Password"
+#~ msgstr "Mot de passe perdu"
+
+#~ msgid "Retrieve password"
+#~ msgstr "Récupérez le mot de passe"
+
+#~ msgid ""
+#~ "Enter your username. We will send you an email with instructions for how "
+#~ "to reset your password."
+#~ msgstr ""
+#~ "Entrez votre nom d'utilisateur. Nous vous enverrons des instructions pour "
+#~ "réinitialiser votre mot de passe."
+
+#~ msgid "Reset Password"
+#~ msgstr "Réinitialiser le mot de passe"
+
+#~ msgid "Reset your password"
+#~ msgstr "Réinitialisez votre mot de passe"
+
+#~ msgid "Enter your new password:"
+#~ msgstr "Entrez votre nouveau mot de passe :"
+
+#~ msgid "New password"
+#~ msgstr "Nouveau mot de passe"
+
+#~ msgid "Confirm New Password"
+#~ msgstr "Confirmez le mot de passe"
+
+#~ msgid "Update Password"
+#~ msgstr "Mettre à jour le mot de passe"
+
+#~ msgid "At least %s characters long"
+#~ msgstr "Au moins long de %s caractères"
+
+#~ msgid "Confirm Password"
+#~ msgstr "Confirmez le mot de passe"
+
+#~ msgid "Again please!"
+#~ msgstr "Encore une fois !"
+
+#~ msgid "Email"
+#~ msgstr "Adresse email"
+
+#~ msgid "Invitation code"
+#~ msgstr "Code d'invitation"
+
+#~ msgid "Create an account"
+#~ msgstr "Créer un compte"
+
+#~ msgid "Which marks"
+#~ msgstr "Quels marks"
+
+#~ msgid "Marks posted since last sync"
+#~ msgstr "Marks postés depuis la dernière synchronisation"
+
+#~ msgid "Marks posted in the last 24h"
+#~ msgstr "Marks postés dans les dernières 24h"
+
+#~ msgid "When"
+#~ msgstr "Quand"
+
+#~ msgid ""
+#~ "Be sure to have your timezone correctly configured in the general profile."
+#~ msgstr ""
+#~ "Vérifiez bien que votre fuseau horaire est correctement configuré dans "
+#~ "votre profil général."
+
+#~ msgid "Disabled"
+#~ msgstr "Désactivé"
+
+#~ msgid "Manually (now, one shot)"
+#~ msgstr "Manuellement (maintenant, une fois)"
+
+#~ msgid "Once a day at %s h"
+#~ msgstr "Une fois par jour à %s h"
+
+#~ msgid "Post encoding"
+#~ msgstr "Encodage du billet"
+
+#~ msgid "Post category"
+#~ msgstr "Catégorie du billet"
+
+#~ msgid "Post status"
+#~ msgstr "Statut du billet"
+
+#~ msgid "online"
+#~ msgstr "en ligne"
+
+#~ msgid "offline"
+#~ msgstr "hors ligne"
+
+#~ msgid "Post title"
+#~ msgstr "Titre du billet"
+
+#~ msgid "Post template"
+#~ msgstr "Squelette du billet"
+
+#~ msgid "Empty = default"
+#~ msgstr "Vide = défaut"
+
+#~ msgid "Template example"
+#~ msgstr "Example de squelette"
+
+#~ msgid "CSV Export"
+#~ msgstr "Export CSV"
+
+#~ msgid ""
+#~ "The Blogmarks archive is a gzip compressed Atom feed with all your marks."
+#~ msgstr ""
+#~ "L'archive Blogmarks est un feed Atom avec tout vos marks, compressé en "
+#~ "gzip."
+
+#~ msgid "It is our official export format and guarantee no data loss."
+#~ msgstr ""
+#~ "C'est notre format officiel d'export et garantie aucune perte de donnée."
+
+#~ msgid "Netscape HTML"
+#~ msgstr "Netscape HTML"
+
+#~ msgid ""
+#~ "The Netscape HTML is the oldest known bookmark export format and is the "
+#~ "sole import format available on delicious.com."
+#~ msgstr ""
+#~ "Le HTML Netscape est le plus ancien format d'export de bookmark connu et "
+#~ "le seul format d'import accepté sur delicious.com."
+
+#~ msgid "get your public bookmarks in html format"
+#~ msgstr "télécharger vos bookmarks publics au format Netscape HTML"
+
+#~ msgid "get your private bookmarks in html format"
+#~ msgstr "télécharger vos bookmarks privés au format Netscape HTML"
+
+#~ msgid "Delicious XML"
+#~ msgstr "Delicious XML"
+
+#~ msgid ""
+#~ "The Delicious XML is not directly importable on delicious.com but is "
+#~ "accepted in other services."
+#~ msgstr ""
+#~ "Le XML Delicious n'est pas directement importable sur delicious.com mais "
+#~ "est accepté par d'autres services."
+
+#~ msgid "get your export in Delicious XML format"
+#~ msgstr "télécharger votre export au format Delicious XML"
+
+#~ msgid "from an Atom feed, a blogmarks.net backup"
+#~ msgstr "depuis un fichier Atom, une sauvegarde blogmarks.net"
+
+#~ msgid "from a del.icio.us account"
+#~ msgstr "depuis un compte del.icio.us"
+
+#~ msgid "from a blinklist.com backup"
+#~ msgstr "depuis une sauvegarde Blinklist"
+
+#~ msgid "Import from"
+#~ msgstr "Importer depuis"
+
+#~ msgid "... or enter a Remote source URL :"
+#~ msgstr "... ou entrez l'URL d'une source distante"
+
+#~ msgid "Account"
+#~ msgstr "Compte"
+
+#~ msgid "Add automatically this tags to imported marks"
+#~ msgstr "Ajouter automatiquement ces tags aux marks importés"
+
+#~ msgid "Blog Sync"
+#~ msgstr "Blog Sync"
+
+#~ msgid "Users"
+#~ msgstr "Utilisateurs"
+
+#~ msgid "New User"
+#~ msgstr "Nouvel utilisateur"
+
+#~ msgid "Enter Password:"
+#~ msgstr "Entrer le mot de passe :"
+
+#~ msgid "Confirm Password:"
+#~ msgstr "Confirmer le mot de passe :"
+
+#~ msgid "Role"
+#~ msgstr "Rôle"
+
+#~ msgid "Contributor"
+#~ msgstr "Contributeur"
+
+#~ msgid "Administrator"
+#~ msgstr "Administrateur"
+
+#~ msgid "Create new user"
+#~ msgstr "Créer un utilisateur"
+
+#~ msgid "Link"
+#~ msgstr "Lien"
+
+#~ msgid "Password changed."
+#~ msgstr "Mot de passe changé."
+
+#~ msgid "Modifications saved"
+#~ msgstr "Modifications enregistrées"
+
+#~ msgid "Username must be at least 3 characters long."
+#~ msgstr "Le nom d'utilisateur doit faire au moins 3 caractères."
+
+#~ msgid "Password must be at least 4 characters long."
+#~ msgstr "Le mot de passe doit faire au moins 4 caractères."
+
+#~ msgid "The 2 submitted passwords don't match."
+#~ msgstr "Les mots de passe soumis ne sont pas identiques."
+
+#~ msgid "Retrieve your password"
+#~ msgstr "Récupérez votre mot de passe"
+
+#~ msgid "Username:"
+#~ msgstr "Nom d'utilisateur :"
+
+#~ msgid "The e-mail could not be sent."
+#~ msgstr "L'email n'a pas être envoyé."
+
+#~ msgid "My Tags"
+#~ msgstr "Mes Tags"
+
+#~ msgid "User saved"
+#~ msgstr "Utilisateur enregistré"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#~ msgid "Failed"
+#~ msgstr "Echec"
+
+#~ msgid "View last public marks from user %s"
+#~ msgstr "Voir les derniers marks publics de %s"
+
+#~ msgid "by"
+#~ msgstr "par"
+
+#~ msgid "1 other"
+#~ msgstr "1 autre"
+
+#~ msgid "%s others"
+#~ msgstr "%s autres"
+
+#~ msgid "1 comment"
+#~ msgstr "1 commentaire"
+
+#~ msgid "%s comments"
+#~ msgstr "%s commentaires"
+
+#~ msgid "Edit this Mark"
+#~ msgstr "Éditer ce mark"
+
+#~ msgid "Delete this Mark"
+#~ msgstr "Supprimer ce mark"
+
+#~ msgid "Copy this Mark"
+#~ msgstr "Copier ce mark"
+
+#~ msgid "Copy"
+#~ msgstr "Copier"
+
+#~ msgid "React"
+#~ msgstr "Réagir"
+
+#~ msgid "%s marks with this tag"
+#~ msgstr "%s marks avec ce tag"
+
+#~ msgid "Tag used by %s users"
+#~ msgstr "Tag utilisé par %s utilisateurs"
+
+#~ msgid "Add this tag to the search"
+#~ msgstr "Ajouter ce tag à la recherche"
+
+#~ msgid "deleted"
+#~ msgstr "supprimé"
+
+#~ msgid "Done!"
+#~ msgstr "Terminé !"
+
+#~ msgid "Sorry, this username is not available."
+#~ msgstr "Désolé, ce nom d'utilisateur n'est pas disponible."
+
+#~ msgid "My most popular marks"
+#~ msgstr "Mes marks populaires"
+
+#~ msgid "MY <span>MOST</span> POPULAR MARKS "
+#~ msgstr "MES <span>MARKS</span> POPULAIRES"
+
+#~ msgid "My marks"
+#~ msgstr "Mes marks"
+
+#~ msgid "MY MARKS "
+#~ msgstr "MES MARKS"
+
+#~ msgid "Most popular marks from my friends"
+#~ msgstr "Marks populaires de mes amis"
+
+#~ msgid "<span>MOST</span> POPULAR MARKS FROM MY FRIENDS"
+#~ msgstr "MARKS <span>POPULAIRES</span> DE MES AMIS"
+
+#~ msgid "Marks from my friends"
+#~ msgstr "Marks de mes amis"
+
+#~ msgid "MARKS FROM MY <span>FRIENDS</span>"
+#~ msgstr "MARKS DE MES <span>AMIS</span>"
+
+#~ msgid "Marks from friends of user %s "
+#~ msgstr "Marks des amis de %s"
+
+#~ msgid "MARKS FROM <span>FRIENDS</span> of user %s"
+#~ msgstr "MARKS DES <span>AMIS</span> de %s"
+
+#~ msgid "Most popular marks"
+#~ msgstr "Marks populaires"
+
+#~ msgid "<span>MOST</span> POPULAR MARKS "
+#~ msgstr "MARKS <span>POPULAIRES</span>"
+
+#~ msgid "All marks"
+#~ msgstr "Tous les marks"
+
+#~ msgid "<span>ALL</span> MARKS "
+#~ msgstr "<span>TOUS</span> LES MARKS"
+
+#~ msgid "from users"
+#~ msgstr "de"
+
+#~ msgid "from"
+#~ msgstr "de"
+
+#~ msgid "with search"
+#~ msgstr "avec la recherche"
+
+#~ msgid "with tags"
+#~ msgstr "avec les tags"
+
+#~ msgid "without tags"
+#~ msgstr "sans tags"
+
+#~ msgid "since"
+#~ msgstr "depuis"
+
+#~ msgid "Tags from %s's friends"
+#~ msgstr "Tags des amis de %s"
+
+#~ msgid "Tags from <strong>%s's</strong> friends"
+#~ msgstr "Tags des amis de <strong>%s</strong>"
+
+#~ msgid "My tags"
+#~ msgstr "Mes tags"
+
+#~ msgid "<strong>MY</strong> TAGS"
+#~ msgstr "<strong>MES</strong> TAGS"
+
+#~ msgid "%s's tags"
+#~ msgstr "Tags de %s"
+
+#~ msgid "<strong>%s's</strong> TAGS"
+#~ msgstr "<strong>TAGS</strong> DE %s"
+
+#~ msgid "related to tag"
+#~ msgstr "liés au tag"
+
+#~ msgid "related to tags"
+#~ msgstr "liés au tag"
+
+#~ msgid "on this link"
+#~ msgstr "sur ce lien"
+
+#~ msgid "on <strong>this link</strong>"
+#~ msgstr "sur <strong>ce lien</strong>"
+
+#~ msgid "Less than one hour"
+#~ msgstr "Il y'a moins d'une heure"
+
+#~ msgid "This month"
+#~ msgstr "Ce mois ci"
+
+#~ msgid "This year"
+#~ msgstr "Cette année"
+
+#, fuzzy
+#~ msgid "Blogmarks"
+#~ msgstr "marks"
+
+#~ msgid "Logged in as"
+#~ msgstr "Connecté comme"
+
+#~ msgid "Atom"
+#~ msgstr "Atom"
+
+#~ msgid "Public marks"
+#~ msgstr "Marks publics"
+
+#~ msgid "Repeat password"
+#~ msgstr "Répétez le mot de passe"
+
+#~ msgid "optionnal, may be useful to remember and retrieve your login infos"
+#~ msgstr ""
+#~ "optionnel, peut-être utile pour récupérer vos informations de connexion"
+
+#~ msgid "(empty = delete)"
+#~ msgstr "(vide = supprimer)"
+
+#~ msgid "global search"
+#~ msgstr "recherche globale"
+
+#~ msgid ""
+#~ "If you have a gravatar registered at gravatar.com, enter your email "
+#~ "address.<br />If not, you can enter an absolute URL (80x80 image expected)"
+#~ msgstr ""
+#~ "Si vous avez un gravatar enregistré sur gravatar.com, entrez votre "
+#~ "adresse email.<br />Sinon, vous pouvez entrer une URL absolue (image aux "
+#~ "dimensions 80x80 attendue)."
+
+#~ msgid "Type your currrent password:"
+#~ msgstr "Tapez votre mot de passe actuel :"
+
+#~ msgid "Update the general profile"
+#~ msgstr "Mettre à jour le profil général"
+
+#~ msgid "Remember me"
+#~ msgstr "Se rappeler de moi"
+
+#~ msgid "Password:"
+#~ msgstr "Mot de passe :"
+
+#~ msgid "useful to retrieve your login infos"
+#~ msgstr "utile pour récupérer vos informations de connexion"
+
+#~ msgid "Sponsorised links"
+#~ msgstr "Liens sponsorisés"
+
+#~ msgid "ON THIS LINK"
+#~ msgstr "SUR CE LIEN"
+
+#~ msgid "<strong>DELETE A</strong> MARK"
+#~ msgstr "<strong>SUPPRIMER UN</strong> MARK"
+
+#~ msgid "<strong>EDIT</strong> A MARK"
+#~ msgstr "<strong>ÉDITER</strong> UN MARK"
+
+#~ msgid "<strong>NEW</strong> MARK"
+#~ msgstr "<strong>NOUVEAU</strong> MARK"
+
+#~ msgid "Hello"
+#~ msgstr "Bonjour"
+
+#~ msgid "no tag"
+#~ msgstr "pas de tag"
+
+#~ msgid "everyone"
+#~ msgstr "tout le monde"
+
+#~ msgid "me"
+#~ msgstr "moi"
+
+#~ msgid "May be used in upcoming features"
+#~ msgstr "Pourrait être utilisé dans des fonctionnalités à venir"
+
+#~ msgid "The POP-UP<br />Bookmarklet"
+#~ msgstr "La bookmarklet<br />POP-UP"
+
+#~ msgid "The simple<br />Bookmarklet"
+#~ msgstr "La bookmarklet<br />SIMPLE"
+
+#~ msgid ""
+#~ "Drag this link to your browser toolbar and use it as a button to add "
+#~ "marks. It will open the blogmarks.net new mark page with the form almost "
+#~ "completed"
+#~ msgstr ""
+#~ "Déposez ce lien dans la barre d'outils de votre navigateur. Lorsque vous "
+#~ "cliquerez dessus, cela ouvrira une page avec les informations principales "
+#~ "pré-remplies. Vous n'aurez plus qu'a compléter puis poster. Une fois le "
+#~ "lien ajouté à votre compte, vous serez redirigé sur la page où vous étiez."
+
+#~ msgid "Connexion problem !"
+#~ msgstr "Problème de connexion"
+
+#~ msgid "sign in"
+#~ msgstr "se connecter"
+
+#~ msgid "register"
+#~ msgstr "s'enregistrer"
+
+#~ msgid "PUBLIC &nbsp; %s"
+#~ msgstr "%s &nbsp; PUBLICS"
+
+#~ msgid "ok"
+#~ msgstr "ok"
+
+#~ msgid "Take Screenshot"
+#~ msgstr "Refaire la copie d'écran"
+
+#~ msgid "Already in your marks"
+#~ msgstr "Déjà dans vos marks"
+
+#~ msgid " marks with this tag"
+#~ msgstr "marks avec ce tag"
+
+#~ msgid "Your account is currently empty."
+#~ msgstr "Votre compte est actuellement vide."
+
+#~ msgid ""
+#~ "Start blogmarking right now ! Take a tour, install the bookmarlet, copy "
+#~ "others marks."
+#~ msgstr ""
+#~ "Commencez à blogmarkez dès maintenant ! Faites le tour, installez la "
+#~ "bookmarklet, copiez les marks des autres."
+
+#~ msgid "No mark found."
+#~ msgstr "Pas de mark trouvé."
+
+#~ msgid "Take care, tags are now comma separated. tag1, tag2, etc."
+#~ msgstr ""
+#~ "Attention, les tags sont maintenant séparés par des virgules. tag1, tag2, "
+#~ "etc."
+
+#~ msgid "empty"
+#~ msgstr "vider"
+
+#~ msgid "Empty your account"
+#~ msgstr "Vider votre compte"
+
+#~ msgid "Emptying"
+#~ msgstr "Suppresion en cours"
+
+#~ msgid "Importing"
+#~ msgstr "Import en cours"
+
+#~ msgid "It seems you have no friends at the moment."
+#~ msgstr "Il semble que vous n'ayez pas d'ami pour le moment."
+
+#~ msgid "Add some and you will get there all their marks."
+#~ msgstr "Ajoutez en quelques uns et vous aurez ici tout leurs marks."
+
+#~ msgid "no friend"
+#~ msgstr "pas d'ami"
+
+#~ msgid ""
+#~ "Tired of forgetting your favorite URL's ? Sick of the tedious search on "
+#~ "some web engine ? Welcome to the social bookmarking revolution. Welcome "
+#~ "to BlogMarks."
+#~ msgstr ""
+#~ "Fini, les adresses de sites oubliées. Terminé, les recherches "
+#~ "fastidieuses. Bienvenue à l'ère du social bookmarking. Bienvenue sur "
+#~ "BlogMarks."
+
+#~ msgid ""
+#~ "BlogMarks is a collaborative link management project based on sharing and "
+#~ "key-word tagging. Build on a blog basis, BlogMarks is an open and free "
+#~ "technology. Now, you can access your favorite URL's from any computer. "
+#~ "And with BlogMarks, you share your favourite with other users."
+#~ msgstr ""
+#~ "BlogMarks, c'est un outil de gestion de liens basé sur l'attribution et "
+#~ "le partage. Construit sur le principe du blog, BlogMarks est ouvert et "
+#~ "gratuit. Désormais, vous profitez de vos Bookmarks depuis n'importe quel "
+#~ "accès Internet ! Et grâce à BlogMarks, vous partagez vos adresses de "
+#~ "sites avec l'ensemble des autres utilisateurs."
+
+#~ msgid "sign up"
+#~ msgstr "s'inscrire"
+
+#~ msgid "<strong>Sponsorised</strong> links"
+#~ msgstr "Liens <strong>sponsorisés</strong>"
+
+#~ msgid "Register"
+#~ msgstr "S'enregistrer"

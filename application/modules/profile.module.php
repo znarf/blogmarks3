@@ -24,6 +24,7 @@ elseif ($matches = url_match('/my/profile,general')) {
       'name'       => get_param('fullname'),
       'login'      => get_param('username'),
       'email'      => get_param('email'),
+      'lang'       => get_param('lang'),
       'timezone'   => get_param('timezone')
     ];
     foreach ($params as $key => $value) {
@@ -40,6 +41,7 @@ elseif ($matches = url_match('/my/profile,general')) {
     'fullname' => $user->name,
     'email'    => $user->email,
     'username' => $user->login,
+    'lang'     => $user->lang,
     'timezone' => $user->timezone
   ];
   return render('profile/index', $params);

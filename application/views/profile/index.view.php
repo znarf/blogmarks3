@@ -61,8 +61,8 @@
         <div class="controls">
           <select id="profile_language" name="language">
             <option value="0">Auto</option>
-            <option value="1">English</option>
-            <option value="2">Français</option>
+            <option <?php if ($user->lang == 2) echo 'selected' ?> value="2">English</option>
+            <option <?php if ($user->lang == 1) echo 'selected' ?> value="1">Français</option>
           </select>
         </div>
       </div>

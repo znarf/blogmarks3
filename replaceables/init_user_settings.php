@@ -5,7 +5,7 @@ return function($user) {
     date_default_timezone_set($user->timezone);
   }
   if (is_numeric($user->lang)) {
-    if ($user->lang == 2) {
+    if ($user->lang == 1) {
       $user->lang = 'fr_FR';
     }
   }
