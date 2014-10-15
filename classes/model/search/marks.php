@@ -21,15 +21,25 @@ class marks
       'updated_at'   => date(datetime::RFC3339, strtotime($mark->updated)),
       'user_id'      => $mark->user_id,
       'link_id'      => $mark->link_id,
-      'url'          => $mark->url,
-      'title'        => $mark->title,
+      'url'          => self::fix_encoding($mark->url),
+      'title'        => self::fix_encoding($mark->title),
       'content_type' => $mark->contentType,
-      'content'      => $mark->contentType == 'html' ? strip_tags($mark->content) : $mark->content,
+      'content'      => $mark->contentType == 'html' ? strip_tags(self::fix_encoding($mark->content)) : self::fix_encoding($mark->content),
       'public'       => $mark->is_public,
       'private'      => $mark->is_private,
       'tags'         => array_values(array_map(['self', 'convert_tag'], $mark->public_tags())),
       'private_tags' => array_values(array_map(['self', 'convert_tag'], $mark->private_tags()))
     ];
+  }
+
+  function fix_encoding($string)
+  {
+    # TODO: encoding should be fixed in the database.
+    $encoding = mb_detect_encoding($string, 'auto', true);
+    if (!$encoding) {
+      $string = utf8_encode($string);
+    }
+    return $string;
   }
 
   function convert_tag($tag)
