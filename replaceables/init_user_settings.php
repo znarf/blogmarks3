@@ -10,7 +10,7 @@ return function($user) {
     }
   }
   if (is_string($user->lang) && strpos($user->lang, '_')) {
-    putenv("LC_ALL={$user->lang}");
-    setlocale(LC_ALL, $user->lang);
+    putenv("LC_ALL={$user->lang}.utf8");
+    setlocale(LC_ALL, "{$user->lang}.utf8");
   }
 };
