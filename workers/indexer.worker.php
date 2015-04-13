@@ -28,9 +28,12 @@ service('amqp')->consume('marks-index', function($message, $ack, $nack) {
   $ack();
   cache::store();
   cache::flush();
-  table::flush();
+  # Table Flush
+  foreach (\blogmarks\registry::$tables as $table) $table->objects = [];
+  /*
   if ($message['action'] == 'exit') {
     $search->flush();
     exit;
   }
+  */
 });
