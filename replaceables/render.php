@@ -1,11 +1,13 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name, $args = [], $layout = 'default') {
+function render($name, $args = [], $layout = 'default')
+{
   if ($name == 'marks') {
-    helper('render')->marks($args);
+    blogmarks::helper('render')->marks($args);
   }
   else {
-    layout($layout, view($name, $args));
+    blogmarks::view($name, $args);
+    blogmarks::layout($layout);
   }
-  finish();
-};
+  blogmarks::finish();
+}

@@ -1,6 +1,6 @@
 <?php namespace blogmarks;
 
-class registry extends \amateur\core\registry
+class registry extends \amateur\registry
 {
 
   static function service($name)

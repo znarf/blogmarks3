@@ -1,17 +1,21 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name, $args = []) {
-  # Registry
-  static $partials = [];
-  # Store partial (closure expected)
-  if ($args !== (array)$args && is_callable($args)) {
-    return $partials[$name] = $args;
+function partial($name, $args = [])
+{
+  # Init Registry
+  if (!isset(blogmarks::$registry['partials'])) {
+    blogmarks::$registry['partials'] = [];
+  }
+  # Store Partial (callable expected)
+  if (!empty($args) && is_callable($args)) {
+    return blogmarks::$registry['partials'][$name] = $args;
   }
   # Stored Partial
-  if (isset($partials[$name])) {
-    $partial = $partials[$name];
+  if (isset(blogmarks::$registry['partials'][$name])) {
+    $partial = blogmarks::$registry['partials'][$name];
     return $partial($args);
   }
   # Default Partial
-  return default_partial($name, $args);
-};
+  $default_partial = blogmarks::replaceable('default_partial');
+  return $default_partial($name, $args);
+}

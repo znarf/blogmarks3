@@ -1,12 +1,12 @@
 <?php namespace blogmarks\model\resource;
 
-use amateur\core\amateur;
+use amateur\amateur;
 
 class user extends \blogmarks\model\resource
 {
 
   use
-  \amateur\model\dynamic_properties;
+  \amateur\magic\dynamic_properties;
 
   public $default_avatar = 'http://blogmarks.net/img/default-gravatar.gif';
 

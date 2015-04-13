@@ -14,7 +14,7 @@ class marks
     # Get Link
     $link = $this->table('links')->with_url($params['url']);
     if ($user->mark_with_link($link)) {
-      throw new \amateur\core\exception('Mark already exists.', 400);
+      throw new \amateur\exception('Mark already exists.', 400);
     }
     # Insert Mark
     $mark = $this->table('marks')->create([
@@ -42,7 +42,7 @@ class marks
     if ($mark->url != $params['url']) {
       $link = $this->table('links')->with_url($params['url']);
       if ($mark->author->mark_with_link($link)) {
-        throw new \amateur\core\exception('Mark already exists.', 400);
+        throw new \amateur\exception('Mark already exists.', 400);
       }
     } else {
       $link = $mark->related;

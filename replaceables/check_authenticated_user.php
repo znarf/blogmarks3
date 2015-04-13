@@ -1,7 +1,8 @@
-<?php
+<?php namespace blogmarks;
 
-return function($check_user) {
-  if (!is_authenticated_user($check_user)) {
-    throw http_error(403, 'Forbidden.');
+function check_authenticated_user($check_user)
+{
+  if (!blogmarks::is_authenticated_user($check_user)) {
+    throw blogmarks::http_error(403, 'Forbidden.');
   }
-};
+}

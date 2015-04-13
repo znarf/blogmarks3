@@ -1,9 +1,10 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name) {
+function table($name)
+{
   # Multi
   if ($name === (array)$name) {
-    return array_map('table', $name);
+    return array_map(__function__, $name);
   }
-  return \blogmarks\registry::table($name);
-};
+  return registry::table($name);
+}

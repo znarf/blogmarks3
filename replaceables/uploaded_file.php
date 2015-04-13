@@ -1,6 +1,7 @@
-<?php
+<?php namespace blogmarks;
 
-return function() {
+function uploaded_file()
+{
   $upload_file = '/tmp/' . $_FILES['file']['name'];
   $error_code = $_FILES['file']['error'];
   $upload_errors = [

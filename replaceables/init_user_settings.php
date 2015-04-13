@@ -1,6 +1,7 @@
-<?php
+<?php namespace blogmarks;
 
-return function($user) {
+function init_user_settings($user)
+{
   if (is_string($user->timezone) && strpos($user->timezone, '/')) {
     date_default_timezone_set($user->timezone);
   }
@@ -13,4 +14,4 @@ return function($user) {
     putenv("LC_ALL={$user->lang}.utf8");
     setlocale(LC_ALL, "{$user->lang}.utf8");
   }
-};
+}

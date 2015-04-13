@@ -1,6 +1,11 @@
-<?php
+<?php namespace blogmarks;
 
-return function($value = null) {
-  static $default_format;
-  return $value ? $default_format = $value : ($default_format ? $default_format : 'html');
-};
+function default_format($value = null)
+{
+  # Init Registry
+  if (!isset(blogmarks::$registry['default_format'])) {
+    blogmarks::$registry['default_format'] = 'html';
+  }
+  # Get / Set
+  return $value ? blogmarks::$registry['default_format'] = $value : blogmarks::$registry['default_format'];
+}

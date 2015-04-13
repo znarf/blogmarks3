@@ -1,6 +1,7 @@
-<?php
+<?php namespace blogmarks;
 
-return function($user) {
+function signin($user)
+{
   $_SESSION['user_id'] = $user->id;
   return true;
-};
+}

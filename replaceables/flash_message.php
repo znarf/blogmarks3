@@ -1,6 +1,7 @@
-<?php
+<?php namespace blogmarks;
 
-return function($message = null) {
+function flash_message($message = null)
+{
   if ($message) {
     return $_SESSION['message'] = $message;
   }
@@ -9,4 +10,4 @@ return function($message = null) {
     unset($_SESSION['message']);
     return $message;
   }
-};
+}

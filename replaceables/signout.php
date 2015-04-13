@@ -1,6 +1,7 @@
-<?php
+<?php namespace blogmarks;
 
-return function() {
+function signout()
+{
   $_SESSION['user_id'] = null;
   return true;
-};
+}

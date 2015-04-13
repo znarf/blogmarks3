@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($string) {
+function db_date($string)
+{
   return \amateur\model\db::date($string);
-};
+}

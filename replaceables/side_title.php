@@ -1,12 +1,18 @@
-<?php
+<?php namespace blogmarks;
 
-return function($base = null, $arg = null) {
-  static $side_title;
+function side_title($base = null, $arg = null)
+{
+  # Default
+  if (!isset(blogmarks::$registry['side_title'])) {
+    blogmarks::$registry['side_title'] = '<strong>Public</strong> Tags';
+  }
+  # Set
   if ($base) {
-    $side_title = strong($base);
+    blogmarks::$registry['side_title'] = blogmarks::strong($base);
     if ($arg) {
-      $side_title .= ' ' . $arg;
+      blogmarks::$registry['side_title'] .= ' ' . $arg;
     }
   }
-  return $side_title ? $side_title : '<strong>Public</strong> Tags';
-};
+  # Return
+  return blogmarks::$registry['side_title'];
+}

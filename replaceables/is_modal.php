@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function() {
-  return get_param('modal');
-};
+function is_modal()
+{
+  return blogmarks::get_param('modal');
+}

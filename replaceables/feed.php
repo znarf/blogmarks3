@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name) {
-  return \blogmarks\registry::feed($name);
-};
+function feed($name)
+{
+  return registry::feed($name);
+}

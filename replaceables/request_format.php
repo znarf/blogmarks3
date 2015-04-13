@@ -1,30 +1,30 @@
-<?php
+<?php namespace blogmarks;
 
-return function($value = null) {
-  static $request_format;
+function request_format($value = null)
+{
   # Set
   if ($value) {
-    $request_format = $value;
+    blogmarks::$registry['request_format'] = $value;
   }
   # Cached
-  if ($request_format) {
-    return $request_format;
+  if (isset(blogmarks::$registry['request_format'])) {
+    return blogmarks::$registry['request_format'];
   }
   # Format Param
-  $format = get_param('format');
+  $format = blogmarks::get_param('format');
   if ($format && in_array($format, ['json', 'rss', 'atom'])) {
-    return $request_format = $format;
+    return blogmarks::$registry['request_format'] = $format;
   }
   # Accept Header
-  $accept = request_header('Accept');
+  $accept = blogmarks::request_header('Accept');
   $mime = [
     'application/json'     => 'json',
     'application/rss+xml'  => 'rss',
     'application/atom+xml' => 'atom'
   ];
   if ($accept && isset($mime[$accept])) {
-    return $request_format = $mime[$accept];
+    return blogmarks::$registry['request_format'] = $mime[$accept];
   }
   # Default
-  return $request_format = default_format();
+  return blogmarks::$registry['request_format'] = blogmarks::default_format();
 };

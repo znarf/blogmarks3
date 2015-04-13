@@ -1,6 +1,11 @@
-<?php
+<?php namespace blogmarks;
 
-return function($value = null) {
-  static $domain;
-  return $value ? $domain = $value : ($domain ? $domain : 'public');
+function domain($value = null)
+{
+  # Init Registry
+  if (!isset(blogmarks::$registry['domain'])) {
+    blogmarks::$registry['domain'] = 'public';
+  }
+  # Get / Set
+  return $value ? blogmarks::$registry['domain'] = $value : blogmarks::$registry['domain'];
 };

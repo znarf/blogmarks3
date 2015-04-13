@@ -1,6 +1,7 @@
-<?php
+<?php namespace blogmarks;
 
-return function($length = 64) {
+function generate_phrase($length = 64)
+{
   $chars = '1234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   $i = 0;
   $phrase = '';
@@ -9,4 +10,4 @@ return function($length = 64) {
     $i++;
   }
   return $phrase;
-};
+}

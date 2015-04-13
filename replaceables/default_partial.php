@@ -1,10 +1,11 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name, $args = []) {
-  if ($filename = filename('partial', $name)) {
+function default_partial($name, $args = [])
+{
+  if ($filename = blogmarks::filename('partial', $name)) {
     extract($args);
     include $filename;
     return;
   }
-  throw http_error(500, "Unknown partial ($name).");
+  throw blogmarks::http_error(500, "Unknown partial ($name).");
 };

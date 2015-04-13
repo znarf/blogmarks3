@@ -1,8 +1,9 @@
-<?php
+<?php namespace blogmarks;
 
-return function() {
-  if (!is_authenticated()) {
-    response_code(401);
-    return render('auth/signin');
+function check_authenticated()
+{
+  if (!blogmarks::is_authenticated()) {
+    blogmarks::response_code(401);
+    return blogmarks::render('auth/signin');
   }
-};
+}

@@ -1,10 +1,11 @@
-<?php
+<?php namespace blogmarks;
 
-return function($check_user) {
-  if ($user = authenticated_user()) {
+function is_authenticated_user($check_user)
+{
+  if ($user = blogmarks::authenticated_user()) {
     if ($user->id == $check_user->id) {
       return true;
     }
   }
   return false;
-};
+}

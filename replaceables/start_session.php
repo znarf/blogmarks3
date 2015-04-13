@@ -1,7 +1,8 @@
-<?php
+<?php namespace blogmarks;
 
-return function() {
+function start_session()
+{
   if (!session_id()) {
     session_start();
   }
-};
+}

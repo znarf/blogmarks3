@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($url) {
-  return request_format() == 'html' ? relative_url($url) : absolute_url($url);
-};
+function relative_or_absolute_url($url)
+{
+  return blogmarks::request_format() == 'html' ? blogmarks::relative_url($url) : blogmarks::absolute_url($url);
+}

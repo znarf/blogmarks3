@@ -1,12 +1,14 @@
-<?php
+<?php namespace blogmarks;
 
-return function($base = null, $arg = null) {
-  static $title;
+function title($base = null, $arg = null)
+{
   if ($base) {
-    $title = $base;
+    blogmarks::$registry['title'] = $base;
     if ($arg) {
-      $title .= ' <span class="arg">' . $arg . '</span>';
+      blogmarks::$registry['title'] .= ' <span class="arg">' . $arg . '</span>';
     }
   }
-  return $title;
-};
+  if (isset(blogmarks::$registry['title'])) {
+    return blogmarks::$registry['title'];
+  }
+}

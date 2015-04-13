@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($text) {
-  return '<strong>' . text($text) . '</strong>';
-};
+function strong($text)
+{
+  return '<strong>' . blogmarks::text($text) . '</strong>';
+}

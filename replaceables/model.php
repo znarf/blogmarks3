@@ -1,14 +1,15 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name, $value = null) {
+function model($name, $value = null)
+{
   # Multi
   if ($name === (array)$name) {
-    return array_map('model', $name);
+    return array_map(__function__, $name);
   }
   # Model
   if ($name == 'marks' || $name == 'tags') {
-    return \blogmarks\registry::model($name);
+    return registry::model($name);
   }
   # Table
-  return table($name);
-};
+  return blogmarks::table($name);
+}

@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($path) {
-  return 'http://' . request_host() . '/api' . $path;
-};
+function api_url($path)
+{
+  return 'http://' . blogmarks::request_host() . '/api' . $path;
+}

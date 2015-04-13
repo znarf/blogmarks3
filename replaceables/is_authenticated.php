@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function() {
-  return isset($_SESSION['user_id']);
+function is_authenticated()
+{
+  return (bool) blogmarks::authenticated_user();
 };

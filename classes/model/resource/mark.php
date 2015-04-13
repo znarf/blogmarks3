@@ -7,7 +7,7 @@ class mark extends \blogmarks\model\resource
 {
 
   use
-  \amateur\model\dynamic_properties;
+  \amateur\magic\dynamic_properties;
 
   function is_public()
   {

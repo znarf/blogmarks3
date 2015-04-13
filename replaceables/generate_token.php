@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($key) {
-  return $_SESSION["csrf_{$key}"] = generate_phrase();
-};
+function generate_token($key)
+{
+  return $_SESSION["csrf_{$key}"] = blogmarks::generate_phrase();
+}

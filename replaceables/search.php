@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name) {
-  return \blogmarks\registry::search($name);
-};
+function search($name)
+{
+  return registry::search($name);
+}

@@ -1,5 +1,6 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name) {
-  return \blogmarks\registry::service($name);
-};
+function service($name)
+{
+  return registry::service($name);
+}

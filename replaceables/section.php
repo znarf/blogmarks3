@@ -1,6 +1,11 @@
-<?php
+<?php namespace blogmarks;
 
-return function($value = null) {
-  static $section;
-  return $value ? $section = $value : ($section ? $section : 'public');
-};
+function section($value = null)
+{
+  # Init Registry
+  if (!isset(blogmarks::$registry['section'])) {
+    blogmarks::$registry['section'] = 'public';
+  }
+  # Get / Set
+  return $value ? blogmarks::$registry['section'] = $value : blogmarks::$registry['section'];
+}

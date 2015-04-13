@@ -1,7 +1,11 @@
-<?php
+<?php namespace blogmarks;
 
-return function($name = null, $message = null) {
-  static $errors = [];
+function form_error($name = null, $message = null)
+{
+  # Init Registry
+  if (!isset(blogmarks::$registry['brand'])) {
+    blogmarks::$registry['brand'] = [];
+  }
   if ($name && $message) {
     return $errors[$name] = $message;
   }
