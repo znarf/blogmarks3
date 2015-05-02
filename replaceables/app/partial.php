@@ -17,5 +17,14 @@ function partial($name, $args = [])
   }
   # Default Partial
   $default_partial = blogmarks::replaceable('default_partial');
-  return $default_partial($name, $args);
+  $result = $default_partial($name, $args);
+  # If a callable is returned
+  if (is_callable($result)) {
+    # Store It
+    $partial = blogmarks::$registry['partials'][$name] = $result;
+    # Execute it immediately
+    $result = $partial($args);
+  }
+  # Return result
+  return $result;
 }

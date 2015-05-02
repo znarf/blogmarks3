@@ -1,6 +1,6 @@
 <?php namespace blogmarks;
 
-class registry extends \amateur\registry
+class registry
 {
 
   static $services = [];
@@ -11,7 +11,7 @@ class registry extends \amateur\registry
       return self::$services[$name];
     }
     else {
-      return self::$services[$name] = self::instance("\\blogmarks\\service\\{$name}");
+      return self::$services[$name] = blogmarks::instance("\\blogmarks\\service\\{$name}");
     }
   }
 
@@ -23,7 +23,7 @@ class registry extends \amateur\registry
       return self::$models[$name];
     }
     else {
-      return self::$models[$name] = self::instance("\\blogmarks\\model\\{$name}");
+      return self::$models[$name] = blogmarks::instance("\\blogmarks\\model\\{$name}");
     }
   }
 
@@ -35,7 +35,7 @@ class registry extends \amateur\registry
       return self::$tables[$name];
     }
     else {
-      return self::$tables[$name] = self::instance("\\blogmarks\\model\\table\\{$name}");
+      return self::$tables[$name] = blogmarks::instance("\\blogmarks\\model\\table\\{$name}");
     }
   }
 
@@ -47,7 +47,7 @@ class registry extends \amateur\registry
       return self::$feeds[$name];
     }
     else {
-      return self::$feeds[$name] = self::instance("\\blogmarks\\model\\feed\\{$name}");
+      return self::$feeds[$name] = blogmarks::instance("\\blogmarks\\model\\feed\\{$name}");
     }
   }
 

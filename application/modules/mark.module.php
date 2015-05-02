@@ -72,7 +72,7 @@ elseif ($matches = url_match('/my/marks/*,edit')) {
         model('marks')->update($mark, $request_params());
         # flash_message('Mark Successfully Updated.');
       }
-      catch (\amateur\core\exception $e) {
+      catch (\amateur\exception $e) {
         response_code( $e->getCode() );
         flash_message( $e->getMessage() );
         $params  = $request_params();

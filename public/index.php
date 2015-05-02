@@ -2,6 +2,4 @@
 
 require dirname(__DIR__) . '/bootstrap.php';
 
-start();
-
-finish();
+run();

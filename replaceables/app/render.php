@@ -1,12 +1,13 @@
 <?php namespace blogmarks;
 
-function render($name, $args = [], $layout = 'default')
+function render($view, $args = [], $layout = 'default')
 {
-  if ($name == 'marks') {
-    blogmarks::helper('render')->marks($args);
+  if ($filename = blogmarks::filename('render', $view)) {
+    extract($args);
+    include $filename;
   }
   else {
-    blogmarks::view($name, $args);
+    blogmarks::view($view, $args);
     blogmarks::layout($layout);
   }
   blogmarks::finish();
