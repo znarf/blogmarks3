@@ -1,29 +1,36 @@
-<?php
+<?php namespace blogmarks;
 
-$container = anonymous_class();
+class container
+{
 
-$container->tags = function($value = null) {
-  static $tags;
-  if (isset($value)) {
-    return $tags = $value;
+  function marks($value = null)
+  {
+    return $value ? $this->marks = $value : $this->marks;
   }
-  return is_callable($tags) ? $tags() : $tags;
-};
 
-$container->marks = function($value = null) {
-  static $marks;
-  if (isset($value)) {
-    return $marks = $value;
+  function tags($value = null)
+  {
+    return $value ? $this->tags = $value : $this->tags;
   }
-  return is_callable($marks) ? $marks() : $marks;
-};
 
-$container->users = function($value = null) {
-  static $users;
-  if (isset($value)) {
-    return $users = $value;
+  function users($value = null)
+  {
+    return $value ? $this->users = $value : $this->users;
   }
-  return is_callable($users) ? $users() : $users;
-};
 
-return $container;
+  function __get($name)
+  {
+    if (isset(blogmarks::$registry['container'][$name])) {
+      $value = blogmarks::$registry['container'][$name];
+      return is_callable($value) ? $value() : $value;
+    }
+  }
+
+  function __set($name, $value)
+  {
+    return blogmarks::$registry['container'][$name] = $value;
+  }
+
+}
+
+return new container;

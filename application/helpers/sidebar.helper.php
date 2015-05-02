@@ -1,21 +1,26 @@
-<?php
+<?php namespace blogmarks\application\helpers;
 
-$sidebar = anonymous_class();
+class sidebar
+{
 
-$sidebar->blocks = [];
+  public $blocks = [];
 
-$sidebar->register = function($title, $content) {
-  $this->blocks[] = [
-    'title' => $title,
-    'content' => $content,
-  ];
-};
-
-$sidebar->render = function() {
-  foreach ($this->blocks as $block) {
-    side_title(...$block['title']);
-    echo is_callable($block['content']) ? $block['content']() : $block['content'];
+  function register($title, $content)
+  {
+    $this->blocks[] = [
+      'title' => $title,
+      'content' => $content,
+    ];
   }
-};
 
-return $sidebar;
+  function render()
+  {
+    foreach ($this->blocks as $block) {
+      side_title(...$block['title']);
+      echo is_callable($block['content']) ? $block['content']() : $block['content'];
+    }
+  }
+
+}
+
+return new sidebar;

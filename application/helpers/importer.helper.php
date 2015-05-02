@@ -1,6 +1,4 @@
-<?php
-
-# Create Anonymous Class
+<?php namespace blogmarks;
 
 $importer = anonymous_class();
 
@@ -123,7 +121,7 @@ $importer->insert = function($params) use ($links) {
   # Get Link
   $link = $links->with_url($params['related']);
   if (isset($this->reverse_link_ids[$link->id])) {
-    throw http_error(511, 'Already in your marks');
+    throw new exception('Already in your marks', 511);
   }
   # Date acceleration
   if ($params['published'] == $params['updated']) {
@@ -193,6 +191,7 @@ $importer->insert_tags = function($mark_id, $user_id, $link_id, $params) use ($t
       ];
       # sqlite doesn't support multiple values until version 3.7.11
       # (3.7.7.1 bundled with php 5.5)
+      # (3.8.4.3 bundled with php 5.6)
       if (\amateur\model\db::driver() == 'sqlite') {
         $marks_tags_query->execute();
         $marks_tags_query->values = [];
@@ -243,7 +242,7 @@ $importer->finish = function() use ($redis) {
 };
 
 $importer->convert_date = function($string) {
-  return db_date($string);
+  return \amateur\model\db::date($string);
 };
 
 return $importer;
