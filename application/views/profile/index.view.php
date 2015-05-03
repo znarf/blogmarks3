@@ -73,16 +73,16 @@
           <select id="profile_timezone" name="timezone">
             <?php
             $timezone = helper('timezone');
-            $list = $timezone->list();
+            $all_timezones = $timezone->all();
             ?>
             <optgroup label="<?= _("Popular") ?>">
               <?php foreach ($timezone->popular as $identifier) : ?>
-              <option value="<?= $identifier ?>"><?= $list[$identifier] ?></option>
+              <option value="<?= $identifier ?>"><?= $all_timezones[$identifier] ?></option>
               <?php endforeach ?>
             </optgroup>
             <optgroup label="<?= _("All") ?>">
             <?php
-            foreach ($list as $identifier => $label) {
+            foreach ($all_timezones as $identifier => $label) {
                 $selected = $timezone == $identifier ? 'selected="selected" ' : '';
                 echo '<option ' . $selected . 'value="' . $identifier . '">' . $label . '</option>' . "\n";
             }
