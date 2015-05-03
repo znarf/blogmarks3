@@ -59,7 +59,7 @@ class registry
       return self::$searchs[$name];
     }
     else {
-      return self::$searchs[$name] = self::instance("\\blogmarks\\model\\search\\{$name}");
+      return self::$searchs[$name] = blogmarks::instance("\\blogmarks\\model\\search\\{$name}");
     }
   }
 

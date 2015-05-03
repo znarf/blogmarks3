@@ -46,8 +46,6 @@ class marks
       if ($redis && $redis_key) register_shutdown_function(function() use($redis, $redis_key, $results) {
         foreach ($results as $id => $ts) $redis->zAdd($redis_key, $ts, $id);
       });
-      # Get total
-      $total = count($results);
       # Soft after/before
       if (($before = $params['before']) != '+inf') {
         $results = array_filter($results, function($ts) use($before) { return $ts < $before; });
