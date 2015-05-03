@@ -1,0 +1,52 @@
+{
+  "marks": {
+    "properties": {
+      "id": {
+        "type": "long"
+      },
+      "link_id": {
+        "type": "long"
+      },
+      "user_id": {
+        "type": "long"
+      },
+      "public": {
+        "type": "boolean"
+      },
+      "private": {
+        "type": "boolean"
+      },
+      "created_at": {
+        "type": "date",
+        "format": "dateOptionalTime"
+      },
+      "updated_at": {
+        "type": "date",
+        "format": "dateOptionalTime"
+      },
+      "url": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "content": {
+        "type": "string"
+      },
+      "tags": {
+        "type" : "multi_field",
+        "fields" : {
+          "tags" : {"type" : "string", "index" : "not_analyzed"},
+          "partial" : {"type" : "string", "analyzer" : "standard"}
+        }
+      },
+      "private_tags": {
+        "type" : "multi_field",
+        "fields" : {
+          "private_tags" : {"type" : "string", "index" : "not_analyzed"},
+          "partial" : {"type" : "string", "analyzer" : "standard"}
+        }
+      }
+    }
+  }
+}
