@@ -22,6 +22,9 @@ if (url_is('/auth/signin')) {
 }
 
 elseif (url_is('/auth/signup')) {
+  if (!flag('enable_signup')) {
+    return error(200, 'Sign Up is currently disabled.');
+  }
   domain('my');
   title(_('Sign Up'));
   if (is_post()) {
