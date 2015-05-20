@@ -61,7 +61,7 @@ class user extends \blogmarks\model\resource
     if (preg_match('/^[a-f0-9]{32}$/', $this->pass)) {
       if ($this->pass == md5($password)) {
         # Re-hash it on the fly
-        if (!flag('db_read_only')) {
+        if (flag('db_migrate_password')) {
           $this->table('users')->update($this, ['pass' => $password]);
         }
         return true;
