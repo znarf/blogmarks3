@@ -20,7 +20,7 @@
         <label for="new-mark-title"><?= _('Title') ?></label>
         <input id="new-mark-title" name="title" type="text" required class="input-block-level" value="<?= arg($title) ?>">
 
-        <label for="new-mark-description">Description <small>(<a href="/help/markdown">Markdown</a>)</small></label>
+        <label for="new-mark-description">Description</label>
         <textarea id="new-mark-description" name="description" rows="3" class="input-block-level"><?=
           text($description) ?></textarea>
 

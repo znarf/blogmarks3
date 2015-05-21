@@ -1,0 +1,28 @@
+@media (max-width:1000px) {
+
+  .navbar { display:none; }
+  #search { display:none; }
+  #footer { display:none; }
+
+}
+
+label, input, button, select, textarea {
+  font-size:12px !important;
+  line-height:1em !important;
+}
+
+.select2-search-choice div, .select2-results, .select2-container {
+  font-size: 12px;
+}
+
+.modal-footer {
+  padding: 0px 15px 5px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+#title-bar h1 {
+  font-size:18px;
+  line-height:25px;
+}
