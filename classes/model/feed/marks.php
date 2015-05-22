@@ -108,7 +108,7 @@ class marks
 
   function index($mark)
   {
-    $ts = strtotime($mark->published);
+    $ts = $mark->published->getTimestamp();
     # Global Feed
     if ($mark->is_public) self::add("feed_marks", $ts, $mark->id);
     # Update User Feeds

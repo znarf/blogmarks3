@@ -1,6 +1,10 @@
 <?php namespace blogmarks\model\resource;
 
 use
+datetime,
+datetimezone;
+
+use
 amateur\model\cache;
 
 class mark extends \blogmarks\model\resource
@@ -74,6 +78,16 @@ class mark extends \blogmarks\model\resource
       return (new \Markdownify\Converter)->parseString($this->content);
     }
     return $this->content;
+  }
+
+  function published()
+  {
+    return new datetime($this->attribute('published'), new datetimezone('Europe/Paris'));
+  }
+
+  function updated()
+  {
+    return new datetime($this->attribute('updated'), new datetimezone('Europe/Paris'));
   }
 
   function screenshot()

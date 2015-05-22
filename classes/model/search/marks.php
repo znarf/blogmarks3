@@ -17,8 +17,8 @@ class marks
   {
     return [
       'id'           => (int)$mark->id,
-      'created_at'   => date(datetime::RFC3339, strtotime($mark->published)),
-      'updated_at'   => date(datetime::RFC3339, strtotime($mark->updated)),
+      'created_at'   => $mark->published->format(datetime::RFC3339),
+      'updated_at'   => $mark->updated->format(datetime::RFC3339),
       'user_id'      => $mark->user_id,
       'link_id'      => $mark->link_id,
       'url'          => self::fix_encoding($mark->url),

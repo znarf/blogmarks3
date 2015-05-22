@@ -15,7 +15,7 @@ class related
       $user = $mark->user;
       if (empty($users[$user->id])) {
         $users[$user->id] = $user;
-        $users[$user->id]->last_published = strftime('%d %B %Y %H:00', strtotime($mark->published));
+        $users[$user->id]->last_published = strftime('%d %B %Y %H:00', $mark->published->getTimestamp());
       }
     }
     return array_values($users);

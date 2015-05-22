@@ -24,7 +24,7 @@ $marks = helper('container')->marks();
   <title><?= text($mark->title) ?></title>
   <link><?= text($mark->url) ?></link>
   <description><?= text($mark->content) ?></description>
-  <dc:date><?= date(DATE_W3C, strtotime($mark->published . ' Europe/Berlin')) ?></dc:date>
+  <dc:date><?= $mark->published->format(datetime::W3C) ?></dc:date>
   <dc:creator><?= text($mark->author->name) ?></dc:creator>
   <dc:subject><?= text(implode(', ', $mark->public_tags)) ?></dc:subject>
   <content:encoded><![CDATA[<?php

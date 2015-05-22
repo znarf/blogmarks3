@@ -35,7 +35,7 @@ class grouper
     $first_mark = reset($marks);
     $last_mark = end($marks);
 
-    $range = strtotime($first_mark->published) - strtotime($last_mark->published);
+    $range = $first_mark->published->getTimestamp() - $last_mark->published->getTimestamp();
 
     if ($range > 2 * 30 * 24 * 3600) {
       $group_marker = [$this, 'marker_month'];
@@ -48,7 +48,7 @@ class grouper
     }
 
     foreach ($marks as $mark) {
-      $marker = $group_marker(strtotime($mark->published));
+      $marker = $group_marker($mark->published->getTimestamp());
       $groups[$marker][] = $mark;
     }
 
