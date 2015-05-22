@@ -4,6 +4,7 @@ if (url_is('/auth/signin')) {
   domain('my');
   title(_('Sign In'));
   if (is_post()) {
+    check_token('sign_in', get_param('token'));
     check_parameters(['username', 'password']);
     # Find user
     foreach (['email', 'login'] as $key) {
@@ -18,7 +19,9 @@ if (url_is('/auth/signin')) {
     response_code(401);
     flash_message('Unknown username/email or invalid password.');
   }
-  return render('auth/signin');
+  # CSRF token
+  $params = ['token' => generate_token('sign_in')];
+  return render('auth/signin', $params);
 }
 
 elseif (url_is('/auth/signup')) {

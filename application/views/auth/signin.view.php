@@ -23,9 +23,10 @@
             <input type="checkbox"> Remember me
           </label>
           -->
-          <?php if ('/auth/signin' != $url = request_url()) : ?>
-            <input type="hidden" name="redirect_url" value="<?= $url ?>">
+          <?php if ('/auth/signin' != $url = $_SERVER['REQUEST_URI']) : ?>
+            <input type="hidden" name="redirect_url" value="<?= arg($url) ?>">
           <?php endif ?>
+          <input type="hidden" name="token" value="<?= $token ?>">
           <button type="submit" class="btn">Sign In</button>
         </div>
       </div>
