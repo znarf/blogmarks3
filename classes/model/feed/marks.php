@@ -141,7 +141,7 @@ class marks
     }
     # Update Friends Feeds
     foreach ($mark->user->follower_ids as $user_id) {
-      self::add("feed_marks_friends_{$user_id}}", $ts, $mark->id);
+      self::remove("feed_marks_friends_{$user_id}}", $mark->id);
     }
   }
 
