@@ -2,10 +2,8 @@
 
 require dirname(__DIR__) . '/../bootstrap.php';
 
-default_format('rss');
+default_format('atom');
 
 app_path('/api');
 
-start();
-
-finish();
+run();

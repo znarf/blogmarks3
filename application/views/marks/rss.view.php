@@ -1,5 +1,4 @@
 <?php
-$user = authenticated_user();
 $marks = helper('container')->marks();
 ?>
 <rdf:RDF
@@ -19,16 +18,17 @@ $marks = helper('container')->marks();
     </rdf:Seq>
   </items>
 </channel>
+<?php $mark_partial_args = mark_partial_args(); ?>
 <?php foreach ($marks['items'] as $mark) : ?>
 <item rdf:about="<?= text($mark->url) ?>">
   <title><?= text($mark->title) ?></title>
   <link><?= text($mark->url) ?></link>
-  <description>TODO</description>
-  <dc:date><?= text($mark->published) ?></dc:date>
+  <description><?= text($mark->content) ?></description>
+  <dc:date><?= date(DATE_W3C, strtotime($mark->published . ' Europe/Berlin')) ?></dc:date>
   <dc:creator><?= text($mark->author->name) ?></dc:creator>
-  <dc:subject>todo</dc:subject>
+  <dc:subject><?= text(implode(', ', $mark->public_tags)) ?></dc:subject>
   <content:encoded><![CDATA[<?php
-  partial('mark', ['domain' => domain(), 'mark' => $mark, 'user' => $user])
+  partial('mark', ['mark' => $mark] + $mark_partial_args)
   ?>]]></content:encoded>
 </item>
 <?php endforeach ?>
