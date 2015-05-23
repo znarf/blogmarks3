@@ -19,12 +19,12 @@ elseif ($matches = url_match('/my/profile/*,edit')) {
 
 elseif ($matches = url_match('/my/profile,general')) {
   if (is_post()) {
-    check_parameters(['fullname', 'username', 'email']);
+    check_parameters(['name', 'login', 'email']);
     $params = [
-      'name'       => get_param('fullname'),
-      'login'      => get_param('username'),
+      'name'       => get_param('name'),
+      'login'      => get_param('login'),
       'email'      => get_param('email'),
-      'lang'       => get_param('language'),
+      'lang'       => get_param('lang'),
       'timezone'   => get_param('timezone')
     ];
     foreach ($params as $key => $value) {
@@ -37,7 +37,16 @@ elseif ($matches = url_match('/my/profile,general')) {
       flash_message( _('Profile Updated') );
     }
   }
-  return render('profile/index', ['user' => $user]);
+  else {
+    $params = [
+      'name'     => $user->name,
+      'email'    => $user->email,
+      'login'    => $user->login,
+      'lang'     => $user->lang,
+      'timezone' => $user->timezone
+    ];
+  }
+  return render('profile/index', $params);
 }
 
 else {

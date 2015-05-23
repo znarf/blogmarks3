@@ -30,21 +30,21 @@ class users extends \blogmarks\model\table
     switch ($key) {
       case 'email':
         if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
-          return 'Email is invalid';
+          return _("Email is invalid");
         }
         if ($other_user = $this->get_one('email', $value)) {
           if (!$current_user || $other_user->id != $current_user->id) {
-            return 'Email is taken';
+            return _("Email is taken");
           }
         }
         break;
       case 'login':
         if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z][a-z\d_]{1,20}$/']]) === false) {
-          return 'Username is invalid';
+          return _("Username is invalid");
         }
         if ($other_user = $this->get_one('login', $value)) {
           if (!$current_user || $other_user->id != $current_user->id) {
-            return 'Username is taken';
+            return _("Username is already taken");
           }
         }
         break;
