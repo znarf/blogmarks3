@@ -19,6 +19,7 @@ elseif ($matches = url_match('/my/profile/*,edit')) {
 
 elseif ($matches = url_match('/my/profile,general')) {
   if (is_post()) {
+    check_token('update_profile', get_param('token'));
     check_parameters(['name', 'login', 'email']);
     $params = [
       'name'       => get_param('name'),
@@ -46,6 +47,7 @@ elseif ($matches = url_match('/my/profile,general')) {
       'timezone' => $user->timezone
     ];
   }
+  $params += ['token' => generate_token('update_profile')];
   return render('profile/index', $params);
 }
 

@@ -91,6 +91,7 @@
 
       <div class="control-group">
         <div class="controls">
+          <input type="hidden" name="token" value="<?= $token ?>">
           <button type="submit" class="btn"><?= _('Update Profile') ?></button>
         </div>
       </div>
