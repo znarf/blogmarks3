@@ -478,32 +478,42 @@ body {
   float: right;
   margin: 5px 5px 0;
 }
-#layout.tools {
-  background: linear-gradient(to right,#EDEDED 295px,#999 299px,white 300px);
+#layout.tools,
+#layout.profile {
+  background: linear-gradient(to right,#EDEDED 295px,#999 300px,white 301px);
 }
-.tools {
+.tools,
+.profile {
   overflow: hidden;
 }
-.tools #content {
+.tools #content,
+.profile #content {
   width: 30%;
+  background: none;
+  box-shadow: none;
 }
-.tools #right-bar {
+.tools #right-bar,
+.profile #right-bar {
   width: 70%;
 }
-.tools #content-inner {
+.tools #content-inner,
+.profile #content-inner {
   padding: 25px 0;
 }
-.tools #right-bar-inner {
+.tools #right-bar-inner,
+.profile #right-bar-inner {
   margin: 25px;
   width: auto;
 }
-.tools h3 {
+.tools h3,
+.profile h3 {
   font-size: 18px;
   margin: 1em 0;
   color: #434343;
   text-transform: uppercase;
 }
-.tools h4 {
+.tools h4,
+.profile h4 {
   font-size: 14px;
   margin: 1.5em 0 0.25em;
   color: #434343;
@@ -512,25 +522,32 @@ body {
   font-weight: bold;
 }
 .tools #right-bar p,
-.tools #right-bar ul {
+.tools #right-bar ul,
+.profile #right-bar p,
+.profile #right-bar ul {
   font-size: 14px;
   line-height: 1.4em;
   text-align: left;
   color: #535353;
 }
-.tools #right-bar ul.buttons {
+.tools #right-bar ul.buttons,
+.profile #right-bar ul.buttons {
   list-style-type: none;
   margin-left: 0;
 }
-.tools #right-bar li {
+.tools #right-bar li,
+.profile #right-bar li {
   padding: 5px 0;
 }
-.tools #right-bar pre {
+.tools #right-bar pre,
+.profile #right-bar pre {
   text-align: left;
   font-size: 1.2em;
 }
 .tools #right-bar .error,
-.tools #right-bar .notice {
+.tools #right-bar .notice,
+.profile #right-bar .error,
+.profile #right-bar .notice {
   padding: 10px;
   width: auto;
   margin: 10px auto;
@@ -538,39 +555,53 @@ body {
 .tools #right-bar .error ul,
 .tools #right-bar .error li,
 .tools #right-bar .notice ul,
-.tools #right-bar .notice li {
+.tools #right-bar .notice li,
+.profile #right-bar .error ul,
+.profile #right-bar .error li,
+.profile #right-bar .notice ul,
+.profile #right-bar .notice li {
   padding: 0;
 }
-.tools #right-bar form label {
+.tools #right-bar form label,
+.profile #right-bar form label {
   display: block;
 }
 .tools #right-bar ul.importing,
-.tools #right-bar ul.deleting {
+.tools #right-bar ul.deleting,
+.profile #right-bar ul.importing,
+.profile #right-bar ul.deleting {
   list-style-position: inside;
   list-style-type: disc;
 }
 .tools #right-bar ul.importing li,
-.tools #right-bar ul.deleting li {
+.tools #right-bar ul.deleting li,
+.profile #right-bar ul.importing li,
+.profile #right-bar ul.deleting li {
   font-size: 12px;
   line-height: 1.4em;
   margin: 0;
   padding: 0;
 }
-.tools #content ul {
+.tools #content ul,
+.profile #content ul {
   list-style-type: none;
   margin: 0;
 }
-.tools #content li {
+.tools #content li,
+.profile #content li {
   margin-bottom: 10px;
   background: url(img/tools/bg-off.gif) top left no-repeat;
   background: #535353;
 }
 .tools #content li:hover,
-.tools #content li.selected {
+.tools #content li.selected,
+.profile #content li:hover,
+.profile #content li.selected {
   background: url(img/tools/bg-on.gif) top left no-repeat;
   background: #FF5132;
 }
-.tools #content li a {
+.tools #content li a,
+.profile #content li a {
   box-shadow: inset 10px 0 10px -10px #000, inset -5px 0 5px -5px #000;
   width: 100%;
   height: 78px;
@@ -582,7 +613,8 @@ body {
   clear: both;
   background: #535353 top right no-repeat;
 }
-.tools #content li a span {
+.tools #content li a span,
+.profile #content li a span {
   display: block;
   padding-left: 8px;
   padding-top: 32px;
@@ -590,63 +622,86 @@ body {
   text-align: center;
 }
 .tools #content li.selected a,
-.tools #content li a:hover {
+.tools #content li a:hover,
+.profile #content li.selected a,
+.profile #content li a:hover {
   background-color: #FF5132;
 }
-.tools #content li.general a {
+.tools #content li.general a,
+.profile #content li.general a {
   background-image: url("img/tools/general-off.gif");
   background-position: 110px 0;
 }
 .tools #content li.general.selected a,
-.tools #content li.general a:hover {
+.tools #content li.general a:hover,
+.profile #content li.general.selected a,
+.profile #content li.general a:hover {
   background-image: url("img/tools/general-on.gif");
 }
-.tools #content li.blog a {
+.tools #content li.blog a,
+.profile #content li.blog a {
   background-image: url("img/tools/blog-off.gif");
   background-position: 110px 0;
 }
 .tools #content li.blog.selected a,
-.tools #content li.blog a:hover {
+.tools #content li.blog a:hover,
+.profile #content li.blog.selected a,
+.profile #content li.blog a:hover {
   background-image: url("img/tools/blog-on.gif");
 }
-.tools #content li.bookmarklets a {
+.tools #content li.bookmarklets a,
+.profile #content li.bookmarklets a {
   background-image: url("img/tools/bookmarklets-off.gif");
   background-position: 110px 0;
 }
 .tools #content li.bookmarklets.selected a,
-.tools #content li.bookmarklets a:hover {
+.tools #content li.bookmarklets a:hover,
+.profile #content li.bookmarklets.selected a,
+.profile #content li.bookmarklets a:hover {
   background-image: url("img/tools/bookmarklets-on.gif");
 }
-.tools #content li.import a {
+.tools #content li.import a,
+.profile #content li.import a {
   background-image: url("img/tools/import-off.gif");
   background-position: 110px 0;
 }
 .tools #content li.import.selected a,
-.tools #content li.import a:hover {
+.tools #content li.import a:hover,
+.profile #content li.import.selected a,
+.profile #content li.import a:hover {
   background-image: url("img/tools/import-on.gif");
 }
-.tools #content li.export a {
+.tools #content li.export a,
+.profile #content li.export a {
   background-image: url("img/tools/export-off.gif");
   background-position: 110px 0;
 }
 .tools #content li.export.selected a,
-.tools #content li.export a:hover {
+.tools #content li.export a:hover,
+.profile #content li.export.selected a,
+.profile #content li.export a:hover {
   background-image: url("img/tools/export-on.gif");
 }
-.tools #content li.blogsync a {
+.tools #content li.blogsync a,
+.profile #content li.blogsync a {
   background-image: url("img/tools/blogsync-off.gif");
   background-position: 110px 0;
 }
 .tools #content li.blogsync.selected a,
-.tools #content li.blogsync a:hover {
+.tools #content li.blogsync a:hover,
+.profile #content li.blogsync.selected a,
+.profile #content li.blogsync a:hover {
   background-image: url("img/tools/blogsync-on.gif");
 }
-.tools #content li.empty a {
+.tools #content li.empty a,
+.profile #content li.empty a {
   background-image: url("img/tools/empty-off.gif");
   background-position: 110px 0;
 }
 .tools #content li.empty.selected a,
-.tools #content li.empty a:hover {
+.tools #content li.empty a:hover,
+.profile #content li.empty.selected a,
+.profile #content li.empty a:hover {
   background-image: url("img/tools/empty-on.gif");
 }
 span.button {

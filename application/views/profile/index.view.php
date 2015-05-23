@@ -22,7 +22,7 @@
         <label class="control-label" for="signup_fullname"><?= _('Full Name') ?></label>
         <div class="controls">
           <input type="text" id="signup_fullname" name="fullname"
-            value="<?= arg($fullname) ?>"
+            value="<?= arg($user->name) ?>"
             required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;\|]{2,128}">
           <?php if ($fullname_error) : ?>
             <span class="help-block"><?= text($fullname_error) ?></span>
@@ -35,7 +35,7 @@
         <label class="control-label" for="signup_email"><?= _('Email Address') ?></label>
         <div class="controls">
           <input type="email" id="signup_email" name="email"
-            value="<?= arg($email) ?>"
+            value="<?= arg($user->email) ?>"
             required placeholder="email@domain.com" autocapitalize="off" autocorrect="off">
           <?php if ($email_error) : ?>
             <span class="help-block"><?= text($email_error) ?></span>
@@ -43,12 +43,12 @@
         </div>
       </div>
 
-      <?php $username_error = form_error('username') ?>
+      <?php $username_error = form_error('login') ?>
       <div class="control-group <?php if ($username_error) echo 'warning' ?>">
         <label class="control-label" for="signup_username"><?= _('Username') ?></label>
         <div class="controls">
           <input type="text" id="signup_username" name="username"
-            value="<?= arg($username) ?>"
+            value="<?= arg($user->username) ?>"
             required placeholder="username" autocapitalize="off" autocorrect="off" pattern="[a-zA-Z][a-z\d_]{1,24}">
           <?php if ($username_error) : ?>
             <span class="help-block"><?= text($username_error) ?></span>
@@ -83,7 +83,7 @@
             <optgroup label="<?= _("All") ?>">
             <?php
             foreach ($all_timezones as $identifier => $label) {
-                $selected = $timezone == $identifier ? 'selected="selected" ' : '';
+                $selected = $user->timezone == $identifier ? 'selected="selected" ' : '';
                 echo '<option ' . $selected . 'value="' . $identifier . '">' . $label . '</option>' . "\n";
             }
             ?>

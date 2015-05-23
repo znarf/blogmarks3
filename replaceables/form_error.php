@@ -3,14 +3,14 @@
 function form_error($name = null, $message = null)
 {
   # Init Registry
-  if (!isset(blogmarks::$registry['brand'])) {
-    blogmarks::$registry['brand'] = [];
+  if (!isset(blogmarks::$registry['errors'])) {
+    blogmarks::$registry['errors'] = [];
   }
   if ($name && $message) {
-    return $errors[$name] = $message;
+    return blogmarks::$registry['errors'][$name] = $message;
   }
   elseif ($name) {
-    return isset($errors[$name]) ? $errors[$name] : [];
+    return isset(blogmarks::$registry['errors'][$name]) ? blogmarks::$registry['errors'][$name] : [];
   }
-  return $errors;
+  return blogmarks::$registry['errors'];
 };
