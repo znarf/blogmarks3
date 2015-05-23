@@ -60,9 +60,9 @@
         <label class="control-label" for="profile_lang"><?= _('Language') ?></label>
         <div class="controls">
           <select id="profile_lang" name="lang">
-            <option value="0">Auto</option>
-            <option <?php if ($lang == 2) echo 'selected' ?> value="2">English</option>
-            <option <?php if ($lang == 1) echo 'selected' ?> value="1">Français</option>
+            <option value="auto">Auto</option>
+            <option <?php if ($lang == 'en_US') echo 'selected' ?> value="en_US">English</option>
+            <option <?php if ($lang == 'fr_FR') echo 'selected' ?> value="fr_FR">Français</option>
           </select>
         </div>
       </div>
@@ -71,16 +71,23 @@
         <label class="control-label" for="profile_timezone"><?= _('Timezone') ?></label>
         <div class="controls">
           <select id="profile_timezone" name="timezone">
-            <?php $all_timezones = helper('timezone')->all() ?>
+            <?php
+            $tz = helper('timezone');
+            $all_timezones = $tz->all()
+            ?>
             <optgroup label="<?= _("Popular") ?>">
-              <?php foreach ($timezone->popular as $identifier) : ?>
-              <option value="<?= $identifier ?>"><?= $all_timezones[$identifier] ?></option>
-              <?php endforeach ?>
+              <?php
+              foreach ($tz->popular as $identifier) {
+                $selected = $timezone == $identifier ? 'selected="selected" ' : '';
+                $already_selected = empty($already_selected) ? (bool)$selected : $already_selected;
+                echo '<option ' . $selected . 'value="' . $identifier . '">' . $all_timezones[$identifier] . '</option>' . "\n";
+              }
+              ?>
             </optgroup>
             <optgroup label="<?= _("All") ?>">
             <?php
             foreach ($all_timezones as $identifier => $label) {
-                $selected = $timezone == $identifier ? 'selected="selected" ' : '';
+                $selected = empty($already_selected) && $timezone == $identifier ? 'selected="selected" ' : '';
                 echo '<option ' . $selected . 'value="' . $identifier . '">' . $label . '</option>' . "\n";
             }
             ?>
