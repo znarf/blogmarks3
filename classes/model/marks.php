@@ -16,13 +16,17 @@ class marks
     if ($user->mark_with_link($link)) {
       throw new \amateur\exception('Mark already exists.', 400);
     }
+    # Handle Content (default to markdown/html)
+    $content = \Michelf\Markdown::defaultTransform($params['description']);
+    $contentType = 'html';
     # Insert Mark
     $mark = $this->table('marks')->create([
       'author'      => $user->id,
       'related'     => $link->id,
       'title'       => $params['title'],
-      'content'     => $params['description'],
-      'visibility'  => $params['visibility']
+      'visibility'  => $params['visibility'],
+      'content'     => $content,
+      'contentType' => $contentType,
     ]);
     # Insert Tags
     $this->table('marks_tags')->tag_mark($mark,
@@ -49,19 +53,16 @@ class marks
     } else {
       $link = $mark->related;
     }
-    # Handle Content
-    if ($mark->contentType == 'html') {
-      $content = \Michelf\Markdown::defaultTransform($params['description']);
-    }
-    else {
-      $content = $params['description'];
-    }
+    # Handle Content (default to markdown/html)
+    $content = \Michelf\Markdown::defaultTransform($params['description']);
+    $contentType = 'html';
     # Update Mark
     $mark = $this->table('marks')->update($mark, [
       'related'     => $link->id,
       'title'       => $params['title'],
+      'visibility'  => $params['visibility'],
       'content'     => $content,
-      'visibility'  => $params['visibility']
+      'contentType' => $contentType,
     ]);
     # Un-index Mark
     $this->feed('marks')->unindex($mark);
