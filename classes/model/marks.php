@@ -28,6 +28,8 @@ class marks
     $this->table('marks_tags')->tag_mark($mark,
       explode(',', $params['tags']), explode(',', $params['private_tags'])
     );
+    # Ensure a screenshot entry exists
+    $this->table('screenshots')->ensure_entry_exists_for_mark($mark);
     # Index Mark
     $this->feed('marks')->index($mark);
     $this->search('marks')->index($mark);

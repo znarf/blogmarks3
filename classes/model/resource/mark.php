@@ -93,15 +93,21 @@ class mark extends \blogmarks\model\resource
   function screenshot()
   {
     if (!$screenshot = $this->attribute('screenshot')) {
-      $query = $this->table('screenshots')
-        ->select('url')
-        ->where(['link' => $this->link_id, 'status' => 1])
-        ->order_by('created DESC');
-      $row = $query->fetch_one();
-      $screenshot = $row ? $row['url'] : $this->default_screenshot();
+      $screenshot = $this->internal_screenshot();
+      if (empty($screenshot)) {
+        $screenshot = $this->default_screenshot();
+      }
       $this->cache_attribute('screenshot', $screenshot);
     }
     return $screenshot;
+  }
+
+  function internal_screenshot()
+  {
+      $row = $this->table('screenshots')->for_mark($this);
+      if ($row) {
+        return $row['url'];
+      }
   }
 
   function default_screenshot()

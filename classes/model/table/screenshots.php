@@ -1,6 +1,10 @@
 <?php namespace blogmarks\model\table;
 
-class screenshots extends \blogmarks\model\table
+use amateur\model\db;
+
+use blogmarks\model\table;
+
+class screenshots extends table
 {
 
   public $tablename = 'bm_screenshots';
@@ -23,6 +27,27 @@ class screenshots extends \blogmarks\model\table
       $link_id = $mark->link_id;
       $screenshot = isset($results[$link_id]) ? $results[$link_id] : $mark->default_screenshot();
       $mark->cache_attribute('screenshot', $screenshot);
+    }
+  }
+
+  function for_mark($mark)
+  {
+      # TODO: should get the one for the published/created date first
+      $query = $this
+        ->select('url')
+        ->where(['link' => $mark->link_id, 'status' => 1])
+        ->order_by('created DESC');
+      return $query->fetch_one();
+  }
+
+  function ensure_entry_exists_for_mark($mark)
+  {
+    $now = db::now();
+    $params = ['link' => $mark->link_id];
+    $existing = $this->where($params)->and_where("created > DATE_SUB('$now', INTERVAL 1 DAY)");
+    if ($existing->count() == 0) {
+      $screenshot = $this->create($params + ['status' => 0, 'created' => $now]);
+      $this->service('amqp')->push(['id' => $screenshot->id], 'take_screenshot');
     }
   }
 
