@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a098d62ee23bf08d24a700ef591c452",
+    "hash": "b3dcb6cc4312a8fedd5a3ac8b7e556fe",
     "packages": [
         {
             "name": "leafo/lessphp",
@@ -195,12 +195,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ruflin/Elastica.git",
-                "reference": "4b64014ac980e6c072f7556589e8ba5acf0134e0"
+                "reference": "ebcf6fddabc1a09e8e9f23a93f7cf7eef4ae4e30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/4b64014ac980e6c072f7556589e8ba5acf0134e0",
-                "reference": "4b64014ac980e6c072f7556589e8ba5acf0134e0",
+                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/ebcf6fddabc1a09e8e9f23a93f7cf7eef4ae4e30",
+                "reference": "ebcf6fddabc1a09e8e9f23a93f7cf7eef4ae4e30",
                 "shasum": ""
             },
             "require": {
@@ -208,26 +208,24 @@
                 "psr/log": "~1.0"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "~1.4",
-                "munkie/elasticsearch-thrift-php": "1.4.*",
-                "phpunit/phpunit": "4.1.*"
+                "guzzlehttp/guzzle": "5.3.*",
+                "munkie/elasticsearch-thrift-php": "1.4.*"
             },
             "suggest": {
                 "egeloen/http-adapter": "Allow using httpadapter transport",
-                "guzzlehttp/guzzle": "Allow using guzzle 4.x as the http transport (Requires php 5.4)",
+                "guzzlehttp/guzzle": "Allow using guzzle 5.3.x as the http transport (Requires php 5.4)",
                 "monolog/monolog": "Logging request",
                 "munkie/elasticsearch-thrift-php": "Allow using thrift transport"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Elastica\\": "lib/Elastica/",
-                    "Elastica\\Test\\": "test/lib/Elastica/Test/"
+                    "Elastica\\": "lib/Elastica/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -246,7 +244,7 @@
                 "client",
                 "search"
             ],
-            "time": "2015-04-24 14:04:10"
+            "time": "2015-06-09 07:58:16"
         },
         {
             "name": "videlalvaro/php-amqplib",
@@ -254,12 +252,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/videlalvaro/php-amqplib.git",
-                "reference": "0b5cfa6f3aef99c9a568469f3ece7f39e1d79099"
+                "reference": "ab419f5ba74ad3b9791c97f4b6a8901b97bc0909"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/0b5cfa6f3aef99c9a568469f3ece7f39e1d79099",
-                "reference": "0b5cfa6f3aef99c9a568469f3ece7f39e1d79099",
+                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/ab419f5ba74ad3b9791c97f4b6a8901b97bc0909",
+                "reference": "ab419f5ba74ad3b9791c97f4b6a8901b97bc0909",
                 "shasum": ""
             },
             "require": {
@@ -300,11 +298,11 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2015-03-31 10:44:35"
+            "time": "2015-05-21 12:20:02"
         },
         {
             "name": "znarf/amateur",
-            "version": "dev-amateur3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:znarf/amateur.git",
