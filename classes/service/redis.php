@@ -20,10 +20,10 @@ class redis
     if ($this->connection) {
       return $this->connection;
     }
-    if (!class_exists('\Redis', false) || !$this->params) {
+    if (!class_exists('\redis', false) || !$this->params) {
       return;
     }
-    $connection = new \Redis;
+    $connection = new \redis;
     $connection->pconnect($this->params['host']);
     return $this->connection = $connection;
   }

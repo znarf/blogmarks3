@@ -17,7 +17,7 @@ class users extends \blogmarks\model\table
     return parent::create($set);
   }
 
-  function update($where, $set)
+  function update($where, $set = [])
   {
     if (isset($set['pass'])) {
       $set['pass'] = password_hash($set['pass'], PASSWORD_DEFAULT);
@@ -34,7 +34,7 @@ class users extends \blogmarks\model\table
         }
         if ($other_user = $this->get_one('email', $value)) {
           if (!$current_user || $other_user->id != $current_user->id) {
-            return _("Email is taken");
+            return _("Email is already taken");
           }
         }
         break;

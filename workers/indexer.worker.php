@@ -3,6 +3,7 @@
 
 use
 amateur\model\cache,
+amateur\model\runtime,
 amateur\model\table;
 
 require_once dirname(__DIR__) . '/bootstrap.php';
@@ -28,8 +29,7 @@ service('amqp')->consume('marks-index', function($message, $ack, $nack) {
   $ack();
   cache::store();
   cache::flush();
-  # Table Flush
-  foreach (\blogmarks\registry::$tables as $table) $table->objects = [];
+  runtime::flush();
   /*
   if ($message['action'] == 'exit') {
     $search->flush();

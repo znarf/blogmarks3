@@ -51,6 +51,9 @@ elseif (url_is('/auth/signup')) {
       signin($user);
       return redirect('/my/');
     }
+    else {
+      response_code(401);
+    }
   }
   return render('auth/signup', get_parameters(['fullname', 'username', 'email']));
 }

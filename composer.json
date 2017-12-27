@@ -8,12 +8,6 @@
     "ruflin/elastica": "dev-master",
     "pixel418/markdownify": "2.1.*"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@bitbucket.org:znarf/amateur.git"
-    }
-  ],
   "autoload": {
       "psr-4": {
           "blogmarks\\": "classes/"

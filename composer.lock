@@ -4,8 +4,166 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3dcb6cc4312a8fedd5a3ac8b7e556fe",
+    "content-hash": "0ddc46614f93129c9951e9a052d7fb45",
     "packages": [
+        {
+            "name": "elasticsearch/elasticsearch",
+            "version": "v6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elastic/elasticsearch-php.git",
+                "reference": "c71524c4a2941e31b01e189c7465c8c8f2a1cfaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/c71524c4a2941e31b01e189c7465c8c8f2a1cfaf",
+                "reference": "c71524c4a2941e31b01e189c7465c8c8f2a1cfaf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": ">=1.3.7",
+                "guzzlehttp/ringphp": "~1.0",
+                "php": "^7.0",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "cpliakas/git-wrapper": "~1.0",
+                "doctrine/inflector": "^1.1",
+                "mockery/mockery": "0.9.4",
+                "phpstan/phpstan-shim": "0.8.3",
+                "phpunit/phpunit": "6.3.0",
+                "squizlabs/php_codesniffer": "3.0.2",
+                "symfony/finder": "^2.8",
+                "symfony/yaml": "^2.8"
+            },
+            "suggest": {
+                "ext-curl": "*",
+                "monolog/monolog": "Allows for client-level logging and tracing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Elasticsearch\\": "src/Elasticsearch/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Zachary Tong"
+                }
+            ],
+            "description": "PHP Client for Elasticsearch",
+            "keywords": [
+                "client",
+                "elasticsearch",
+                "search"
+            ],
+            "time": "2017-11-14T18:22:37+00:00"
+        },
+        {
+            "name": "guzzlehttp/ringphp",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/RingPHP.git",
+                "reference": "dbbb91d7f6c191e5e405e900e3102ac7f261bc0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/dbbb91d7f6c191e5e405e900e3102ac7f261bc0b",
+                "reference": "dbbb91d7f6c191e5e405e900e3102ac7f261bc0b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/streams": "~3.0",
+                "php": ">=5.4.0",
+                "react/promise": "~2.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Ring\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "time": "2015-05-20T03:37:09+00:00"
+        },
+        {
+            "name": "guzzlehttp/streams",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/streams.git",
+                "reference": "47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5",
+                "reference": "47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Stream\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple abstraction over streams of data",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "stream"
+            ],
+            "time": "2014-10-12T19:18:40+00:00"
+        },
         {
             "name": "leafo/lessphp",
             "version": "v0.5.0",
@@ -45,20 +203,20 @@
             ],
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
-            "time": "2014-11-24 18:39:20"
+            "time": "2014-11-24T18:39:20+00:00"
         },
         {
             "name": "michelf/php-markdown",
-            "version": "1.5.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9"
+                "reference": "1f51cc520948f66cd2af8cbc45a5ee175e774220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/e1aabe18173231ebcefc90e615565742fc1c7fd9",
-                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/1f51cc520948f66cd2af8cbc45a5ee175e774220",
+                "reference": "1f51cc520948f66cd2af8cbc45a5ee175e774220",
                 "shasum": ""
             },
             "require": {
@@ -81,14 +239,14 @@
             ],
             "authors": [
                 {
-                    "name": "John Gruber",
-                    "homepage": "http://daringfireball.net/"
-                },
-                {
                     "name": "Michel Fortin",
                     "email": "michel.fortin@michelf.ca",
                     "homepage": "https://michelf.ca/",
                     "role": "Developer"
+                },
+                {
+                    "name": "John Gruber",
+                    "homepage": "https://daringfireball.net/"
                 }
             ],
             "description": "PHP Markdown",
@@ -96,20 +254,20 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2015-03-01 12:03:08"
+            "time": "2016-10-29T18:58:20+00:00"
         },
         {
             "name": "pixel418/markdownify",
-            "version": "v2.1.9",
+            "version": "v2.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Elephant418/Markdownify.git",
-                "reference": "47bc526165921ce7bf5be4af615f3903fdc2fdfe"
+                "reference": "17143885c32d195b885d36e4b556f16377afa096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Elephant418/Markdownify/zipball/47bc526165921ce7bf5be4af615f3903fdc2fdfe",
-                "reference": "47bc526165921ce7bf5be4af615f3903fdc2fdfe",
+                "url": "https://api.github.com/repos/Elephant418/Markdownify/zipball/17143885c32d195b885d36e4b556f16377afa096",
+                "reference": "17143885c32d195b885d36e4b556f16377afa096",
                 "shasum": ""
             },
             "require": {
@@ -149,26 +307,34 @@
                 "markdown",
                 "markdownify"
             ],
-            "time": "2015-04-01 09:52:58"
+            "time": "2016-02-19T09:56:23+00:00"
         },
         {
             "name": "psr/log",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "shasum": ""
             },
+            "require": {
+                "php": ">=5.3.0"
+            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
-                "psr-0": {
-                    "Psr\\Log\\": ""
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -182,12 +348,59 @@
                 }
             ],
             "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
             "keywords": [
                 "log",
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "react/promise",
+            "version": "v2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/promise.git",
+                "reference": "62785ae604c8d69725d693eb370e1d67e94c4053"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/62785ae604c8d69725d693eb370e1d67e94c4053",
+                "reference": "62785ae604c8d69725d693eb370e1d67e94c4053",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "React\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com"
+                }
+            ],
+            "description": "A lightweight implementation of CommonJS Promises/A for PHP",
+            "keywords": [
+                "promise",
+                "promises"
+            ],
+            "time": "2017-03-25T12:08:31+00:00"
         },
         {
             "name": "ruflin/elastica",
@@ -195,32 +408,33 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ruflin/Elastica.git",
-                "reference": "ebcf6fddabc1a09e8e9f23a93f7cf7eef4ae4e30"
+                "reference": "cff7136b69ccfe654131759d7c75a727253cd0d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/ebcf6fddabc1a09e8e9f23a93f7cf7eef4ae4e30",
-                "reference": "ebcf6fddabc1a09e8e9f23a93f7cf7eef4ae4e30",
+                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/cff7136b69ccfe654131759d7c75a727253cd0d3",
+                "reference": "cff7136b69ccfe654131759d7c75a727253cd0d3",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
+                "elasticsearch/elasticsearch": "6.0.0",
+                "php": "^7.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
-                "guzzlehttp/guzzle": "5.3.*",
-                "munkie/elasticsearch-thrift-php": "1.4.*"
+                "aws/aws-sdk-php": "~3.0",
+                "guzzlehttp/guzzle": "~6.0"
             },
             "suggest": {
+                "aws/aws-sdk-php": "Allow using IAM authentication with Amazon ElasticSearch Service",
                 "egeloen/http-adapter": "Allow using httpadapter transport",
-                "guzzlehttp/guzzle": "Allow using guzzle 5.3.x as the http transport (Requires php 5.4)",
-                "monolog/monolog": "Logging request",
-                "munkie/elasticsearch-thrift-php": "Allow using thrift transport"
+                "guzzlehttp/guzzle": "Allow using guzzle 6 as the http transport",
+                "monolog/monolog": "Logging request"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "6.0.x-dev"
                 }
             },
             "autoload": {
@@ -244,20 +458,20 @@
                 "client",
                 "search"
             ],
-            "time": "2015-06-09 07:58:16"
+            "time": "2017-12-21T21:40:36+00:00"
         },
         {
             "name": "videlalvaro/php-amqplib",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/videlalvaro/php-amqplib.git",
-                "reference": "ab419f5ba74ad3b9791c97f4b6a8901b97bc0909"
+                "url": "https://github.com/php-amqplib/php-amqplib.git",
+                "reference": "0f90b3d8bc50403458f0eefbcba7d1e2329dd0f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/ab419f5ba74ad3b9791c97f4b6a8901b97bc0909",
-                "reference": "ab419f5ba74ad3b9791c97f4b6a8901b97bc0909",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/0f90b3d8bc50403458f0eefbcba7d1e2329dd0f6",
+                "reference": "0f90b3d8bc50403458f0eefbcba7d1e2329dd0f6",
                 "shasum": ""
             },
             "require": {
@@ -265,8 +479,13 @@
                 "ext-mbstring": "*",
                 "php": ">=5.3.0"
             },
+            "replace": {
+                "videlalvaro/php-amqplib": "self.version"
+            },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "^4.8",
+                "scrutinizer/ocular": "^1.1",
+                "squizlabs/php_codesniffer": "^2.5"
             },
             "suggest": {
                 "ext-sockets": "Use AMQPSocketConnection"
@@ -274,12 +493,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "PhpAmqpLib": ""
+                "psr-4": {
+                    "PhpAmqpLib\\": "PhpAmqpLib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -288,25 +507,43 @@
             ],
             "authors": [
                 {
-                    "name": "Alvaro Videla"
+                    "name": "Alvaro Videla",
+                    "role": "Original Maintainer"
+                },
+                {
+                    "name": "John Kelly",
+                    "email": "johnmkelly86@gmail.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Raúl Araya",
+                    "email": "nubeiro@gmail.com",
+                    "role": "Maintainer"
                 }
             ],
-            "description": "This library is a pure PHP implementation of the AMQP protocol. It's been tested against RabbitMQ.",
-            "homepage": "https://github.com/videlalvaro/php-amqplib/",
+            "description": "Formerly videlalvaro/php-amqplib.  This library is a pure PHP implementation of the AMQP protocol. It's been tested against RabbitMQ.",
+            "homepage": "https://github.com/php-amqplib/php-amqplib/",
             "keywords": [
                 "message",
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2015-05-21 12:20:02"
+            "abandoned": "php-amqplib/php-amqplib",
+            "time": "2017-09-26T05:30:15+00:00"
         },
         {
             "name": "znarf/amateur",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:znarf/amateur.git",
-                "reference": "d87c87ca4f5c25e537f4d7b28992f6daffe6fc02"
+                "url": "https://github.com/znarf/amateur.git",
+                "reference": "1e2e3db2ac1a02edc9fd72a1b2c8ac9630a88587"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/znarf/amateur/zipball/1e2e3db2ac1a02edc9fd72a1b2c8ac9630a88587",
+                "reference": "1e2e3db2ac1a02edc9fd72a1b2c8ac9630a88587",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.6.0"
@@ -320,6 +557,7 @@
                     "amateur\\": "classes/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -333,7 +571,7 @@
             ],
             "description": "Amateur",
             "homepage": "https://bitbucket.org/znarf/amateur",
-            "time": "2015-05-01 21:46:12"
+            "time": "2017-02-08T15:59:24+00:00"
         }
     ],
     "packages-dev": [],

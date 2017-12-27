@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blogmarks.net\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-15 21:15+0100\n"
-"PO-Revision-Date: 2014-10-15 21:31+0100\n"
+"POT-Creation-Date: 2015-05-23 14:18+0100\n"
+"PO-Revision-Date: 2015-05-23 14:18+0100\n"
 "Last-Translator: François Hodierne <francois@hodierne.net>\n"
-"Language-Team:  <team@blogmarks.net>\n"
+"Language-Team: team@blogmarks.net\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,24 +13,24 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: /Users/znarfor/Dropbox/Dev/\n"
 "X-Poedit-KeywordsList: trunk\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8\n"
 "X-Poedit-SearchPath-0: bm-next\n"
 
-#: bm-next/application/helpers/grouper.helper.php:18
+#: bm-next/application/helpers/grouper.helper.php:23
 msgid "Today"
 msgstr "Aujourd'hui"
 
-#: bm-next/application/helpers/grouper.helper.php:18
+#: bm-next/application/helpers/grouper.helper.php:23
 msgid "Yesterday"
 msgstr "Hier"
 
 #: bm-next/application/modules/auth.module.php:5
-#: bm-next/application/partials/top.partial.php:22
+#: bm-next/application/partials/top.partial.php:27
 msgid "Sign In"
 msgstr "Se connecter"
 
-#: bm-next/application/modules/auth.module.php:26
-#: bm-next/application/partials/top.partial.php:20
+#: bm-next/application/modules/auth.module.php:32
+#: bm-next/application/partials/top.partial.php:24
 msgid "Sign Up"
 msgstr "S'inscrire"
 
@@ -38,7 +38,7 @@ msgstr "S'inscrire"
 #: bm-next/application/modules/friends.module.php:35
 #: bm-next/application/modules/friends.module.php:42
 #: bm-next/application/modules/friends.module.php:55
-#: bm-next/application/partials/top.partial.php:31
+#: bm-next/application/partials/top.partial.php:36
 msgid "Friends Marks"
 msgstr "Marks Amis"
 
@@ -53,7 +53,7 @@ msgstr "avec le tag"
 #: bm-next/application/modules/my.module.php:28
 #: bm-next/application/modules/my.module.php:35
 #: bm-next/application/modules/my.module.php:50
-#: bm-next/application/partials/top.partial.php:35
+#: bm-next/application/partials/top.partial.php:40
 msgid "My Marks"
 msgstr "Mes Marks"
 
@@ -66,13 +66,13 @@ msgid "Mark Successfully Added."
 msgstr "Mark ajouté avec succès"
 
 #: bm-next/application/modules/mark.module.php:57
-#: bm-next/application/partials/mark.partial.php:47
+#: bm-next/application/partials/mark.partial.php:42
 #: bm-next/application/views/marks/form-modal.view.php:12
 msgid "Edit Mark"
 msgstr "Éditer un mark"
 
 #: bm-next/application/modules/mark.module.php:96
-#: bm-next/application/partials/mark.partial.php:49
+#: bm-next/application/partials/mark.partial.php:44
 #: bm-next/application/views/marks/delete.view.php:8
 msgid "Delete Mark"
 msgstr "Supprimer un mark"
@@ -95,21 +95,21 @@ msgstr "Profil mis à jour"
 #: bm-next/application/modules/public.module.php:55
 #: bm-next/application/modules/public.module.php:62
 #: bm-next/application/modules/public.module.php:72
-#: bm-next/application/modules/public.module.php:86
-#: bm-next/application/partials/top.partial.php:27
+#: bm-next/application/modules/public.module.php:96
+#: bm-next/application/partials/top.partial.php:32
 msgid "Public Marks"
 msgstr "Marks Publics"
 
 #: bm-next/application/modules/tools.module.php:5
-#: bm-next/application/partials/top.partial.php:38
+#: bm-next/application/partials/top.partial.php:43
 msgid "Tools"
 msgstr "Outils"
 
-#: bm-next/application/partials/mark.partial.php:48
+#: bm-next/application/partials/mark.partial.php:43
 msgid "Edit"
 msgstr "Éditer"
 
-#: bm-next/application/partials/mark.partial.php:50
+#: bm-next/application/partials/mark.partial.php:45
 #: bm-next/application/views/marks/delete.view.php:21
 msgid "Delete"
 msgstr "Supprimer"
@@ -139,11 +139,11 @@ msgstr "Vider"
 msgid "Search"
 msgstr "Rechercher"
 
-#: bm-next/application/partials/top.partial.php:15
+#: bm-next/application/partials/top.partial.php:18
 msgid "Connected as"
 msgstr "Connecté comme"
 
-#: bm-next/application/partials/top.partial.php:18
+#: bm-next/application/partials/top.partial.php:21
 msgid "Sign Out"
 msgstr "Se Déconnecter"
 
@@ -220,11 +220,11 @@ msgstr "Fuseau horaire"
 msgid "Popular"
 msgstr "Populaire"
 
-#: bm-next/application/views/profile/index.view.php:83
+#: bm-next/application/views/profile/index.view.php:87
 msgid "All"
 msgstr "Tous"
 
-#: bm-next/application/views/profile/index.view.php:97
+#: bm-next/application/views/profile/index.view.php:102
 msgid "Update Profile"
 msgstr "Mettre à jour le profil"
 
@@ -266,6 +266,28 @@ msgstr "Choisissez un fichier source ..."
 #: bm-next/application/views/tools/import.view.php:35
 msgid "Import Now !"
 msgstr "Importer maintenant !"
+
+#: bm-next/classes/model/table/users.php:33
+msgid "Email is invalid"
+msgstr "Cette adresse email est invalide"
+
+#: bm-next/classes/model/table/users.php:37
+msgid "Email is already taken"
+msgstr "Cette adresse email est déjà prise."
+
+#: bm-next/classes/model/table/users.php:43
+msgid "Username is invalid"
+msgstr "Ce nom d’utilisateur est invalide"
+
+#: bm-next/classes/model/table/users.php:47
+msgid "Username is already taken"
+msgstr "Ce nom d’utilisateur est déjà pris"
+
+#~ msgid "Email is taken"
+#~ msgstr "Cette adresse email est déjà pris"
+
+#~ msgid "Error"
+#~ msgstr "Erreur"
 
 #~ msgid "A valid email address."
 #~ msgstr "Une adresse email valide."

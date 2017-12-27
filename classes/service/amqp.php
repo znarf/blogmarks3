@@ -73,7 +73,10 @@ class amqp
       $nack = function() use($channel, $delivery_tag) {
         return $channel->basic_nack($delivery_tag, false, true);
       };
-      $callback($message, $ack, $nack);
+      $cancel = function() use($channel, $consumer_tag) {
+        return $channel->basic_cancel($consumer_tag);
+      };
+      $callback($message, $ack, $nack, $cancel);
     });
     while (count($channel->callbacks)) {
       $channel->wait();

@@ -198,7 +198,7 @@ class marks
   function search($params = [])
   {
     if (!$this->available()) {
-      throw new \amateur\core\exception('Search backend not available.', 500);
+      throw new \amateur\exception('Search backend not available.', 500);
     }
     # Count Query
     $query = $this->build_base_query($params);

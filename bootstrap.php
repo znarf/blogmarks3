@@ -9,7 +9,7 @@ require root_dir . '/vendor/autoload.php';
 replaceable::load(root_dir . '/replaceables' , 'blogmarks');
 
 # Expose global replaceables
-replaceable::expose_global_functions();
+replaceable::expose_replaceables();
 
 # Locale
 textdomain('blogmarks');

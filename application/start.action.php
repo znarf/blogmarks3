@@ -6,7 +6,7 @@ if ($user = authenticated_user()) {
   init_user_settings($user);
 }
 
-if (url_is('/')) {
+if (url_is('/') || url_is('/index.php')) {
   redirect('/marks');
 }
 elseif (url_start_with('/my/tools')) {
