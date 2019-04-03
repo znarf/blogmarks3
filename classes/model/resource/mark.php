@@ -99,6 +99,9 @@ class mark extends \blogmarks\model\resource
       }
       $this->cache_attribute('screenshot', $screenshot);
     }
+    if (flag('rewrite_screenshot_url')) {
+      $screenshot = absolute_url(str_replace('http://blogmarks.net', '', $screenshot));
+    }
     return $screenshot;
   }
 
