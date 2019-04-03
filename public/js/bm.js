@@ -19,8 +19,6 @@ if (!$(document.body).hasClass('public')) {
 
 jQuery(function($) {
 
-  $("img").unveil(200);
-
   $(document).pjax('.mark .tags a, .taglist a', '#layout');
 
   $("#layout").on("click", "#pagination .more", function(event) {
@@ -35,7 +33,6 @@ jQuery(function($) {
     $("#content-inner").append(more);
     if (href) {
       more.load(href + ' #content-inner .marks-list', function(response, status, xhr) {
-        $("img").unveil(200);
         pagination.remove();
         $.scrollTo(more, 500);
       });
@@ -61,7 +58,6 @@ jQuery(function($) {
             var more = $('<div class="more-marks" style="clear:both"></div>');
             $("#content-inner").append(more);
             more.load(href + ' .marks-list', {'more-marks' : 1}, function() {
-              $("img").unveil(200);
               pagination.remove();
               var moreResults = $("#pagination .more").length >= 1;
               callback(moreResults);
@@ -73,7 +69,6 @@ jQuery(function($) {
 
   $(document).on('pjax:complete', function() {
     $('#layout').infiniteScroll('reset');
-    $("img").unveil(200);
     if (!$(document.body).hasClass('public')) {
       $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 100);
     }
