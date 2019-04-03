@@ -48,7 +48,6 @@ $static_url = static_url();
 <script src="<?= $static_url ?>/components/jquery-pjax/jquery.pjax.js"></script>
 <script src="<?= $static_url ?>/components/jquery.scrollTo/jquery.scrollTo.js"></script>
 <script src="<?= $static_url ?>/components/select2/select2.js"></script>
-<script src="<?= $static_url ?>/components/unveil/jquery.unveil.js"></script>
 <script src="<?= $static_url ?>/js/jquery-plugins.js"></script>
 <script src="<?= $static_url ?>/js/bm.js"></script>
 
