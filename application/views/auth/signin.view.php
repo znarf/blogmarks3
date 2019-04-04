@@ -5,9 +5,9 @@
 
     <form class="signin form-horizontal" method="post" action="<?= relative_url('/auth/signin') ?>">
       <div class="control-group">
-        <label class="control-label" for="inputEmail">Username (or Email)</label>
+        <label class="control-label" for="inputEmail"><?= _('Username (or Email)') ?></label>
         <div class="controls">
-          <input type="text" id="inputEmail" name="username" placeholder="Username (or Email)" autocapitalize="off" autocorrect="off">
+          <input type="text" id="inputEmail" name="username" placeholder="<?= _('Username (or Email)') ?>" autocapitalize="off" autocorrect="off">
         </div>
       </div>
       <div class="control-group">
@@ -28,6 +28,11 @@
           <?php endif ?>
           <input type="hidden" name="token" value="<?= $token ?>">
           <button type="submit" class="btn">Sign In</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <a href="<?= relative_url('/auth/forgot-password') ?>"><?= _("Forgot Password?") ?></a>
         </div>
       </div>
     </form>
