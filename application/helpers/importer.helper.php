@@ -14,6 +14,8 @@ table(['marks', 'links', 'tags', 'marks_tags', 'screenshots']);
 # Methods
 
 $importer->start = function($user) use ($amqp, $marks) {
+  # Time Limit
+  set_time_limit(0);
   # User
   $this->user = $user;
   # Query All Link Ids From User (to use later)
