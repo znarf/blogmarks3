@@ -10,21 +10,25 @@ if ($matches = url_match('/my/marks/mixed-tag/*')) {
   $public_tag = table('tags')->get_one('label', urldecode($tags[0]));
   # Private Tag
   $row = table('tags')->fetch_one(['label' => urldecode($tags[0]), 'author' => $user->id]);
-  $private_tag = table('tags')->to_object($row);
+  $private_tag = $row ? table('tags')->to_object($row) : null;
   # Marks
   title(_('My Marks'), _('with tag') . ' ' . strong($public_tag));
   # Tags
   helper('sidebar')->register(['My', 'Tags related with ' . strong($public_tag)], function() use($user, $public_tag, $private_tag) {
     $tags = [];
     $tags += model('tags')->private_from_user_related_with($user, $public_tag);
-    $tags += model('tags')->private_from_user_related_with($user, $private_tag);
+    if ($private_tag) {
+      $tags += model('tags')->private_from_user_related_with($user, $private_tag);
+    }
     partial('tags', ['tags' => $tags]);
   });
   # Fetch results from both tags
   $results = [];
   foreach ([$public_tag, $private_tag] as $tag) {
-    $query = table('marks')->query_ids_and_ts_from_user_with_tag($user, $tag, ['private' => true]);
-    $results += feed('marks')->ids_and_ts("feed_marks_my_{$user->id}_tag_{$tag->id}", $query, $params);
+    if ($tag) {
+      $query = table('marks')->query_ids_and_ts_from_user_with_tag($user, $tag, ['private' => true]);
+      $results += feed('marks')->ids_and_ts("feed_marks_my_{$user->id}_tag_{$tag->id}", $query, $params);
+    }
   }
   # Soft offset/limit
   if ($params['limit'] > 0) {
