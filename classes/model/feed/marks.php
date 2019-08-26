@@ -120,9 +120,11 @@ class marks
       self::add("feed_marks_my_{$mark->author->id}_tag_{$mt->tag_id}", $ts, $mark->id);
     }
     # Update Friends Feeds
-    if ($mark->is_public) {
-      foreach ($mark->user->follower_ids as $user_id) {
-        self::add("feed_marks_friends_{$user_id}}", $ts, $mark->id);
+    if (flag('enable_social_features')) {
+      if ($mark->is_public) {
+        foreach ($mark->user->follower_ids as $user_id) {
+          self::add("feed_marks_friends_{$user_id}}", $ts, $mark->id);
+        }
       }
     }
   }
@@ -140,8 +142,10 @@ class marks
       self::remove("feed_marks_my_{$mark->author->id}_tag_{$mt->tag_id}", $mark->id);
     }
     # Update Friends Feeds
-    foreach ($mark->user->follower_ids as $user_id) {
-      self::remove("feed_marks_friends_{$user_id}}", $mark->id);
+    if (flag('enable_social_features')) {
+      foreach ($mark->user->follower_ids as $user_id) {
+        self::remove("feed_marks_friends_{$user_id}}", $mark->id);
+      }
     }
   }
 
