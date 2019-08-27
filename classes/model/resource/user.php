@@ -72,6 +72,13 @@ class user extends \blogmarks\model\resource
     return password_verify($password, $this->pass);
   }
 
+  function generate_activation_key()
+  {
+    $activation_key = amateur::generate_phrase();
+    $this->table('users')->update($this, ['activationkey' => $activation_key]);
+    return $activation_key;
+  }
+
   function following_ids()
   {
     return $this->table('user_relations')->where(['user' => $this->id])->fetch_ids('contact');

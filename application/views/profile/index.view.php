@@ -15,6 +15,8 @@
 
     <?php partial('notification') ?>
 
+    <h3><?= _('General') ?></h3>
+
     <form method="post" action="" class="form-horizontal">
 
       <?php $fullname_error = form_error('name') ?>
@@ -98,8 +100,66 @@
 
       <div class="control-group">
         <div class="controls">
-          <input type="hidden" name="token" value="<?= $token ?>">
+          <input type="hidden" name="token" value="<?= $update_profile_token ?>">
           <button type="submit" class="btn"><?= _('Update Profile') ?></button>
+        </div>
+      </div>
+
+    </form>
+
+    <h3><?= _('Change Password') ?></h3>
+
+    <form method="post" action="<?= relative_url('/my/profile,password') ?>" class="form-horizontal">
+
+      <div class="control-group">
+        <label class="control-label" for="password_current"><?= _('Currrent Password') ?></label>
+        <div class="controls">
+          <input
+            class="text"
+            type="password"
+            id="password_current"
+            name="password_current"
+            size="24"
+            value=""
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="password_new"><?= _('New Password') ?></label>
+        <div class="controls">
+          <input
+            class="text"
+            type="password"
+            id="password_new"
+            name="password_new"
+            size="24"
+            value=""
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="password_new_confirm"><?= _('Confirm New Password') ?></label>
+        <div class="controls">
+          <input
+            class="text"
+            type="password"
+            id="password_new_confirm"
+            name="password_new_confirm"
+            size="24"
+            value=""
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <input type="hidden" name="token" value="<?= $update_password_token ?>">
+          <button type="submit" class="btn"><?= _('Update Password') ?></button>
         </div>
       </div>
 

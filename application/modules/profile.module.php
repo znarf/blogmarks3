@@ -47,9 +47,34 @@ elseif ($matches = url_match('/my/profile,general')) {
       'timezone' => $user->timezone
     ];
   }
-  $params += ['token' => generate_token('update_profile')];
+  $params += [
+    'update_profile_token' => generate_token('update_profile'),
+    'update_password_token' => generate_token('update_password')
+  ];
   return render('profile/index', $params);
 }
+
+elseif ($matches = url_match('/my/profile,password')) {
+  if (is_post()) {
+    check_token('update_password', get_param('token'));
+    check_parameters(['password_current', 'password_new', 'password_new_confirm']);
+    if (!get_param('password_current') || !$user->verify_passsword(get_param('password_current'))) {
+      flash_message( _('Current password is invalid.') );
+    }
+    elseif (!get_param('password_new')) {
+      flash_message( _("New password can't be empty.") );
+    }
+    elseif (get_param('password_new') !== get_param('password_new_confirm')) {
+      flash_message( _("New password doesn't match confirmation.") );
+    }
+    else {
+      table('users')->update($user, ['pass' => get_param('password_new')]);
+      flash_message( _('Password Updated.') );
+    }
+  }
+  return redirect('/my/profile,general');
+}
+
 
 else {
   return unknown_url();
