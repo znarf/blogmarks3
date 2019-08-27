@@ -107,18 +107,20 @@ class mark extends \blogmarks\model\resource
 
   function internal_screenshot()
   {
-      $row = $this->table('screenshots')->for_mark($this);
-      if ($row) {
-        return $row['url'];
-      }
+    $row = $this->table('screenshots')->for_mark($this);
+    if ($row) {
+      return $row['url'];
+    }
   }
 
   function default_screenshot()
   {
     $parsed_url = parse_url($this->url);
     if (!empty($parsed_url['host'])) {
-      return 'http://open.thumbshots.org/image.pxf?url=' . $parsed_url['host'];
+      return 'https://api.miniature.io/?url=' . $parsed_url['host'];
     }
+    $n = substr($this->attribute('id'), -1) + 1;
+    return absolute_url("/img/haikus/$n.gif");
   }
 
   function url()
