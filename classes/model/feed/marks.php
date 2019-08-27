@@ -85,7 +85,7 @@ class marks
     # Items
     $items = empty($results) ? [] : $this->table('marks')->get(array_keys($results));
     # Result
-    return compact('params', 'total', 'next', 'items');
+    return compact('params', 'next', 'items');
   }
 
   function add($redis_key, $ts, $id)
