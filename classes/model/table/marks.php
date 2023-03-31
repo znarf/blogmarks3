@@ -130,4 +130,43 @@ class marks extends \blogmarks\model\table
     return $query;
   }
 
+  function query_ids_and_ts_search($search, $params)
+  {
+    $like = db::quote("%$search%");
+    $query = $this
+      ->query_ids_and_ts()
+      ->from('bm_marks as m, bm_marks_has_bm_tags as mht')
+      ->where('m.id = mht.mark_id')
+      ->and_where("(m.title LIKE $like OR m.content LIKE $like OR (mht.isHidden = 0 AND mht.label LIKE $like))")
+      ->group_by('m.id');
+    if (!empty($params['before'])) {
+      $before = db::quote($params['before']);
+      $query->and_where("m.published <= FROM_UNIXTIME($before)");
+    }
+    return $query;
+  }
+
+  function query_ids_and_ts_search_public($search, $params)
+  {
+    $query = $this
+      ->query_ids_and_ts_search($search, $params)
+      # What does this mean?
+      # - Public: visibility=0, Private: visibility=1
+      # - Ok: display=1, Restricted: display=0
+      ->and_where(['m.visibility' => 0, 'm.display' => 1]);
+    return $query;
+  }
+
+  function query_ids_and_ts_from_user_search($user, $search, $params = [])
+  {
+    $query = $this
+      ->query_ids_and_ts_search($search, $params)
+      ->and_where(['m.author' => $user->id]);
+    if (empty($params['private'])) {
+      $query->and_where(['m.visibility' => 0]);
+    }
+    return $query;
+  }
+
+
 }

@@ -119,6 +119,32 @@ class marks
     $this->search('marks')->unindex_user($user);
   }
 
+  # Utility
+
+  function search_with_query($query, $params = [])
+  {
+    $ids_and_ts = $query
+      ->select('m.id, UNIX_TIMESTAMP(m.published) as ts')
+      ->limit($params['limit'] + 1)
+      ->order_by('published DESC')
+      ->fetch_key_values('id', 'ts');
+
+    # Next?
+    if (count($ids_and_ts) > $params['limit']) {
+      $next = array_pop($ids_and_ts);
+    } else {
+      $next = null;
+    }
+
+    # Total
+    $total = null;
+
+    # Items
+    $items = $this->table('marks')->get(array_keys($ids_and_ts));
+
+    return compact('params', 'total', 'next', 'items');
+  }
+
   # Collections
 
   function latests($params = [])
@@ -243,16 +269,32 @@ class marks
     return $this->search('marks')->search(['user' => $user, 'tags' => $tags, 'private' => true] + $params);
   }
 
-  function private_from_user_search($user, $query, $params = [])
+  function private_from_user_search($user, $search, $params = [])
   {
-    # Only available with search backend
-    return $this->search('marks')->search(['user' => $user, 'query' => $query, 'private' => true] + $params);
+    # Sub-optimal search to support installs without Elasticsearch
+    if (!$this->search('marks')->available()) {
+      $query = $this
+        ->table('marks')
+        ->query_ids_and_ts_from_user_search($user, $search, $params + ['private' => true]);
+      return $this->search_with_query($query, $params);
+    }
+
+    # With search backend
+    return $this->search('marks')->search(['user' => $user, 'query' => $search, 'private' => true] + $params);
   }
 
-  function public_search($query, $params = [])
+  function public_search($search, $params = [])
   {
-    # Only available with search backend
-    return $this->search('marks')->search(['query' => $query] + $params);
+    # Sub-optimal search to support installs without Elasticsearch
+    if (!$this->search('marks')->available()) {
+      $query = $this
+        ->table('marks')
+        ->query_ids_and_ts_search_public($search, $params);
+      return $this->search_with_query($query, $params);
+    }
+
+    # With search backend
+    return $this->search('marks')->search(['query' => $search] + $params);
   }
 
   function from_friends($user, $params = [])
