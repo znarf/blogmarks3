@@ -8,7 +8,7 @@ class user extends \blogmarks\model\resource
   use
   \amateur\magic\dynamic_properties;
 
-  public $default_avatar = 'http://blogmarks.net/img/default-gravatar.gif';
+  public $default_avatar = 'https://blogmarks.net/img/default-gravatar.gif';
 
   function username()
   {
@@ -47,7 +47,7 @@ class user extends \blogmarks\model\resource
 
   function gravatar($email, $size = 80)
   {
-    return 'http://www.gravatar.com/avatar.php?gravatar_id=' . md5($email) . '&size=' . $size . '&d=' . urlencode($this->default_avatar);
+    return 'https://www.gravatar.com/avatar.php?gravatar_id=' . md5($email) . '&size=' . $size . '&d=' . urlencode($this->default_avatar);
   }
 
   function mark_with_link($link)
