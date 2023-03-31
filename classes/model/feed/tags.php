@@ -38,7 +38,10 @@ class tags
     # With Redis
     else {
       # error_log("redis:zRevRangeByScore:$redis_key");
-      $options = ['withscores' => true, 'limit' => [$params['offset'], $params['limit']]];
+      $options = ['withscores' => true];
+      if (!empty($params['limit'])) {
+        $options['limit'] = [$params['offset'], $params['limit']];
+      }
       $results = $redis->zRevRangeByScore($redis_key, '+inf', 1, $options);
     }
     # Return as tags (filtered with query if available)
