@@ -39,7 +39,8 @@ class amqp
 
   function queue_declare($queue)
   {
-    self::channel()->queue_declare($queue, false, true, false, false);
+    $channel = self::channel();
+    if ($channel) $channel->queue_declare($queue, false, true, false, false);
   }
 
   function json_message($message)
@@ -49,7 +50,8 @@ class amqp
 
   function publish($queue, $message)
   {
-    self::channel()->basic_publish(self::json_message($message), '', $queue);
+    $channel = self::channel();
+    if ($channel) $channel->basic_publish(self::json_message($message), '', $queue);
   }
 
   function push($message, $queue)
