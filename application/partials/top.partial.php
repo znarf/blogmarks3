@@ -20,11 +20,15 @@ $authenticated_user = authenticated_user();
           /
           <a class="navbar-link" href="<?= $relative_url('/auth/signout') ?>"><?= _("Sign Out") ?></a>
           <?php else : ?>
-            <?php if (flag('enable_signup')) : ?>
-            <a class="navbar-link" href="<?= $relative_url('/auth/signup') ?>"><?= _("Sign Up") ?></a>
-            /
+            <?php if (flag('enable_oauth')) : ?>
+              <a class="navbar-link" href="<?= $relative_url('/oauth/connect') ?>"><?= _("Sign In with Open Collective") ?></a>
+            <?php else : ?>
+              <?php if (flag('enable_signup')) : ?>
+                <a class="navbar-link" href="<?= $relative_url('/auth/signup') ?>"><?= _("Sign Up") ?></a>
+                /
+                <?php endif ?>
+              <a class="navbar-link" href="<?= $relative_url('/auth/signin') ?>"><?= _("Sign In") ?></a>
             <?php endif ?>
-            <a class="navbar-link" href="<?= $relative_url('/auth/signin') ?>"><?= _("Sign In") ?></a>
           <?php endif ?>
         </p>
         <ul class="nav">
