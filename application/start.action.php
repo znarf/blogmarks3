@@ -24,6 +24,9 @@ elseif (url_start_with('/my')) {
 elseif (url_start_with('/auth')) {
   module('auth');
 }
+elseif (url_start_with('/oauth')) {
+  module('oauth');
+}
 else {
   module('public');
 }
