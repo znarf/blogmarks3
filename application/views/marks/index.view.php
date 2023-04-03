@@ -1,6 +1,12 @@
 <?php partial('search') ?>
 
-<div id="content">
+<?php $marks = isset($marks) ? $marks : helper('container')->marks(); ?>
+
+<?php if (count($marks['items']) === 0) helper('sidebar')->empty() ?>
+
+<!-- <?php var_dump(helper('sidebar')->is_empty()); ?> -->
+
+<div id="content" class="<?= helper('sidebar')->is_empty() ? 'fullwidth' : '' ?>">
   <div id="content-inner">
 
     <?php partial('notification') ?>
