@@ -39,6 +39,9 @@ $authenticated_user = authenticated_user();
           <li class="<?= $section == 'my' ? 'active' : '' ?>">
             <a href="<?= $relative_url('/my/marks') ?>"><?= _("My Marks") ?></a>
           </li>
+          <li class="<?= $section == 'my' ? 'active' : '' ?>">
+            <a href="<?= $relative_url('/my/marks,new') ?>"><?= _("New Mark") ?></a>
+          </li>
           <li class="<?= $section == 'tools' ? 'active' : '' ?>">
             <a href="<?= $relative_url('/my/tools') ?>"><?= _("Tools") ?></a>
           </li>
