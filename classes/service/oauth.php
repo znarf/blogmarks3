@@ -17,6 +17,7 @@ class oauth
     me {
       id
       name
+      slug
       email
       imageUrl(height: 90)
       memberOf(account: { slug: "blogmarks" }, role: [ADMIN, BACKER]) {
