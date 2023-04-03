@@ -34,12 +34,12 @@
 
 <?php else : ?>
 
-  <h2><span>The End (No more Result)</span></h2>
+  <!-- <h2><span>The End (No more Result)</span></h2> -->
 
-  <!--
-  <div>
-    <p>No Result.</p>
+  <div style="margin:3em 5em">
+    <p>No mark here yet.</p>
+    <p>To easily add new marks, install the <a href="/my/tools,bookmarklet">the bookmarklet</a>.</p>
+    <p>You can also use <a href="/my/marks,new">the form</a> directly.</a>.</p>
   </div>
-  -->
 
 <?php endif ?>

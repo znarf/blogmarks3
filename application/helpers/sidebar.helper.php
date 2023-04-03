@@ -13,6 +13,16 @@ class sidebar
     ];
   }
 
+  function empty()
+  {
+    $this->blocks = [];
+  }
+
+  function is_empty()
+  {
+    return count($this->blocks) === 0;
+  }
+
   function render()
   {
     foreach ($this->blocks as $block) {
