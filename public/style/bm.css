@@ -74,6 +74,9 @@ body {
 .bm-modal-container .modal-body {
   background: #EDEDED;
 }
+.modal-footer {
+  background: none;
+}
 #title-bar {
   width: 100%;
   color: white;
