@@ -19,7 +19,7 @@ else if (url_is('/oauth/callback')) {
     if (isset($_SESSION['oauth_state'])) {
       unset($_SESSION['oauth_state']);
     }
-    throw blogmarks::http_error(400, 'Invalid state.');
+    throw http_error(400, 'Invalid state.');
   }
 
   # error_log("access_token:$access_token");
@@ -46,8 +46,20 @@ else if (url_is('/oauth/membership')) {
     # If user found
     if ($user) {
       signin($user);
-      return redirect(get_param('redirect_url', '/my/'));
+    } else {
+      $user = table('users')->get_one('login', $authenticated_user['slug']);
+      if ($user) {
+        throw http_error(400, 'Login is already taken.');
+      }
+      $params = [
+        'name'  => $authenticated_user['name'],
+        'login' => $authenticated_user['slug'],
+        'email' => $authenticated_user['email'],
+      ];
+      $user = table('users')->create($params);
+      signin($user);
     }
+    return redirect(get_param('redirect_url', '/my/'));
   }
 
   title(_('Membership'));
