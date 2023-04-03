@@ -3,9 +3,15 @@
 class oauth
 {
 
+  public $client_id;
+
+  public $client_secret;
+
+  public $redirect_uri;
+
   public $api_url = 'https://api.opencollective.com';
 
-  public $website_url = 'https://opencollective.com';
+  public $website_url = 'http://opencollective.com';
 
   public $graphql_query = '{
     me {
@@ -13,7 +19,7 @@ class oauth
       name
       email
       imageUrl(height: 90)
-      memberOf(account: { slug: "blogmarks" }, role: [BACKER]) {
+      memberOf(account: { slug: "blogmarks" }, role: [ADMIN, BACKER]) {
         nodes {
           role
           totalDonations {
@@ -27,57 +33,46 @@ class oauth
 
   public $scope = ['email'];
 
-  protected $params = [];
-
-  function params($params = null)
-  {
-    return $params ? $this->params = $this->params + $params : $this->params;
-  }
-
   protected $provider;
 
-  function provider()
+  function provider($params = null)
   {
-    if (isset($this->provider)) {
+    if (isset($this->provider) && empty($params)) {
       return $this->provider;
     }
 
-    if (!$this->params) {
-      return;
+    foreach ($params as $key => $value) {
+      $this->$key = $value;
     }
 
     return $this->provider = new \League\OAuth2\Client\Provider\GenericProvider([
-      'clientId'                => $this->params['clientId'],
-      'clientSecret'            => $this->params['clientSecret'],
-      'redirectUri'             => $this->params['redirectUri'],
+      'clientId'                => $this->client_id,
+      'clientSecret'            => $this->client_secret,
+      'redirectUri'             => $this->redirect_uri,
       'urlAuthorize'            => $this->website_url . '/oauth/authorize?scope=' . implode(',', $this->scope),
-      'urlAccessToken'          => $this->website_url . '/oauth/token',
+      'urlAccessToken'          => $this->api_url . '/oauth/token',
       'urlResourceOwnerDetails' => $this->api_url . '/graphql?query=' . urlencode($this->graphql_query)
     ]);
   }
 
   function authorization_url()
   {
-    $provider = $this->provider();
-    return $provider->getAuthorizationUrl();
+    return $this->provider()->getAuthorizationUrl();
   }
 
   function state()
   {
-    $provider = $this->provider();
-    return $provider->getState();
+    return $this->provider()->getState();
   }
 
   function access_token($code)
   {
-    $provider = $this->provider();
-    return $provider->getAccessToken('authorization_code', ['code' => $code]);
+    return $this->provider()->getAccessToken('authorization_code', ['code' => $code]);
   }
 
   function authenticated_user($access_token)
   {
-    $provider = $this->provider();
-    $resource_owner = $provider->getResourceOwner($access_token)->toArray();
+    $resource_owner = $this->provider()->getResourceOwner($access_token)->toArray();
     return $resource_owner['data']['me'];
   }
 
