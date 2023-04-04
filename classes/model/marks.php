@@ -179,12 +179,14 @@ class marks
       $tag_results = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
       $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
     }
+    # Total
+    $total = count($results);
     # Soft offset/limit
     if ($params['limit'] > 0) {
       $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
     }
     # Result
-    return $this->feed('marks')->prepare_items($results, $params);
+    return $this->feed('marks')->prepare_items($results, $total, $params);
   }
 
   function from_user($user, $params = [])
@@ -264,12 +266,14 @@ class marks
       $tag_results = $this->feed('marks')->ids_and_ts("feed_marks_my_{$user->id}_tag_{$tag->id}", $query, ['limit' => -1] + $params);
       $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
     }
+    # Total
+    $total = count($results);
     # Soft offset/limit
     if ($params['limit'] > 0) {
       $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
     }
     # Result
-    return $this->feed('marks')->prepare_items($results, $params);
+    return $this->feed('marks')->prepare_items($results, $total, $params);
   }
 
   function private_from_user_search($user, $search, $params = [])
