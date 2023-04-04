@@ -176,7 +176,7 @@ class marks
     # And performance is not a requirement in this case.
     foreach ($tags as $tag) {
       $query = $this->table('marks')->query_ids_and_ts_with_tag->__use($tag);
-      $tag_results = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
+      [$tag_results] = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
       $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
     }
     # Total
@@ -222,15 +222,17 @@ class marks
     # And performance is not a requirement in this case.
     foreach ($tags as $tag) {
       $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => false]);
-      $tag_results = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
+      [$tag_results] = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
       $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
     }
+    # Total
+    $total = count($results);
     # Soft offset/limit
     if ($params['limit'] > 0) {
       $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
     }
     # Result
-    return $this->feed('marks')->prepare_items($results, $params);
+    return $this->feed('marks')->prepare_items($results, $total, $params);
   }
 
   function private_from_user($user, $params = [])
@@ -263,7 +265,8 @@ class marks
     # And performance is not a requirement in this case.
     foreach ($tags as $tag) {
       $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => true]);
-      $tag_results = $this->feed('marks')->ids_and_ts("feed_marks_my_{$user->id}_tag_{$tag->id}", $query, ['limit' => -1] + $params);
+      $feed_key = "feed_marks_my_{$user->id}_tag_{$tag->id}";
+      [$tag_results] = $this->feed('marks')->ids_and_ts($feed_key, $query, ['limit' => -1] + $params);
       $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
     }
     # Total
