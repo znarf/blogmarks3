@@ -149,6 +149,8 @@ $importer->insert = function($params) use ($links) {
 };
 
 $importer->insert_screenshot = function($link, $url, $published) use ($screenshots) {
+  # Migrate screenshots to HTTPS
+  $url = str_replace('http://blogmarks.net/', 'https://blogmarks.net/', $url);
   if (!$screenshots->get_one('link', $link->id)) {
     $screenshots->insert()->set([
       'link'      => (int)$link->id,
