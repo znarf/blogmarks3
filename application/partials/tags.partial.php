@@ -25,7 +25,6 @@ $tags = is_callable($tags) ? $tags() : $tags;
       foreach ($tags as $tag) {
         if (isset($ratios[$tag->label])) {
           $tag->_classname = $ratios[$tag->label] == 100 ? 'tag private' : 'tag mixed';
-          $tag->_url = relative_url("/my/marks/mixed-tag/" . urlencode($tag->label));
         }
       }
     }
