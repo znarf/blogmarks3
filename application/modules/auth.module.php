@@ -49,6 +49,7 @@ elseif (url_is('/auth/signup')) {
     if (!form_error()) {
       $user = table('users')->create($params);
       signin($user);
+      flash_message('Sign up successful!');
       return redirect('/my/');
     }
     else {
