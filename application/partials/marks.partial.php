@@ -1,6 +1,6 @@
 <?php $marks = isset($marks) ? $marks : helper('container')->marks(); ?>
 
-<?php if (count($marks['items']) > 0) : ?>
+<?php if ($marks['total'] > 0) : ?>
 
 <?php $mark_partial_args = mark_partial_args(); ?>
 
@@ -29,17 +29,28 @@
   <a rel="next" class="page more" href="?<?= http_build_query($more) ?>">more</a>
 </div> <!-- /#pagination -->
 <?php else : ?>
-   <h2><span>The End</span></h2>
+   <h2 style="margin-bottom:1em"><span>The End</span></h2>
 <?php endif ?>
 
 <?php else : ?>
 
-  <!-- <h2><span>The End (No more Result)</span></h2> -->
+  <?php if (domain() === 'my') : ?>
 
   <div style="margin:3em 5em">
-    <p>No mark here yet.</p>
+    <p>No mark to see here yet.</p>
     <p>To easily add new marks, install the <a href="/my/tools,bookmarklet">the bookmarklet</a>.</p>
     <p>You can also use <a href="/my/marks,new">the form</a> directly.</a>.</p>
   </div>
+
+  <?php else : ?>
+
+  <div style="margin:3em 5em">
+    <p>No mark to see here yet.</p>
+    <?php if (!helper('target')->tag() && !helper('target')->user()) : ?>
+      <p>This Blogmarks instance looks empty.</p>
+    <?php endif ?>
+  </div>
+
+  <?php endif ?>
 
 <?php endif ?>

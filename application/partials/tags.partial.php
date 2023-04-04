@@ -17,6 +17,8 @@ $tags = is_callable($tags) ? $tags() : $tags;
 
   <h3><?= side_title() ?></h3>
 
+  <?php if (count($tags) > 0) : ?>
+
   <p class="taglist">
     <?php
     # Special classname for private tags
@@ -41,5 +43,11 @@ $tags = is_callable($tags) ? $tags() : $tags;
       &nbsp;
     <?php endforeach ?>
   </p>
+
+  <?php else: ?>
+
+    <p>No tag yet.</p>
+
+  <?php endif ?>
 
 </div>
