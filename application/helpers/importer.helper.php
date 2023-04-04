@@ -100,7 +100,7 @@ $importer->to_array = function($entry) {
   $params['private_tags'] = [];
   foreach ($entry->category as $category) {
     $scheme = (string)$category['scheme'];
-    if ($scheme == 'http://blogmarks.net/tag/' || $scheme == 'http://blogmarks.net/tags/') {
+    if (in_array($scheme, ['http://blogmarks.net/tag/', 'https://blogmarks.net/tag/'])) {
       $params['tags'][] = (string)$category['label'];
     }
     else {

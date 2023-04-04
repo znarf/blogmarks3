@@ -3,7 +3,7 @@ $export = get_bool('export');
 $output_screenshot = !$export || get_bool('export_screenshot');
 $marks = helper('container')->marks();
 $user = domain() == 'my' ? authenticated_user() : helper('target')->user();
-?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:bm="http://blogmarks.net/ns/">
+?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:bm="https://blogmarks.net/ns/">
 <id>tag:blogmarks.net,2005:marks</id>
 <title><?= strip_tags(title()) ?></title>
 <updated><?= date(datetime::RFC3339) ?></updated>
@@ -38,7 +38,7 @@ $user = domain() == 'my' ? authenticated_user() : helper('target')->user();
   <content type="<?= $mark->contentType ?>"><![CDATA[<?= $content ?>]]></content>
 <?php endif ?>
 <?php foreach ($mark->tags as $tag) : ?>
-<?php $scheme = $tag->isHidden ? $mark->author->url . '/private-tag' : 'http://blogmarks.net/tag/' ?>
+<?php $scheme = $tag->isHidden ? $mark->author->url . '/private-tag' : 'https://blogmarks.net/tag/' ?>
 <?php $term = urlencode($tag->label) ?>
   <category scheme="<?= arg($scheme) ?>" term="<?= arg($term) ?>" label="<?= arg($tag->label) ?>"/>
 <?php endforeach ?>
