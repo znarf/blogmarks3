@@ -9,6 +9,8 @@
 <div id="right-bar">
   <div id="right-bar-inner">
 
+    <?php partial('notification') ?>
+
     <h3><?= _('Empty') ?></h3>
 
     <p><?= _('If you press the button below, you will empty all your account. Are you sure?') ?></p>

@@ -17,6 +17,7 @@ elseif (url_is('/my/tools,empty')) {
   if (is_post()) {
     check_token('tools_empty', get_param('token'));
     model('marks')->delete_from_user($user);
+    flash_message('Success! All marks and tags deleted from account.');
   }
   return render('tools/empty', ['token' => generate_token('tools_empty')]);
 }
