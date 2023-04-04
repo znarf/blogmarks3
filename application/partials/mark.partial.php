@@ -32,7 +32,7 @@ return function($args) {
         $base_tag_path . '/' . urlencode($tag->label) ?>"><?= $text($tag->label) ?></a>
 <?php elseif ($is_owner) : ?>
       <a rel="tag" class="tag private_tag" href="<?=
-        $mixed_base_tag_path . '/' . urlencode($tag->label) ?>"><?= $text($tag->label) ?></a>
+        $base_tag_path . '/' . urlencode($tag->label) ?>"><?= $text($tag->label) ?></a>
 <?php endif ?>
 <?php endforeach ?>
     </p>
