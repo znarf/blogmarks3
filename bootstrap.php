@@ -14,6 +14,7 @@ replaceable::expose_replaceables();
 # Locale
 textdomain('blogmarks');
 bindtextdomain('blogmarks', root_dir . '/locale');
+bind_textdomain_codeset('blogmarks', 'UTF-8');
 
 # Application
 app_dir(root_dir . '/application');
