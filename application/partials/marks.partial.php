@@ -34,23 +34,14 @@
 
 <?php else : ?>
 
-  <?php if (domain() === 'my') : ?>
-
   <div style="margin:3em 5em">
     <p>No mark to see here yet.</p>
+    <?php if (domain() === 'my') : ?>
     <p>To easily add new marks, install the <a href="/my/tools,bookmarklet">the bookmarklet</a>.</p>
     <p>You can also use <a href="/my/marks,new">the form</a> directly.</a>.</p>
-  </div>
-
-  <?php else : ?>
-
-  <div style="margin:3em 5em">
-    <p>No mark to see here yet.</p>
-    <?php if (!helper('target')->tag() && !helper('target')->user()) : ?>
-      <p>This Blogmarks instance looks empty.</p>
+    <?php elseif (!helper('target')->tag() && !helper('target')->user()) : ?>
+    <p>This Blogmarks instance looks empty.</p>
     <?php endif ?>
   </div>
-
-  <?php endif ?>
 
 <?php endif ?>

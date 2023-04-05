@@ -2,9 +2,7 @@
 
 <?php $marks = isset($marks) ? $marks : helper('container')->marks(); ?>
 
-<?php if (count($marks['items']) === 0) helper('sidebar')->empty() ?>
-
-<!-- <?php var_dump(helper('sidebar')->is_empty()); ?> -->
+<?php if ($marks['total'] === 0) helper('sidebar')->empty() ?>
 
 <div id="content" class="<?= helper('sidebar')->is_empty() ? 'fullwidth' : '' ?>">
   <div id="content-inner">

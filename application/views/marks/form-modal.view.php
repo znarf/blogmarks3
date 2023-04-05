@@ -50,9 +50,7 @@
         <?php endif ?>
         <input type="hidden" name="token" value="<?= $token ?>">
         <button class="btn btn-primary confirm" name="save" value="1" type="confirm"><?= _('Save') ?></button>
-        <?php if (is_bookmarklet()) : ?>
         <button class="btn cancel" data-dismiss="modal" aria-hidden="true"><?= _('Cancel') ?></button>
-        <?php endif ?>
       </div>
     </fieldset>
     </form>
