@@ -72,7 +72,7 @@ $importer->to_array = function($entry) {
   $params['published'] = (string)$entry->published;
 
   # Visibility
-  $bm = $entry->children('http://blogmarks.net/ns/');
+  $bm = $entry->children('http://blogmarks.net/ns/') ?: $entry->children('https://blogmarks.net/ns/');
   if ($bm->isPrivate && (string)$bm->isPrivate) {
     $params['visibility'] = 1;
   } else {
