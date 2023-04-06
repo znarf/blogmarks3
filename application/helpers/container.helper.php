@@ -5,17 +5,17 @@ class container
 
   function marks($value = null)
   {
-    return $value ? $this->marks = $value : $this->marks;
+    return isset($value) ? $this->marks = $value : $this->marks;
   }
 
   function tags($value = null)
   {
-    return $value ? $this->tags = $value : $this->tags;
+    return isset($value) ? $this->tags = $value : $this->tags;
   }
 
   function users($value = null)
   {
-    return $value ? $this->users = $value : $this->users;
+    return isset($value) ? $this->users = $value : $this->users;
   }
 
   function __get($name)
