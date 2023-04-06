@@ -74,8 +74,8 @@ if (url_is('/auth/forgot-password')) {
       $key = $user->generate_activation_key();
 
       $email  = _('Someone has asked to reset the password for the following site and username.') . "\n\n";
-      $email .= _('- Site:') . ' ' . absolute_url('/') . "\n";
-      $email .= _('- Username:') . ' ' . $user->login . "\n\n";
+      $email .= '- ' . _('Site:') . ' ' . absolute_url('/') . "\n";
+      $email .= '- ' . _('Username:') . ' ' . $user->login . "\n\n";
       $email .= _('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.') . "\n\n";
       $email .= absolute_url("/auth/reset-password?key=" . $key);
 

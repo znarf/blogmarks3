@@ -107,7 +107,7 @@
 
     </form>
 
-    <h3><?= _('Change Password') ?></h3>
+    <h3><?= _('Update Password') ?></h3>
 
     <form method="post" action="<?= relative_url('/my/profile,password') ?>" class="form-horizontal">
 

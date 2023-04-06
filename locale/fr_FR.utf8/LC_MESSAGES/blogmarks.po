@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blogmarks.net\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-23 14:18+0100\n"
-"PO-Revision-Date: 2015-05-23 14:18+0100\n"
+"POT-Creation-Date: 2023-04-05 11:26+0200\n"
+"PO-Revision-Date: 2023-04-05 17:12+0200\n"
 "Last-Translator: François Hodierne <francois@hodierne.net>\n"
 "Language-Team: team@blogmarks.net\n"
 "Language: fr_FR\n"
@@ -11,231 +11,334 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: /Users/znarfor/Dropbox/Dev/\n"
+"X-Poedit-Basepath: ../../..\n"
 "X-Poedit-KeywordsList: trunk\n"
-"X-Generator: Poedit 1.8\n"
-"X-Poedit-SearchPath-0: bm-next\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: bm-next/application/helpers/grouper.helper.php:23
+#: application/helpers/grouper.helper.php:23
 msgid "Today"
 msgstr "Aujourd'hui"
 
-#: bm-next/application/helpers/grouper.helper.php:23
+#: application/helpers/grouper.helper.php:23
 msgid "Yesterday"
 msgstr "Hier"
 
-#: bm-next/application/modules/auth.module.php:5
-#: bm-next/application/partials/top.partial.php:27
+#: application/modules/auth.module.php:5
+#: application/partials/top.partial.php:27
 msgid "Sign In"
 msgstr "Se connecter"
 
-#: bm-next/application/modules/auth.module.php:32
-#: bm-next/application/partials/top.partial.php:24
+#: application/modules/auth.module.php:32
+#: application/partials/top.partial.php:24
 msgid "Sign Up"
 msgstr "S'inscrire"
 
-#: bm-next/application/modules/friends.module.php:9
-#: bm-next/application/modules/friends.module.php:35
-#: bm-next/application/modules/friends.module.php:42
-#: bm-next/application/modules/friends.module.php:55
-#: bm-next/application/partials/top.partial.php:36
+#: application/modules/auth.module.php:64
+#: application/views/auth/signin.view.php:39
+msgid "Forgot Password?"
+msgstr "Mot de passe perdu?"
+
+#: application/modules/auth.module.php:76
+msgid ""
+"Someone has asked to reset the password for the following site and username."
+msgstr ""
+"Quelqu’un a demandé de réinitialiser le mot de passe pour le site et "
+"utilisateur suivant."
+
+#: application/modules/auth.module.php:77
+msgid "Site:"
+msgstr "Site :"
+
+#: application/modules/auth.module.php:78
+msgid "Username:"
+msgstr "Nom d'utilisateur :"
+
+#: application/modules/auth.module.php:79
+msgid ""
+"To reset your password visit the following address, otherwise just ignore "
+"this email and nothing will happen."
+msgstr ""
+"Pour réinitialiser votre mot de passe, visitez l’adresse suivante, sinon "
+"ignorez ce message et rien ne se passera."
+
+#: application/modules/auth.module.php:87
+msgid "Unknown username or email."
+msgstr "Nom d’utilisateur ou email inconnu."
+
+#: application/modules/auth.module.php:96
+#: application/views/auth/forgot-password.view.php:18
+msgid "Reset Password"
+msgstr "Réinitialiser le mot de passe"
+
+#: application/modules/auth.module.php:106
+#: application/modules/profile.module.php:65
+msgid "New password can't be empty."
+msgstr "Le nouveau mot de passe ne peut être vide."
+
+#: application/modules/auth.module.php:109
+#: application/modules/profile.module.php:68
+msgid "New password doesn't match confirmation."
+msgstr "Le nouveau mot de passe ne correspond pas à la confirmation."
+
+#: application/modules/friends.module.php:9
+#: application/modules/friends.module.php:35
+#: application/modules/friends.module.php:42
+#: application/modules/friends.module.php:55
+#: application/partials/top.partial.php:36
 msgid "Friends Marks"
 msgstr "Marks Amis"
 
-#: bm-next/application/modules/friends.module.php:35
-#: bm-next/application/modules/legacy.module.php:15
-#: bm-next/application/modules/my.module.php:28
+#: application/modules/friends.module.php:35
+#: application/modules/my.module.php:28
 msgid "with tag"
 msgstr "avec le tag"
 
-#: bm-next/application/modules/legacy.module.php:15
-#: bm-next/application/modules/my.module.php:9
-#: bm-next/application/modules/my.module.php:28
-#: bm-next/application/modules/my.module.php:35
-#: bm-next/application/modules/my.module.php:50
-#: bm-next/application/partials/top.partial.php:40
-msgid "My Marks"
-msgstr "Mes Marks"
-
-#: bm-next/application/modules/mark.module.php:28
+#: application/modules/mark.module.php:28
+#: application/partials/top.partial.php:43
 msgid "New Mark"
 msgstr "Nouveau mark"
 
-#: bm-next/application/modules/mark.module.php:34
+#: application/modules/mark.module.php:34
 msgid "Mark Successfully Added."
-msgstr "Mark ajouté avec succès"
+msgstr "Mark ajouté avec succès."
 
-#: bm-next/application/modules/mark.module.php:57
-#: bm-next/application/partials/mark.partial.php:42
-#: bm-next/application/views/marks/form-modal.view.php:12
+#: application/modules/mark.module.php:57
+#: application/partials/mark.partial.php:42
+#: application/views/marks/form-modal.view.php:12
 msgid "Edit Mark"
 msgstr "Éditer un mark"
 
-#: bm-next/application/modules/mark.module.php:96
-#: bm-next/application/partials/mark.partial.php:44
-#: bm-next/application/views/marks/delete.view.php:8
+#: application/modules/mark.module.php:96
+#: application/partials/mark.partial.php:44
+#: application/views/marks/delete.view.php:8
 msgid "Delete Mark"
 msgstr "Supprimer un mark"
 
-#: bm-next/application/modules/mark.module.php:108
+#: application/modules/mark.module.php:108
 msgid "Mark Successfully Deleted."
-msgstr "Mark supprimé avec succès"
+msgstr "Mark supprimé avec succès."
 
-#: bm-next/application/modules/profile.module.php:5
+#: application/modules/my.module.php:9 application/modules/my.module.php:28
+#: application/modules/my.module.php:35 application/modules/my.module.php:50
+#: application/partials/top.partial.php:40
+msgid "My Marks"
+msgstr "Mes Marks"
+
+#: application/modules/profile.module.php:5
 msgid "Profile"
 msgstr "Profil"
 
-#: bm-next/application/modules/profile.module.php:38
+#: application/modules/profile.module.php:38
 msgid "Profile Updated"
 msgstr "Profil mis à jour"
 
-#: bm-next/application/modules/public.module.php:5
-#: bm-next/application/modules/public.module.php:27
-#: bm-next/application/modules/public.module.php:34
-#: bm-next/application/modules/public.module.php:55
-#: bm-next/application/modules/public.module.php:62
-#: bm-next/application/modules/public.module.php:72
-#: bm-next/application/modules/public.module.php:96
-#: bm-next/application/partials/top.partial.php:32
+#: application/modules/profile.module.php:62
+msgid "Current password is invalid."
+msgstr "Le mot de passe actuel est invalide."
+
+#: application/modules/profile.module.php:72
+msgid "Password Updated."
+msgstr "Mot de passe mis à jour."
+
+#: application/modules/public.module.php:5
+#: application/modules/public.module.php:27
+#: application/modules/public.module.php:34
+#: application/modules/public.module.php:55
+#: application/modules/public.module.php:62
+#: application/modules/public.module.php:72
+#: application/modules/public.module.php:86
+#: application/partials/top.partial.php:32
 msgid "Public Marks"
 msgstr "Marks Publics"
 
-#: bm-next/application/modules/tools.module.php:5
-#: bm-next/application/partials/top.partial.php:43
+#: application/modules/tools.module.php:5
+#: application/partials/top.partial.php:46
 msgid "Tools"
 msgstr "Outils"
 
-#: bm-next/application/partials/mark.partial.php:43
+#: application/partials/mark.partial.php:43
 msgid "Edit"
 msgstr "Éditer"
 
-#: bm-next/application/partials/mark.partial.php:45
-#: bm-next/application/views/marks/delete.view.php:21
+#: application/partials/mark.partial.php:45
+#: application/views/marks/delete.view.php:21
 msgid "Delete"
 msgstr "Supprimer"
 
-#: bm-next/application/partials/menu.partial.php:5
-#: bm-next/application/views/tools/bookmarklet.view.php:26
+#: application/partials/menu.partial.php:5
+#: application/views/tools/bookmarklet.view.php:26
 msgid "Bookmarklet"
 msgstr "Bookmarklet"
 
-#: bm-next/application/partials/menu.partial.php:6
-#: bm-next/application/views/tools/import.view.php:12
+#: application/partials/menu.partial.php:6
+#: application/views/tools/import.view.php:12
 msgid "Import"
 msgstr "Importer"
 
-#: bm-next/application/partials/menu.partial.php:7
-#: bm-next/application/views/tools/export.view.php:12
+#: application/partials/menu.partial.php:7
+#: application/views/tools/export.view.php:12
 msgid "Export"
 msgstr "Exporter"
 
-#: bm-next/application/partials/menu.partial.php:8
-#: bm-next/application/views/tools/empty.view.php:12
-#: bm-next/application/views/tools/empty.view.php:19
+#: application/partials/menu.partial.php:8
+#: application/views/tools/empty.view.php:14
+#: application/views/tools/empty.view.php:21
 msgid "Empty"
 msgstr "Vider"
 
-#: bm-next/application/partials/search.partial.php:8
+#: application/partials/search.partial.php:8
 msgid "Search"
 msgstr "Rechercher"
 
-#: bm-next/application/partials/top.partial.php:18
+#: application/partials/top.partial.php:18
 msgid "Connected as"
 msgstr "Connecté comme"
 
-#: bm-next/application/partials/top.partial.php:21
+#: application/partials/top.partial.php:21
 msgid "Sign Out"
 msgstr "Se Déconnecter"
 
-#: bm-next/application/partials/users.partial.php:12
+#: application/partials/users.partial.php:12
 msgid "last mark:"
 msgstr "dernier mark :"
 
-#: bm-next/application/views/marks/delete.view.php:12
+#: application/views/auth/forgot-password.view.php:10
+#: application/views/auth/forgot-password.view.php:12
+#: application/views/auth/signin.view.php:8
+#: application/views/auth/signin.view.php:10
+msgid "Username (or Email)"
+msgstr "Nom d’utilisateur (ou Email)"
+
+#: application/views/auth/forgot-password.view.php:26
+msgid ""
+"An email has been sent with the instructions how to reset your password."
+msgstr ""
+"Un email a été envoyé avec les instructions pur réinitialiser votre mot de "
+"passe."
+
+#: application/views/auth/reset-password.view.php:11
+#: application/views/profile/index.view.php:130
+msgid "New Password"
+msgstr "Nouveau mot de passe"
+
+#: application/views/auth/reset-password.view.php:26
+#: application/views/profile/index.view.php:145
+msgid "Confirm New Password"
+msgstr "Confirmez le mot de passe"
+
+#: application/views/auth/reset-password.view.php:43
+#: application/views/profile/index.view.php:162
+msgid "Update Password"
+msgstr "Mettre à jour le mot de passe"
+
+#: application/views/auth/reset-password.view.php:50
+msgid "Your password was updated, you can now sign in again."
+msgstr ""
+"Votre mot de passe a été mis à jour, vous pouvez vous authentifier à nouveau."
+
+#: application/views/auth/reset-password.view.php:56
+msgid "Invalid reset password key."
+msgstr "Code invalide pour réinitialiser le mot de passe."
+
+#: application/views/auth/signin.view.php:23
+msgid "Remember me"
+msgstr "Se rappeler de moi"
+
+#: application/views/marks/delete.view.php:12
 msgid "Do you really want to delete this mark?"
 msgstr "Êtes-vous sûr de vouloir supprimer ce mark ?"
 
-#: bm-next/application/views/marks/delete.view.php:22
-#: bm-next/application/views/marks/form-modal.view.php:53
+#: application/views/marks/delete.view.php:22
+#: application/views/marks/form-modal.view.php:53
 msgid "Cancel"
 msgstr "Annuler"
 
-#: bm-next/application/views/marks/form-modal.view.php:17
+#: application/views/marks/form-modal.view.php:17
 msgid "URL"
 msgstr "URL"
 
-#: bm-next/application/views/marks/form-modal.view.php:20
+#: application/views/marks/form-modal.view.php:20
 msgid "Title"
 msgstr "Titre"
 
-#: bm-next/application/views/marks/form-modal.view.php:27
+#: application/views/marks/form-modal.view.php:27
 msgid "Public Tags"
 msgstr "Tags publics"
 
-#: bm-next/application/views/marks/form-modal.view.php:30
+#: application/views/marks/form-modal.view.php:30
 msgid "Private Tags"
 msgstr "Tags privés"
 
-#: bm-next/application/views/marks/form-modal.view.php:33
+#: application/views/marks/form-modal.view.php:33
 msgid "Visibiity"
 msgstr "Visibilité"
 
-#: bm-next/application/views/marks/form-modal.view.php:36
+#: application/views/marks/form-modal.view.php:36
 msgid "public"
 msgstr "public"
 
-#: bm-next/application/views/marks/form-modal.view.php:40
+#: application/views/marks/form-modal.view.php:40
 msgid "private"
 msgstr "privé"
 
-#: bm-next/application/views/marks/form-modal.view.php:52
+#: application/views/marks/form-modal.view.php:52
 msgid "Save"
 msgstr "Enregistrer"
 
-#: bm-next/application/views/profile/index.view.php:6
+#: application/views/profile/index.view.php:6
+#: application/views/profile/index.view.php:18
 msgid "General"
 msgstr "Général"
 
-#: bm-next/application/views/profile/index.view.php:22
+#: application/views/profile/index.view.php:24
 msgid "Full Name"
 msgstr "Nom complet"
 
-#: bm-next/application/views/profile/index.view.php:35
+#: application/views/profile/index.view.php:37
 msgid "Email Address"
 msgstr "Adresse email"
 
-#: bm-next/application/views/profile/index.view.php:48
+#: application/views/profile/index.view.php:50
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: bm-next/application/views/profile/index.view.php:60
+#: application/views/profile/index.view.php:62
 msgid "Language"
 msgstr "Langue"
 
-#: bm-next/application/views/profile/index.view.php:71
+#: application/views/profile/index.view.php:73
 msgid "Timezone"
 msgstr "Fuseau horaire"
 
-#: bm-next/application/views/profile/index.view.php:78
+#: application/views/profile/index.view.php:80
 msgid "Popular"
 msgstr "Populaire"
 
-#: bm-next/application/views/profile/index.view.php:87
+#: application/views/profile/index.view.php:89
 msgid "All"
 msgstr "Tous"
 
-#: bm-next/application/views/profile/index.view.php:102
+#: application/views/profile/index.view.php:104
 msgid "Update Profile"
 msgstr "Mettre à jour le profil"
 
-#: bm-next/application/views/tools/bookmarklet.view.php:28
+#: application/views/profile/index.view.php:110
+msgid "Change Password"
+msgstr "Changer le mot de passe"
+
+#: application/views/profile/index.view.php:115
+msgid "Currrent Password"
+msgstr "Mot de passe actuel"
+
+#: application/views/tools/bookmarklet.view.php:28
 msgid ""
 "Drag this link to your browser toolbar and use it as a button to add marks."
 msgstr ""
 "Déposez ce lien dans la barre d'outils de votre navigateur et utilisez le "
 "comme bouton pour ajouter des marks."
 
-#: bm-next/application/views/tools/bookmarklet.view.php:30
+#: application/views/tools/bookmarklet.view.php:30
 msgid ""
 "Tip: you can select a piece of text before clicking the \"Add to Blogmarks\" "
 "button, it will appear in the description."
@@ -243,45 +346,50 @@ msgstr ""
 "Astuce: vous pouvez sélectionner un morceau de texte avant de cliquer sur le "
 "bouton \"Add to Blogmarks\", il apparaîtra dans la description."
 
-#: bm-next/application/views/tools/bookmarklet.view.php:34
+#: application/views/tools/bookmarklet.view.php:34
 msgid "Drag the button below to your browser toolbar:"
 msgstr ""
 "Déposez le bouton ci-dessous dans la barre d'outils de votre navigateur :"
 
-#: bm-next/application/views/tools/empty.view.php:14
+#: application/views/tools/empty.view.php:16
 msgid ""
 "If you press the button below, you will empty all your account. Are you sure?"
 msgstr ""
 "Si vous pressez le bouton au dessous, votre compte sera complètement vidé. "
-"Êtes-vous sur ?"
+"Êtes-vous sûr ?"
 
-#: bm-next/application/views/tools/export.view.php:25
+#: application/views/tools/export.view.php:25
 msgid "download your Blogmarks backup"
 msgstr "télécharger votre sauvegarde Blogmarks"
 
-#: bm-next/application/views/tools/import.view.php:32
+#: application/views/tools/import.view.php:32
 msgid "Choose a source file..."
 msgstr "Choisissez un fichier source ..."
 
-#: bm-next/application/views/tools/import.view.php:35
+#: application/views/tools/import.view.php:35
 msgid "Import Now !"
 msgstr "Importer maintenant !"
 
-#: bm-next/classes/model/table/users.php:33
+#: classes/model/table/users.php:33
 msgid "Email is invalid"
 msgstr "Cette adresse email est invalide"
 
-#: bm-next/classes/model/table/users.php:37
+#: classes/model/table/users.php:37
 msgid "Email is already taken"
-msgstr "Cette adresse email est déjà prise."
+msgstr "Cette adresse email est déjà prise"
 
-#: bm-next/classes/model/table/users.php:43
+#: classes/model/table/users.php:43
 msgid "Username is invalid"
 msgstr "Ce nom d’utilisateur est invalide"
 
-#: bm-next/classes/model/table/users.php:47
+#: classes/model/table/users.php:47
 msgid "Username is already taken"
 msgstr "Ce nom d’utilisateur est déjà pris"
+
+#, fuzzy
+#~| msgid "Username:"
+#~ msgid "- Username:"
+#~ msgstr "Nom d'utilisateur :"
 
 #~ msgid "Email is taken"
 #~ msgstr "Cette adresse email est déjà pris"
@@ -566,15 +674,6 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 #~ msgid "Change the user interface language."
 #~ msgstr "Change la langue de l'interface utilisateur"
 
-#~ msgid "Change Password"
-#~ msgstr "Changer le mot de passe"
-
-#~ msgid "Current Password:"
-#~ msgstr "Mot de passe actuel :"
-
-#~ msgid "New Password:"
-#~ msgstr "Nouveau mot de passe :"
-
 #~ msgid "Confirm New Password:"
 #~ msgstr "Confirmez le mot de passe :"
 
@@ -595,36 +694,14 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 #~ msgid "Update general profile"
 #~ msgstr "Mettre à jour le profil général"
 
-#~ msgid "Lost Password"
-#~ msgstr "Mot de passe perdu"
-
 #~ msgid "Retrieve password"
 #~ msgstr "Récupérez le mot de passe"
-
-#~ msgid ""
-#~ "Enter your username. We will send you an email with instructions for how "
-#~ "to reset your password."
-#~ msgstr ""
-#~ "Entrez votre nom d'utilisateur. Nous vous enverrons des instructions pour "
-#~ "réinitialiser votre mot de passe."
-
-#~ msgid "Reset Password"
-#~ msgstr "Réinitialiser le mot de passe"
 
 #~ msgid "Reset your password"
 #~ msgstr "Réinitialisez votre mot de passe"
 
 #~ msgid "Enter your new password:"
 #~ msgstr "Entrez votre nouveau mot de passe :"
-
-#~ msgid "New password"
-#~ msgstr "Nouveau mot de passe"
-
-#~ msgid "Confirm New Password"
-#~ msgstr "Confirmez le mot de passe"
-
-#~ msgid "Update Password"
-#~ msgstr "Mettre à jour le mot de passe"
 
 #~ msgid "At least %s characters long"
 #~ msgstr "Au moins long de %s caractères"
@@ -791,9 +868,6 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 #~ msgid "Link"
 #~ msgstr "Lien"
 
-#~ msgid "Password changed."
-#~ msgstr "Mot de passe changé."
-
 #~ msgid "Modifications saved"
 #~ msgstr "Modifications enregistrées"
 
@@ -808,9 +882,6 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 
 #~ msgid "Retrieve your password"
 #~ msgstr "Récupérez votre mot de passe"
-
-#~ msgid "Username:"
-#~ msgstr "Nom d'utilisateur :"
 
 #~ msgid "The e-mail could not be sent."
 #~ msgstr "L'email n'a pas être envoyé."
@@ -1016,9 +1087,6 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 
 #~ msgid "Update the general profile"
 #~ msgstr "Mettre à jour le profil général"
-
-#~ msgid "Remember me"
-#~ msgstr "Se rappeler de moi"
 
 #~ msgid "Password:"
 #~ msgstr "Mot de passe :"
