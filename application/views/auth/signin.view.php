@@ -18,11 +18,13 @@
       </div>
       <div class="control-group">
         <div class="controls">
-          <!--
           <label class="rememberme checkbox">
-            <input type="checkbox"> Remember me
+            <input type="checkbox" name="remember" value="true"> <?= _('Remember me') ?>
           </label>
-          -->
+        </div>
+     </div>
+      <div class="control-group">
+        <div class="controls">
           <?php if ('/auth/signin' != $url = $_SERVER['REQUEST_URI']) : ?>
             <input type="hidden" name="redirect_url" value="<?= arg($url) ?>">
           <?php endif ?>

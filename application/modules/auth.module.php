@@ -12,7 +12,7 @@ if (url_is('/auth/signin')) {
     }
     # If user found
     if ($user && $user->verify_passsword(get_param('password'))) {
-      signin($user);
+      signin($user, get_bool('remember'));
       return redirect(get_param('redirect_url', '/my/'));
     }
     # Invalid user or password
