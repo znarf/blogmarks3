@@ -123,6 +123,8 @@ class marks
 
   function search_with_query($query, $params = [])
   {
+    $total = $query->count();
+
     $ids_and_ts = $query
       ->select('m.id, UNIX_TIMESTAMP(m.published) as ts')
       ->limit($params['limit'] + 1)
@@ -135,9 +137,6 @@ class marks
     } else {
       $next = null;
     }
-
-    # Total
-    $total = null;
 
     # Items
     $items = $this->table('marks')->get(array_keys($ids_and_ts));
