@@ -85,7 +85,7 @@ elseif ($matches = url_match('/marks/search/*')) {
   $query = set_param('query', urldecode($matches[1]));
   title(_('Public Marks'), 'with search ' . strong($query));
   $container->marks( model('marks')->public_search->__use($query, $params) );
-  $container->tags( model('tags')->public_search(['query' => $query]) );
+  $container->tags( model('tags')->public_search->__use(['query' => $query]) );
   $sidebar->register(['Public', 'Tags with search ' . strong($query)], function() { partial('tags'); });
   return render('marks');
 }

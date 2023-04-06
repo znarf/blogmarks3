@@ -49,7 +49,7 @@ elseif ($matches = url_match('/my/marks/search/*')) {
   $query = set_param('query', urldecode($matches[1]));
   title(_('My Marks'), 'with search ' . strong($query));
   $container->marks( model('marks')->private_from_user_search->__use($user, $query, $params) );
-  $container->tags( model('tags')->model('tags')->private_search_from_user($user, ['query' => $query]) );
+  $container->tags( model('tags')->private_search_from_user->__use($user, ['query' => $query]) );
   $sidebar->register(['My', 'Tags with search ' . strong($query)], function() { partial('tags'); });
   return render('marks');
 }
