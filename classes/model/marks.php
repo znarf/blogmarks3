@@ -119,6 +119,31 @@ class marks
     $this->search('marks')->unindex_user($user);
   }
 
+  # Utility
+
+  function search_with_query($query, $params = [])
+  {
+    $total = $query->count();
+
+    $ids_and_ts = $query
+      ->select('m.id, UNIX_TIMESTAMP(m.published) as ts')
+      ->limit($params['limit'] + 1)
+      ->order_by('published DESC')
+      ->fetch_key_values('id', 'ts');
+
+    # Next?
+    if (count($ids_and_ts) > $params['limit']) {
+      $next = array_pop($ids_and_ts);
+    } else {
+      $next = null;
+    }
+
+    # Items
+    $items = $this->table('marks')->get(array_keys($ids_and_ts));
+
+    return compact('params', 'total', 'next', 'items');
+  }
+
   # Collections
 
   function latests($params = [])
@@ -141,24 +166,25 @@ class marks
 
   function with_tags($tags, $params = [])
   {
-    if (!$this->search('marks')->available()) {
-      # With feed backend (but with multiple queries and soft intersect)
-      # This is a bit bloat but what we have to support installs without Elasticsearch
-      # And performance is not a requirement in this case.
-      foreach ($tags as $tag) {
-        $query = $this->table('marks')->query_ids_and_ts_with_tag->__use($tag);
-        $tag_results = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
-        $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
-      }
-      # Soft offset/limit
-      if ($params['limit'] > 0) {
-        $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
-      }
-      # Result
-      return $this->feed('marks')->prepare_items($results, $params);
-    }
     # With search backend
-    return $this->search('marks')->search(['tags' => $tags] + $params);
+    if ($this->search('marks')->available()) {
+      return $this->search('marks')->search(['tags' => $tags] + $params);
+    }
+
+    # With feed backend (but with multiple queries and soft intersect)
+    # This is a bit bloat but what we have to support installs without Elasticsearch
+    # And performance is not a requirement in this case.
+    foreach ($tags as $tag) {
+      $query = $this->table('marks')->query_ids_and_ts_with_tag->__use($tag);
+      $tag_results = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
+      $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
+    }
+    # Soft offset/limit
+    if ($params['limit'] > 0) {
+      $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
+    }
+    # Result
+    return $this->feed('marks')->prepare_items($results, $params);
   }
 
   function from_user($user, $params = [])
@@ -172,35 +198,37 @@ class marks
 
   function from_user_with_tag($user, $tag, $params = [])
   {
-    if (!$this->search('marks')->available()) {
-      # With feed backend (but no cache)
-      $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => false]);
-      return $this->feed('marks')->query(null, $query, $params);
-    }
     # With search backend
-    return $this->search('marks')->search(['user' => $user, 'tag' => $tag] + $params);
+    if ($this->search('marks')->available()) {
+      return $this->search('marks')->search(['user' => $user, 'tag' => $tag] + $params);
+    }
+
+    # With feed backend (but no cache)
+    $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => false]);
+    return $this->feed('marks')->query(null, $query, $params);
   }
 
   function from_user_with_tags($user, $tags, $params = [])
   {
-    if (!$this->search('marks')->available()) {
-      # With feed backend (but with multiple queries and soft intersect)
-      # This is a bit bloat but what we have to support installs without Elasticsearch
-      # And performance is not a requirement in this case.
-      foreach ($tags as $tag) {
-        $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => false]);
-        $tag_results = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
-        $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
-      }
-      # Soft offset/limit
-      if ($params['limit'] > 0) {
-        $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
-      }
-      # Result
-      return $this->feed('marks')->prepare_items($results, $params);
-    }
     # With search backend
-    return $this->search('marks')->search(['user' => $user, 'tags' => $tags] + $params);
+    if ($this->search('marks')->available()) {
+      return $this->search('marks')->search(['user' => $user, 'tags' => $tags] + $params);
+    }
+
+    # With feed backend (but with multiple queries and soft intersect)
+    # This is a bit bloat but what we have to support installs without Elasticsearch
+    # And performance is not a requirement in this case.
+    foreach ($tags as $tag) {
+      $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => false]);
+      $tag_results = $this->feed('marks')->ids_and_ts(null, $query, ['limit' => -1] + $params);
+      $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
+    }
+    # Soft offset/limit
+    if ($params['limit'] > 0) {
+      $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
+    }
+    # Result
+    return $this->feed('marks')->prepare_items($results, $params);
   }
 
   function private_from_user($user, $params = [])
@@ -223,36 +251,53 @@ class marks
 
   function private_from_user_with_tags($user, $tags, $params = [])
   {
-    if (!$this->search('marks')->available()) {
-      # With feed backend (but with multiple queries and soft intersect)
-      # This is a bit bloat but what we have to support installs without Elasticsearch
-      # And performance is not a requirement in this case.
-      foreach ($tags as $tag) {
-        $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => true]);
-        $tag_results = $this->feed('marks')->ids_and_ts("feed_marks_my_{$user->id}_tag_{$tag->id}", $query, ['limit' => -1] + $params);
-        $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
-      }
-      # Soft offset/limit
-      if ($params['limit'] > 0) {
-        $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
-      }
-      # Result
-      return $this->feed('marks')->prepare_items($results, $params);
-    }
     # With search backend
-    return $this->search('marks')->search(['user' => $user, 'tags' => $tags, 'private' => true] + $params);
+    if ($this->search('marks')->available()) {
+      return $this->search('marks')->search(['user' => $user, 'tags' => $tags, 'private' => true] + $params);
+    }
+
+    # With feed backend (but with multiple queries and soft intersect)
+    # This is a bit bloat but what we have to support installs without Elasticsearch
+    # And performance is not a requirement in this case.
+    foreach ($tags as $tag) {
+      $query = $this->table('marks')->query_ids_and_ts_from_user_with_tag->__use($user, $tag, ['private' => true]);
+      $tag_results = $this->feed('marks')->ids_and_ts("feed_marks_my_{$user->id}_tag_{$tag->id}", $query, ['limit' => -1] + $params);
+      $results = isset($results) ? array_intersect_key($results, $tag_results) : $tag_results;
+    }
+    # Soft offset/limit
+    if ($params['limit'] > 0) {
+      $results = array_slice($results, $params['offset'], $params['limit'] + 1, true);
+    }
+    # Result
+    return $this->feed('marks')->prepare_items($results, $params);
   }
 
-  function private_from_user_search($user, $query, $params = [])
+  function private_from_user_search($user, $search, $params = [])
   {
-    # Only available with search backend
-    return $this->search('marks')->search(['user' => $user, 'query' => $query, 'private' => true] + $params);
+    # With search backend
+    if ($this->search('marks')->available()) {
+      return $this->search('marks')->search(['user' => $user, 'query' => $search, 'private' => true] + $params);
+    }
+
+    # Sub-optimal search to support installs without Elasticsearch
+    $query = $this
+      ->table('marks')
+      ->query_ids_and_ts_from_user_search($user, $search, $params + ['private' => true]);
+    return $this->search_with_query($query, $params);
   }
 
-  function public_search($query, $params = [])
+  function public_search($search, $params = [])
   {
-    # Only available with search backend
-    return $this->search('marks')->search(['query' => $query] + $params);
+     # With search backend
+    if ($this->search('marks')->available()) {
+      return $this->search('marks')->search(['query' => $search] + $params);
+    }
+
+    # Sub-optimal search to support installs without Elasticsearch
+    $query = $this
+      ->table('marks')
+      ->query_ids_and_ts_search_public($search, $params);
+    return $this->search_with_query($query, $params);
   }
 
   function from_friends($user, $params = [])
@@ -261,7 +306,7 @@ class marks
     $query = $this->table('marks')->query_ids_and_ts_from_friends->__use($user, ['limit' => 1000]);
     return $this->feed('marks')->query("feed_marks_friends_{$user->id}", $query, $params);
     # With search backend
-    return $this->search('marks')->search(['user_ids' => $user->following_ids] + $params);
+    # return $this->search('marks')->search(['user_ids' => $user->following_ids] + $params);
   }
 
   function from_friends_with_tag($user, $tag, $params = [])
