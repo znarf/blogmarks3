@@ -123,10 +123,10 @@ class marks
 
   function search_with_query($query, $params = [])
   {
-    $total = $query->count();
+    # clone query so we don't set select and group_by later
+    $total = (clone $query)->select('COUNT(DISTINCT m.id)')->group_by(null)->count();
 
     $ids_and_ts = $query
-      ->select('m.id, UNIX_TIMESTAMP(m.published) as ts')
       ->limit($params['limit'] + 1)
       ->order_by('published DESC')
       ->fetch_key_values('id', 'ts');
