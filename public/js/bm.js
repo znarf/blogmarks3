@@ -28,19 +28,20 @@ jQuery(function($) {
     console.log(href);
     link.html('loading...');
     var pagination = link.parents('#pagination');
-    $.scrollTo(link, 500);
+    $.scrollTo(link, 300);
     var more = $('<div class="more-marks" style="clear:both"></div>');
     $("#content-inner").append(more);
     if (href) {
       more.load(href + ' #content-inner .marks-list', function(response, status, xhr) {
         pagination.remove();
-        $.scrollTo(more, 500);
+        $.scrollTo(more, 300);
       });
     }
     link.attr('href', null);
     return false;
   })
 
+  /*
   $('#layout').infiniteScroll({
       threshold: 250,
       onEnd: function() {
@@ -66,6 +67,7 @@ jQuery(function($) {
           }
       }
   });
+  */
 
   $(document).on('pjax:complete', function() {
     $('#layout').infiniteScroll('reset');
