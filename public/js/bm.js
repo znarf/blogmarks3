@@ -111,6 +111,7 @@ jQuery(function($) {
 
   var tagsAutoComplete = function() {
     var autoComplete = {
+      // debug: true, // to help update to select2 4.0.0
       tags: [],
       initSelection: function (element, callback) {
         var data = [];
