@@ -22,7 +22,12 @@ class container
   {
     if (isset(blogmarks::$registry['container'][$name])) {
       $value = blogmarks::$registry['container'][$name];
-      return is_callable($value) ? $value() : $value;
+      if (is_callable($value)) {
+        return blogmarks::$registry['container'][$name] = $value();
+      }
+      else {
+        return $value;
+      }
     }
   }
 
