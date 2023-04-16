@@ -478,6 +478,11 @@ body {
   float: right;
   margin: 5px 5px 0;
 }
+#feed {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
 #layout.tools,
 #layout.profile {
   background: linear-gradient(to right,#EDEDED 295px,#999 300px,white 301px);

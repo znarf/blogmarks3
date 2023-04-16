@@ -43,3 +43,9 @@
   -->
 
 <?php endif ?>
+
+<div id="feed">
+  <a href="<?= absolute_url(request_url() . '?format=atom') ?>">
+    <img width="32" height="32" src="<?= static_url('/img/feed-icon.svg') ?>">
+  </a>
+</div> <!-- /#feed -->
