@@ -1,23 +1,23 @@
-function liveFilter()
-{
-  var input = $(this);
-  var form = input.parents('form');
-  var container = $('#right-bar');
-  container.css('min-height', container.height());
-  container.css('background', 'url(/img/spinner.gif) center center no-repeat');
-  container.fadeTo(100, 0.5);
-  container.load('/my/tags/autoupdate', form.serialize(), function() {
-    container.css('background', 'none');
-    container.css('min-height', 0);
-    container.fadeTo(100, 1);
-  });
-}
-
-if (!$(document.body).hasClass('public')) {
-  $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 200);
-}
-
 jQuery(function($) {
+
+  function liveFilter()
+  {
+    var input = $(this);
+    var form = input.parents('form');
+    var container = $('#right-bar');
+    container.css('min-height', container.height());
+    container.css('background', 'url(/img/spinner.gif) center center no-repeat');
+    container.fadeTo(100, 0.5);
+    container.load('/my/tags/autoupdate', form.serialize(), function() {
+      container.css('background', 'none');
+      container.css('min-height', 0);
+      container.fadeTo(100, 1);
+    });
+  }
+
+  if (!$(document.body).hasClass('public')) {
+    $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 200);
+  }
 
   $(document).pjax('.mark .tags a, .taglist a', '#layout');
 
