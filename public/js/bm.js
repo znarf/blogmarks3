@@ -41,36 +41,7 @@ jQuery(function($) {
     return false;
   })
 
-  /*
-  $('#layout').infiniteScroll({
-      threshold: 250,
-      onEnd: function() {
-          console.log('No more results!');
-      },
-      onBottom: function(callback) {
-
-          // console.log('At the end of the page. Loading more!');
-
-          var link = $("#pagination .more");
-          if (link.length) {
-            link.html('loading...');
-            var href = link.attr('href');
-            var pagination = link.parents('#pagination');
-            var more = $('<div class="more-marks" style="clear:both"></div>');
-            $("#content-inner").append(more);
-            more.load(href + ' .marks-list', {'more-marks' : 1}, function() {
-              pagination.remove();
-              var moreResults = $("#pagination .more").length >= 1;
-              callback(moreResults);
-              // $('#footer').css({'position': 'fixed', 'bottom': 0});
-            });
-          }
-      }
-  });
-  */
-
   $(document).on('pjax:complete', function() {
-    $('#layout').infiniteScroll('reset');
     if (!$(document.body).hasClass('public')) {
       $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 100);
     }
