@@ -134,11 +134,12 @@ class marks extends \blogmarks\model\table
   {
     $like = db::quote("%$search%");
     $query = $this
-      ->query_ids_and_ts()
+      ->select('m.id, UNIX_TIMESTAMP(m.published) as ts')
       ->from('bm_marks as m, bm_marks_has_bm_tags as mht')
       ->where('m.id = mht.mark_id')
       ->and_where("(m.title LIKE $like OR m.content LIKE $like OR (mht.isHidden = 0 AND mht.label LIKE $like))")
       ->group_by('m.id');
+    # TODO(sqlite): support conditions in SQLITE flavor
     if (!empty($params['before'])) {
       $before = db::quote($params['before']);
       $query->and_where("m.published <= FROM_UNIXTIME($before)");

@@ -24,9 +24,9 @@ class marks
 
   function query($redis_key, $query, $params = [])
   {
-    $results = self::ids_and_ts($redis_key, $query, $params);
+    [$results, $total] = self::ids_and_ts($redis_key, $query, $params);
     # Return prepared items
-    return self::prepare_items($results, $params);
+    return self::prepare_items($results, $total, $params);
   }
 
   function ids_and_ts($redis_key, $query, $params = [])
@@ -42,6 +42,7 @@ class marks
       }
       $order = $params['order'] == 'asc' ? 'published ASC' : 'published DESC';
       $results = $query->order_by($order)->fetch_key_values('id', 'ts');
+      $total = count($results);
       # Delayed Storage
       if ($redis && $redis_key) register_shutdown_function(function() use($redis, $redis_key, $results) {
         foreach ($results as $id => $ts) $redis->zAdd($redis_key, $ts, $id);
@@ -64,7 +65,8 @@ class marks
       if ($params['limit'] > 0) {
         $options['limit'] = [$params['offset'], $params['limit'] + 1];
       }
-      if ($total = $redis->zCard($redis_key)) {
+      $total = $redis->zCard($redis_key);
+      if ($total) {
         if ($params['order'] == 'asc') {
           # error_log("redis:zRangeByScore:$redis_key");
           $results = $redis->zRangeByScore($redis_key, "" . $params['after'], "(" . $params['before'], $options);
@@ -75,17 +77,17 @@ class marks
         }
       }
     }
-    return $results;
+    return [$results, $total];
   }
 
-  function prepare_items($results, $params = [])
+  function prepare_items($results, $total = null, $params = [])
   {
     # Next?
     $next = $params['limit'] && count($results) > $params['limit'] ? (int) array_pop($results) : null;
     # Items
     $items = empty($results) ? [] : $this->table('marks')->get(array_keys($results));
     # Result
-    return compact('params', 'next', 'items');
+    return compact('params', 'total', 'next', 'items');
   }
 
   function add($redis_key, $ts, $id)
