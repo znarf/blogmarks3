@@ -11,7 +11,7 @@ class oauth
 
   public $api_url = 'https://api.opencollective.com';
 
-  public $website_url = 'http://opencollective.com';
+  public $website_url = 'https://opencollective.com';
 
   public $graphql_query = '{
     me {
