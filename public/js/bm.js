@@ -1,23 +1,23 @@
-function liveFilter()
-{
-  var input = $(this);
-  var form = input.parents('form');
-  var container = $('#right-bar');
-  container.css('min-height', container.height());
-  container.css('background', 'url(/img/spinner.gif) center center no-repeat');
-  container.fadeTo(100, 0.5);
-  container.load('/my/tags/autoupdate', form.serialize(), function() {
-    container.css('background', 'none');
-    container.css('min-height', 0);
-    container.fadeTo(100, 1);
-  });
-}
-
-if (!$(document.body).hasClass('public')) {
-  $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 200);
-}
-
 jQuery(function($) {
+
+  function liveFilter()
+  {
+    var input = $(this);
+    var form = input.parents('form');
+    var container = $('#right-bar');
+    container.css('min-height', container.height());
+    container.css('background', 'url(/img/spinner.gif) center center no-repeat');
+    container.fadeTo(100, 0.5);
+    container.load('/my/tags/autoupdate', form.serialize(), function() {
+      container.css('background', 'none');
+      container.css('min-height', 0);
+      container.fadeTo(100, 1);
+    });
+  }
+
+  if (!$(document.body).hasClass('public')) {
+    $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 200);
+  }
 
   $(document).pjax('.mark .tags a, .taglist a', '#layout');
 
@@ -28,47 +28,20 @@ jQuery(function($) {
     console.log(href);
     link.html('loading...');
     var pagination = link.parents('#pagination');
-    $.scrollTo(link, 500);
+    $.scrollTo(link, 300);
     var more = $('<div class="more-marks" style="clear:both"></div>');
     $("#content-inner").append(more);
     if (href) {
       more.load(href + ' #content-inner .marks-list', function(response, status, xhr) {
         pagination.remove();
-        $.scrollTo(more, 500);
+        $.scrollTo(more, 300);
       });
     }
     link.attr('href', null);
     return false;
   })
 
-  $('#layout').infiniteScroll({
-      threshold: 250,
-      onEnd: function() {
-          console.log('No more results!');
-      },
-      onBottom: function(callback) {
-
-          // console.log('At the end of the page. Loading more!');
-
-          var link = $("#pagination .more");
-          if (link.length) {
-            link.html('loading...');
-            var href = link.attr('href');
-            var pagination = link.parents('#pagination');
-            var more = $('<div class="more-marks" style="clear:both"></div>');
-            $("#content-inner").append(more);
-            more.load(href + ' .marks-list', {'more-marks' : 1}, function() {
-              pagination.remove();
-              var moreResults = $("#pagination .more").length >= 1;
-              callback(moreResults);
-              // $('#footer').css({'position': 'fixed', 'bottom': 0});
-            });
-          }
-      }
-  });
-
   $(document).on('pjax:complete', function() {
-    $('#layout').infiniteScroll('reset');
     if (!$(document.body).hasClass('public')) {
       $("#search input[type=text]").bindWithDelay("keyup", liveFilter, 100);
     }
@@ -109,6 +82,7 @@ jQuery(function($) {
 
   var tagsAutoComplete = function() {
     var autoComplete = {
+      // debug: true, // to help update to select2 4.0.0
       tags: [],
       initSelection: function (element, callback) {
         var data = [];

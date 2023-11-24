@@ -1,11 +1,11 @@
 {
-  "name": "Blogmarks 3",
-  "version": "0.0.1",
+  "name": "blogmarks3",
+  "version": "3.0.0",
   "dependencies": {
-    "jquery": "~1.11",
-    "jquery-pjax": "~1.8",
-    "jquery.scrollTo": "~1.4",
+    "jquery": "~3.6",
+    "jquery-pjax": "~2.0",
+    "jquery.scrollTo": "~2.1",
     "bootstrap.css": "~2.3",
-    "select2": "~3.4"
+    "select2": "~3.5"
   }
 }
