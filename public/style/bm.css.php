@@ -15,6 +15,7 @@ $css_files = array(
   "p-taglist.less",
   "p-userlist.less",
   "p-footer.less",
+  "p-feed.less",
   "p-tools.less",
   "p-new.less",
   "p-responsive.less"

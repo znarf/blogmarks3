@@ -15,6 +15,10 @@ $static_url = static_url();
 <?php if (is_bookmarklet()) : ?>
 <link rel="stylesheet" type="text/css" href="<?= $static_url ?>/style/bookmarklet.css">
 <?php endif ?>
+<?php if (helper('container')->marks()) : ?>
+<link rel="alternate" type="application/atom+xml" href="<?= absolute_url(request_url() . '?format=atom') ?>">
+<link rel="alternate" type="application/rss+xml" href="<?= absolute_url(request_url() . '?format=rss') ?>">
+<?php endif ?>
 </head>
 <body class="<?= $domain ?>">
 
