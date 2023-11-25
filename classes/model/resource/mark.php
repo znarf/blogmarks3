@@ -116,8 +116,14 @@ class mark extends \blogmarks\model\resource
   function default_screenshot()
   {
     $parsed_url = parse_url($this->url);
-    if (!empty($parsed_url['host'])) {
-      return 'https://api.miniature.io/?url=' . $parsed_url['host'];
+    if (!empty($parsed_url['host']) && flag('miniature_api_key')) {
+      $parameters = [
+        'url'    => $parsed_url['host'],
+        'width'  => 112,
+        'height' => 83,
+        'token'  => flag('miniature_api_key'),
+      ];
+      return 'https://api.miniature.io/' . '?' . http_build_query($parameters);
     }
     $n = substr($this->attribute('id'), -1) + 1;
     return absolute_url("/img/haikus/$n.gif");
