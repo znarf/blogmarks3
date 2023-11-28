@@ -9,6 +9,11 @@ class screenshots extends table
 
   public $tablename = 'bm_screenshots';
 
+  function create($set = [])
+  {
+    return parent::create(['created' => db::now()]);
+  }
+
   function preload_for_marks($marks)
   {
     # Get list of link ids for which we need to retrieve screenshots
@@ -46,7 +51,7 @@ class screenshots extends table
     $params = ['link' => $mark->link_id];
     $existing = $this->where($params)->and_where("created > DATE_SUB('$now', INTERVAL 1 DAY)");
     if ($existing->count() == 0) {
-      $screenshot = $this->create($params + ['status' => 0, 'created' => $now]);
+      $screenshot = $this->create($params + ['status' => 0]);
       $this->service('amqp')->push(['id' => $screenshot->id], 'take_screenshot');
     }
   }
