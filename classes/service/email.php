@@ -1,5 +1,10 @@
 <?php namespace blogmarks\service;
 
+use
+Symfony\Component\Mime\Email,
+Symfony\Component\Mailer\Mailer,
+Symfony\Component\Mailer\Transport;
+
 class email
 {
 
@@ -17,11 +22,15 @@ class email
     if (empty($this->mailer)) {
       $params = $this->params();
 
-      $transport = (new \Swift_SmtpTransport($params['host'], $params['port']))
-        ->setUsername($params['username'])
-        ->setPassword($params['password']);
+      $transport = Transport::fromDsn(sprintf(
+          'smtp://%s:%s@%s:%s',
+          $params['username'],
+          $params['password'],
+          $params['host'],
+          $params['port']
+      ));
 
-      $this->mailer = new \Swift_Mailer($transport);
+      $this->mailer = new Mailer($transport);
     }
 
     return $this->mailer;
@@ -30,15 +39,15 @@ class email
   function send($to, $subject, $body)
   {
     $params = $this->params();
-
     $mailer = $this->mailer();
 
-    $message = (new \Swift_Message($subject))
-      ->setFrom($params['from'])
-      ->setTo($to)
-      ->setBody($body);
+    $email = (new Email())
+        ->from($params['from'])
+        ->to($to)
+        ->subject($subject)
+        ->text($body);
 
-    return $mailer->send($message);
+    return $mailer->send($email);
 
   }
 }
