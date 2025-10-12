@@ -16,7 +16,7 @@ $params = request_marks_params();
 if (url_is('/my/marks')) {
   $container->marks( model('marks')->private_from_user->__use($user, $params) );
   $container->tags( model('tags')->private_from_user->__use($user) );
-  $sidebar->register(['My', 'Tags'], function() { partial('tags'); });
+  $sidebar->register([_('My Tags')], function() { partial('tags'); });
   return render('marks');
 }
 
@@ -32,11 +32,11 @@ elseif ($matches = url_match('/my/marks/tag/*')) {
   else {
     $tags = array_map(function($slug) { return table('tags')->get_one('label', urldecode($slug)); }, $tags);
     $labels = array_map(function($tag) { return strong($tag); }, $tags);
-    title(_('My Marks'), 'with tags ' . implode(' &amp; ', $labels));
+    title(_('My Marks'), _('with tags') . ' ' . implode(' &amp; ', $labels));
     $container->marks( model('marks')->private_from_user_with_tags->__use($user, $tags, $params) );
   }
   $container->tags( model('tags')->private_from_user_related_with->__use($user, $tag) );
-  $sidebar->register(['My', 'Tags related with ' . strong($tag)], function() { partial('tags'); });
+  $sidebar->register([_('My Tags related with') . ' ' . strong($tag)], function() { partial('tags'); });
   return render('marks');
 }
 
@@ -47,16 +47,16 @@ elseif (url_is('/my/marks/search')) {
 
 elseif ($matches = url_match('/my/marks/search/*')) {
   $query = set_param('query', urldecode($matches[1]));
-  title(_('My Marks'), 'with search ' . strong($query));
+  title(_('My Marks with search'), ' ' . strong($query));
   $container->marks( model('marks')->private_from_user_search->__use($user, $query, $params) );
   $container->tags( model('tags')->private_search_from_user->__use($user, ['query' => $query]) );
-  $sidebar->register(['My', 'Tags with search ' . strong($query)], function() { partial('tags'); });
+  $sidebar->register([_('My Tags with search') . ' ' . strong($query)], function() { partial('tags'); });
   return render('marks');
 }
 
 elseif (url_is('/my/tags/autoupdate')) {
   $query = get_param('query', '');
-  side_title('My', 'Tags with search ' . strong($query));
+  side_title(_('My Tags with search') . ' ' . strong($query));
   $params = ['limit' => get_int('limit', 50), 'query' => $query];
   $container->tags( model('tags')->private_search_from_user($user, $params) );
   return partial('tags');

@@ -27,8 +27,10 @@
         <label for="mark-form-tags"><?= _('Public Tags') ?></label>
         <input id="mark-form-tags" name="tags" type="text" class="input-block-level" value="<?= arg($tags) ?>" autocapitalize="off">
 
+        <?php // if ($private_tags) : ?>
         <label for="mark-form-private-tags"><?= _('Private Tags') ?></label>
         <input id="mark-form-private-tags" name="private_tags" type="text" class="input-block-level" value="<?= arg($private_tags) ?>" autocapitalize="off">
+        <?php // endif ?>
 
         <label><?= _('Visibiity') ?></label>
         <label for="new-mark-visibility-public" class="radio inline">
