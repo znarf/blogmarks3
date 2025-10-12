@@ -86,7 +86,6 @@ CREATE TABLE `bm_screenshots` (
   `generated` datetime NOT NULL,
   `url` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `tentatives` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `status_link` (`link`,`status`),
   KEY `status` (`status`),
