@@ -11,7 +11,7 @@ class screenshots extends table
 
   function create($set = [])
   {
-    return parent::create(['created' => db::now()]);
+    return parent::create(['created' => db::now()] + $set);
   }
 
   function preload_for_marks($marks)
