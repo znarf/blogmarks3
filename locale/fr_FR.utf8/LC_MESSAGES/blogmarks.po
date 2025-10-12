@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blogmarks.net\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-05 11:26+0200\n"
-"PO-Revision-Date: 2023-04-05 17:12+0200\n"
+"POT-Creation-Date: 2023-11-24 22:19+0100\n"
+"PO-Revision-Date: 2023-11-24 22:19+0100\n"
 "Last-Translator: François Hodierne <francois@hodierne.net>\n"
 "Language-Team: team@blogmarks.net\n"
 "Language: fr_FR\n"
@@ -13,29 +13,29 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-KeywordsList: trunk\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: application/helpers/grouper.helper.php:23
+#: application/helpers/grouper.helper.php:28
 msgid "Today"
 msgstr "Aujourd'hui"
 
-#: application/helpers/grouper.helper.php:23
+#: application/helpers/grouper.helper.php:28
 msgid "Yesterday"
 msgstr "Hier"
 
 #: application/modules/auth.module.php:5
-#: application/partials/top.partial.php:27
+#: application/partials/top.partial.php:30
 msgid "Sign In"
 msgstr "Se connecter"
 
 #: application/modules/auth.module.php:32
-#: application/partials/top.partial.php:24
+#: application/partials/top.partial.php:27
 msgid "Sign Up"
 msgstr "S'inscrire"
 
 #: application/modules/auth.module.php:64
-#: application/views/auth/signin.view.php:39
+#: application/views/auth/signin.view.php:35
 msgid "Forgot Password?"
 msgstr "Mot de passe perdu?"
 
@@ -85,17 +85,19 @@ msgstr "Le nouveau mot de passe ne correspond pas à la confirmation."
 #: application/modules/friends.module.php:35
 #: application/modules/friends.module.php:42
 #: application/modules/friends.module.php:55
-#: application/partials/top.partial.php:36
+#: application/partials/top.partial.php:40
 msgid "Friends Marks"
 msgstr "Marks Amis"
 
 #: application/modules/friends.module.php:35
 #: application/modules/my.module.php:28
+#: application/modules/public.module.php:27
+#: application/modules/public.module.php:55
 msgid "with tag"
 msgstr "avec le tag"
 
 #: application/modules/mark.module.php:28
-#: application/partials/top.partial.php:43
+#: application/partials/top.partial.php:47
 msgid "New Mark"
 msgstr "Nouveau mark"
 
@@ -120,10 +122,35 @@ msgid "Mark Successfully Deleted."
 msgstr "Mark supprimé avec succès."
 
 #: application/modules/my.module.php:9 application/modules/my.module.php:28
-#: application/modules/my.module.php:35 application/modules/my.module.php:50
-#: application/partials/top.partial.php:40
+#: application/modules/my.module.php:35 application/partials/top.partial.php:44
 msgid "My Marks"
 msgstr "Mes Marks"
+
+#: application/modules/my.module.php:19
+msgid "My Tags"
+msgstr "Mes Tags"
+
+#: application/modules/my.module.php:35
+#: application/modules/public.module.php:34
+#: application/modules/public.module.php:62
+msgid "with tags"
+msgstr "avec les tags"
+
+#: application/modules/my.module.php:39
+msgid "My Tags related with"
+msgstr "Mes tags liés à"
+
+#: application/modules/my.module.php:50
+msgid "My Marks with search"
+msgstr "Mes Marks avec la recherche"
+
+#: application/modules/my.module.php:53 application/modules/my.module.php:59
+msgid "My Tags with search"
+msgstr "Mes Tags avec la recherche"
+
+#: application/modules/oauth.module.php:65
+msgid "Membership"
+msgstr ""
 
 #: application/modules/profile.module.php:5
 msgid "Profile"
@@ -148,12 +175,48 @@ msgstr "Mot de passe mis à jour."
 #: application/modules/public.module.php:62
 #: application/modules/public.module.php:72
 #: application/modules/public.module.php:86
-#: application/partials/top.partial.php:32
+#: application/partials/top.partial.php:36
 msgid "Public Marks"
 msgstr "Marks Publics"
 
+#: application/modules/public.module.php:13
+#: application/views/marks/form-modal.view.php:27
+#: replaceables/view/side_title.php:7
+msgid "Public Tags"
+msgstr "Tags publics"
+
+#: application/modules/public.module.php:16
+msgid "Active Users"
+msgstr "Utilisateurs actifs"
+
+#: application/modules/public.module.php:40
+msgid "Tags related with"
+msgstr "Tags liés à"
+
+#: application/modules/public.module.php:43
+msgid "Users related with"
+msgstr "Utilisateurs liés à"
+
+#: application/modules/public.module.php:55
+#: application/modules/public.module.php:62
+#: application/modules/public.module.php:72
+msgid "from"
+msgstr "de"
+
+#: application/modules/public.module.php:66
+msgid "Tags from"
+msgstr "Tags de"
+
+#: application/modules/public.module.php:86
+msgid "with search"
+msgstr "avec la recherche"
+
+#: application/modules/public.module.php:89
+msgid "Public Tags with search"
+msgstr "Tags Publics avec la recherche"
+
 #: application/modules/tools.module.php:5
-#: application/partials/top.partial.php:46
+#: application/partials/top.partial.php:50
 msgid "Tools"
 msgstr "Outils"
 
@@ -199,6 +262,10 @@ msgstr "Connecté comme"
 msgid "Sign Out"
 msgstr "Se Déconnecter"
 
+#: application/partials/top.partial.php:24
+msgid "Sign In with Open Collective"
+msgstr "Se connecter avec Open Collective"
+
 #: application/partials/users.partial.php:12
 msgid "last mark:"
 msgstr "dernier mark :"
@@ -228,6 +295,7 @@ msgid "Confirm New Password"
 msgstr "Confirmez le mot de passe"
 
 #: application/views/auth/reset-password.view.php:43
+#: application/views/profile/index.view.php:110
 #: application/views/profile/index.view.php:162
 msgid "Update Password"
 msgstr "Mettre à jour le mot de passe"
@@ -241,16 +309,12 @@ msgstr ""
 msgid "Invalid reset password key."
 msgstr "Code invalide pour réinitialiser le mot de passe."
 
-#: application/views/auth/signin.view.php:23
-msgid "Remember me"
-msgstr "Se rappeler de moi"
-
 #: application/views/marks/delete.view.php:12
 msgid "Do you really want to delete this mark?"
 msgstr "Êtes-vous sûr de vouloir supprimer ce mark ?"
 
 #: application/views/marks/delete.view.php:22
-#: application/views/marks/form-modal.view.php:53
+#: application/views/marks/form-modal.view.php:55
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -262,27 +326,23 @@ msgstr "URL"
 msgid "Title"
 msgstr "Titre"
 
-#: application/views/marks/form-modal.view.php:27
-msgid "Public Tags"
-msgstr "Tags publics"
-
-#: application/views/marks/form-modal.view.php:30
+#: application/views/marks/form-modal.view.php:31
 msgid "Private Tags"
 msgstr "Tags privés"
 
-#: application/views/marks/form-modal.view.php:33
+#: application/views/marks/form-modal.view.php:35
 msgid "Visibiity"
 msgstr "Visibilité"
 
-#: application/views/marks/form-modal.view.php:36
+#: application/views/marks/form-modal.view.php:38
 msgid "public"
 msgstr "public"
 
-#: application/views/marks/form-modal.view.php:40
+#: application/views/marks/form-modal.view.php:42
 msgid "private"
 msgstr "privé"
 
-#: application/views/marks/form-modal.view.php:52
+#: application/views/marks/form-modal.view.php:54
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -322,10 +382,6 @@ msgstr "Tous"
 #: application/views/profile/index.view.php:104
 msgid "Update Profile"
 msgstr "Mettre à jour le profil"
-
-#: application/views/profile/index.view.php:110
-msgid "Change Password"
-msgstr "Changer le mot de passe"
 
 #: application/views/profile/index.view.php:115
 msgid "Currrent Password"
@@ -385,6 +441,15 @@ msgstr "Ce nom d’utilisateur est invalide"
 #: classes/model/table/users.php:47
 msgid "Username is already taken"
 msgstr "Ce nom d’utilisateur est déjà pris"
+
+#~ msgid "Active Users with tag"
+#~ msgstr "Utilisateurs actifs avec le tag"
+
+#~ msgid "Remember me"
+#~ msgstr "Se rappeler de moi"
+
+#~ msgid "Change Password"
+#~ msgstr "Changer le mot de passe"
 
 #, fuzzy
 #~| msgid "Username:"
@@ -844,9 +909,6 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 #~ msgid "Users"
 #~ msgstr "Utilisateurs"
 
-#~ msgid "New User"
-#~ msgstr "Nouvel utilisateur"
-
 #~ msgid "Enter Password:"
 #~ msgstr "Entrer le mot de passe :"
 
@@ -885,9 +947,6 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 
 #~ msgid "The e-mail could not be sent."
 #~ msgstr "L'email n'a pas être envoyé."
-
-#~ msgid "My Tags"
-#~ msgstr "Mes Tags"
 
 #~ msgid "User saved"
 #~ msgstr "Utilisateur enregistré"
@@ -993,15 +1052,6 @@ msgstr "Ce nom d’utilisateur est déjà pris"
 
 #~ msgid "from users"
 #~ msgstr "de"
-
-#~ msgid "from"
-#~ msgstr "de"
-
-#~ msgid "with search"
-#~ msgstr "avec la recherche"
-
-#~ msgid "with tags"
-#~ msgstr "avec les tags"
 
 #~ msgid "without tags"
 #~ msgstr "sans tags"
