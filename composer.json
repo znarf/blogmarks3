@@ -2,11 +2,11 @@
   "require": {
     "php": ">=8.2.0",
     "znarf/amateur": "dev-master",
-    "michelf/php-markdown": "^1.8",
+    "michelf/php-markdown": "^1.9",
     "php-amqplib/php-amqplib": "^2.9",
-    "ruflin/elastica": "^6.1.1",
+    "ruflin/elastica": "^6.1",
     "pixel418/markdownify": "^2.3",
-    "ca-dsgn/lessphp": "^0.7.0",
+    "ca-dsgn/lessphp": "^0.8",
     "symfony/mailer": "^6.3"
   },
   "autoload": {

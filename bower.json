@@ -2,7 +2,7 @@
   "name": "blogmarks3",
   "version": "3.0.0",
   "dependencies": {
-    "jquery": "~3.6",
+    "jquery": "~3.7",
     "jquery-pjax": "~2.0",
     "jquery.scrollTo": "~2.1",
     "bootstrap.css": "~2.3",
