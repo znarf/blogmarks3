@@ -1,7 +1,9 @@
+const dotenv = require('dotenv');
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+
+dotenv.config({ path: path.join(__dirname, '.env') });
+
 const amateur = require('./amateur/amateur');
-global.amateur = amateur;
 
 const root = __dirname;
 
@@ -15,7 +17,7 @@ amateur.setPaths({
   modules: path.join(root, 'application/modules'),
   helpers: path.join(root, 'application/helpers'),
   actions: path.join(root, 'application'),
-  public: path.join(root, '..', 'public')
+  public: path.join(root, '..', 'public'),
 });
 
 amateur.initGlobals();
@@ -25,12 +27,12 @@ amateur.replaceable('expose_replaceables')();
 
 if (process.env.DRY_RUN === '1') {
   const response = amateur.runOnce(() => action('start'), {
-    url: process.env.DRY_RUN_URL || '/'
+    url: process.env.DRY_RUN_URL || '/',
   });
   const output = {
     status: response.code,
     headers: response.headers,
-    bodyLength: response.body.length
+    bodyLength: response.body.length,
   };
   if (process.env.DRY_RUN_BODY === '1') {
     output.body = response.body;

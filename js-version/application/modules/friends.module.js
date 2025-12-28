@@ -16,7 +16,7 @@ module.exports = function () {
   let matches;
 
   if (url_is('/my/friends/marks')) {
-    container.marks(model('marks').from_friends.__use(user, params));
+    container.marks(() => model('marks').from_friends(user, params));
     sidebar.register(['Active', 'Friends'], function () {
       return partial('users', { users: helper('related').active_users });
     });
@@ -26,12 +26,12 @@ module.exports = function () {
     const tag = target.tag(tags[0]);
     if (tags.length === 1) {
       title(_('Friends Marks'), _('with tag') + ' ' + strong(tag));
-      container.marks(model('marks').from_friends_with_tag.__use(user, tag, params));
+      container.marks(() => model('marks').from_friends_with_tag(user, tag, params));
     } else {
       tags = tags.map((slug) => table('tags').get_one('label', decodeURIComponent(slug)));
       const labels = tags.map((tagItem) => strong(tagItem));
       title(_('Friends Marks'), 'with tags ' + labels.join(' &amp; '));
-      container.marks(model('marks').from_friends_with_tags.__use(user, tags, params));
+      container.marks(() => model('marks').from_friends_with_tags(user, tags, params));
     }
     return render('marks');
   } else if (url_is('/my/friends/marks/search')) {
@@ -40,7 +40,7 @@ module.exports = function () {
   } else if ((matches = url_match('/my/friends/marks/search/*'))) {
     const query = set_param('query', decodeURIComponent(matches[1]));
     title(_('Friends Marks'), 'with search ' + strong(query));
-    container.marks(model('marks').from_friends_search.__use(user, query, params));
+    container.marks(() => model('marks').from_friends_search(user, query, params));
     return render('marks');
   }
 

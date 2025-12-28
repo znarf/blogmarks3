@@ -60,7 +60,7 @@ class user extends resource {
   }
 
   generate_activation_key() {
-    const activation_key = amateur.generate_phrase();
+    const activation_key = generate_phrase();
     this.table('users').update(this, { activationkey: activation_key });
     return activation_key;
   }

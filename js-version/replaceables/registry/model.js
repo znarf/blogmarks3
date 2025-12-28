@@ -1,4 +1,4 @@
-function model(name, value = null) {
+function model(name) {
   if (Array.isArray(name)) {
     return name.map(model);
   }

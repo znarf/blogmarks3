@@ -48,7 +48,7 @@ module.exports = function () {
       request_format('atom');
       set_param('export', true);
       ini_set('memory_limit', -1);
-      helper('container').marks(model('marks').private_from_user.__use(user, { limit: -1 }));
+      helper('container').marks(() => model('marks').private_from_user(user, { limit: -1 }));
       return render('marks');
     }
     return render('tools/export', { action: 'export' });

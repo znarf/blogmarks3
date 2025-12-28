@@ -1,12 +1,9 @@
 function flag(name, value = null) {
-  if (value) {
-    if (!defined(name)) {
-      define(name, value);
-    }
+  const key = `flag_${name}`;
+  if (value !== null && value !== undefined) {
+    return blogmarks.config(key, null, value);
   }
-  if (defined(name)) {
-    return constant(name);
-  }
+  return blogmarks.config(key, null);
 }
 
 module.exports = flag;

@@ -1,7 +1,8 @@
+const nodeCrypto = require('node:crypto');
+
 const querystring = require('querystring');
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const Amateur = require('./classes/amateur');
 const BaseQuery = require('./classes/model/query');
 const BaseTable = require('./classes/model/table');
@@ -16,7 +17,7 @@ function signSessionPayload(payload) {
   if (!SESSION_SECRET) {
     return '';
   }
-  return crypto.createHmac('sha256', SESSION_SECRET).update(payload).digest('hex');
+  return nodeCrypto.createHmac('sha256', SESSION_SECRET).update(payload).digest('hex');
 }
 
 function parseSessionCookie(value) {
@@ -31,7 +32,7 @@ function parseSessionCookie(value) {
   if (!expected || expected.length !== sig.length) {
     return null;
   }
-  const valid = crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(sig));
+  const valid = nodeCrypto.timingSafeEqual(Buffer.from(expected), Buffer.from(sig));
   if (!valid) {
     return null;
   }
@@ -58,7 +59,7 @@ function serializeSessionCookie(data) {
 
 function parseCookies(header = '') {
   const cookies = {};
-  header.split(';').forEach((pair) => {
+  header.split(';').forEach(pair => {
     const trimmed = pair.trim();
     if (!trimmed) {
       return;
@@ -79,7 +80,7 @@ function parseMultipart(buffer, contentType) {
   const parts = body.split(boundary).slice(1, -1);
   const fields = {};
   const files = {};
-  parts.forEach((part) => {
+  parts.forEach(part => {
     let chunk = part;
     if (chunk.startsWith('\r\n')) {
       chunk = chunk.slice(2);
@@ -90,7 +91,7 @@ function parseMultipart(buffer, contentType) {
     const [rawHeaders, ...bodyParts] = chunk.split('\r\n\r\n');
     const bodyContent = bodyParts.join('\r\n\r\n');
     const headers = rawHeaders.split('\r\n');
-    const disposition = headers.find((line) => line.toLowerCase().startsWith('content-disposition'));
+    const disposition = headers.find(line => line.toLowerCase().startsWith('content-disposition'));
     if (!disposition) {
       return;
     }
@@ -100,7 +101,7 @@ function parseMultipart(buffer, contentType) {
     }
     const fieldName = nameMatch[1];
     const filenameMatch = disposition.match(/filename=\"([^\"]*)\"/i);
-    const typeHeader = headers.find((line) => line.toLowerCase().startsWith('content-type'));
+    const typeHeader = headers.find(line => line.toLowerCase().startsWith('content-type'));
     if (filenameMatch && filenameMatch[1]) {
       const filename = filenameMatch[1];
       const tmpName = path.join('/tmp', `${Date.now()}_${Math.random().toString(16).slice(2)}`);
@@ -111,7 +112,7 @@ function parseMultipart(buffer, contentType) {
         type: typeHeader ? typeHeader.split(':')[1].trim() : '',
         tmp_name: tmpName,
         error: 0,
-        size: fileBuffer.length
+        size: fileBuffer.length,
       };
     } else {
       fields[fieldName] = bodyContent.replace(/\r\n$/, '');
@@ -144,7 +145,7 @@ const registry = {
   helpers: {},
   content: '',
   layout_output: '',
-  expose: false
+  expose: false,
 };
 
 const paths = {
@@ -157,7 +158,7 @@ const paths = {
   modules: '',
   helpers: '',
   actions: '',
-  public: ''
+  public: '',
 };
 
 let current = null;
@@ -191,7 +192,7 @@ function callReplaceable(name, ...args) {
 
 function loadReplaceables(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
-  entries.forEach((entry) => {
+  entries.forEach(entry => {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       loadReplaceables(fullPath);
@@ -224,8 +225,7 @@ function sendResponse() {
 function handleRequest(handler, req, res, options = {}) {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const query = Object.fromEntries(url.searchParams.entries());
-  const bodyParams =
-    options.express && req.body && !Buffer.isBuffer(req.body) ? req.body || {} : {};
+  const bodyParams = options.express && req.body && !Buffer.isBuffer(req.body) ? req.body || {} : {};
   const cookies = parseCookies(req.headers.cookie || '');
   const sessionCookie = cookies[SESSION_COOKIE];
   let sessionData = {};
@@ -252,13 +252,11 @@ function handleRequest(handler, req, res, options = {}) {
     response: {
       code: 200,
       headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      body: ''
-    }
+      body: '',
+    },
   };
   if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
-    const buffer = Buffer.isBuffer(req.body)
-      ? req.body
-      : Buffer.from(current.body || '', 'latin1');
+    const buffer = Buffer.isBuffer(req.body) ? req.body : Buffer.from(current.body || '', 'latin1');
     const parsed = parseMultipart(buffer, req.headers['content-type']);
     current.params = { ...current.params, ...parsed.fields };
     global.FILES = parsed.files;
@@ -316,7 +314,7 @@ function handleRequest(handler, req, res, options = {}) {
   }
 
   let raw = '';
-  req.on('data', (chunk) => {
+  req.on('data', chunk => {
     raw += chunk;
   });
   req.on('end', () => {
@@ -374,8 +372,8 @@ function runOnce(handler, options = {}) {
     response: {
       code: 200,
       headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      body: ''
-    }
+      body: '',
+    },
   };
   if (global.__amateur_state) {
     global.__amateur_state.current = current;
@@ -384,9 +382,7 @@ function runOnce(handler, options = {}) {
   global.FILES = {};
   const contentType = headers['content-type'] || '';
   if (contentType.includes('multipart/form-data')) {
-    const buffer = Buffer.isBuffer(options.body)
-      ? options.body
-      : Buffer.from(options.body || '', 'latin1');
+    const buffer = Buffer.isBuffer(options.body) ? options.body : Buffer.from(options.body || '', 'latin1');
     const parsed = parseMultipart(buffer, contentType);
     current.params = { ...current.params, ...parsed.fields };
     global.FILES = parsed.files;
@@ -412,22 +408,13 @@ function runOnce(handler, options = {}) {
 
 function initGlobals() {
   global.replaceable = replaceable;
-  global._ = (value) => value;
+  global._ = value => value;
   global.amateur = module.exports;
-  global.__amateur_state = { registry, paths, current: null, handleRequest };
-
-  if (!Function.prototype.__use) {
-    Object.defineProperty(Function.prototype, '__use', {
-      value: function (...args) {
-        return this(...args);
-      },
-      enumerable: false
-    });
-  }
+  global.__amateur_state = { registry, paths, current: null, handleRequest, generateSessionId };
 
   applyPhpCompat({
     getCurrent: () => current,
-    generateSessionId
+    generateSessionId,
   });
 
   global.blogmarks = new Proxy(
@@ -444,7 +431,7 @@ function initGlobals() {
           return registry.config[key];
         }
         return defaultValue;
-      }
+      },
     },
     {
       get(target, prop) {
@@ -459,8 +446,8 @@ function initGlobals() {
       set(target, prop, value) {
         target[prop] = value;
         return true;
-      }
-    }
+      },
+    },
   );
 
   if (!registry.target) {
@@ -479,7 +466,7 @@ module.exports = {
     table: BaseTable,
     resource: BaseResource,
     query: BaseQuery,
-    db
+    db,
   },
   setPaths,
   replaceable,
@@ -487,5 +474,5 @@ module.exports = {
   loadReplaceables,
   include,
   runOnce,
-  initGlobals
+  initGlobals,
 };

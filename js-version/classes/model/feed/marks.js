@@ -40,17 +40,19 @@ class marks extends base {
         });
       }
       if (params.before !== '+inf') {
-        results = array_filter(results, function (ts) {
-          return ts < params.before;
-        });
+        results = Object.fromEntries(
+          Object.entries(results).filter(([, ts]) => ts < params.before)
+        );
       }
       if (params.after !== '-inf') {
-        results = array_filter(results, function (ts) {
-          return ts > params.after;
-        });
+        results = Object.fromEntries(
+          Object.entries(results).filter(([, ts]) => ts > params.after)
+        );
       }
       if (params.limit > 0) {
-        results = array_slice(results, params.offset, params.limit + 1, true);
+        results = Object.fromEntries(
+          Object.entries(results).slice(params.offset, params.offset + params.limit + 1)
+        );
       }
     } else {
       const options = { withscores: true };
@@ -80,9 +82,12 @@ class marks extends base {
   }
 
   prepare_items(results, total = null, params = {}) {
-    const next = params.limit && Object.keys(results).length > params.limit
-      ? parseInt(array_pop(results), 10)
-      : null;
+    let next = null;
+    if (params.limit && Object.keys(results).length > params.limit) {
+      const lastKey = Object.keys(results).pop();
+      next = parseInt(results[lastKey], 10);
+      delete results[lastKey];
+    }
     const items = Object.keys(results).length === 0 ? [] : this.table('marks').get(Object.keys(results));
     return { params, total, next, items };
   }

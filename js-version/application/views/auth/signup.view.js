@@ -24,7 +24,7 @@ module.exports = function (params = {}) {
         <div class="controls">
           <input type="text" id="signup_fullname" name="fullname"
             value="${arg(params.fullname)}"
-            required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;\|]{2,128}">
+            required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;|]{2,128}">
           ${
             fullname_error
               ? `<span class="help-inline">${text(fullname_error)}</span>`
@@ -52,7 +52,7 @@ module.exports = function (params = {}) {
         <div class="controls">
           <input type="text" id="signup_username" name="username"
             value="${arg(params.username)}"
-            required placeholder="username" autocapitalize="off" autocorrect="off" pattern="[a-zA-Z][a-z\d_]{1,24}">
+            required placeholder="username" autocapitalize="off" autocorrect="off" pattern="[a-zA-Z][a-z0-9_]{1,24}">
           ${
             username_error
               ? `<span class="help-inline">${text(username_error)}</span>`

@@ -54,7 +54,8 @@ class marks_tags extends table {
     if (!filtered.length) {
       return;
     }
-    array_chunk(filtered, 1000).forEach((ids_chunk) => {
+    for (let i = 0; i < filtered.length; i += 1000) {
+      const ids_chunk = filtered.slice(i, i + 1000);
       const result = this
         .select(['mark_id', 'tag_id', 'label', 'isHidden'])
         .where({ mark_id: ids_chunk })
@@ -72,7 +73,7 @@ class marks_tags extends table {
       ids_chunk.forEach((id) => {
         cache.set(`bm_marks_tags_id_${id}`, results[id] ? results[id] : []);
       });
-    });
+    }
   }
 }
 

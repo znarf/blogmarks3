@@ -23,7 +23,7 @@ ${itemsHtml}`;
           ? { order: 'asc', after: marks.next }
           : { order: 'desc', before: marks.next };
       pagination = `<div id="pagination">
-  <a rel="next" class="page more" href="?${http_build_query(more)}">more</a>
+  <a rel="next" class="page more" href="?${new URLSearchParams(more).toString()}">more</a>
 </div> <!-- /#pagination -->`;
     } else {
       pagination = '<h2 style="margin-bottom:1em"><span>The End</span></h2>';

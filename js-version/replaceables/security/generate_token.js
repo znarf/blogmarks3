@@ -1,5 +1,5 @@
 function generate_token(key) {
-  SESSION[`csrf_${key}`] = blogmarks.generate_phrase();
+  SESSION[`csrf_${key}`] = generate_phrase();
   return SESSION[`csrf_${key}`];
 }
 

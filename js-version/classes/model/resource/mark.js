@@ -42,11 +42,11 @@ class mark extends resource {
   }
 
   public_tags() {
-    return this.tags.filter((tag) => !tag.isHidden);
+    return this.tags.filter(tag => !tag.isHidden);
   }
 
   private_tags() {
-    return this.tags.filter((tag) => tag.isHidden);
+    return this.tags.filter(tag => tag.isHidden);
   }
 
   text() {
@@ -87,15 +87,20 @@ class mark extends resource {
   }
 
   default_screenshot() {
-    const parsed_url = parse_url(this.url);
-    if (parsed_url.host && flag('miniature_api_key')) {
+    let url;
+    try {
+      url = new URL(this.url);
+    } catch (error) {
+      url = null;
+    }
+    if (url && flag('miniature_api_key')) {
       const parameters = {
-        url: parsed_url.host,
+        url: url.hostname,
         width: 112,
         height: 83,
-        token: flag('miniature_api_key')
+        token: flag('miniature_api_key'),
       };
-      return 'https://api.miniature.io/' + '?' + http_build_query(parameters);
+      return 'https://api.miniature.io/' + '?' + new URLSearchParams(parameters).toString();
     }
     const n = parseInt(String(this.attribute('id')).slice(-1), 10) + 1;
     return absolute_url(`/img/haikus/${n}.gif`);

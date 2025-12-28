@@ -1,7 +1,10 @@
 class Taglist {
   sort_prepare(str) {
-    const transliterated = iconv('utf-8', 'ASCII//TRANSLIT//IGNORE', str);
-    return String(transliterated).toLowerCase();
+    return String(str || '')
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\x00-\x7F]/g, '')
+      .toLowerCase();
   }
 
   sort_tags(tags) {

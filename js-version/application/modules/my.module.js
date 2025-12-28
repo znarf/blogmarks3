@@ -12,8 +12,8 @@ module.exports = function () {
   let matches;
 
   if (url_is('/my/marks')) {
-    container.marks(model('marks').private_from_user.__use(user, params));
-    container.tags(model('tags').private_from_user.__use(user));
+    container.marks(() => model('marks').private_from_user(user, params));
+    container.tags(() => model('tags').private_from_user(user));
     sidebar.register(['My', 'Tags'], function () {
       return partial('tags');
     });
@@ -23,14 +23,14 @@ module.exports = function () {
     const tag = target.tag(tags[0]);
     if (tags.length === 1) {
       title(_('My Marks'), _('with tag') + ' ' + strong(tag));
-      container.marks(model('marks').private_from_user_with_tag.__use(user, tag, params));
+      container.marks(() => model('marks').private_from_user_with_tag(user, tag, params));
     } else {
       tags = tags.map((slug) => table('tags').get_one('label', decodeURIComponent(slug)));
       const labels = tags.map((tagItem) => strong(tagItem));
       title(_('My Marks'), 'with tags ' + labels.join(' &amp; '));
-      container.marks(model('marks').private_from_user_with_tags.__use(user, tags, params));
+      container.marks(() => model('marks').private_from_user_with_tags(user, tags, params));
     }
-    container.tags(model('tags').private_from_user_related_with.__use(user, tag));
+    container.tags(() => model('tags').private_from_user_related_with(user, tag));
     sidebar.register(['My', 'Tags related with ' + strong(tag)], function () {
       return partial('tags');
     });
@@ -41,8 +41,8 @@ module.exports = function () {
   } else if ((matches = url_match('/my/marks/search/*'))) {
     const query = set_param('query', decodeURIComponent(matches[1]));
     title(_('My Marks'), 'with search ' + strong(query));
-    container.marks(model('marks').private_from_user_search.__use(user, query, params));
-    container.tags(model('tags').private_search_from_user.__use(user, { query }));
+    container.marks(() => model('marks').private_from_user_search(user, query, params));
+    container.tags(() => model('tags').private_search_from_user(user, { query }));
     sidebar.register(['My', 'Tags with search ' + strong(query)], function () {
       return partial('tags');
     });

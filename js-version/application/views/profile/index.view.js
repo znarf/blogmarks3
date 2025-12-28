@@ -51,7 +51,7 @@ module.exports = function (params = {}) {
         <div class="controls">
           <input type="text" id="profile_fullname" name="name"
             value="${arg(params.name)}"
-            required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;\|]{2,128}">
+            required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;|]{2,128}">
           ${
             fullname_error
               ? `<span class="help-block">${text(fullname_error)}</span>`
@@ -79,7 +79,7 @@ module.exports = function (params = {}) {
         <div class="controls">
           <input type="text" id="profile_username" name="login"
             value="${arg(params.login)}"
-            required placeholder="username" autocapitalize="off" autocorrect="off" pattern="[a-zA-Z][a-z\d_]{1,24}">
+            required placeholder="username" autocapitalize="off" autocorrect="off" pattern="[a-zA-Z][a-z0-9_]{1,24}">
           ${
             username_error
               ? `<span class="help-block">${text(username_error)}</span>`

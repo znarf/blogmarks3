@@ -1,4 +1,4 @@
-const blogmarks = require('./blogmarks');
+const path = require('path');
 
 class registry {
   static services = {};
@@ -7,44 +7,44 @@ class registry {
   static feeds = {};
   static searchs = {};
 
-  static service(name) {
-    if (registry.services[name]) {
-      return registry.services[name];
+  static _loadInstance(filePath) {
+    const Exported = require(filePath);
+    if (typeof Exported !== 'function') {
+      return Exported;
     }
-    registry.services[name] = blogmarks.instance(`\\blogmarks\\service\\${name}`);
-    return registry.services[name];
+    return new Exported();
+  }
+
+  static _resolvePath(parts) {
+    return path.join(__dirname, ...parts) + '.js';
+  }
+
+  static _get(cache, parts, name) {
+    if (cache[name]) {
+      return cache[name];
+    }
+    cache[name] = registry._loadInstance(registry._resolvePath(parts));
+    return cache[name];
+  }
+
+  static service(name) {
+    return registry._get(registry.services, ['service', name], name);
   }
 
   static model(name) {
-    if (registry.models[name]) {
-      return registry.models[name];
-    }
-    registry.models[name] = blogmarks.instance(`\\blogmarks\\model\\${name}`);
-    return registry.models[name];
+    return registry._get(registry.models, ['model', name], name);
   }
 
   static table(name) {
-    if (registry.tables[name]) {
-      return registry.tables[name];
-    }
-    registry.tables[name] = blogmarks.instance(`\\blogmarks\\model\\table\\${name}`);
-    return registry.tables[name];
+    return registry._get(registry.tables, ['model', 'table', name], name);
   }
 
   static feed(name) {
-    if (registry.feeds[name]) {
-      return registry.feeds[name];
-    }
-    registry.feeds[name] = blogmarks.instance(`\\blogmarks\\model\\feed\\${name}`);
-    return registry.feeds[name];
+    return registry._get(registry.feeds, ['model', 'feed', name], name);
   }
 
   static search(name) {
-    if (registry.searchs[name]) {
-      return registry.searchs[name];
-    }
-    registry.searchs[name] = blogmarks.instance(`\\blogmarks\\model\\search\\${name}`);
-    return registry.searchs[name];
+    return registry._get(registry.searchs, ['model', 'search', name], name);
   }
 }
 
