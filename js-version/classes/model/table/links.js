@@ -1,3 +1,5 @@
+const table = require('../table');
+
 class links extends table {
   constructor() {
     super();

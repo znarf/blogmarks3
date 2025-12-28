@@ -1,3 +1,5 @@
+const table = require('../table');
+
 class users extends table {
   constructor() {
     super();

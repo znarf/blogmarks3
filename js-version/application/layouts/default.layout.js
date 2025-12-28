@@ -44,10 +44,8 @@ ${content}
 
 <div id="footer">
   <p>
-  <span class="separator">Feedback: <a href="http://twitter.com/blogmarks">@blogmarks</a> on Twitter</span>
-  <span class="separator">Designed &amp; supported by <a href="http://www.upian.com/">Upian</a></span>
   <span class="separator">Operated by <a href="http://hodierne.net/">Hodierne Ventures</a></span>
-  <span>&copy; 2004-24 the Blogmarks team (blgmrks04tbf)</span>
+  <span>&copy; 2004-26 the Blogmarks team</span>
  </p>
 </div> <!-- /#footer -->
 

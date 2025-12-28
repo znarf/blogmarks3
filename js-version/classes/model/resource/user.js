@@ -3,7 +3,7 @@ const resource = require('../resource');
 class user extends resource {
   constructor() {
     super();
-    this.default_avatar = 'https://blogmarks.net/img/default-gravatar.gif';
+    this.default_avatar = '/img/default-gravatar.gif';
   }
 
   username() {
@@ -12,11 +12,11 @@ class user extends resource {
 
   name() {
     const name = this.attribute('name');
-    return name ? name : this.username();
+    return name ? name : this.attribute('login');
   }
 
   url() {
-    return amateur.web_url(`/user/${this.username()}`);
+    return web_url(`/user/${this.attribute('login')}`);
   }
 
   avatar(size = 80) {

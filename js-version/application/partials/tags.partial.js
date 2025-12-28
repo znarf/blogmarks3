@@ -8,7 +8,7 @@ module.exports = function (args = {}) {
     : relative_url(domainValue === 'my' ? '/my/marks/tag/' : '/marks/tag/');
   const plus = static_url(domainValue === 'my' ? '/img/myplus.gif' : '/img/plus.gif');
   let tags = args.tags !== undefined ? args.tags : helper('container').tags();
-  if (is_callable(tags)) {
+  if (typeof tags === 'function') {
     tags = tags();
   }
 

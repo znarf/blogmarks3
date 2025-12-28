@@ -1,5 +1,8 @@
-class tags {
+const base = require('./base');
+
+class tags extends base {
   constructor() {
+    super();
     this.table = this.table('tags');
     this.feed = this.feed('tags');
   }

@@ -33,12 +33,12 @@ module.exports = function (args = {}) {
       .map((tag) => {
         if (tag.isHidden === 0) {
           return `<a rel="tag" class="tag public_tag" href="${
-            base_tag_path + '/' + urlencode(tag.label)
+            base_tag_path + '/' + encodeURIComponent(tag.label)
           }">${text(tag.label)}</a>`;
         }
         if (is_owner) {
           return `<a rel="tag" class="tag private_tag" href="${
-            base_tag_path + '/' + urlencode(tag.label)
+            base_tag_path + '/' + encodeURIComponent(tag.label)
           }">${text(tag.label)}</a>`;
         }
         return '';

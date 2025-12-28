@@ -1,3 +1,6 @@
+const table = require('../table');
+const db = global.db;
+
 class tags extends table {
   constructor() {
     super();
@@ -21,7 +24,7 @@ class tags extends table {
       .from('bm_marks as m, bm_marks_has_bm_tags as mht')
       .where('mht.mark_id = m.id')
       .and_where({ 'm.visibility': 0, 'm.display': 1 })
-      .and_where({ 'mht.isHidden': 0, 'mht.visibility': 0, 'mht.display': 1 })
+      .and_where({ 'mht.isHidden': 0, 'mht.visibility': 0 })
       .group_by('mht.tag_id')
       .limit(1000);
     if (interval) {
@@ -43,8 +46,8 @@ class tags extends table {
       .and_where('mht2.tag_id != ' + db.quote(tag.id))
       .group_by('mht2.tag_id');
     if (!privateValue) {
-      query.and_where({ 'mht1.isHidden': 0, 'mht1.visibility': 0, 'mht1.display': 1 });
-      query.and_where({ 'mht2.isHidden': 0, 'mht2.visibility': 0, 'mht2.display': 1 });
+      query.and_where({ 'mht1.isHidden': 0, 'mht1.visibility': 0 });
+      query.and_where({ 'mht2.isHidden': 0, 'mht2.visibility': 0 });
     }
     return query;
   }

@@ -24,6 +24,9 @@ class Grouper {
   group(marks = []) {
     const groups = {};
 
+    if (!marks.length) {
+      return groups;
+    }
     const first_mark = marks[0];
     const last_mark = marks[marks.length - 1];
 

@@ -7,7 +7,7 @@ function form_error(name = null, message = null) {
     return blogmarks.registry.errors[name];
   }
   if (name) {
-    return blogmarks.registry.errors[name] ? blogmarks.registry.errors[name] : [];
+    return blogmarks.registry.errors[name] ? blogmarks.registry.errors[name] : null;
   }
   return blogmarks.registry.errors;
 }

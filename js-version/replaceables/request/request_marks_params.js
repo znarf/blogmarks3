@@ -3,8 +3,8 @@ function request_marks_params() {
     offset: blogmarks.get_int('offset', 0),
     limit: blogmarks.get_int('limit', 25),
     order: blogmarks.get_param('order', 'desc'),
-    after: blogmarks.get_param('after'),
-    before: blogmarks.get_param('before')
+    after: blogmarks.get_param('after', '-inf'),
+    before: blogmarks.get_param('before', '+inf')
   };
 }
 

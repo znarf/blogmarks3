@@ -3,7 +3,7 @@ class Target {
     if (slug) {
       const user = (blogmarks.registry.target.user = blogmarks.table('users').get_one(
         'login',
-        urldecode(slug)
+        decodeURIComponent(slug)
       ));
       if (!user) {
         throw blogmarks.http_error(404, 'User not found');
@@ -18,7 +18,7 @@ class Target {
     if (slug) {
       const tag = (blogmarks.registry.target.tag = blogmarks.table('tags').get_one(
         'label',
-        urldecode(slug)
+        decodeURIComponent(slug)
       ));
       if (!tag) {
         throw blogmarks.http_error(404, 'Tag not found');
@@ -33,7 +33,7 @@ class Target {
     if (slug) {
       const mark = (blogmarks.registry.target.mark = blogmarks.table('marks').get_one(
         'id',
-        urldecode(slug)
+        decodeURIComponent(slug)
       ));
       if (!mark) {
         throw blogmarks.http_error(404, 'Mark not found');

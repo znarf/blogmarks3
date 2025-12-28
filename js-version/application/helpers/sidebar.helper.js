@@ -22,7 +22,7 @@ class Sidebar {
     let output = '';
     for (const block of this.blocks) {
       side_title(...block.title);
-      output += is_callable(block.content) ? block.content() : block.content;
+      output += typeof block.content === 'function' ? block.content() : block.content;
     }
     return output;
   }

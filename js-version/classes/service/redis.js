@@ -18,13 +18,17 @@ class redis {
     if (this.connection_value) {
       return this.connection_value;
     }
-    if (!class_exists('\\redis', false) || !this.params()) {
+    const { createClient } = require('redis');
+    const params = this.params() || {};
+    const url = params.url || process.env.REDIS_URL;
+    if (!url) {
       return;
     }
-    const client = new Redis();
-    client.pconnect(this.params().host);
+    const client = createClient({ url });
+    client.on('error', () => {});
+    client.connect();
     this.connection_value = client;
-    return this.connection_value;
+    return client;
   }
 }
 

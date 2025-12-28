@@ -1,5 +1,8 @@
-class marks {
+const base = require('../base');
+
+class marks extends base {
   constructor() {
+    super();
     this.documents = [];
   }
 
@@ -8,8 +11,8 @@ class marks {
       id: parseInt(mark.id, 10),
       created_at: mark.published.format(datetime.RFC3339),
       updated_at: mark.updated.format(datetime.RFC3339),
-      user_id: mark.user_id,
-      link_id: mark.link_id,
+      user_id: mark.user_id(),
+      link_id: mark.link_id(),
       url: this.fix_encoding(mark.url),
       title: this.fix_encoding(mark.title),
       content_type: mark.contentType,
@@ -19,8 +22,8 @@ class marks {
           : this.fix_encoding(mark.content),
       public: mark.is_public,
       private: mark.is_private,
-      tags: Object.values(mark.public_tags().map((tag) => this.convert_tag(tag))),
-      private_tags: Object.values(mark.private_tags().map((tag) => this.convert_tag(tag)))
+      tags: Object.values(mark.public_tags.map((tag) => this.convert_tag(tag))),
+      private_tags: Object.values(mark.private_tags.map((tag) => this.convert_tag(tag)))
     };
   }
 
@@ -52,7 +55,7 @@ class marks {
   index(mark, async = true) {
     if (this.asynchronous(async)) {
       this.service('amqp').push({ action: 'index', mark_id: mark.id }, 'marks-index');
-    } else {
+    } else if (this.available()) {
       this.documents.push(new Document(mark.id, this.to_array(mark)));
       if (this.documents.length >= 100) {
         this.flush_index_buffer();
@@ -77,7 +80,7 @@ class marks {
   unindex(mark, async = true) {
     if (this.asynchronous(async)) {
       this.service('amqp').push({ action: 'unindex', mark_id: mark.id }, 'marks-index');
-    } else {
+    } else if (this.available()) {
       this.service('search').delete('/bm/marks/' + mark.id);
     }
   }
@@ -96,7 +99,7 @@ class marks {
   unindex_user(user, async = true) {
     if (this.asynchronous(async)) {
       this.service('amqp').push({ action: 'unindex_user', user_id: user.id }, 'marks-index');
-    } else {
+    } else if (this.available()) {
       this.service('search').delete('/bm/marks/_query?q=user_id:' + user.id);
     }
   }

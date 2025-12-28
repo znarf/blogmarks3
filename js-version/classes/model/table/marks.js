@@ -1,3 +1,6 @@
+const table = require('../table');
+const db = global.db;
+
 class marks extends table {
   constructor() {
     super();

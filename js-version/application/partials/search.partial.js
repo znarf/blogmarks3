@@ -7,7 +7,8 @@ module.exports = function () {
   )}">
   <div class="input-append">
     <input class="input-append" id="search-query" type="text" name="query" size="40" value="${get_param(
-      'query'
+      'query',
+      ''
     )}" autocomplete="off">
     <input class="btn" type="submit" value="${_('Search')}">
   </div>

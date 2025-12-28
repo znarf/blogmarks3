@@ -1,6 +1,6 @@
 module.exports = function (args = {}) {
   let users = args.users !== undefined ? args.users : helper('container').users();
-  if (is_callable(users)) {
+  if (typeof users === 'function') {
     users = users();
   }
 

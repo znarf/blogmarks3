@@ -1,3 +1,5 @@
+const amateur = global.amateur || require('../../amateur/amateur');
+
 class resource extends amateur.model.resource {}
 
 resource.prototype.registry = require('../magic/registry');

@@ -1,4 +1,9 @@
-class marks {
+const base = require('../base');
+
+class marks extends base {
+  constructor() {
+    super();
+  }
   static default_params = {
     offset: 0,
     limit: 25,
@@ -23,7 +28,7 @@ class marks {
     let total;
 
     if (!redis || !redis_key || !redis.exists(redis_key)) {
-      if (!(query instanceof query) && is_callable(query)) {
+      if (typeof query === 'function') {
         query = query();
       }
       const order = params.order === 'asc' ? 'published ASC' : 'published DESC';
@@ -112,7 +117,7 @@ class marks {
     if (mark.is_public) {
       this.add(`feed_marks_user_${mark.author.id}`, ts, mark.id);
     }
-    for (const mt of mark.tags()) {
+    for (const mt of mark.tags || []) {
       if (mark.is_public && !mt.isHidden) {
         this.add(`feed_marks_tag_${mt.tag_id}`, ts, mark.id);
       }
@@ -131,7 +136,7 @@ class marks {
     this.remove('feed_marks', mark.id);
     this.remove(`feed_marks_my_${mark.author.id}`, mark.id);
     this.remove(`feed_marks_user_${mark.author.id}`, mark.id);
-    for (const mt of mark.tags) {
+    for (const mt of mark.tags || []) {
       this.remove(`feed_marks_tag_${mt.tag_id}`, mark.id);
       this.remove(`feed_marks_my_${mark.author.id}_tag_${mt.tag_id}`, mark.id);
     }

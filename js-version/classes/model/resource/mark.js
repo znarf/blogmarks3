@@ -11,7 +11,7 @@ class mark extends resource {
 
   classname(user = null) {
     let classname = this.visibility == 1 ? 'mark private' : 'mark';
-    if (user && user.id == this.user_id) {
+    if (user && user.id == this.user_id()) {
       classname += ' own';
     }
     return classname;
@@ -22,7 +22,7 @@ class mark extends resource {
   }
 
   user() {
-    return this.attribute('user') || this.table('users').get(this.user_id);
+    return this.attribute('user') || this.table('users').get(this.user_id());
   }
 
   author() {
@@ -34,7 +34,7 @@ class mark extends resource {
   }
 
   related() {
-    return this.table('links').get(this.link_id);
+    return this.table('links').get(this.link_id());
   }
 
   tags() {

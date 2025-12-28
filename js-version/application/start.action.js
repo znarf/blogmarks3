@@ -9,16 +9,16 @@ module.exports = function () {
   if (url_is('/') || url_is('/index.php')) {
     redirect('/marks');
   } else if (url_start_with('/my/tools')) {
-    module('tools');
+    moduleAction('tools');
   } else if (url_start_with('/my/profile')) {
-    module('profile');
+    moduleAction('profile');
   } else if (url_start_with('/my/friends')) {
-    module('friends');
+    moduleAction('friends');
   } else if (url_start_with('/my')) {
-    module('my');
+    moduleAction('my');
   } else if (url_start_with('/auth')) {
-    module('auth');
+    moduleAction('auth');
   } else {
-    module('public');
+    moduleAction('public');
   }
 };

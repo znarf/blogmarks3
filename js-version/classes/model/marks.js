@@ -1,4 +1,10 @@
-class marks {
+const base = require('./base');
+
+class marks extends base {
+  constructor() {
+    super();
+  }
+
   create(user, params = {}) {
     const link = this.table('links').with_url(params.url);
     if (user.mark_with_link(link)) {

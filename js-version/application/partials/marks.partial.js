@@ -1,14 +1,14 @@
 module.exports = function (args = {}) {
   const marks = args.marks !== undefined ? args.marks : helper('container').marks();
+  const markPartialArgs = mark_partial_args();
 
   if (marks.total > 0) {
-    const mark_partial_args = mark_partial_args();
     const groups = helper('grouper').group(marks.items);
 
     const groupsHtml = Object.entries(groups)
       .map(([group, items]) => {
         const itemsHtml = items
-          .map((mark) => partial('mark', { mark, ...mark_partial_args }))
+          .map((mark) => partial('mark', { mark, ...markPartialArgs }))
           .join('\n');
         return `<h2><span>${group}</span></h2>
 

@@ -1,3 +1,6 @@
+const table = require('../table');
+const db = global.db;
+
 class marks_tags extends table {
   constructor() {
     super();
@@ -12,7 +15,7 @@ class marks_tags extends table {
       rows = this.fetch_all({ mark_id: mark.id });
       cache.set(cache_key, rows);
     }
-    return this.to_objects(rows);
+    return rows.map((row) => this._to_object(row));
   }
 
   tag_mark(mark, tags = [], private_tags = []) {

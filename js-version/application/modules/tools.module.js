@@ -30,7 +30,9 @@ module.exports = function () {
           importer.insert(mark);
           results.push([mark.title, 200, 'Ok']);
         } catch (e) {
-          results.push([mark.title, e.getCode(), e.getMessage()]);
+          const code = typeof e.getCode === 'function' ? e.getCode() : 500;
+          const message = typeof e.getMessage === 'function' ? e.getMessage() : e.message;
+          results.push([mark.title, code, message]);
         }
       }
       importer.finish();

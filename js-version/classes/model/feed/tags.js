@@ -1,4 +1,10 @@
-class tags {
+const base = require('../base');
+const Tag = require('../resource/tag');
+
+class tags extends base {
+  constructor() {
+    super();
+  }
   redis() {
     return this.service('redis').connection();
   }
@@ -9,7 +15,7 @@ class tags {
     let results;
 
     if (!redis || !redis_key || !redis.exists(redis_key)) {
-      if (!(query instanceof query) && is_callable(query)) {
+      if (typeof query === 'function') {
         query = query();
       }
       results = query.order_by('count DESC').fetch_key_values('label', 'count');
@@ -32,11 +38,11 @@ class tags {
     const tags = [];
     Object.entries(results).forEach(([label, count]) => {
       if (!params.query) {
-        tags.push(new tag({ label, count }));
+        tags.push(new Tag({ label, count }));
       } else {
         params.query.split(' ').forEach((token) => {
           if (stripos(label, token) !== false) {
-            tags.push(new tag({ label, count }));
+            tags.push(new Tag({ label, count }));
           }
         });
       }
