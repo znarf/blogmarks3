@@ -6,9 +6,7 @@ module.exports = function () {
 
   const authLinks = authenticatedUser
     ? `${_('Connected as')}
-          <a href="${relativeUrl('/my/profile/general,edit')}" class="navbar-link">${
-            authenticatedUser.name
-          }</a>
+          <a href="${relativeUrl('/my/profile/general,edit')}" class="navbar-link">${authenticatedUser.name}</a>
           /
           <a class="navbar-link" href="${relativeUrl('/auth/signout')}">${_('Sign Out')}</a>`
     : `${

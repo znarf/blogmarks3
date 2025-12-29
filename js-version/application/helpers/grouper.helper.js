@@ -1,4 +1,3 @@
-
 class Grouper {
   static today;
   static yesterday;
@@ -9,11 +8,9 @@ class Grouper {
 
   marker_day(timestamp) {
     const now = Math.floor(Date.now() / 1000);
-    const today =
-      Grouper.today || (Grouper.today = format_date(new Date(now * 1000), 'dd MMMM yyyy'));
+    const today = Grouper.today || (Grouper.today = format_date(new Date(now * 1000), 'dd MMMM yyyy'));
     const yesterday =
-      Grouper.yesterday ||
-      (Grouper.yesterday = format_date(new Date((now - 24 * 3600) * 1000), 'dd MMMM yyyy'));
+      Grouper.yesterday || (Grouper.yesterday = format_date(new Date((now - 24 * 3600) * 1000), 'dd MMMM yyyy'));
 
     const marker = format_date(new Date(timestamp * 1000), 'dd MMMM yyyy');
     return marker === today ? _('Today') : marker === yesterday ? _('Yesterday') : marker;
@@ -32,8 +29,7 @@ class Grouper {
     const first_mark = marks[0];
     const last_mark = marks[marks.length - 1];
 
-    const range =
-      format_timestamp(first_mark.published) - format_timestamp(last_mark.published);
+    const range = format_timestamp(first_mark.published) - format_timestamp(last_mark.published);
 
     let group_marker;
     if (range > 2 * 30 * 24 * 3600) {

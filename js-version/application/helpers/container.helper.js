@@ -31,7 +31,6 @@ class Container {
     }
     return this._users;
   }
-
 }
 
 module.exports = new Container();

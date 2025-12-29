@@ -14,7 +14,7 @@ function request_format(value = null) {
   const mime = {
     'application/json': 'json',
     'application/rss+xml': 'rss',
-    'application/atom+xml': 'atom'
+    'application/atom+xml': 'atom',
   };
   if (accept && mime[accept]) {
     blogmarks.registry.request_format = mime[accept];

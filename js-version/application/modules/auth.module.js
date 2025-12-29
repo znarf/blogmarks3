@@ -33,7 +33,7 @@ module.exports = function () {
         name: get_param('fullname'),
         login: get_param('username'),
         email: get_param('email'),
-        pass: get_param('password')
+        pass: get_param('password'),
       };
       Object.entries(params).forEach(([key, value]) => {
         const error = table('users').validate_field(key, value);
@@ -72,14 +72,13 @@ module.exports = function () {
       if (user) {
         const key = user.generate_activation_key();
 
-        let email =
-          _('Someone has asked to reset the password for the following site and username.') +
-          "\n\n";
-        email += '- ' + _('Site:') + ' ' + absolute_url('/') + "\n";
-        email += '- ' + _('Username:') + ' ' + user.login + "\n\n";
+        let email = _('Someone has asked to reset the password for the following site and username.') + '\n\n';
+        email += '- ' + _('Site:') + ' ' + absolute_url('/') + '\n';
+        email += '- ' + _('Username:') + ' ' + user.login + '\n\n';
         email +=
-          _('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.') +
-          "\n\n";
+          _(
+            'To reset your password visit the following address, otherwise just ignore this email and nothing will happen.',
+          ) + '\n\n';
         email += absolute_url('/auth/reset-password?key=' + key);
 
         service('email').send(user.email, 'Reset Password', email);

@@ -18,13 +18,9 @@ class marks extends base {
       title: params.title,
       visibility: params.visibility,
       content,
-      contentType
+      contentType,
     });
-    this.table('marks_tags').tag_mark(
-      mark,
-      params.tags.split(','),
-      params.private_tags.split(',')
-    );
+    this.table('marks_tags').tag_mark(mark, params.tags.split(','), params.private_tags.split(','));
     this.table('screenshots').ensure_entry_exists_for_mark(mark);
     this.feed('marks').index(mark);
     this.search('marks').index(mark);
@@ -48,14 +44,10 @@ class marks extends base {
       title: params.title,
       visibility: params.visibility,
       content,
-      contentType
+      contentType,
     });
     this.feed('marks').unindex(updatedMark);
-    this.table('marks_tags').tag_mark(
-      updatedMark,
-      params.tags.split(','),
-      params.private_tags.split(',')
-    );
+    this.table('marks_tags').tag_mark(updatedMark, params.tags.split(','), params.private_tags.split(','));
     this.feed('marks').index(updatedMark);
     this.search('marks').index(updatedMark);
     return updatedMark;
@@ -69,11 +61,7 @@ class marks extends base {
   }
 
   delete_from_user(user) {
-    const tag_ids = this
-      .table('marks_tags')
-      .select('DISTINCT tag_id as id')
-      .where({ user_id: user.id })
-      .fetch_ids();
+    const tag_ids = this.table('marks_tags').select('DISTINCT tag_id as id').where({ user_id: user.id }).fetch_ids();
     this.table('marks').delete({ author: user.id });
     this.table('marks_tags').delete({ user_id: user.id });
     const redis = this.service('redis').connection();
@@ -130,17 +118,13 @@ class marks extends base {
       const [tag_results] = this.feed('marks').ids_and_ts(null, query, { limit: -1, ...params });
       results = results
         ? Object.fromEntries(
-            Object.entries(results).filter(([key]) =>
-              Object.prototype.hasOwnProperty.call(tag_results, key)
-            )
+            Object.entries(results).filter(([key]) => Object.prototype.hasOwnProperty.call(tag_results, key)),
           )
         : tag_results;
     }
     const total = Object.keys(results).length;
     if (params.limit > 0) {
-      results = Object.fromEntries(
-        Object.entries(results).slice(params.offset, params.offset + params.limit + 1)
-      );
+      results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
     }
     return this.feed('marks').prepare_items(results, total, params);
   }
@@ -156,7 +140,7 @@ class marks extends base {
     }
     const query = () =>
       this.table('marks').query_ids_and_ts_from_user_with_tag(user, tag, {
-        private: false
+        private: false,
       });
     return this.feed('marks').query(null, query, params);
   }
@@ -169,36 +153,31 @@ class marks extends base {
     for (const tag of tags) {
       const query = () =>
         this.table('marks').query_ids_and_ts_from_user_with_tag(user, tag, {
-          private: false
+          private: false,
         });
       const [tag_results] = this.feed('marks').ids_and_ts(null, query, { limit: -1, ...params });
       results = results
         ? Object.fromEntries(
-            Object.entries(results).filter(([key]) =>
-              Object.prototype.hasOwnProperty.call(tag_results, key)
-            )
+            Object.entries(results).filter(([key]) => Object.prototype.hasOwnProperty.call(tag_results, key)),
           )
         : tag_results;
     }
     const total = Object.keys(results).length;
     if (params.limit > 0) {
-      results = Object.fromEntries(
-        Object.entries(results).slice(params.offset, params.offset + params.limit + 1)
-      );
+      results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
     }
     return this.feed('marks').prepare_items(results, total, params);
   }
 
   private_from_user(user, params = {}) {
-    const query = () =>
-      this.table('marks').query_ids_and_ts_from_user(user, { private: true });
+    const query = () => this.table('marks').query_ids_and_ts_from_user(user, { private: true });
     return this.feed('marks').query(`feed_marks_my_${user.id}`, query, params);
   }
 
   private_from_user_with_tag(user, tag, params = {}) {
     const query = () =>
       this.table('marks').query_ids_and_ts_from_user_with_tag(user, tag, {
-        private: true
+        private: true,
       });
     return this.feed('marks').query(`feed_marks_my_${user.id}_tag_${tag.id}`, query, params);
   }
@@ -211,23 +190,19 @@ class marks extends base {
     for (const tag of tags) {
       const query = () =>
         this.table('marks').query_ids_and_ts_from_user_with_tag(user, tag, {
-          private: true
+          private: true,
         });
       const feed_key = `feed_marks_my_${user.id}_tag_${tag.id}`;
       const [tag_results] = this.feed('marks').ids_and_ts(feed_key, query, { limit: -1, ...params });
       results = results
         ? Object.fromEntries(
-            Object.entries(results).filter(([key]) =>
-              Object.prototype.hasOwnProperty.call(tag_results, key)
-            )
+            Object.entries(results).filter(([key]) => Object.prototype.hasOwnProperty.call(tag_results, key)),
           )
         : tag_results;
     }
     const total = Object.keys(results).length;
     if (params.limit > 0) {
-      results = Object.fromEntries(
-        Object.entries(results).slice(params.offset, params.offset + params.limit + 1)
-      );
+      results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
     }
     return this.feed('marks').prepare_items(results, total, params);
   }
@@ -236,9 +211,7 @@ class marks extends base {
     if (this.search('marks').available()) {
       return this.search('marks').search({ user, query: search, private: true, ...params });
     }
-    const query = this
-      .table('marks')
-      .query_ids_and_ts_from_user_search(user, search, { ...params, private: true });
+    const query = this.table('marks').query_ids_and_ts_from_user_search(user, search, { ...params, private: true });
     return this.search_with_query(query, params);
   }
 
@@ -246,9 +219,7 @@ class marks extends base {
     if (this.search('marks').available()) {
       return this.search('marks').search({ query: search, ...params });
     }
-    const query = this
-      .table('marks')
-      .query_ids_and_ts_search_public(search, params);
+    const query = this.table('marks').query_ids_and_ts_search_public(search, params);
     return this.search_with_query(query, params);
   }
 

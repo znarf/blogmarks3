@@ -7,10 +7,7 @@ class Related {
       const user = mark.user;
       if (!users[user.id]) {
         users[user.id] = user;
-        users[user.id].last_published = format_date(
-          new Date(mark.published.getTime()),
-          'dd MMMM yyyy HH:00'
-        );
+        users[user.id].last_published = format_date(new Date(mark.published.getTime()), 'dd MMMM yyyy HH:00');
       }
     }
     return Object.values(users);

@@ -6,9 +6,7 @@ let dbInstance = null;
 function getDb() {
   if (!dbInstance) {
     const dbPath =
-      process.env.BLOGMARKS_DB ||
-      global.DB_PATH ||
-      path.join(__dirname, '..', '..', '..', '..', 'blogmarks.sqlite');
+      process.env.BLOGMARKS_DB || global.DB_PATH || path.join(__dirname, '..', '..', '..', '..', 'blogmarks.sqlite');
     dbInstance = new Database(dbPath);
   }
   return dbInstance;
@@ -64,7 +62,7 @@ function fetch_assoc(result) {
     Object.defineProperty(result, '_index', {
       value: 0,
       writable: true,
-      configurable: true
+      configurable: true,
     });
   }
   if (result._index >= result.length) {
@@ -80,5 +78,5 @@ module.exports = {
   date,
   now,
   insert_id,
-  fetch_assoc
+  fetch_assoc,
 };

@@ -7,7 +7,7 @@ class Timezone {
       'America/New_York',
       'America/Los_Angeles',
       'Asia/Tokyo',
-      'Asia/Hong_Kong'
+      'Asia/Hong_Kong',
     ];
   }
 
@@ -34,14 +34,13 @@ class Timezone {
       now.setTimezone(new date_time_zone(timezone));
       const offset = now.getOffset();
       offsets.push(offset);
-      timezones[timezone] =
-        '(' + this.format_offset(offset) + ') ' + this.format_name(timezone);
+      timezones[timezone] = '(' + this.format_offset(offset) + ') ' + this.format_name(timezone);
     }
 
     const entries = Object.entries(timezones).map(([name, label], index) => ({
       name,
       label,
-      offset: offsets[index]
+      offset: offsets[index],
     }));
     entries.sort((a, b) => a.offset - b.offset);
 

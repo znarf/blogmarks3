@@ -25,9 +25,7 @@ class tags extends base {
         });
       }
       if (params.limit) {
-        results = Object.fromEntries(
-          Object.entries(results).slice(params.offset, params.offset + params.limit)
-        );
+        results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit));
       }
     } else {
       const options = { withscores: true };
@@ -42,7 +40,7 @@ class tags extends base {
       if (!params.query) {
         tags.push(new Tag({ label, count }));
       } else {
-        params.query.split(' ').forEach(token => {
+        params.query.split(' ').forEach((token) => {
           if (label.toLowerCase().indexOf(token.toLowerCase()) !== -1) {
             tags.push(new Tag({ label, count }));
           }

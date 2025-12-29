@@ -23,7 +23,7 @@ module.exports = function () {
         login: get_param('login'),
         email: get_param('email'),
         lang: get_param('lang'),
-        timezone: get_param('timezone')
+        timezone: get_param('timezone'),
       };
       Object.entries(params).forEach(([key, value]) => {
         const error = table('users').validate_field(key, value, user);
@@ -41,12 +41,12 @@ module.exports = function () {
         email: user.email,
         login: user.login,
         lang: user.lang,
-        timezone: user.timezone
+        timezone: user.timezone,
       };
     }
     Object.assign(params, {
       update_profile_token: generate_token('update_profile'),
-      update_password_token: generate_token('update_password')
+      update_password_token: generate_token('update_password'),
     });
     return render('profile/index', params);
   } else if ((matches = url_match('/my/profile,password'))) {

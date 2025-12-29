@@ -167,7 +167,7 @@ class marks extends base {
       const hit = result.hits.hits.pop();
       next = strtotime(hit._source.created_at);
     }
-    const ids = result.hits.hits.map(hit => parseInt(hit._id, 10));
+    const ids = result.hits.hits.map((hit) => parseInt(hit._id, 10));
     const items = this.table('marks').get(ids);
     return { params, total, next, items };
   }

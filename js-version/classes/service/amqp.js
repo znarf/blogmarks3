@@ -19,12 +19,7 @@ class amqp {
     if (!params) {
       return;
     }
-    const connection = new AMQPConnection(
-      params.host,
-      params.port,
-      params.username,
-      params.password
-    );
+    const connection = new AMQPConnection(params.host, params.port, params.username, params.password);
     const channel = connection.channel();
     register_shutdown_function(function () {
       channel.close();

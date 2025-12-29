@@ -42,11 +42,11 @@ class mark extends resource {
   }
 
   public_tags() {
-    return this.tags.filter(tag => !tag.isHidden);
+    return this.tags.filter((tag) => !tag.isHidden);
   }
 
   private_tags() {
-    return this.tags.filter(tag => tag.isHidden);
+    return this.tags.filter((tag) => tag.isHidden);
   }
 
   text() {

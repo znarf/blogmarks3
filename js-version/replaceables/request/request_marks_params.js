@@ -4,7 +4,7 @@ function request_marks_params() {
     limit: blogmarks.get_int('limit', 25),
     order: blogmarks.get_param('order', 'desc'),
     after: blogmarks.get_param('after', '-inf'),
-    before: blogmarks.get_param('before', '+inf')
+    before: blogmarks.get_param('before', '+inf'),
   };
 }
 

@@ -4,14 +4,14 @@ module.exports = function (args = {}) {
     bookmarklet: _('Bookmarklet'),
     import: _('Import'),
     export: _('Export'),
-    empty: _('Empty')
+    empty: _('Empty'),
   };
 
   const items = Object.entries(categories)
     .map(([category, label]) => {
       const className = action === category ? `${category} selected` : category;
       return `<li class="${className}"><a href="${relative_url(
-        `/my/tools,${category}`
+        `/my/tools,${category}`,
       )}"><span>${label}</span></a></li>`;
     })
     .join('\n');

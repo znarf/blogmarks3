@@ -52,11 +52,7 @@ module.exports = function (params = {}) {
           <input type="text" id="profile_fullname" name="name"
             value="${arg(params.name)}"
             required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;|]{2,128}">
-          ${
-            fullname_error
-              ? `<span class="help-block">${text(fullname_error)}</span>`
-              : ''
-          }
+          ${fullname_error ? `<span class="help-block">${text(fullname_error)}</span>` : ''}
         </div>
       </div>
 
@@ -66,11 +62,7 @@ module.exports = function (params = {}) {
           <input type="email" id="profile_email" name="email"
             value="${arg(params.email)}"
             required placeholder="email@domain.com" autocapitalize="off" autocorrect="off">
-          ${
-            email_error
-              ? `<span class="help-block">${text(email_error)}</span>`
-              : ''
-          }
+          ${email_error ? `<span class="help-block">${text(email_error)}</span>` : ''}
         </div>
       </div>
 
@@ -80,11 +72,7 @@ module.exports = function (params = {}) {
           <input type="text" id="profile_username" name="login"
             value="${arg(params.login)}"
             required placeholder="username" autocapitalize="off" autocorrect="off" pattern="[a-zA-Z][a-z0-9_]{1,24}">
-          ${
-            username_error
-              ? `<span class="help-block">${text(username_error)}</span>`
-              : ''
-          }
+          ${username_error ? `<span class="help-block">${text(username_error)}</span>` : ''}
         </div>
       </div>
 

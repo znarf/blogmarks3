@@ -22,9 +22,7 @@ class search {
       return;
     }
     if (this.params().username && this.params().password) {
-      const credentials = base64_encode(
-        this.params().username + ':' + this.params().password
-      );
+      const credentials = base64_encode(this.params().username + ':' + this.params().password);
       this.params().headers = this.params().headers || {};
       this.params().headers.authorization = `basic ${credentials}`;
     }

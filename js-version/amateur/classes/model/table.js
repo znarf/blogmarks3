@@ -91,7 +91,7 @@ class BaseTable {
       'avatar',
       'following_ids',
       'follower_ids',
-      'username'
+      'username',
     ];
     computed.forEach((name) => {
       const method = proto && typeof proto[name] === 'function' ? proto[name] : null;

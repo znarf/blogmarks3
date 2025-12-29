@@ -13,10 +13,7 @@ class screenshots extends table {
     if (!link_ids.length) {
       return;
     }
-    const query = this
-      .select(['link', 'url'])
-      .where({ link: link_ids, status: 1 })
-      .order_by('created');
+    const query = this.select(['link', 'url']).where({ link: link_ids, status: 1 }).order_by('created');
     const results = query.fetch_key_values('link', 'url');
     filtered.forEach((mark) => {
       const link_id = mark.link_id();
@@ -26,10 +23,7 @@ class screenshots extends table {
   }
 
   for_mark(mark) {
-    const query = this
-      .select('url')
-      .where({ link: mark.link_id(), status: 1 })
-      .order_by('created DESC');
+    const query = this.select('url').where({ link: mark.link_id(), status: 1 }).order_by('created DESC');
     return query.fetch_one();
   }
 

@@ -16,7 +16,7 @@ class email {
       const params = this.params();
 
       const transport = Transport.fromDsn(
-        sprintf('smtp://%s:%s@%s:%s', params.username, params.password, params.host, params.port)
+        sprintf('smtp://%s:%s@%s:%s', params.username, params.password, params.host, params.port),
       );
 
       this.mailer_value = new Mailer(transport);
@@ -29,11 +29,7 @@ class email {
     const params = this.params();
     const mailer = this.mailer();
 
-    const emailMessage = new Email()
-      .from(params.from)
-      .to(to)
-      .subject(subject)
-      .text(body);
+    const emailMessage = new Email().from(params.from).to(to).subject(subject).text(body);
 
     return mailer.send(emailMessage);
   }

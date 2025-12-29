@@ -52,10 +52,7 @@ class marks extends table {
   }
 
   query_latest_ids_and_ts() {
-    return this
-      .query_ids_and_ts({ visibility: 0, display: 1 })
-      .order_by('published DESC')
-      .limit(1000);
+    return this.query_ids_and_ts({ visibility: 0, display: 1 }).order_by('published DESC').limit(1000);
   }
 
   query_ids_and_ts_from_user(user, params = []) {
@@ -67,8 +64,7 @@ class marks extends table {
   }
 
   query_ids_and_ts_with_tag(tag) {
-    let query = this
-      .select('m.id, UNIX_TIMESTAMP(m.published) as ts')
+    let query = this.select('m.id, UNIX_TIMESTAMP(m.published) as ts')
       .from('bm_marks as m, bm_marks_has_bm_tags as mht')
       .where('m.id = mht.mark_id')
       .and_where({ 'mht.tag_id': tag.id, 'm.visibility': 0, 'm.display': 1 });
@@ -79,8 +75,7 @@ class marks extends table {
   }
 
   query_ids_and_ts_from_user_with_tag(user, tag, params = []) {
-    let query = this
-      .select('m.id, UNIX_TIMESTAMP(m.published) as ts')
+    let query = this.select('m.id, UNIX_TIMESTAMP(m.published) as ts')
       .from('bm_marks as m, bm_marks_has_bm_tags as mht')
       .where('m.id = mht.mark_id')
       .and_where({ 'm.author': user.id, 'mht.tag_id': tag.id });
@@ -103,13 +98,10 @@ class marks extends table {
 
   query_ids_and_ts_search(search, params) {
     const like = db.quote(`%${search}%`);
-    const query = this
-      .select('m.id, UNIX_TIMESTAMP(m.published) as ts')
+    const query = this.select('m.id, UNIX_TIMESTAMP(m.published) as ts')
       .from('bm_marks as m, bm_marks_has_bm_tags as mht')
       .where('m.id = mht.mark_id')
-      .and_where(
-        `(m.title LIKE ${like} OR m.content LIKE ${like} OR (mht.isHidden = 0 AND mht.label LIKE ${like}))`
-      )
+      .and_where(`(m.title LIKE ${like} OR m.content LIKE ${like} OR (mht.isHidden = 0 AND mht.label LIKE ${like}))`)
       .group_by('m.id');
     if (params.before) {
       const before = db.quote(params.before);
@@ -119,15 +111,11 @@ class marks extends table {
   }
 
   query_ids_and_ts_search_public(search, params) {
-    return this
-      .query_ids_and_ts_search(search, params)
-      .and_where({ 'm.visibility': 0, 'm.display': 1 });
+    return this.query_ids_and_ts_search(search, params).and_where({ 'm.visibility': 0, 'm.display': 1 });
   }
 
   query_ids_and_ts_from_user_search(user, search, params = []) {
-    const query = this
-      .query_ids_and_ts_search(search, params)
-      .and_where({ 'm.author': user.id });
+    const query = this.query_ids_and_ts_search(search, params).and_where({ 'm.author': user.id });
     if (!params.private) {
       query.and_where({ 'm.visibility': 0 });
     }

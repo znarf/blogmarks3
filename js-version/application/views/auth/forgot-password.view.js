@@ -3,13 +3,13 @@ module.exports = function (params = {}) {
   const success = params.success;
 
   const formHtml = `<form class="signin form-horizontal" method="post" action="${relative_url(
-    '/auth/forgot-password'
+    '/auth/forgot-password',
   )}">
       <div class="control-group">
         <label class="control-label" for="inputEmail">${_('Username (or Email)')}</label>
         <div class="controls">
           <input type="text" id="inputEmail" name="username" placeholder="${_(
-            'Username (or Email)'
+            'Username (or Email)',
           )}" autocapitalize="off" autocorrect="off">
         </div>
       </div>

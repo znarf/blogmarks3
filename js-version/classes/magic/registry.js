@@ -15,7 +15,7 @@ const magicRegistry = {
   },
   search(name) {
     return registry.search(name);
-  }
+  },
 };
 
 module.exports = magicRegistry;

@@ -26,24 +26,19 @@ module.exports = function () {
       let enclosure = '';
       if (output_screenshot && mark.screenshot) {
         const type =
-          mark.screenshot.indexOf('.jpg') !== -1 ||
-          mark.screenshot.indexOf('open.thumbshots.org') !== -1
+          mark.screenshot.indexOf('.jpg') !== -1 || mark.screenshot.indexOf('open.thumbshots.org') !== -1
             ? 'image/jpg'
             : 'image/png';
         enclosure = `<link rel="enclosure" href="${arg(mark.screenshot)}" type="${arg(type)}"/>`;
       }
 
-      const content = mark.content
-        ? `<content type="${mark.contentType}"><![CDATA[${mark.content}]]></content>`
-        : '';
+      const content = mark.content ? `<content type="${mark.contentType}"><![CDATA[${mark.content}]]></content>` : '';
 
       const categories = mark.tags
         .map((tag) => {
           const scheme = tag.isHidden ? mark.author.url + '/private-tag' : 'https://blogmarks.net/tag/';
           const term = encodeURIComponent(tag.label);
-          return `<category scheme="${arg(scheme)}" term="${arg(term)}" label="${arg(
-            tag.label
-          )}"/>`;
+          return `<category scheme="${arg(scheme)}" term="${arg(term)}" label="${arg(tag.label)}"/>`;
         })
         .join('\n');
 
@@ -69,9 +64,7 @@ ${isPrivate}
 <id>tag:blogmarks.net,2005:marks</id>
 <title>${strip_tags(title())}</title>
 <updated>${new Date().toISOString()}</updated>
-<link rel="alternate" type="text/html" href="${web_url(request_url())}" title="${strip_tags(
-    title()
-  )}"/>
+<link rel="alternate" type="text/html" href="${web_url(request_url())}" title="${strip_tags(title())}"/>
 ${authorBlock}
 ${entries}
 </feed>`;

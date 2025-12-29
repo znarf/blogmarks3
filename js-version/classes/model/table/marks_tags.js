@@ -38,7 +38,7 @@ class marks_tags extends table {
           link_id: mark.related.id,
           label: tag.label,
           isHidden: is_hidden,
-          visibility: mark.visibility
+          visibility: mark.visibility,
         };
         rows.push(row);
         objects.push(this.create(row));
@@ -56,10 +56,7 @@ class marks_tags extends table {
     }
     for (let i = 0; i < filtered.length; i += 1000) {
       const ids_chunk = filtered.slice(i, i + 1000);
-      const result = this
-        .select(['mark_id', 'tag_id', 'label', 'isHidden'])
-        .where({ mark_id: ids_chunk })
-        .execute();
+      const result = this.select(['mark_id', 'tag_id', 'label', 'isHidden']).where({ mark_id: ids_chunk }).execute();
       const results = {};
       let row;
       while ((row = db.fetch_assoc(result))) {

@@ -40,7 +40,7 @@ module.exports = function () {
     }
     return render('tools/import', {
       action: 'import',
-      token: generate_token('tools_import')
+      token: generate_token('tools_import'),
     });
   } else if (url_is('/my/tools,export')) {
     if (get_bool('download')) {

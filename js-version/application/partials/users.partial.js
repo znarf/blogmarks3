@@ -9,7 +9,7 @@ module.exports = function (args = {}) {
       (user) => `<p class="user">
     <img class="gravatar" alt="" src="${user.avatar}">
     <a class="user-name" href="${user.url}">${user.name}</a><br>
-    ${_('last mark:')} ${user.last_published} </p>`
+    ${_('last mark:')} ${user.last_published} </p>`,
     )
     .join('\n');
 

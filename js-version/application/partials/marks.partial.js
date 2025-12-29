@@ -7,9 +7,7 @@ module.exports = function (args = {}) {
 
     const groupsHtml = Object.entries(groups)
       .map(([group, items]) => {
-        const itemsHtml = items
-          .map((mark) => partial('mark', { mark, ...markPartialArgs }))
-          .join('\n');
+        const itemsHtml = items.map((mark) => partial('mark', { mark, ...markPartialArgs })).join('\n');
         return `<h2><span>${group}</span></h2>
 
 ${itemsHtml}`;
@@ -19,9 +17,7 @@ ${itemsHtml}`;
     let pagination = '';
     if (marks.next) {
       const more =
-        marks.params.order === 'asc'
-          ? { order: 'asc', after: marks.next }
-          : { order: 'desc', before: marks.next };
+        marks.params.order === 'asc' ? { order: 'asc', after: marks.next } : { order: 'desc', before: marks.next };
       pagination = `<div id="pagination">
   <a rel="next" class="page more" href="?${new URLSearchParams(more).toString()}">more</a>
 </div> <!-- /#pagination -->`;

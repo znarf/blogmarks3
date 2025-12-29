@@ -3,13 +3,7 @@ const importer = anonymous_class();
 const amqp = service('amqp');
 const redis = service('redis').connection();
 
-const [marks, links, tags, marks_tags, screenshots] = table([
-  'marks',
-  'links',
-  'tags',
-  'marks_tags',
-  'screenshots'
-]);
+const [marks, links, tags, marks_tags, screenshots] = table(['marks', 'links', 'tags', 'marks_tags', 'screenshots']);
 
 importer.start = function (user) {
   set_time_limit(0);
@@ -41,11 +35,7 @@ importer.parse = function (file) {
 };
 
 importer.simplexml = function (file) {
-  if (
-    ['application/x-gzip', 'application/x-download', 'application/x-tar'].includes(
-      FILES.file.type
-    )
-  ) {
+  if (['application/x-gzip', 'application/x-download', 'application/x-tar'].includes(FILES.file.type)) {
     let xml = '';
     const handle = gzopen(file, 'r');
     let buffer;
@@ -141,7 +131,7 @@ importer.insert_screenshot = function (link, url, published) {
         url: migrated_url,
         created: published,
         generated: published,
-        status: 1
+        status: 1,
       })
       .execute();
   }
@@ -158,7 +148,7 @@ importer.insert_mark = function (user_id, link_id, params) {
       related: parseInt(link_id, 10),
       visibility: params.visibility,
       published: params.published,
-      updated: params.updated
+      updated: params.updated,
     })
     .execute();
   return amateur.model.db.insert_id();
@@ -172,7 +162,7 @@ importer.insert_tags = function (mark_id, user_id, link_id, params) {
     'link_id',
     'label',
     'isHidden',
-    'visibility'
+    'visibility',
   ]);
   const tag_sets = { tags: 0, private_tags: 1 };
   for (const [key, isHidden] of Object.entries(tag_sets)) {
@@ -186,7 +176,7 @@ importer.insert_tags = function (mark_id, user_id, link_id, params) {
         parseInt(link_id, 10),
         tag.label,
         isHidden,
-        params.visibility
+        params.visibility,
       ]);
       if (amateur.model.db.driver() === 'sqlite') {
         marks_tags_query.execute();

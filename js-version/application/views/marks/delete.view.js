@@ -8,9 +8,7 @@ module.exports = function (params = {}) {
         <h3 id="myModalLabel">${_('Delete Mark')}</h3>
       </div>`
     : '';
-  const refererField = referer
-    ? `<input type="hidden" name="referer" value="${arg(referer)}">`
-    : '';
+  const refererField = referer ? `<input type="hidden" name="referer" value="${arg(referer)}">` : '';
 
   return `<div id="content" class="fullwidth">
   <div id="content-inner">

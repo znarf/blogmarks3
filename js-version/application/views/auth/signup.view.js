@@ -5,19 +5,14 @@ module.exports = function (params = {}) {
   const username_error = form_error('username');
   const password_error = form_error('password');
   const url = request_url();
-  const redirectField =
-    url !== '/auth/signup'
-      ? `<input type="hidden" name="redirect_url" value="${url}">`
-      : '';
+  const redirectField = url !== '/auth/signup' ? `<input type="hidden" name="redirect_url" value="${url}">` : '';
 
   return `<div id="content" class="fullwidth">
   <div id="content-inner">
 
     ${partial('notification')}
 
-    <form class="signin form-horizontal" method="post" autocomplete="off" action="${relative_url(
-      '/auth/signup'
-    )}">
+    <form class="signin form-horizontal" method="post" autocomplete="off" action="${relative_url('/auth/signup')}">
 
       <div class="control-group ${fullname_error ? 'warning' : ''}">
         <label class="control-label" for="signup_fullname">Full Name</label>
@@ -25,11 +20,7 @@ module.exports = function (params = {}) {
           <input type="text" id="signup_fullname" name="fullname"
             value="${arg(params.fullname)}"
             required placeholder="Full Name" autocorrect="off" pattern="[^<>&amp;|]{2,128}">
-          ${
-            fullname_error
-              ? `<span class="help-inline">${text(fullname_error)}</span>`
-              : ''
-          }
+          ${fullname_error ? `<span class="help-inline">${text(fullname_error)}</span>` : ''}
         </div>
       </div>
 

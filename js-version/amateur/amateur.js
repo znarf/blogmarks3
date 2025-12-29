@@ -20,7 +20,7 @@ function parseMultipart(buffer, contentType) {
   const parts = body.split(boundary).slice(1, -1);
   const fields = {};
   const files = {};
-  parts.forEach(part => {
+  parts.forEach((part) => {
     let chunk = part;
     if (chunk.startsWith('\r\n')) {
       chunk = chunk.slice(2);
@@ -31,7 +31,7 @@ function parseMultipart(buffer, contentType) {
     const [rawHeaders, ...bodyParts] = chunk.split('\r\n\r\n');
     const bodyContent = bodyParts.join('\r\n\r\n');
     const headers = rawHeaders.split('\r\n');
-    const disposition = headers.find(line => line.toLowerCase().startsWith('content-disposition'));
+    const disposition = headers.find((line) => line.toLowerCase().startsWith('content-disposition'));
     if (!disposition) {
       return;
     }
@@ -41,7 +41,7 @@ function parseMultipart(buffer, contentType) {
     }
     const fieldName = nameMatch[1];
     const filenameMatch = disposition.match(/filename="([^"]*)"/i);
-    const typeHeader = headers.find(line => line.toLowerCase().startsWith('content-type'));
+    const typeHeader = headers.find((line) => line.toLowerCase().startsWith('content-type'));
     if (filenameMatch && filenameMatch[1]) {
       const filename = filenameMatch[1];
       const tmpName = path.join('/tmp', `${Date.now()}_${Math.random().toString(16).slice(2)}`);
@@ -182,7 +182,7 @@ function handleRequest(handler, req, res, options = {}) {
   }
 
   let raw = '';
-  req.on('data', chunk => {
+  req.on('data', (chunk) => {
     raw += chunk;
   });
   req.on('end', () => {
@@ -244,7 +244,7 @@ function runOnce(handler, options = {}) {
 }
 
 function initGlobals() {
-  global._ = value => value;
+  global._ = (value) => value;
   global.amateur = module.exports;
   global.__amateur_state = { registry, paths, current: null, handleRequest };
 

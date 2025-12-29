@@ -32,5 +32,5 @@ global.date_time_zone = date_time_zone;
 
 module.exports = {
   date_time,
-  date_time_zone
+  date_time_zone,
 };

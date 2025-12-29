@@ -3,9 +3,7 @@ module.exports = function () {
   const marks = helper('container').marks();
   const mark_partial_args = mark_partial_args();
 
-  const itemsSeq = marks.items
-    .map((mark) => `      <rdf:li resource="${arg(mark.url)}"/>`)
-    .join('\n');
+  const itemsSeq = marks.items.map((mark) => `      <rdf:li resource="${arg(mark.url)}"/>`).join('\n');
 
   const items = marks.items
     .map((mark) => {

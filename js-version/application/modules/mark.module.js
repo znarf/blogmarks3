@@ -10,34 +10,19 @@ module.exports = function () {
       description: mark.text,
       visibility: mark.visibility,
       tags: mark.public_tags.join(', '),
-      private_tags: mark.private_tags.join(', ')
+      private_tags: mark.private_tags.join(', '),
     };
   };
 
   const request_params = function () {
-    return get_parameters([
-      'url',
-      'title',
-      'description',
-      'visibility',
-      'tags',
-      'private_tags'
-    ]);
+    return get_parameters(['url', 'title', 'description', 'visibility', 'tags', 'private_tags']);
   };
 
   if (url_is('/my/marks,new')) {
     title(_('New Mark'));
     if (is_post()) {
       if (get_bool('save')) {
-        check_parameters([
-          'token',
-          'url',
-          'title',
-          'description',
-          'visibility',
-          'tags',
-          'private_tags'
-        ]);
+        check_parameters(['token', 'url', 'title', 'description', 'visibility', 'tags', 'private_tags']);
         check_token('new_mark', get_param('token'));
         model('marks').create(user, request_params());
         flash_message(_('Mark Successfully Added.'));
@@ -52,12 +37,7 @@ module.exports = function () {
       let mark;
       if (link && (mark = user.mark_with_link(link))) {
         flash_message('This URL is already in your marks.');
-        redirect(
-          '/my/marks/' +
-            mark.id +
-            ',edit' +
-            (is_bookmarklet() ? '?bookmarklet=1' : '')
-        );
+        redirect('/my/marks/' + mark.id + ',edit' + (is_bookmarklet() ? '?bookmarklet=1' : ''));
       }
     }
     const params = request_params();
@@ -74,15 +54,7 @@ module.exports = function () {
     }
     if (is_post()) {
       if (get_bool('save')) {
-        check_parameters([
-          'token',
-          'url',
-          'title',
-          'description',
-          'visibility',
-          'tags',
-          'private_tags'
-        ]);
+        check_parameters(['token', 'url', 'title', 'description', 'visibility', 'tags', 'private_tags']);
         check_token('update_mark', get_param('token'));
         try {
           model('marks').update(mark, request_params());
@@ -92,7 +64,7 @@ module.exports = function () {
           const params = request_params();
           Object.assign(params, {
             referer: get_param('referer'),
-            token: generate_token('update_mark')
+            token: generate_token('update_mark'),
           });
           return render('marks/form-modal', params);
         }

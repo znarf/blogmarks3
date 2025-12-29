@@ -9,7 +9,7 @@ class marks extends base {
     limit: 25,
     order: 'desc',
     after: '-inf',
-    before: '+inf'
+    before: '+inf',
   };
 
   redis() {
@@ -40,19 +40,13 @@ class marks extends base {
         });
       }
       if (params.before !== '+inf') {
-        results = Object.fromEntries(
-          Object.entries(results).filter(([, ts]) => ts < params.before)
-        );
+        results = Object.fromEntries(Object.entries(results).filter(([, ts]) => ts < params.before));
       }
       if (params.after !== '-inf') {
-        results = Object.fromEntries(
-          Object.entries(results).filter(([, ts]) => ts > params.after)
-        );
+        results = Object.fromEntries(Object.entries(results).filter(([, ts]) => ts > params.after));
       }
       if (params.limit > 0) {
-        results = Object.fromEntries(
-          Object.entries(results).slice(params.offset, params.offset + params.limit + 1)
-        );
+        results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
       }
     } else {
       const options = { withscores: true };
@@ -62,19 +56,9 @@ class marks extends base {
       total = redis.zCard(redis_key);
       if (total) {
         if (params.order === 'asc') {
-          results = redis.zRangeByScore(
-            redis_key,
-            String(params.after),
-            '(' + params.before,
-            options
-          );
+          results = redis.zRangeByScore(redis_key, String(params.after), '(' + params.before, options);
         } else {
-          results = redis.zRevRangeByScore(
-            redis_key,
-            String(params.before),
-            '(' + params.after,
-            options
-          );
+          results = redis.zRevRangeByScore(redis_key, String(params.before), '(' + params.after, options);
         }
       }
     }

@@ -6,7 +6,7 @@ class Sidebar {
   register(title, content) {
     this.blocks.push({
       title,
-      content
+      content,
     });
   }
 

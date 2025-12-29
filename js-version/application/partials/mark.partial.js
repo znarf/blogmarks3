@@ -13,16 +13,12 @@ module.exports = function (args = {}) {
   const authorHtml =
     ['public', 'friends'].includes(sectionName) && !target_user
       ? `<a class="gravatar" href="${arg(mark.author.url)}">
-          <img width="20" height="20" class="gravatar" alt="" src="${arg(
-            mark.author.avatar
-          )}"></a>
+          <img width="20" height="20" class="gravatar" alt="" src="${arg(mark.author.avatar)}"></a>
         <a class="public" href="${arg(mark.author.url)}">${text(mark.author.name)}</a>`
       : '';
 
   const descriptionHtml = mark.content
-    ? `<div class="description">${
-        mark.contentType === 'text' ? text(mark.content) : mark.content
-      }</div>`
+    ? `<div class="description">${mark.contentType === 'text' ? text(mark.content) : mark.content}</div>`
     : '';
 
   let tagsHtml = '';

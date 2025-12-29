@@ -29,7 +29,7 @@ function makeValue(text, attrs = {}) {
     value,
     toString() {
       return this.value || '';
-    }
+    },
   };
 }
 

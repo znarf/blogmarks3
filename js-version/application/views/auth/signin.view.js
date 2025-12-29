@@ -2,10 +2,7 @@ module.exports = function (params = {}) {
   const arg = replaceable('arg');
   const token = params.token;
   const url = request_url();
-  const redirectField =
-    url !== '/auth/signin'
-      ? `<input type="hidden" name="redirect_url" value="${arg(url)}">`
-      : '';
+  const redirectField = url !== '/auth/signin' ? `<input type="hidden" name="redirect_url" value="${arg(url)}">` : '';
 
   return `<div id="content" class="fullwidth">
   <div id="content-inner">
@@ -17,7 +14,7 @@ module.exports = function (params = {}) {
         <label class="control-label" for="inputEmail">${_('Username (or Email)')}</label>
         <div class="controls">
           <input type="text" id="inputEmail" name="username" placeholder="${_(
-            'Username (or Email)'
+            'Username (or Email)',
           )}" autocapitalize="off" autocorrect="off">
         </div>
       </div>

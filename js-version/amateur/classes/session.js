@@ -58,7 +58,7 @@ function serialize_session_cookie(data) {
 
 function parse_cookies(header = '') {
   const cookies = {};
-  header.split(';').forEach(pair => {
+  header.split(';').forEach((pair) => {
     const trimmed = pair.trim();
     if (!trimmed) {
       return;

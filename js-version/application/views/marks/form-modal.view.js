@@ -15,12 +15,8 @@ module.exports = function (params = {}) {
         <h3 id="myModalLabel">${_('Edit Mark')}</h3>
       </div>`
     : '';
-  const refererField = referer
-    ? `<input type="hidden" name="referer" value="${arg(referer)}">`
-    : '';
-  const bookmarkletField = is_bookmarklet()
-    ? '<input type="hidden" name="bookmarklet" value="1">'
-    : '';
+  const refererField = referer ? `<input type="hidden" name="referer" value="${arg(referer)}">` : '';
+  const bookmarkletField = is_bookmarklet() ? '<input type="hidden" name="bookmarklet" value="1">' : '';
 
   return `<div id="content" class="fullwidth">
   <div id="content-inner">
@@ -34,28 +30,26 @@ module.exports = function (params = {}) {
       <div class="modal-body">
 
         <label for="new-mark-url">${_('URL')}</label>
-        <input id="new-mark-url" name="url" type="url" required class="input-block-level" value="${arg(
-          url
-        )}">
+        <input id="new-mark-url" name="url" type="url" required class="input-block-level" value="${arg(url)}">
 
         <label for="new-mark-title">${_('Title')}</label>
         <input id="new-mark-title" name="title" type="text" required class="input-block-level" value="${arg(
-          titleValue
+          titleValue,
         )}">
 
         <label for="new-mark-description">Description</label>
         <textarea id="new-mark-description" name="description" rows="3" class="input-block-level">${text(
-          description
+          description,
         )}</textarea>
 
         <label for="mark-form-tags">${_('Public Tags')}</label>
         <input id="mark-form-tags" name="tags" type="text" class="input-block-level" value="${arg(
-          tags
+          tags,
         )}" autocapitalize="off">
 
         <label for="mark-form-private-tags">${_('Private Tags')}</label>
         <input id="mark-form-private-tags" name="private_tags" type="text" class="input-block-level" value="${arg(
-          private_tags
+          private_tags,
         )}" autocapitalize="off">
 
         <label>${_('Visibiity')}</label>

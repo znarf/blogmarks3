@@ -7,7 +7,7 @@ function mark_partial_args() {
     base_tag_path: blogmarks.relative_or_absolute_url(base_tag_prefix),
     section,
     target_user: helper('target').user(),
-    authenticated_user: blogmarks.authenticated_user()
+    authenticated_user: blogmarks.authenticated_user(),
   };
 }
 

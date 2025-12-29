@@ -31,9 +31,7 @@ module.exports = function (args = {}) {
           ? `<a href="${arg(base_tag_path + targetTag.label + ',' + tag.label)}"><img src="${plus}" width="9" height="9" alt="+" /></a>`
           : '';
         return `<span>
-        <a style="font-size:${tag._size}%" class="${className}" href="${href}">${text(
-          tag.label
-        )}</a>
+        <a style="font-size:${tag._size}%" class="${className}" href="${href}">${text(tag.label)}</a>
       ${plusLink}
       </span>
       &nbsp;`;
@@ -47,9 +45,13 @@ module.exports = function (args = {}) {
 
   <h3>${side_title()}</h3>
 
-  ${tags.length > 0 ? `<p class="taglist">
+  ${
+    tags.length > 0
+      ? `<p class="taglist">
     ${tagsHtml}
-  </p>` : tagsHtml}
+  </p>`
+      : tagsHtml
+  }
 
 </div>`;
 };
