@@ -1,10 +1,13 @@
 const nodeCrypto = require('node:crypto');
 
-const SESSION_COOKIE = 'bm_session';
 const sessionStore = new Map();
 
 function session_secret() {
   return process.env.SESSION_SECRET || '';
+}
+
+function session_cookie() {
+  return process.env.SESSION_COOKIE || 'bm_session';
 }
 
 function sign_session_payload(payload) {
@@ -55,7 +58,7 @@ function serialize_session_cookie(data) {
 
 function parse_cookies(header = '') {
   const cookies = {};
-  header.split(';').forEach((pair) => {
+  header.split(';').forEach(pair => {
     const trimmed = pair.trim();
     if (!trimmed) {
       return;
@@ -90,15 +93,15 @@ function sync_session_cookie(current, sessionCookie) {
   if (!payload) {
     return;
   }
-  const cookie = `${SESSION_COOKIE}=${encodeURIComponent(payload)}; Path=/; HttpOnly`;
+  const cookie = `${session_cookie()}=${encodeURIComponent(payload)}; Path=/; HttpOnly`;
   if (current.response.headers['Set-Cookie'] !== cookie) {
     current.response.headers['Set-Cookie'] = cookie;
   }
 }
 
 module.exports = {
-  SESSION_COOKIE,
+  session_cookie,
   parse_cookies,
   resolve_session_data,
-  sync_session_cookie
+  sync_session_cookie,
 };

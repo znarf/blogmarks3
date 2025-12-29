@@ -8,12 +8,7 @@ const BaseResource = require('./classes/model/resource');
 const Cache = require('./classes/model/cache');
 const db = require('./classes/model/db');
 const Exception = require('./classes/exception');
-const {
-  SESSION_COOKIE,
-  parse_cookies,
-  resolve_session_data,
-  sync_session_cookie
-} = require('./classes/session');
+const { session_cookie, parse_cookies, resolve_session_data, sync_session_cookie } = require('./classes/session');
 
 function parseMultipart(buffer, contentType) {
   const match = contentType.match(/boundary=([^;]+)/i);
@@ -65,7 +60,6 @@ function parseMultipart(buffer, contentType) {
   });
   return { fields, files };
 }
-
 
 const registry = {
   actions: {},
@@ -132,7 +126,7 @@ function handleRequest(handler, req, res, options = {}) {
   const query = Object.fromEntries(url.searchParams.entries());
   const bodyParams = options.express && req.body && !Buffer.isBuffer(req.body) ? req.body || {} : {};
   const cookies = parse_cookies(req.headers.cookie || '');
-  const sessionCookie = cookies[SESSION_COOKIE];
+  const sessionCookie = cookies[session_cookie()];
   const sessionData = resolve_session_data(sessionCookie);
 
   current = {
@@ -210,7 +204,7 @@ function runOnce(handler, options = {}) {
   const url = new URL(urlValue, `http://${headers.host || 'localhost'}`);
   const query = Object.fromEntries(url.searchParams.entries());
   const cookies = parse_cookies(headers.cookie || '');
-  const sessionCookie = cookies[SESSION_COOKIE];
+  const sessionCookie = cookies[session_cookie()];
   const sessionData = resolve_session_data(sessionCookie);
 
   current = {
