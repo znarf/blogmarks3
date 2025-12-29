@@ -14,6 +14,14 @@ function getDb() {
   return dbInstance;
 }
 
+function driver() {
+  return 'sqlite';
+}
+
+function quote(value) {
+  return `'${String(value).replace(/'/g, "''")}'`;
+}
+
 function formatDate(date) {
   const pad = (value) => String(value).padStart(2, '0');
   return (
@@ -48,9 +56,29 @@ function insert_id() {
   return row ? row.id : null;
 }
 
+function fetch_assoc(result) {
+  if (!Array.isArray(result)) {
+    return null;
+  }
+  if (result._index === undefined) {
+    Object.defineProperty(result, '_index', {
+      value: 0,
+      writable: true,
+      configurable: true
+    });
+  }
+  if (result._index >= result.length) {
+    return null;
+  }
+  return result[result._index++];
+}
+
 module.exports = {
   getDb,
+  driver,
+  quote,
   date,
   now,
-  insert_id
+  insert_id,
+  fetch_assoc
 };

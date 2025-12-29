@@ -1,4 +1,4 @@
-const amateur = global.amateur || require('../../amateur/amateur');
+const amateur = require('../../amateur/amateur');
 
 class resource extends amateur.model.resource {}
 

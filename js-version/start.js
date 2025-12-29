@@ -4,6 +4,7 @@ const path = require('path');
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 const amateur = require('./amateur/amateur');
+const Replaceable = require('./amateur/classes/replaceable');
 
 const root = __dirname;
 
@@ -21,9 +22,9 @@ amateur.setPaths({
 });
 
 amateur.initGlobals();
-amateur.loadReplaceables(path.join(root, 'replaceables'));
+Replaceable.load_replaceables(path.join(root, 'replaceables'));
 global.registry = require('./classes/registry');
-amateur.replaceable('expose_replaceables')();
+Replaceable.get('expose_replaceables')();
 
 if (process.env.DRY_RUN === '1') {
   const response = amateur.runOnce(() => action('start'), {

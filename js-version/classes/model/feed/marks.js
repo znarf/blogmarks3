@@ -114,7 +114,7 @@ class marks extends base {
   }
 
   index(mark) {
-    const ts = mark.published.getTimestamp();
+    const ts = format_timestamp(mark.published);
     if (mark.is_public) {
       this.add('feed_marks', ts, mark.id);
     }

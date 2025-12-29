@@ -19,8 +19,7 @@ class tags extends table {
   }
 
   query_latests(interval = null) {
-    const query = this
-      .select('mht.id, mht.label as label, COUNT(*) as count')
+    const query = this.select('mht.id, mht.label as label, COUNT(*) as count')
       .from('bm_marks as m, bm_marks_has_bm_tags as mht')
       .where('mht.mark_id = m.id')
       .and_where({ 'm.visibility': 0, 'm.display': 1 })
@@ -38,8 +37,7 @@ class tags extends table {
   }
 
   query_related_with(tag, privateValue = false) {
-    const query = this
-      .select('mht2.tag_id as id, mht2.label, COUNT(*) as count')
+    const query = this.select('mht2.tag_id as id, mht2.label, COUNT(*) as count')
       .from('bm_marks_has_bm_tags as mht1, bm_marks_has_bm_tags as mht2')
       .where('mht2.mark_id = mht1.mark_id')
       .and_where({ 'mht1.tag_id': tag.id })
@@ -53,8 +51,7 @@ class tags extends table {
   }
 
   query_from_user(user, privateValue = false) {
-    const query = this
-      .select('id, label, COUNT(*) as count')
+    const query = this.select('id, label, COUNT(*) as count')
       .from('bm_marks_has_bm_tags')
       .where({ user_id: user.id })
       .group_by('tag_id');
@@ -65,8 +62,7 @@ class tags extends table {
   }
 
   query_from_user_related_with(user, tag, privateValue = false) {
-    const query = this
-      .select('mht2.tag_id as id, mht2.label, COUNT(*) as count')
+    const query = this.select('mht2.tag_id as id, mht2.label, COUNT(*) as count')
       .from('bm_marks_has_bm_tags as mht1, bm_marks_has_bm_tags as mht2')
       .where('mht2.mark_id = mht1.mark_id')
       .and_where({ 'mht1.tag_id': tag.id })
@@ -85,8 +81,7 @@ class tags extends table {
     if (Array.isArray(objects)) {
       return objects;
     }
-    const ratios = this
-      .table('marks_tags')
+    const ratios = this.table('marks_tags')
       .select('(SUM(isHidden) / COUNT(*) * 100) AS ratio, label')
       .where({ user_id: user.id })
       .group_by('label')

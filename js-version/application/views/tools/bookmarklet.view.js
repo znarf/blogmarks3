@@ -1,5 +1,6 @@
+const path = require('path');
+
 module.exports = function () {
-  const path = require('path');
   const filename = path.dirname(__FILE__) + '/bookmarklet.js';
   let bookmarklet = file_get_contents(filename);
 

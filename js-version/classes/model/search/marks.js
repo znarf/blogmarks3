@@ -9,39 +9,19 @@ class marks extends base {
   to_array(mark) {
     return {
       id: parseInt(mark.id, 10),
-      created_at: mark.published.format(datetime.RFC3339),
-      updated_at: mark.updated.format(datetime.RFC3339),
+      created_at: mark.published.toISOString(),
+      updated_at: mark.updated.toISOString(),
       user_id: mark.user_id(),
       link_id: mark.link_id(),
-      url: this.fix_encoding(mark.url),
-      title: this.fix_encoding(mark.title),
+      url: mark.url,
+      title: mark.title,
       content_type: mark.contentType,
-      content:
-        mark.contentType === 'html'
-          ? strip_tags(this.fix_encoding(mark.content))
-          : this.fix_encoding(mark.content),
+      content: mark.contentType === 'html' ? strip_tags(mark.content) : mark.content,
       public: mark.is_public,
       private: mark.is_private,
-      tags: Object.values(mark.public_tags.map((tag) => this.convert_tag(tag))),
-      private_tags: Object.values(mark.private_tags.map((tag) => this.convert_tag(tag)))
+      tags: Object.values(mark.public_tags),
+      private_tags: Object.values(mark.private_tags),
     };
-  }
-
-  fix_encoding(string) {
-    const encoding = mb_detect_encoding(string, 'auto', true);
-    if (!encoding) {
-      return utf8_encode(string);
-    }
-    return string;
-  }
-
-  convert_tag(tag) {
-    let string = String(tag);
-    const encoding = mb_detect_encoding(string, 'auto', true);
-    if (!encoding) {
-      string = utf8_encode(string);
-    }
-    return string;
   }
 
   available() {
@@ -113,8 +93,8 @@ class marks extends base {
       query.query.filtered.query = {
         multi_match: {
           query: params.query,
-          fields: ['title^2', 'url', 'content', 'tags.partial']
-        }
+          fields: ['title^2', 'url', 'content', 'tags.partial'],
+        },
       };
       if (params.private) {
         query.query.filtered.query.multi_match.fields.push('private_tags.partial');
@@ -155,11 +135,11 @@ class marks extends base {
     query.sort = { created_at: { order } };
 
     if (params.before) {
-      const before = date(datetime.RFC3339, params.before - 1);
+      const before = new Date((params.before - 1) * 1000).toISOString();
       query.query.filtered.filter.and.push({ range: { created_at: { to: before } } });
     }
     if (params.after) {
-      const after = date(datetime.RFC3339, params.after);
+      const after = new Date(params.after * 1000).toISOString();
       query.query.filtered.filter.and.push({ range: { created_at: { from: after } } });
     }
 
@@ -187,7 +167,7 @@ class marks extends base {
       const hit = result.hits.hits.pop();
       next = strtotime(hit._source.created_at);
     }
-    const ids = result.hits.hits.map((hit) => parseInt(hit._id, 10));
+    const ids = result.hits.hits.map(hit => parseInt(hit._id, 10));
     const items = this.table('marks').get(ids);
     return { params, total, next, items };
   }

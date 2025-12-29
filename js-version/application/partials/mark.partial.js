@@ -16,9 +16,7 @@ module.exports = function (args = {}) {
           <img width="20" height="20" class="gravatar" alt="" src="${arg(
             mark.author.avatar
           )}"></a>
-        <a class="public" href="${arg(mark.author.url)}">${text(
-          mark.author.name
-        )}</a>`
+        <a class="public" href="${arg(mark.author.url)}">${text(mark.author.name)}</a>`
       : '';
 
   const descriptionHtml = mark.content
@@ -65,9 +63,7 @@ ${items}
       <img class="screenshot" src="${arg(mark.screenshot)}" alt="">
     </a>
     <div class="xfolkentry">
-      <h4><a class="taggedlink" href="${arg(mark.url)}">${text(
-        mark.title
-      )}</a></h4>
+      <h4><a class="taggedlink" href="${arg(mark.url)}">${text(mark.title)}</a></h4>
   ${authorHtml}
   ${descriptionHtml}
   ${tagsHtml}

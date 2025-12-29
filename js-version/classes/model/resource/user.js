@@ -38,7 +38,7 @@ class user extends resource {
       '&size=' +
       size +
       '&d=' +
-      urlencode(this.default_avatar)
+      encodeURIComponent(this.default_avatar)
     );
   }
 

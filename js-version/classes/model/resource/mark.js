@@ -50,18 +50,20 @@ class mark extends resource {
   }
 
   text() {
-    if (this.contentType == 'html') {
-      return new Markdownify.Converter().parseString(this.content);
+    const contentType = this.attribute('contentType');
+    const content = this.attribute('content') || '';
+    if (contentType == 'html') {
+      return html_to_markdown(content);
     }
-    return this.content;
+    return content;
   }
 
   published() {
-    return new datetime(this.attribute('published'), new datetimezone('Europe/Paris'));
+    return new Date(this.attribute('published'));
   }
 
   updated() {
-    return new datetime(this.attribute('updated'), new datetimezone('Europe/Paris'));
+    return new Date(this.attribute('updated'));
   }
 
   screenshot() {

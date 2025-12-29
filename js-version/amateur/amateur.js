@@ -1,74 +1,19 @@
-const nodeCrypto = require('node:crypto');
-
 const querystring = require('querystring');
 const fs = require('fs');
 const path = require('path');
-const Amateur = require('./classes/amateur');
+const Replaceable = require('./classes/replaceable');
 const BaseQuery = require('./classes/model/query');
 const BaseTable = require('./classes/model/table');
 const BaseResource = require('./classes/model/resource');
+const Cache = require('./classes/model/cache');
 const db = require('./classes/model/db');
-const applyPhpCompat = require('./php_compat');
-const SESSION_COOKIE = 'bm_session';
-const sessionStore = new Map();
-const SESSION_SECRET = process.env.SESSION_SECRET || '';
-
-function signSessionPayload(payload) {
-  if (!SESSION_SECRET) {
-    return '';
-  }
-  return nodeCrypto.createHmac('sha256', SESSION_SECRET).update(payload).digest('hex');
-}
-
-function parseSessionCookie(value) {
-  if (!SESSION_SECRET || !value) {
-    return null;
-  }
-  const [payload, sig] = value.split('.');
-  if (!payload || !sig) {
-    return null;
-  }
-  const expected = signSessionPayload(payload);
-  if (!expected || expected.length !== sig.length) {
-    return null;
-  }
-  const valid = nodeCrypto.timingSafeEqual(Buffer.from(expected), Buffer.from(sig));
-  if (!valid) {
-    return null;
-  }
-  try {
-    const json = Buffer.from(payload, 'base64').toString('utf8');
-    return JSON.parse(json);
-  } catch (error) {
-    return null;
-  }
-}
-
-function serializeSessionCookie(data) {
-  if (!SESSION_SECRET) {
-    return null;
-  }
-  const json = JSON.stringify(data || {});
-  const payload = Buffer.from(json, 'utf8').toString('base64');
-  const sig = signSessionPayload(payload);
-  if (!sig) {
-    return null;
-  }
-  return `${payload}.${sig}`;
-}
-
-function parseCookies(header = '') {
-  const cookies = {};
-  header.split(';').forEach(pair => {
-    const trimmed = pair.trim();
-    if (!trimmed) {
-      return;
-    }
-    const [key, ...rest] = trimmed.split('=');
-    cookies[key] = decodeURIComponent(rest.join('='));
-  });
-  return cookies;
-}
+const Exception = require('./classes/exception');
+const {
+  SESSION_COOKIE,
+  parse_cookies,
+  resolve_session_data,
+  sync_session_cookie
+} = require('./classes/session');
 
 function parseMultipart(buffer, contentType) {
   const match = contentType.match(/boundary=([^;]+)/i);
@@ -95,12 +40,12 @@ function parseMultipart(buffer, contentType) {
     if (!disposition) {
       return;
     }
-    const nameMatch = disposition.match(/name=\"([^\"]+)\"/i);
+    const nameMatch = disposition.match(/name="([^"]+)"/i);
     if (!nameMatch) {
       return;
     }
     const fieldName = nameMatch[1];
-    const filenameMatch = disposition.match(/filename=\"([^\"]*)\"/i);
+    const filenameMatch = disposition.match(/filename="([^"]*)"/i);
     const typeHeader = headers.find(line => line.toLowerCase().startsWith('content-type'));
     if (filenameMatch && filenameMatch[1]) {
       const filename = filenameMatch[1];
@@ -121,22 +66,8 @@ function parseMultipart(buffer, contentType) {
   return { fields, files };
 }
 
-function syncSessionCookie(sessionCookie) {
-  if (!SESSION_SECRET) {
-    return;
-  }
-  const payload = serializeSessionCookie(current.session);
-  if (!payload) {
-    return;
-  }
-  const cookie = `${SESSION_COOKIE}=${encodeURIComponent(payload)}; Path=/; HttpOnly`;
-  if (current.response.headers['Set-Cookie'] !== cookie) {
-    current.response.headers['Set-Cookie'] = cookie;
-  }
-}
 
 const registry = {
-  replaceables: {},
   actions: {},
   views: {},
   layouts: {},
@@ -145,7 +76,6 @@ const registry = {
   helpers: {},
   content: '',
   layout_output: '',
-  expose: false,
 };
 
 const paths = {
@@ -163,49 +93,8 @@ const paths = {
 
 let current = null;
 
-function generateSessionId() {
-  return Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
-
 function setPaths(nextPaths) {
   Object.assign(paths, nextPaths);
-}
-
-function createGlobalReplaceable(name) {
-  global[name] = (...args) => registry.replaceables[name](...args);
-}
-
-function replaceable(name, fn) {
-  if (typeof fn === 'function') {
-    registry.replaceables[name] = fn;
-    if (registry.expose) {
-      createGlobalReplaceable(name);
-    }
-    return fn;
-  }
-  return registry.replaceables[name];
-}
-
-function callReplaceable(name, ...args) {
-  return replaceable(name)(...args);
-}
-
-function loadReplaceables(dir) {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  entries.forEach(entry => {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      loadReplaceables(fullPath);
-      return;
-    }
-    if (entry.isFile() && entry.name.endsWith('.js')) {
-      const name = path.basename(entry.name, '.js');
-      const exported = require(fullPath);
-      if (typeof exported === 'function') {
-        replaceable(name, exported);
-      }
-    }
-  });
 }
 
 function include(filePath, args = {}) {
@@ -222,22 +111,29 @@ function sendResponse() {
   current.res.end(body);
 }
 
+function runHandler(handler) {
+  let result;
+  try {
+    result = handler();
+  } catch (error) {
+    if (!error || !error.silent) {
+      throw error;
+    }
+    result = current.response.body;
+  }
+  if (result !== undefined) {
+    Replaceable.call('response_content', [result]);
+  }
+  return result;
+}
+
 function handleRequest(handler, req, res, options = {}) {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const query = Object.fromEntries(url.searchParams.entries());
   const bodyParams = options.express && req.body && !Buffer.isBuffer(req.body) ? req.body || {} : {};
-  const cookies = parseCookies(req.headers.cookie || '');
+  const cookies = parse_cookies(req.headers.cookie || '');
   const sessionCookie = cookies[SESSION_COOKIE];
-  let sessionData = {};
-  if (SESSION_SECRET && sessionCookie) {
-    if (sessionStore.has(sessionCookie)) {
-      sessionData = sessionStore.get(sessionCookie);
-    } else {
-      const parsed = parseSessionCookie(sessionCookie);
-      sessionData = parsed || {};
-      sessionStore.set(sessionCookie, sessionData);
-    }
-  }
+  const sessionData = resolve_session_data(sessionCookie);
 
   current = {
     req,
@@ -279,37 +175,15 @@ function handleRequest(handler, req, res, options = {}) {
   global.SESSION = current.session;
 
   if (options.express) {
-    let result;
-    try {
-      result = handler();
-    } catch (error) {
-      if (!error || !error.silent) {
-        throw error;
-      }
-      result = current.response.body;
-    }
-    if (result !== undefined) {
-      replaceable('response_content')(result);
-    }
-    syncSessionCookie(sessionCookie);
+    runHandler(handler);
+    sync_session_cookie(current, sessionCookie);
     return sendResponse();
   }
 
   const collectBody = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method);
   if (!collectBody) {
-    let result;
-    try {
-      result = handler();
-    } catch (error) {
-      if (!error || !error.silent) {
-        throw error;
-      }
-      result = current.response.body;
-    }
-    if (result !== undefined) {
-      replaceable('response_content')(result);
-    }
-    syncSessionCookie(sessionCookie);
+    runHandler(handler);
+    sync_session_cookie(current, sessionCookie);
     return sendResponse();
   }
 
@@ -323,19 +197,8 @@ function handleRequest(handler, req, res, options = {}) {
     if (contentType.includes('application/x-www-form-urlencoded')) {
       current.params = { ...current.params, ...querystring.parse(raw) };
     }
-    let result;
-    try {
-      result = handler();
-    } catch (error) {
-      if (!error || !error.silent) {
-        throw error;
-      }
-      result = current.response.body;
-    }
-    if (result !== undefined) {
-      replaceable('response_content')(result);
-    }
-    syncSessionCookie(sessionCookie);
+    runHandler(handler);
+    sync_session_cookie(current, sessionCookie);
     sendResponse();
   });
 }
@@ -346,18 +209,9 @@ function runOnce(handler, options = {}) {
   const headers = options.headers || {};
   const url = new URL(urlValue, `http://${headers.host || 'localhost'}`);
   const query = Object.fromEntries(url.searchParams.entries());
-  const cookies = parseCookies(headers.cookie || '');
+  const cookies = parse_cookies(headers.cookie || '');
   const sessionCookie = cookies[SESSION_COOKIE];
-  let sessionData = {};
-  if (SESSION_SECRET && sessionCookie) {
-    if (sessionStore.has(sessionCookie)) {
-      sessionData = sessionStore.get(sessionCookie);
-    } else {
-      const parsed = parseSessionCookie(sessionCookie);
-      sessionData = parsed || {};
-      sessionStore.set(sessionCookie, sessionData);
-    }
-  }
+  const sessionData = resolve_session_data(sessionCookie);
 
   current = {
     req: { url: urlValue, method, headers },
@@ -390,32 +244,19 @@ function runOnce(handler, options = {}) {
     current.params = { ...current.params, ...querystring.parse(options.body || '') };
   }
 
-  let result;
-  try {
-    result = handler();
-  } catch (error) {
-    if (!error || !error.silent) {
-      throw error;
-    }
-    result = current.response.body;
-  }
-  if (result !== undefined) {
-    replaceable('response_content')(result);
-  }
-  syncSessionCookie(sessionCookie);
+  runHandler(handler);
+  sync_session_cookie(current, sessionCookie);
   return current.response;
 }
 
 function initGlobals() {
-  global.replaceable = replaceable;
   global._ = value => value;
   global.amateur = module.exports;
-  global.__amateur_state = { registry, paths, current: null, handleRequest, generateSessionId };
+  global.__amateur_state = { registry, paths, current: null, handleRequest };
 
-  applyPhpCompat({
-    getCurrent: () => current,
-    generateSessionId,
-  });
+  global.exception = Exception;
+  global.db = db;
+  global.cache = new Cache();
 
   global.blogmarks = new Proxy(
     {
@@ -457,11 +298,10 @@ function initGlobals() {
     registry.container = {};
   }
 
-  loadReplaceables(path.join(__dirname, 'replaceables'));
+  Replaceable.load_replaceables(path.join(__dirname, 'replaceables'));
 }
 
 module.exports = {
-  amateur: Amateur,
   model: {
     table: BaseTable,
     resource: BaseResource,
@@ -469,9 +309,6 @@ module.exports = {
     db,
   },
   setPaths,
-  replaceable,
-  callReplaceable,
-  loadReplaceables,
   include,
   runOnce,
   initGlobals,

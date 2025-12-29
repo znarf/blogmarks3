@@ -40,7 +40,7 @@ module.exports = function () {
       const categories = mark.tags
         .map((tag) => {
           const scheme = tag.isHidden ? mark.author.url + '/private-tag' : 'https://blogmarks.net/tag/';
-          const term = urlencode(tag.label);
+          const term = encodeURIComponent(tag.label);
           return `<category scheme="${arg(scheme)}" term="${arg(term)}" label="${arg(
             tag.label
           )}"/>`;
@@ -50,10 +50,10 @@ module.exports = function () {
       const isPrivate = mark.is_private() ? '<bm:isPrivate>1</bm:isPrivate>' : '';
 
       return `<entry>
-  <id>tag:blogmarks.net,${mark.published.format('Y')}:${text(mark.id)}</id>
+  <id>tag:blogmarks.net,${format_date(mark.published, 'yyyy')}:${text(mark.id)}</id>
   <title>${text(mark.title)}</title>
-  <updated>${mark.updated.format(datetime.RFC3339)}</updated>
-  <published>${mark.published.format(datetime.RFC3339)}</published>
+  <updated>${mark.updated.toISOString()}</updated>
+  <published>${mark.published.toISOString()}</published>
 ${author}
   ${link}
   ${relatedLink}
@@ -68,7 +68,7 @@ ${isPrivate}
   return `<feed xmlns="http://www.w3.org/2005/Atom" xmlns:bm="https://blogmarks.net/ns/">
 <id>tag:blogmarks.net,2005:marks</id>
 <title>${strip_tags(title())}</title>
-<updated>${date(datetime.RFC3339)}</updated>
+<updated>${new Date().toISOString()}</updated>
 <link rel="alternate" type="text/html" href="${web_url(request_url())}" title="${strip_tags(
     title()
   )}"/>

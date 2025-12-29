@@ -14,7 +14,7 @@ module.exports = function () {
   <title>${text(mark.title)}</title>
   <link>${text(mark.url)}</link>
   <description>${text(mark.content)}</description>
-  <dc:date>${mark.published.format(datetime.W3C)}</dc:date>
+  <dc:date>${mark.published.toISOString()}</dc:date>
   <dc:creator>${text(mark.author.name)}</dc:creator>
   <dc:subject>${text(mark.public_tags.join(', '))}</dc:subject>
   <content:encoded><![CDATA[${markHtml}]]></content:encoded>

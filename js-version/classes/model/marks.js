@@ -10,7 +10,7 @@ class marks extends base {
     if (user.mark_with_link(link)) {
       throw new amateur.exception('Mark already exists.', 400);
     }
-    const content = Michelf.Markdown.defaultTransform(params.description);
+    const content = markdown_to_html(params.description);
     const contentType = 'html';
     const mark = this.table('marks').create({
       author: user.id,
@@ -41,7 +41,7 @@ class marks extends base {
     } else {
       link = mark.related;
     }
-    const content = Michelf.Markdown.defaultTransform(params.description);
+    const content = markdown_to_html(params.description);
     const contentType = 'html';
     const updatedMark = this.table('marks').update(mark, {
       related: link.id,

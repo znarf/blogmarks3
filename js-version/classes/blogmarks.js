@@ -1,5 +1,3 @@
-const amateur = global.amateur || require('../amateur/amateur');
-
-class blogmarks extends amateur.amateur {}
+class blogmarks {}
 
 module.exports = blogmarks;

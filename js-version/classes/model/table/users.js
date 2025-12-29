@@ -6,18 +6,20 @@ class users extends table {
     this.classname = '\\blogmarks\\model\\resource\\user';
     this.tablename = 'bm_users';
     this.unique_indexes = ['id', 'login'];
+    this.emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    this.loginPattern = /^[a-zA-Z][a-z\d_]{1,20}$/;
   }
 
   create(set) {
     if (set.pass !== undefined) {
-      set.pass = password_hash(set.pass, PASSWORD_DEFAULT);
+      set.pass = password_hash(set.pass);
     }
     return super.create(set);
   }
 
   update(where, set = []) {
     if (set.pass !== undefined) {
-      set.pass = password_hash(set.pass, PASSWORD_DEFAULT);
+      set.pass = password_hash(set.pass);
     }
     return super.update(where, set);
   }
@@ -25,7 +27,7 @@ class users extends table {
   validate_field(key, value, current_user = null) {
     switch (key) {
       case 'email':
-        if (filter_var(value, FILTER_VALIDATE_EMAIL) === false) {
+        if (!this.emailPattern.test(String(value))) {
           return _('Email is invalid');
         }
         const other_user_email = this.get_one('email', value);
@@ -36,11 +38,7 @@ class users extends table {
         }
         break;
       case 'login':
-        if (
-          filter_var(value, FILTER_VALIDATE_REGEXP, {
-            options: { regexp: /^[a-zA-Z][a-z\d_]{1,20}$/ }
-          }) === false
-        ) {
+        if (!this.loginPattern.test(String(value))) {
           return _('Username is invalid');
         }
         const other_user_login = this.get_one('login', value);

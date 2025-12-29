@@ -1,8 +1,9 @@
+const express = require('express');
+
 function run(handler, options = {}) {
   const state = global.__amateur_state;
   const port = options.port || process.env.PORT || 3000;
   const host = options.host || process.env.HOST || '127.0.0.1';
-  const express = require('express');
   const app = express();
 
   app.use(express.urlencoded({ extended: true }));

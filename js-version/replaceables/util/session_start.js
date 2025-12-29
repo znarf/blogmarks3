@@ -4,8 +4,8 @@ function session_start() {
   if (!current) {
     return null;
   }
-  if (!current.session_id && state.generateSessionId) {
-    current.session_id = state.generateSessionId();
+  if (!current.session_id) {
+    current.session_id = generate_session_id();
   }
   if (!current.session) {
     current.session = {};

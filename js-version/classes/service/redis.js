@@ -1,3 +1,5 @@
+const { createClient } = require('redis');
+
 class redis {
   constructor() {
     this.params_value = null;
@@ -18,7 +20,6 @@ class redis {
     if (this.connection_value) {
       return this.connection_value;
     }
-    const { createClient } = require('redis');
     const params = this.params() || {};
     const url = params.url || process.env.REDIS_URL;
     if (!url) {
