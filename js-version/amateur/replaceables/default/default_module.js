@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function default_module(name) {
-  const filename = global.replaceable('filename');
+  const filename = replaceable('filename');
   const file = filename('module', name);
   if (file && fs.existsSync(file)) {
     const exported = require(file);

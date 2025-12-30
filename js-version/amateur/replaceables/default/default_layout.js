@@ -1,9 +1,9 @@
 const fs = require('fs');
 
 function default_layout(name, args = {}) {
-  const filename = global.replaceable('filename');
-  const response_content = global.replaceable('response_content');
-  const layout = global.replaceable('layout');
+  const filename = replaceable('filename');
+  const response_content = replaceable('response_content');
+  const layout = replaceable('layout');
   const file = filename('layout', name);
   if (file && fs.existsSync(file)) {
     const exported = require(file);

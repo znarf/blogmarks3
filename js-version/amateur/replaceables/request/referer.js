@@ -1,5 +1,5 @@
 function referer() {
-  const request_header = global.replaceable('request_header');
+  const request_header = replaceable('request_header');
   return String(request_header('referer') || '');
 }
 

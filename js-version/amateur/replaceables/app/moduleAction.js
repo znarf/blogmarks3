@@ -1,5 +1,5 @@
 function moduleAction(name, callable = null) {
-  const moduleFn = global.replaceable('module');
+  const moduleFn = replaceable('module');
   return moduleFn(name, callable);
 }
 

@@ -1,5 +1,5 @@
 function arg(value) {
-  const text = global.replaceable('text');
+  const text = replaceable('text');
   return text(value);
 }
 

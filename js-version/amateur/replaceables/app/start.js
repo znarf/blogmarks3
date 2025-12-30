@@ -1,12 +1,12 @@
 function start(callable = null) {
-  const action = global.replaceable('action');
+  const action = replaceable('action');
   if (callable) {
     action('start', callable);
   }
   try {
     return action('start');
   } catch (err) {
-    const error = global.replaceable('error');
+    const error = replaceable('error');
     if (err && err.statusCode) {
       return error(err.statusCode, err.message, err.stack || '');
     }

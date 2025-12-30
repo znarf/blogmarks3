@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 function default_view(name, args = {}) {
-  const filename = global.replaceable('filename');
-  const response_content = global.replaceable('response_content');
+  const filename = replaceable('filename');
+  const response_content = replaceable('response_content');
   const file = filename('view', name);
   if (file && fs.existsSync(file)) {
     const previousFile = global.__FILE__;

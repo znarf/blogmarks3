@@ -7,12 +7,12 @@ function view(name, args = {}) {
     state.registry.views[name] = args;
     return args;
   }
-  const response_content = global.replaceable('response_content');
+  const response_content = replaceable('response_content');
   if (state.registry.views[name]) {
     const output = state.registry.views[name](args || {});
     return response_content(output);
   }
-  const default_view = global.replaceable('default_view');
+  const default_view = replaceable('default_view');
   return default_view(name, args);
 }
 

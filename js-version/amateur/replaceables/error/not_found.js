@@ -1,5 +1,5 @@
 function not_found(message = 'Not Found') {
-  const error = global.replaceable('error');
+  const error = replaceable('error');
   return error(404, message);
 }
 

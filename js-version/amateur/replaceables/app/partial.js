@@ -10,7 +10,7 @@ function partial(name, args = {}) {
   if (state.registry.partials[name]) {
     return state.registry.partials[name](args);
   }
-  const default_partial = global.replaceable('default_partial');
+  const default_partial = replaceable('default_partial');
   let result = default_partial(name, args);
   if (typeof result === 'function') {
     state.registry.partials[name] = result;

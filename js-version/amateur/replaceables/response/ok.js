@@ -1,5 +1,5 @@
 function ok() {
-  const response_code = global.replaceable('response_code');
+  const response_code = replaceable('response_code');
   response_code(200);
 }
 

@@ -1,5 +1,5 @@
 function is_post() {
-  const request_method = global.replaceable('request_method');
+  const request_method = replaceable('request_method');
   return request_method() === 'POST';
 }
 

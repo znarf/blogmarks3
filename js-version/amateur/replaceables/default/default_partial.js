@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function default_partial(name, args = {}) {
-  const filename = global.replaceable('filename');
+  const filename = replaceable('filename');
   const file = filename('partial', name);
   if (file && fs.existsSync(file)) {
     const exported = require(file);

@@ -1,9 +1,9 @@
 function error(code = 500, message = 'Application Error', trace = '') {
-  const response_code = global.replaceable('response_code');
-  const view = global.replaceable('view');
-  const layout = global.replaceable('layout');
-  const default_error = global.replaceable('default_error');
-  const finish = global.replaceable('finish');
+  const response_code = replaceable('response_code');
+  const view = replaceable('view');
+  const layout = replaceable('layout');
+  const default_error = replaceable('default_error');
+  const finish = replaceable('finish');
   response_code(code);
   let content = '';
   const views = [String(code), 'error'];

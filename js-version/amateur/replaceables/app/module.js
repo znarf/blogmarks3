@@ -10,7 +10,7 @@ function moduleAction(name, callable = null) {
   if (state.registry.modules[name]) {
     return state.registry.modules[name]();
   }
-  const default_module = global.replaceable('default_module');
+  const default_module = replaceable('default_module');
   let result = default_module(name);
   if (typeof result === 'function') {
     state.registry.modules[name] = result;

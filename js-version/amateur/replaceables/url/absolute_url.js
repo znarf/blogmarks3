@@ -1,5 +1,5 @@
 function absolute_url(url) {
-  const request_host = global.replaceable('request_host');
+  const request_host = replaceable('request_host');
   if (typeof url !== 'string') {
     return url;
   }

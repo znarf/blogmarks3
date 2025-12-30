@@ -7,7 +7,7 @@ function layout(name, args = {}) {
     state.registry.layouts[name] = args;
     return args;
   }
-  const response_content = global.replaceable('response_content');
+  const response_content = replaceable('response_content');
   let payload = args;
   if (typeof payload === 'string') {
     payload = { content: payload };
@@ -21,7 +21,7 @@ function layout(name, args = {}) {
   if (state.registry.layouts[name]) {
     output = state.registry.layouts[name](contentValue);
   } else {
-    const default_layout = global.replaceable('default_layout');
+    const default_layout = replaceable('default_layout');
     output = default_layout(name, payload);
   }
   return response_content(output);

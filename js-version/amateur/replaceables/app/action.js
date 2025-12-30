@@ -11,7 +11,7 @@ function action(name, args = {}) {
   if (state.registry.actions[name]) {
     result = state.registry.actions[name](args);
   } else {
-    const default_action = global.replaceable('default_action');
+    const default_action = replaceable('default_action');
     result = default_action(name, args);
   }
   if (typeof result === 'function') {

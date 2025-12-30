@@ -17,7 +17,7 @@ function helper(name, value = null) {
     }
     return stored;
   }
-  const default_helper = global.replaceable('default_helper');
+  const default_helper = replaceable('default_helper');
   let loaded = default_helper(name);
   if (typeof loaded === 'function') {
     loaded = loaded();
