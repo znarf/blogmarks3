@@ -6,7 +6,6 @@ const redis = service('redis').connection();
 const [marks, links, tags, marks_tags, screenshots] = table(['marks', 'links', 'tags', 'marks_tags', 'screenshots']);
 
 importer.start = function (user) {
-  set_time_limit(0);
   this.user = user;
   const link_ids = marks.select('related as id').where({ author: user.id }).fetch_ids();
   this.reverse_link_ids = Object.fromEntries(link_ids.map((id) => [id, true]));
@@ -35,7 +34,11 @@ importer.parse = function (file) {
 };
 
 importer.simplexml = function (file) {
-  if (['application/x-gzip', 'application/x-download', 'application/x-tar'].includes(FILES.file.type)) {
+  const files = request_files();
+  if (!files.file) {
+    return simplexml_load_string('');
+  }
+  if (['application/x-gzip', 'application/x-download', 'application/x-tar'].includes(files.file.type)) {
     let xml = '';
     const handle = gzopen(file, 'r');
     let buffer;
