@@ -7,6 +7,9 @@ class registry {
   static feeds = {};
   static searchs = {};
 
+  static target = {};
+  static container = {};
+
   static _loadInstance(filePath) {
     const Exported = require(filePath);
     if (typeof Exported !== 'function') {
@@ -45,6 +48,19 @@ class registry {
 
   static search(name) {
     return registry._get(registry.searchs, ['model', 'search', name], name);
+  }
+
+  // Clears per-request state to avoid cross-request leakage.
+  static reset() {
+    registry.content = '';
+    registry.layout_output = '';
+    registry.side_title = null;
+    registry.config = {};
+    registry.container = {};
+    registry.target = {};
+    if (amateur.registry?.helpers?.sidebar) {
+      amateur.registry.helpers.sidebar.empty();
+    }
   }
 }
 

@@ -21,6 +21,26 @@ class marks extends base {
     return this.prepare_items(results, total, params);
   }
 
+  normalize_results(results = []) {
+    if (!Array.isArray(results)) {
+      return [];
+    }
+    if (results.length === 0) {
+      return [];
+    }
+    if (typeof results[0] === 'object' && results[0] !== null && 'value' in results[0]) {
+      return results.map((item) => [String(item.value), Number(item.score)]);
+    }
+    if (typeof results[0] === 'string' && results.length % 2 === 0) {
+      const pairs = [];
+      for (let i = 0; i < results.length; i += 2) {
+        pairs.push([String(results[i]), Number(results[i + 1])]);
+      }
+      return pairs;
+    }
+    return results.map((item) => [String(item.id || item[0]), Number(item.ts || item[1])]);
+  }
+
   ids_and_ts(redis_key, query, params = {}) {
     const redis = this.redis();
     params = { ...marks.default_params, ...params };
@@ -32,21 +52,22 @@ class marks extends base {
         query = query();
       }
       const order = params.order === 'asc' ? 'published ASC' : 'published DESC';
-      results = query.order_by(order).fetch_key_values('id', 'ts');
-      total = Object.keys(results).length;
+      const rows = query.order_by(order).execute();
+      results = rows.map((row) => [String(row.id), Number(row.ts)]);
+      total = results.length;
       if (redis && redis_key) {
         register_shutdown_function(function () {
-          Object.entries(results).forEach(([id, ts]) => redis.zAdd(redis_key, ts, id));
+          results.forEach(([id, ts]) => redis.zAdd(redis_key, ts, id));
         });
       }
       if (params.before !== '+inf') {
-        results = Object.fromEntries(Object.entries(results).filter(([, ts]) => ts < params.before));
+        results = results.filter(([, ts]) => ts < params.before);
       }
       if (params.after !== '-inf') {
-        results = Object.fromEntries(Object.entries(results).filter(([, ts]) => ts > params.after));
+        results = results.filter(([, ts]) => ts > params.after);
       }
       if (params.limit > 0) {
-        results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
+        results = results.slice(params.offset, params.offset + params.limit + 1);
       }
     } else {
       const options = { withscores: true };
@@ -61,19 +82,26 @@ class marks extends base {
           results = redis.zRevRangeByScore(redis_key, String(params.before), '(' + params.after, options);
         }
       }
+      results = this.normalize_results(results);
     }
     return [results, total];
   }
 
   prepare_items(results, total = null, params = {}) {
     let next = null;
-    if (params.limit && Object.keys(results).length > params.limit) {
-      const lastKey = Object.keys(results).pop();
-      next = parseInt(results[lastKey], 10);
-      delete results[lastKey];
+    if (params.limit && results.length > params.limit) {
+      const extra = results[params.limit];
+      next = extra ? extra[1] : null;
+      results = results.slice(0, params.limit);
     }
-    const items = Object.keys(results).length === 0 ? [] : this.table('marks').get(Object.keys(results));
-    return { params, total, next, items };
+    const ids = results.map(([id]) => id);
+    if (!ids.length) {
+      return { params, total, next, items: [] };
+    }
+    const items = this.table('marks').get(ids);
+    const byId = new Map(items.map((item) => [String(item.id), item]));
+    const ordered = ids.map((id) => byId.get(String(id))).filter(Boolean);
+    return { params, total, next, items: ordered };
   }
 
   add(redis_key, ts, id) {

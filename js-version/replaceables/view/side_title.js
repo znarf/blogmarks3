@@ -3,7 +3,7 @@ function side_title(base = null, arg = null) {
     blogmarks.registry.side_title = '<strong>Public</strong> Tags';
   }
   if (base) {
-    blogmarks.registry.side_title = blogmarks.strong(base);
+    blogmarks.registry.side_title = strong(base);
     if (arg) {
       blogmarks.registry.side_title += ' ' + arg;
     }

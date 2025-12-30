@@ -6,7 +6,7 @@ function authenticated_user(value = null) {
     return blogmarks.registry.user;
   }
   if (SESSION.user_id !== undefined) {
-    blogmarks.registry.user = blogmarks.table('users').get(SESSION.user_id);
+    blogmarks.registry.user = table('users').get(SESSION.user_id);
     return blogmarks.registry.user;
   }
 }

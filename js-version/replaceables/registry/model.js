@@ -3,9 +3,9 @@ function model(name) {
     return name.map(model);
   }
   if (name === 'marks' || name === 'tags') {
-    return registry.model(name);
+    return blogmarks.registry.model(name);
   }
-  return blogmarks.table(name);
+  return table(name);
 }
 
 module.exports = model;

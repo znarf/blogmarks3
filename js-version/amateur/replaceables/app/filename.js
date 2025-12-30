@@ -1,30 +1,30 @@
 const path = require('path');
 
 function filename(kind, name) {
-  const state = global.__amateur_state;
-  if (!state || !state.paths) {
+  const base = app_dir();
+  if (!base) {
     return null;
   }
   if (kind === 'view') {
-    return path.join(state.paths.views, `${name}.view.js`);
+    return path.join(base, 'views', `${name}.view.js`);
   }
   if (kind === 'layout') {
-    return path.join(state.paths.layouts, `${name}.layout.js`);
+    return path.join(base, 'layouts', `${name}.layout.js`);
   }
   if (kind === 'partial') {
-    return path.join(state.paths.partials, `${name}.partial.js`);
+    return path.join(base, 'partials', `${name}.partial.js`);
   }
   if (kind === 'render') {
-    return path.join(state.paths.renders, `${name}.render.js`);
+    return path.join(base, 'renders', `${name}.render.js`);
   }
   if (kind === 'action') {
-    return path.join(state.paths.actions, `${name}.action.js`);
+    return path.join(base, `${name}.action.js`);
   }
   if (kind === 'module') {
-    return path.join(state.paths.modules, `${name}.module.js`);
+    return path.join(base, 'modules', `${name}.module.js`);
   }
   if (kind === 'helper') {
-    return path.join(state.paths.helpers, `${name}.helper.js`);
+    return path.join(base, 'helpers', `${name}.helper.js`);
   }
   return null;
 }

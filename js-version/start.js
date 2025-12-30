@@ -4,27 +4,20 @@ const path = require('path');
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 const amateur = require('./amateur/amateur');
-const Replaceable = require('./amateur/classes/replaceable');
 
-const root = __dirname;
-
-amateur.setPaths({
-  root,
-  replaceables: path.join(root, 'replaceables'),
-  views: path.join(root, 'application/views'),
-  layouts: path.join(root, 'application/layouts'),
-  partials: path.join(root, 'application/partials'),
-  renders: path.join(root, 'application/renders'),
-  modules: path.join(root, 'application/modules'),
-  helpers: path.join(root, 'application/helpers'),
-  actions: path.join(root, 'application'),
-  public: path.join(root, '..', 'public'),
-});
-
+// Init Amateur
 amateur.initGlobals();
-Replaceable.load_replaceables(path.join(root, 'replaceables'));
-global.registry = require('./classes/registry');
-Replaceable.get('expose_replaceables')();
+
+// Load application replaceables
+amateur.Replaceable.load_replaceables(path.join(__dirname, 'replaceables'));
+// Expose all replaceables
+amateur.Replaceable.expose_replaceables();
+
+const Blogmarks = require('./classes/blogmarks');
+global.blogmarks = new Blogmarks();
+
+// Configure application directory
+app_dir(path.join(__dirname, 'application'));
 
 if (process.env.DRY_RUN === '1') {
   const response = amateur.runOnce(() => action('start'), {

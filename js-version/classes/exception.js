@@ -1,5 +1,5 @@
-const AmateurException = require('../amateur/classes/exception');
+const amateur_exception = require('../amateur/classes/exception');
 
-class exception extends AmateurException {}
+class exception extends amateur_exception {}
 
 module.exports = exception;

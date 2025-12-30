@@ -1,10 +1,9 @@
 function default_partial(name, args = []) {
-  const filename = blogmarks.filename('partial', name);
-  if (filename) {
-    const scoped = args;
-    return include(filename, scoped);
+  const file = filename('partial', name);
+  if (file) {
+    return include(file, args);
   }
-  throw blogmarks.http_error(500, `Unknown partial (${name}).`);
+  throw http_error(500, `Unknown partial (${name}).`);
 }
 
 module.exports = default_partial;

@@ -10,7 +10,7 @@ function partial(name, args = []) {
     const stored = blogmarks.registry.partials[name];
     return stored(args);
   }
-  const default_partial = blogmarks.replaceable('default_partial');
+  const default_partial = replaceable('default_partial');
   let result = default_partial(name, args);
   if (typeof result === 'function') {
     const stored = (blogmarks.registry.partials[name] = result);

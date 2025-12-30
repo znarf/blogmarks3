@@ -1,5 +1,5 @@
 function service(name) {
-  return registry.service(name);
+  return blogmarks.registry.service(name);
 }
 
 module.exports = service;

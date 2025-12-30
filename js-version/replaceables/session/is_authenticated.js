@@ -1,5 +1,5 @@
 function is_authenticated() {
-  return !!blogmarks.authenticated_user();
+  return !!authenticated_user();
 }
 
 module.exports = is_authenticated;

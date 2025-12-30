@@ -7,12 +7,7 @@ const BaseResource = require('./classes/model/resource');
 const Cache = require('./classes/model/cache');
 const db = require('./classes/model/db');
 const Exception = require('./classes/exception');
-const {
-  session_cookie,
-  parse_cookies,
-  resolve_session_data,
-  sync_session_cookie
-} = require('./classes/session');
+const { session_cookie, parse_cookies, resolve_session_data, sync_session_cookie } = require('./classes/session');
 
 const registry = {
   actions: {},
@@ -25,32 +20,12 @@ const registry = {
   layout_output: '',
 };
 
-const paths = {
-  root: '',
-  replaceables: '',
-  views: '',
-  layouts: '',
-  partials: '',
-  renders: '',
-  modules: '',
-  helpers: '',
-  actions: '',
-  public: '',
+registry.reset = function () {
+  registry.content = '';
+  registry.layout_output = '';
 };
 
 let current = null;
-
-function setPaths(nextPaths) {
-  Object.assign(paths, nextPaths);
-}
-
-function include(filePath, args = {}) {
-  const exported = require(filePath);
-  if (typeof exported === 'function') {
-    return exported(args);
-  }
-  return exported;
-}
 
 function sendResponse() {
   const { code, headers, body } = current.response;
@@ -106,7 +81,7 @@ function handleRequest(handler, req, res, options = {}) {
         type: file.mimetype || '',
         tmp_name: file.path || '',
         error: 0,
-        size: file.size || 0
+        size: file.size || 0,
       };
     });
   }
@@ -114,14 +89,11 @@ function handleRequest(handler, req, res, options = {}) {
     global.__amateur_state.current = current;
   }
 
-  registry.content = '';
-  registry.layout_output = '';
-  registry.side_title = null;
-  registry.config = {};
-  registry.container = {};
-  registry.target = {};
-  if (registry.helpers.sidebar && typeof registry.helpers.sidebar.empty === 'function') {
-    registry.helpers.sidebar.empty();
+  if (module.exports.registry && typeof module.exports.registry.reset === 'function') {
+    module.exports.registry.reset();
+  }
+  if (global.blogmarks && global.blogmarks.registry && typeof global.blogmarks.registry.reset === 'function') {
+    global.blogmarks.registry.reset();
   }
   global.SESSION = current.session;
 
@@ -198,51 +170,11 @@ function runOnce(handler, options = {}) {
 function initGlobals() {
   global._ = (value) => value;
   global.amateur = module.exports;
-  global.__amateur_state = { registry, paths, current: null, handleRequest };
+  global.__amateur_state = { registry, current: null };
 
   global.exception = Exception;
   global.db = db;
   global.cache = new Cache();
-
-  global.blogmarks = new Proxy(
-    {
-      registry,
-      config: (key, defaultValue, value) => {
-        if (!registry.config) {
-          registry.config = {};
-        }
-        if (value !== undefined && value !== null) {
-          registry.config[key] = value;
-        }
-        if (registry.config[key] !== undefined) {
-          return registry.config[key];
-        }
-        return defaultValue;
-      },
-    },
-    {
-      get(target, prop) {
-        if (prop in target) {
-          return target[prop];
-        }
-        if (prop in global) {
-          return global[prop];
-        }
-        return undefined;
-      },
-      set(target, prop, value) {
-        target[prop] = value;
-        return true;
-      },
-    },
-  );
-
-  if (!registry.target) {
-    registry.target = {};
-  }
-  if (!registry.container) {
-    registry.container = {};
-  }
 
   Replaceable.load_replaceables(path.join(__dirname, 'replaceables'));
 }
@@ -254,8 +186,9 @@ module.exports = {
     query: BaseQuery,
     db,
   },
-  setPaths,
-  include,
+  registry,
   runOnce,
+  handleRequest,
   initGlobals,
+  Replaceable,
 };

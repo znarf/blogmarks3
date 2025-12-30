@@ -227,8 +227,8 @@ importer.finish = function () {
   }
 };
 
-importer.convert_date = function (string) {
-  return amateur.model.db.date(string);
+importer.convert_date = function (value) {
+  return db.date(value);
 };
 
 module.exports = importer;

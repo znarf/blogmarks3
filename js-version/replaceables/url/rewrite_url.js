@@ -1,5 +1,5 @@
 function rewrite_url(value) {
-  const request_url = blogmarks.request_url();
+  const request_url = request_url();
   let url;
   if (request_url.indexOf('/marks/') === 0) {
     url = request_url.replace('/marks', value);
@@ -10,7 +10,7 @@ function rewrite_url(value) {
   } else {
     url = value;
   }
-  return blogmarks.relative_url(url == request_url ? value : url);
+  return relative_url(url == request_url ? value : url);
 }
 
 module.exports = rewrite_url;

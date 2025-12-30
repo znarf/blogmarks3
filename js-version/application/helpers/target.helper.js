@@ -5,7 +5,7 @@ class Target {
         .table('users')
         .get_one('login', decodeURIComponent(slug)));
       if (!user) {
-        throw blogmarks.http_error(404, 'User not found');
+        throw http_error(404, 'User not found');
       }
     }
     if (blogmarks.registry.target.user !== undefined) {
@@ -15,9 +15,9 @@ class Target {
 
   tag(slug = null) {
     if (slug) {
-      const tag = (blogmarks.registry.target.tag = blogmarks.table('tags').get_one('label', decodeURIComponent(slug)));
+      const tag = (blogmarks.registry.target.tag = table('tags').get_one('label', decodeURIComponent(slug)));
       if (!tag) {
-        throw blogmarks.http_error(404, 'Tag not found');
+        throw http_error(404, 'Tag not found');
       }
     }
     if (blogmarks.registry.target.tag !== undefined) {
@@ -27,9 +27,9 @@ class Target {
 
   mark(slug = null) {
     if (slug) {
-      const mark = (blogmarks.registry.target.mark = blogmarks.table('marks').get_one('id', decodeURIComponent(slug)));
+      const mark = (blogmarks.registry.target.mark = table('marks').get_one('id', decodeURIComponent(slug)));
       if (!mark) {
-        throw blogmarks.http_error(404, 'Mark not found');
+        throw http_error(404, 'Mark not found');
       }
     }
     if (blogmarks.registry.target.mark !== undefined) {

@@ -1,5 +1,5 @@
 function feed(name) {
-  return registry.feed(name);
+  return blogmarks.registry.feed(name);
 }
 
 module.exports = feed;

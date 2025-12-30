@@ -116,15 +116,16 @@ class marks extends base {
     for (const tag of tags) {
       const query = () => this.table('marks').query_ids_and_ts_with_tag(tag);
       const [tag_results] = this.feed('marks').ids_and_ts(null, query, { limit: -1, ...params });
-      results = results
-        ? Object.fromEntries(
-            Object.entries(results).filter(([key]) => Object.prototype.hasOwnProperty.call(tag_results, key)),
-          )
-        : tag_results;
+      if (!results) {
+        results = tag_results;
+        continue;
+      }
+      const ids = new Set(tag_results.map(([id]) => String(id)));
+      results = results.filter(([id]) => ids.has(String(id)));
     }
-    const total = Object.keys(results).length;
+    const total = results.length;
     if (params.limit > 0) {
-      results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
+      results = results.slice(params.offset, params.offset + params.limit + 1);
     }
     return this.feed('marks').prepare_items(results, total, params);
   }
@@ -156,15 +157,16 @@ class marks extends base {
           private: false,
         });
       const [tag_results] = this.feed('marks').ids_and_ts(null, query, { limit: -1, ...params });
-      results = results
-        ? Object.fromEntries(
-            Object.entries(results).filter(([key]) => Object.prototype.hasOwnProperty.call(tag_results, key)),
-          )
-        : tag_results;
+      if (!results) {
+        results = tag_results;
+        continue;
+      }
+      const ids = new Set(tag_results.map(([id]) => String(id)));
+      results = results.filter(([id]) => ids.has(String(id)));
     }
-    const total = Object.keys(results).length;
+    const total = results.length;
     if (params.limit > 0) {
-      results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
+      results = results.slice(params.offset, params.offset + params.limit + 1);
     }
     return this.feed('marks').prepare_items(results, total, params);
   }
@@ -194,15 +196,16 @@ class marks extends base {
         });
       const feed_key = `feed_marks_my_${user.id}_tag_${tag.id}`;
       const [tag_results] = this.feed('marks').ids_and_ts(feed_key, query, { limit: -1, ...params });
-      results = results
-        ? Object.fromEntries(
-            Object.entries(results).filter(([key]) => Object.prototype.hasOwnProperty.call(tag_results, key)),
-          )
-        : tag_results;
+      if (!results) {
+        results = tag_results;
+        continue;
+      }
+      const ids = new Set(tag_results.map(([id]) => String(id)));
+      results = results.filter(([id]) => ids.has(String(id)));
     }
-    const total = Object.keys(results).length;
+    const total = results.length;
     if (params.limit > 0) {
-      results = Object.fromEntries(Object.entries(results).slice(params.offset, params.offset + params.limit + 1));
+      results = results.slice(params.offset, params.offset + params.limit + 1);
     }
     return this.feed('marks').prepare_items(results, total, params);
   }
