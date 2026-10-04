@@ -1,7 +1,6 @@
 <?php namespace blogmarks\service;
 
 use
-Symfony\Component\Mime\Email,
 Symfony\Component\Mailer\Mailer,
 Symfony\Component\Mailer\Transport;
 
@@ -24,8 +23,8 @@ class email
 
       $transport = Transport::fromDsn(sprintf(
           'smtp://%s:%s@%s:%s',
-          $params['username'],
-          $params['password'],
+          rawurlencode($params['username']),
+          rawurlencode($params['password']),
           $params['host'],
           $params['port']
       ));
@@ -41,7 +40,7 @@ class email
     $params = $this->params();
     $mailer = $this->mailer();
 
-    $email = (new Email())
+    $email = (new \Symfony\Component\Mime\Email())
         ->from($params['from'])
         ->to($to)
         ->subject($subject)
