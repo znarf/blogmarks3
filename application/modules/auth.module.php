@@ -79,12 +79,19 @@ if (url_is('/auth/forgot-password')) {
       $email .= _('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.') . "\n\n";
       $email .= absolute_url("/auth/reset-password?key=" . $key);
 
-      service('email')->send($user->email, 'Reset Password', $email);
-
-      return render('auth/forgot-password', ['success' => true]);
+      try {
+        service('email')->send($user->email, 'Reset Password', $email);
+        return render('auth/forgot-password', ['success' => true]);
+      }
+      catch (\Exception $e) {
+        error_log($e->getMessage());
+        flash_message( _("The email couldn't be sent, please try again later.") );
+      }
     }
     # Invalid user
-    flash_message( _('Unknown username or email.') );
+    else {
+      flash_message( _('Unknown username or email.') );
+    }
   }
   # CSRF token
   $params = ['token' => generate_token('forgot_password')];
