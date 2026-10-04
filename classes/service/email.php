@@ -2,7 +2,7 @@
 
 use
 Symfony\Component\Mailer\Mailer,
-Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
+Symfony\Component\Mailer\Transport;
 
 class email
 {
@@ -21,10 +21,13 @@ class email
     if (empty($this->mailer)) {
       $params = $this->params();
 
-      # Not using a DSN, credentials would need to be URL encoded
-      $transport = new EsmtpTransport($params['host'], (int)$params['port']);
-      $transport->setUsername($params['username']);
-      $transport->setPassword($params['password']);
+      $transport = Transport::fromDsn(sprintf(
+          'smtp://%s:%s@%s:%s',
+          rawurlencode($params['username']),
+          rawurlencode($params['password']),
+          $params['host'],
+          $params['port']
+      ));
 
       $this->mailer = new Mailer($transport);
     }
