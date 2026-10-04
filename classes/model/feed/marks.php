@@ -83,7 +83,7 @@ class marks
   function prepare_items($results, $total = null, $params = [])
   {
     # Next?
-    $next = $params['limit'] && count($results) > $params['limit'] ? (int) array_pop($results) : null;
+    $next = !empty($params['limit']) && count($results) > $params['limit'] ? (int) array_pop($results) : null;
     # Items
     $items = empty($results) ? [] : $this->table('marks')->get(array_keys($results));
     # Result
