@@ -42,6 +42,10 @@ class screenshots extends table
 
   function ensure_entry_exists_for_mark($mark)
   {
+    # Already have one
+    if ($this->for_mark($mark)) {
+      return;
+    }
     $now = db::now();
     $params = ['link' => $mark->link_id];
     $existing = $this->where($params)->and_where("created > DATE_SUB('$now', INTERVAL 1 DAY)");
