@@ -46,6 +46,9 @@ elseif (url_is('/auth/signup')) {
     if (get_param('password') != get_param('password_again')) {
       form_error('password', "Password doesn't match.");
     }
+    if (($codes = signup_codes()) && !in_array(trim((string)get_param('code')), $codes, true)) {
+      form_error('code', _('Please enter a valid invitation code.'));
+    }
     if (!form_error()) {
       $user = table('users')->create($params);
       signin($user);
@@ -56,7 +59,7 @@ elseif (url_is('/auth/signup')) {
       response_code(401);
     }
   }
-  return render('auth/signup', get_parameters(['fullname', 'username', 'email']));
+  return render('auth/signup', get_parameters(['fullname', 'username', 'email', 'code']));
 }
 
 if (url_is('/auth/forgot-password')) {

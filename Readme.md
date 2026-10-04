@@ -16,3 +16,5 @@ Optional:
 Run:
 
     php -S localhost:8002 -t public
+
+Sign up (with `flag('enable_signup', true)` in `config/config.php`) can be restricted to invitation codes by listing them in `config/codes.txt`, one per line. Invitation links can prefill the code: `/auth/signup?code=...`
