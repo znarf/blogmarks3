@@ -1,11 +1,7 @@
 <?php namespace blogmarks;
 
-# Invitation codes required to sign up, one per line in config/codes.txt
+# Invitation codes required to sign up, e.g. flag('signup_codes', ['alpha', 'beta'])
 function signup_codes()
 {
-  $file = root_dir . '/config/codes.txt';
-  if (!file_exists($file)) {
-    return [];
-  }
-  return array_values(array_filter(array_map('trim', file($file))));
+  return flag('signup_codes') ?: [];
 }
