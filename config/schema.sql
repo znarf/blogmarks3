@@ -126,7 +126,7 @@ CREATE TABLE `bm_users` (
   `lang` tinyint(2) NOT NULL,
   `ip` varchar(255) NOT NULL,
   `updated` datetime NOT NULL,
-  `code` varchar(255) NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
   `activationkey` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_login` (`login`)
