@@ -1,9 +1,9 @@
 <?php namespace blogmarks\service;
 
 use
-Symfony\Component\Mime\Email,
+Symfony\Component\Mime\Email as message,
 Symfony\Component\Mailer\Mailer,
-Symfony\Component\Mailer\Transport;
+Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 
 class email
 {
@@ -22,13 +22,10 @@ class email
     if (empty($this->mailer)) {
       $params = $this->params();
 
-      $transport = Transport::fromDsn(sprintf(
-          'smtp://%s:%s@%s:%s',
-          $params['username'],
-          $params['password'],
-          $params['host'],
-          $params['port']
-      ));
+      # Not using a DSN, credentials would need to be URL encoded
+      $transport = new EsmtpTransport($params['host'], (int)$params['port']);
+      $transport->setUsername($params['username']);
+      $transport->setPassword($params['password']);
 
       $this->mailer = new Mailer($transport);
     }
@@ -41,7 +38,7 @@ class email
     $params = $this->params();
     $mailer = $this->mailer();
 
-    $email = (new Email())
+    $email = (new message())
         ->from($params['from'])
         ->to($to)
         ->subject($subject)
