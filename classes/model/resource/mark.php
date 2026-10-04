@@ -99,6 +99,10 @@ class mark extends \blogmarks\model\resource
       }
       $this->cache_attribute('screenshot', $screenshot);
     }
+    # Screenshots stored locally
+    if (substr($screenshot, 0, 1) == '/') {
+      $screenshot = absolute_url($screenshot);
+    }
     if (flag('rewrite_screenshot_url')) {
       $screenshot = str_replace('http://blogmarks.net/', absolute_url('/'), $screenshot);
     }
