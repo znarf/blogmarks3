@@ -1,7 +1,6 @@
 <?php namespace blogmarks\service;
 
 use
-Symfony\Component\Mime\Email as message,
 Symfony\Component\Mailer\Mailer,
 Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 
@@ -38,7 +37,7 @@ class email
     $params = $this->params();
     $mailer = $this->mailer();
 
-    $email = (new message())
+    $email = (new \Symfony\Component\Mime\Email())
         ->from($params['from'])
         ->to($to)
         ->subject($subject)
