@@ -15,3 +15,6 @@ service('redis')->params([
 service('amqp')->params([
   'host' => 'localhost', 'port' => '5672', 'username' => 'guest', 'password' => 'guest'
 ]);
+
+// flag('enable_signup', true);
+// flag('signup_codes', ['alpha', 'beta']);

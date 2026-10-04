@@ -73,6 +73,23 @@
         </div>
       </div>
 
+      <?php if (signup_codes()) : ?>
+      <?php $code_error = form_error('code') ?>
+      <div class="control-group <?php if ($code_error) echo 'warning' ?>">
+        <label class="control-label" for="signup_code">Invitation Code</label>
+        <div class="controls">
+          <input type="text" id="signup_code" name="code"
+            value="<?= arg($code) ?>"
+            required placeholder="" autocapitalize="off" autocorrect="off">
+          <?php if ($code_error) : ?>
+            <span class="help-inline"><?= text($code_error) ?></span>
+          <?php else : ?>
+            <span class="help-inline">Sign up is by invitation only.</span>
+          <?php endif ?>
+        </div>
+      </div>
+      <?php endif ?>
+
       <div class="control-group">
         <div class="controls">
           <?php if ('/auth/signup' != $url = request_url()) : ?>
