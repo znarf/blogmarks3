@@ -6,7 +6,7 @@ function generate_phrase($length = 64)
   $i = 0;
   $phrase = '';
   while ($i < $length) {
-    $phrase .= $chars[mt_rand(0, strlen($chars) - 1)];
+    $phrase .= $chars[random_int(0, strlen($chars) - 1)];
     $i++;
   }
   return $phrase;
