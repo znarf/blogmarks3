@@ -68,7 +68,11 @@ elseif ($matches = url_match('/my/profile,password')) {
       flash_message( _("New password doesn't match confirmation.") );
     }
     else {
-      table('users')->update($user, ['pass' => get_param('password_new')]);
+      $user = table('users')->update($user, ['pass' => get_param('password_new')]);
+      # Other devices are signed out, keep this one remembered
+      if (isset($_COOKIE['remember'])) {
+        remember_user($user);
+      }
       flash_message( _('Password Updated.') );
     }
   }
